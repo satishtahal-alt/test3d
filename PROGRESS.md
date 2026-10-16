@@ -1,0 +1,9563 @@
+# Draw3D — implementation progress
+
+The record of what is built, what is being built, and what comes next. The plan is
+`Draw3D_Master_Roadmap_Final.md`; the order followed is the staged order agreed in the
+roadmap review of 2026-10-07 (below). This file is updated at the end of every slice of
+work.
+
+"Checked by" says how a thing is known to work: **tour** = the scripted run
+(`editor\run.ps1 -Tour`, results in `editor\godot\results-tour.json`, pictures in
+`editor\godot\tour\`), **test** = an automated Rust test, **hand** = played by the user.
+
+**How much is tested, and when** (the user's rule, 2026-10-09; it stands for every
+pass). The least that is enough, in this order: (1) the build, and the unit tests of
+what was changed; (2) one check of the way of working that was touched, end to end
+(a protocol test, or the tour's part for it: `-Tour -Only X`); (3) the parts beside
+it that the change could plausibly reach; (4) more than that, or the whole tour, only
+when how far the change reaches, or something seen, or what is at risk, is worth what
+it costs. **The whole tour is not run after every pass.** More is looked into, and
+more is run, when there is a sign of: what a person made lost or spoiled; writing and
+opening, a thing's identity, where it came from, or a change by hand not kept; a
+crash, a hang, or much going wrong at once; something broken in more than one system;
+or the thing the pass was for not holding. For one thing out of place that is none of
+those: a few checks that could say something new, then it is written under "Known
+gaps" with exactly what was seen and under what conditions, called what it is
+(not explained; perhaps now and then, perhaps by order), and left until its part is
+next worked on, or more like it gather, or a pass is made for looking into several
+at once. It is never called harmless without evidence, and it does not by itself hold
+up a commit when what was changed passes and what is left is understood. What is
+reported is kept apart: the build; the tests of what changed; the checks of the way of
+working; the wider checks; what failed and was left. A whole tour that was not run, or
+did not pass, is never said to have passed.
+
+Three things are kept apart. Tests prove the systems underneath. The tour uses the world
+and checks what came of it. A **demo** shows a capability for a person to watch, and
+proves nothing: the walker is led through it one beat at a time, with words on the screen
+saying what is shown and what to look for, and then the person has the controls. Every
+major slice gets one; they are listed under "Demos" below.
+
+Last updated: 2026-10-16, items with their own identity, gear found and equipped in the world, and the game's own screens (amendment 7bi, roadmap section 7).
+
+The user chose roadmap section 7 next (items, equipment and the game's own screens), after parking the characters. What was there: things that say `kept` (stage 6: a lantern, a hatchet; keys 1 to 9, R uses), goods as counts (7ah), and gear worn by characters in the Character Studio (7ba onward). Three systems that did not meet. This joins them; nothing of them is rewritten.
+
+**Items, each its own.** An item is a thing put down in the world that says `kept`: every fact about it is about its id, so two axes found are two axes, each in a saved game where it is. New kind word `gear ITEM` (host `shapes/kind.rs`, Godot `things.gd`): the design is that thing of gear.txt. Facts: `where` is now "kept", "held", **"equipped"** or where it was **dropped**; the world's `wields` (which equipped thing is the one in hand) and `off.ITEM` (one of the character's own gear lines taken off). `items.gd` is the one place they are put and read.
+
+**Gear found and equipped in the world.** Library > **Gear to find** (`editor/library/gear.txt`, 18 designs: katana, short sword, dagger, greatsword, spear, axe, war hammer, bow, grappler, round shield, hat, helmet, boots, gloves, cape, backpack, pouch, amulet): each lies on a scrap of cloth and is drawn as gear.txt makes it, laid flat, while editing and playing; the Library window pictures it so too (`design_made` now answers its `traits`). E picks it up (the act `take`); kept, keys 1 to 9 or the inventory put it on or take it in hand. On a walker that is a character of the Studio (`walks`, Studio > Walk as this), what is equipped is laid over its own gear lines (`animated.gd` `game_on`, `game_off`, `game_hand`, `regear`): drawn and put away as the Studio has it, at the places gear.txt says, with the fit kept for the model (`fits.txt`). A thing taken in hand puts the character's own away (spare). A shield goes on the left arm, drawn and put away with the one in hand; a grappler on the left arm, always (`items.gd` `OTHER_HAND`).
+
+**The game's own screens** (`gameui.gd`, a layer apart from the editor's windows, the same in Play and in a game made of the world):
+- **The display while playing**: the quest step and goods top right; what was found, numbered as keys 1 to 9 take it, the one in hand gold and what is worn green; what is in hand and whether it is drawn; "I inventory, Esc menu".
+- **Inventory (I, or Back on a controller)**: On you, In the pack, a row for each thing; chosen, what it is, where it goes, found how-manieth; Put on, Take in hand, Take off, Use, Drop, Close; goods under it. The game is held while it is open.
+- **Menu (Esc, or Start)**: the game held; Go on, Inventory, Journal, Controls, Save the game, Load the saved game, Back to editing (in a game: Leave the game).
+- Inside them, Godot's own ui_ actions: arrows or the D-pad, Enter or A, Esc or B.
+
+**What changed for the person:** Esc while playing is the menu, not back to editing (Tab still is; the bar says "Stop: back to editing (Tab)"). Start on a controller is the menu, no longer Play. Back on a controller is the inventory, no longer the controls card (H, and the menu's Controls, show it). The old bottom-left line of what is kept is shown by the new display instead (its words are still made, for scripts).
+
+**The swordsman can do what anyone does with things**: its set gained `wave reach stoop` (UAL's PickUp_Table and Interact clips, `look swordsman`); walked as, it could not pick anything up or open a door before.
+
+Before that, the same day, the Studio's fourth hand test (amendment 7bh).
+
+**Every box seen.** A box not ticked was as dark as the window: the user never saw *Draws it by itself first* in the last test. Every unticked box and round choice in the editor is now drawn light (`section.gd` `boxes_seen`, into Godot's default theme at start; greyer while it cannot be used).
+
+**The yard's right stick turned the eye the wrong way** on both axes: it had copied the mouse's drag (the scene follows the hand) where the game's eye turns the way the stick is pushed. It now turns as the game's (`yard.gd`). Buttons tab: **Right stick: mirror left/right** and **mirror up/down**, for the game and the yard alike, kept with the buttons (`controls.txt` `mirror across`, `mirror updown`; `Controls.look`).
+
+**What is drawn and put away.** Every thing held in a hand was drawn and put away one at a time: the grappler put on became the one in hand, the katana went to the hip, and Draw and Sheathe then moved the grappler. Gear tab, a thing chosen: **Carried**: *Drawn and put away, one at a time* (as before), *Drawn and put away with the one in hand* (`together`: two blades, a sword and a shield), or *Always where it is (never drawn or put away)* (`stays`: the grappler on the left wrist; still carried, so a move may want it). *The one in hand* leaves those as they are. The Moves tab says beside *Draws it by itself first* what drawing and putting away act on ("draws and puts away: katana").
+
+**How a thing sits on a model, kept for every world.** Gear tab: **Keep for this model** keeps the chosen thing's nudge and turn at its place on the character's model in `fits.txt` in Draw3D's own folder (beside `controls.txt`); put on a character of that model in any world, it sits so; a place changed takes that place's fit; **Model's fit** puts it back after nudging.
+
+**Asked for later, not built** (`Draw3D_Character_Maker_Plan.md`, "Gear and clothes that look like things"): a weapon designer (blade length and breadth, guard, handle, two blades; a shield's shape and size), clothes that bend with the body (grown from the body's mesh, or a pack's modular clothes), fingers closed on a grip; faces and expressions remain Tier 2 there.
+
+Before that, the same day, the Studio's third hand test (amendment 7bg).
+
+**Why the sword was not drawn by the cut.** The user's world (showcase-physics.json) keeps its own moves.txt, written before `draws_by`: the box *Draws by itself* was off, but the move beside it showed draw_blade, so it looked set. Their two profiles also each keep an old copy of the swordsman's set, and *Use* wrote that copy over the world's moves. And the Studio's Save writes into the world, which is on disk only after Ctrl+S: the world's file was last written at 11:17 that day. Changed:
+
+- **Draws it by itself first, with:** the move beside it greyed while the box is off.
+- **Why a move did not begin** said under the preview and in the editor's message line: "cut_a wants what it carries drawn (it is put away): tick Moves > Draws it by itself first, or play the move that draws it before" (`motor.gd` `why_not`, every when-word in plain words).
+- **Profiles:** one chosen in the list says how its buttons differ from yours, and how many of its moves differ from the world's, before it is used. *Use* takes its buttons only; *and its moves*, ticked, also writes its moves (it was always both).
+- **Save world** on the character's row: how many changes are not in the world's file, and a button that writes it (Ctrl+S).
+
+**The yard.** The pad, the sticks and the arrow keys no longer go from one of the Studio's buttons to the next (nothing keeps the focus when the yard opens; `studio.gd` `_input` keeps keys and the pad from the Studio's controls while it is open; the mouse clicks them as before). The right stick turns the eye round the character as in the game (`yard.gd` `LOOK`); the right mouse button still does.
+
+**Edit.** The phases are chips numbered in the phases' own colour (red where it strikes), the one chosen outlined; the chosen phase's heading larger, in the same colour. Done rebuilds the moves list, so the row no longer says it is edited; while it is open the row says *open in Edit, saved* or *changes not saved*. **Versions:** each Save keeps a version of the move, its text and the clips its phases are shown by (the first Save keeps *as it was* too), in `versions.txt`, kept with the world. *Versions (N)* beside Done: one chosen is gone back to as a change (Save keeps it, Discard takes it back); *Forget a version*.
+
+**Make, on the character's row.** *Make…* beside Copy shows the Make panel in place of the tabs (it is no longer a tab among Moves and Gear); pressed again, or another tab asked for, the tabs again. **Rename** beside Copy: a field, Enter renames the character (a yard dummy shown as it too). Each body slider has **↺** beside it (that line taken out); *Reset the whole body* (was *As the model is*).
+
+**The sword in the forearm.** A place in a hand is in the hand bone's own frame, and bones are not turned alike from model to model: the mannequin's hand has its y up the arm, UAL2's down to the fingers, so the katana pointed back into the forearm on UAL2's model. A place in a hand (or on a forearm) is now taken as the mannequin's hand has it and turned for another model by how its bone lies at rest, along the arm and with the body's ahead (`gearbook.gd` `hand_turn`, `along_arm`); the mannequin's own is not turned. Measured: on UAL2's model the blade points within 1° of where it points on the mannequin, standing and in the middle of cut_a (before, straight back). For what is still off on some model: Gear tab, the thing chosen while drawn, *Turn round*, *Roll 90°*, *Tip 90°* beside the turn numbers.
+
+Before that, the same day, making a character, tier 1 (amendment 7bf): the Character Studio's new **Make** tab, with the models there are and no new assets. Each choice is a line of the character in characters.txt (Ctrl+Z, Ctrl+S):
+
+- **Start from** a model there is (the mannequin, Quaternius's, Draw3D's own figures): *Use this model*, or *Copy with this model*.
+- **Body:** Height (`size`), Build, Head size, Arm length, Leg length (`shape PART S`): the skeleton's bones made bigger, the clips still playing, the feet on the ground, longer legs striding farther.
+- **Colours:** `colour SURFACE r g b` (the mannequin tinted whole; Quaternius's body and joints apart).
+- **Outfits:** `outfit NAME` and the gear lines after it; the first is what it starts in. *Next outfit* changes it on the figure while a move or the yard plays; the Gear tab puts on into the outfit worn.
+
+Faces, eyes, hair and expressions (tier 2) wait on the user's choice of assets. `-Demo make` (6 beats). Before that, the same day, the Character Studio after the user's hand test of 7bd (amendment 7be). Built, each an option a game takes or leaves:
+
+- **Drawn by the cut:** a set's `draws_by` draws what it carries before a move that wants it drawn (Moves: *Draws by itself*); the swordsman's cuts no longer do nothing with the sword put away.
+- **+ Before** in Edit's phases.
+- **What plays follows the tab in front:** the strip shows a way's clip, not the last move's phases; each tab shows again what was last chosen on it; "not the move edited" said.
+- **Clips sorted** by name (whatever the capitals), library or seconds.
+- **A weapon's own moves and combos** (`when wields spear`), and a weapon taken into the hand mid-move (`takes war_hammer`).
+- **Lock-on** (Y or the middle click; `when locked`), in the game and in the yard.
+- **The training yard** in the Studio's preview (Yard; `yard.txt`): dummies to strike, one that jumps, one that cuts back, a target.
+- **A cape that swings** (`sways` in gear.txt; Gear: *Cloth*).
+
+Making a character (body, face, outfits), enemy types and creatures are planned in `Draw3D_Character_Maker_Plan.md`; its second tier waits on a choice of assets. `-Demo yard` (5 beats). Before that, the same day, the Character Studio after the user's hand test of 7ba (amendment 7bd). Fixed:
+
+- **Goes and Turns seen at once:** a clip used from the Clips tab no longer stays what plays.
+- **A banner above the tabs** names what is edited, with Rename (everywhere it is named), Save, Discard, Copy and Done.
+- **Moves folded** in their list.
+- **Buttons:** a click no longer becomes a binding by mistake (the user's run became the left click so); buttons can be shown by a name of one's own (`label`) or renamed; the list is ordered by what the character's moves use.
+- **The profile in use** is shown and saved over.
+- **Gear:** one held thing in hand, the rest `spare` (the staff was drawn into the same hand as three blades, or hidden along the back); lists that need no scrolling inside them.
+- **More room for the tabs.**
+
+The freeze on the Buttons tab was not reproduced; the log now says what was done last. Before that, a two-handed stance (amendment 7bc, the user's yes to A1b): a thing of `gear.txt` may say `two_hands_at PLACE` (guard, side_hold, shouldered, tool_hold, staff_hold); drawn, it is held there before the body and both hands are brought to its grips by Godot's IK; every two-handed thing lands both hands within 0.4 cm on the mannequin, and the greatsword in the swordsman's stance. It does not follow a move (A1c). Before that, the other hand on a thing of two hands by Godot's own IK (amendment 7bb, the user's yes to A1): `TwoBoneIK3D` with a pole brings it to the thing's second grip while drawn (`free_hand` leaves it off; a box in the Gear tab); within reach the palm lands on the grip, but the clips on disk hold things in one hand, the hand at the side, so the grips of the greatsword and the spear are about 0.3 m beyond the other arm: a two-handed stance or clips for two hands are for the user to say (A1b). Before that, the same day, gear, buttons of one's own, moves and combos on any button, and a phase's numbers all in sight (amendment 7ba; audit and stages in `Draw3D_Gear_Actions_Controls_Plan.md`). Buttons: what presses each is changed in the Character Studio's new Buttons tab (Keyboard and mouse / Controller kept apart, the key pressed is taken), buttons of one's own, kept for every project in `%APPDATA%\Draw3D\controls.txt`; a move or combo put on any button, only when on the ground, in the air, crouched, running, or with another button held; a combo asked in the game by its own button, pressed again in each window or playing by itself on one press; profiles (buttons and a set with its moves and combos) saved to Draw3D's folder and used in any world. Gear: `gear.txt` with 21 places on a body and 34 things of 40 sorts (blades, spears, bows, guns, a shield, tools, hats, packs, a jetpack, hover shoes), put on in the new Gear tab by place name, nudged and turned, drawn and put away (the swordsman's katana at its left hip, the sheathe button B); new when-words `holding`, `drawn`, `sheathed`, `with`, `following` (the second cut no longer begins from rest). Edit: a phase's numbers in two columns, nothing to scroll. Not built, for the user to approve: the second hand on two-handed things (IK), firing, gear in the inventory and slots. Before that, 2026-10-15, the Character Studio made easier to work in and its moves traced to the player's buttons (amendment 7az): Edit's head pinned (Save, the phases, the play buttons) over the numbers that scroll; Side by side (preview left, tabs right); a few buttons coloured by what they do; a move's button shown and changed (Asked with), its place in the set changed (Earlier / Later), the game's buttons listed, and a combo's presses in the game said step by step. Found and checked: moves are one library and a set names any of them; of the moves one button asks, the first in the set that can begin does (the cuts added after the walker's dash never begin); the game never reads a combo: each move is a press in the window of the one before. Not built, for the user: an attack button, remapping keys in the editor, a move that only follows another, a combo that plays by itself. Before that, Mixamo's clips taken in (amendment 7ay): FBX files read by Godot's own FBX reader as glTF files are; a library may be a folder of them, one clip per file named by the file (Mixamo's take is always "mixamo.com"); `map mixamo` for Mixamo's bones (a T facing +z, as Quaternius's); Characters > Character Studio > Clips > Import clips… copies downloaded files into `characters/NAME/` (kept out of git), writes the library and gives it to the character chosen. Checked on Mixamo-like FBX files written by script (`fbxfixture.gd`): no real Mixamo file was on the disk. Before that, the Character Studio's workflow (amendment 7ax): dash-and-cut never played when its row was clicked (the list was made anew during the click, which Godot refuses; every list now acts just after a click, and the check clicks rows as a person does); the tabs in the order of the work (Moves, Combos, Edit, Ways of moving; then Clips, Strikes, Holds, Body and bones); one Edit for a move or a combo with Save, Discard changes, Save as a copy and Done, a combo's moves chosen, reordered, played alone or whole, phases added and removed, a clip chosen from a list; New move, New combo; a move added to the set or taken out; a phase a move has from the move it is `like` written into it when changed; Where under the preview, for a clip, a phase, a move or a combo (played again to that moment). Before that, the Character Studio's Play made to play what is chosen (amendment 7aw): one target for Play whichever list it was chosen in, nothing of what played before left going (a headless check of 31 transitions, `studioplay.gd`); dash-and-cut given a turn back round and someone to strike passed on its left; the Studio's status in two fixed lines, the preview and the tabs split, the timeline clicked to choose a phase, a phase scrubber, Look / Timing / Movement in folding parts; Objects and the Plant Generator agreeing about what the one brush paints; a UI overhaul proposed (`Draw3D_UI_Overhaul_Proposal.md`), not built. Before that, the Character Studio made reliable, with phases, combos and Universal Animation Library 2 (amendment 7av): moves tried play once (Loop when asked), with Play/Pause, Replay and Stop; every move of every character audited headlessly as the preview asks it (thrust, backflip, long jump, dodge, roll had never begun there: a fault in how the Studio read a move's `when`); each move says how ready it is to be seen, and a move needing a wall is shown as its clips only; the Change a phase tab rebuilt in plain words with sliders, resets, a path drawn on the floor with a ball to drag, and every look control working on a phase shown by its own clip (`backwards` new); combos (`combo NAME` in moves.txt) built, played and saved in a Combos tab; Universal Animation Library 2 downloaded with the user's yes and given a map, and a `swordsman` with three cuts that follow one another and a dash cut. Before that, the Character Studio's authoring pass (amendment 7au): the Studio's preview is a body of its own moved by the game's motor (a way of moving or a move tried as a player asks it, someone before it to strike, the blade's path drawn, a timeline of the move's phases), and a phase of a move is changed in a tab of its own (its clip, the part of it, the other way about, a pose laid over it, how long, how far, how far round, what it strikes) as document edits, the clips' files never touched; new words `spins` (a phase), `mirror` and `bend` (a look row); a strike once a phase; an example move `dash_cut` (past, round, a thrust back). The RPG Characters pack's Drive folder is Quaternius's own, CC0, but Drive refused the download (quota). Before that, the Character Studio, first tier (amendment 7at): characters with bones of their own. A character is written in the world's `characters.txt`: a model (a glTF file), its bone map to Godot's humanoid names, the clip libraries it plays (each with where it came from and its licence), a look (which clip shows what the motor says), its set of moves, what it holds. Clips are carried from one skeleton to another by the maps, blended by Godot's AnimationTree, and timed by the motor (a move's clip by the phase's progress, a walk by the distance walked); the motor alone moves the body. Draw3D's poses baked into a glTF clip library, a mannequin on another skeleton, a samurai set (cut, thrust, draw, being struck; the long jump that lands in a roll) with a katana; `strikes PLACE R` and `upon struck` in moves. Characters > Character Studio: preview, bones, clips searched and auditioned, movement, holds, strikes; walk as it. Automated runs no longer touch the person's mouse or controller. `chartest.gd` (headless, 36 checks), `-Tour -Only studio`, `-Demo studio` (8 beats). Then, with the user's yes, Quaternius's Universal Animation Library (CC0, 45 clips, its own model) downloaded, mapped (a T-pose facing +z) and given a look (`look ual`, `part FROM TO` of a clip for a move's phases); characters `quaternius` and `mannequin_ual`. Research and licences: `Draw3D_Character_Studio_Research.md`. Not seen in motion by anyone.
+
+Before that: 2026-10-15, sound, first tier (amendment 7as): the engine is heard. A sound is a recipe of tones and hiss written in the world's `sounds.txt` (sixteen there), made when first wanted; things say `sounds NAME` (once as their `when` comes to hold), `hums NAME [R]` (while it holds, near it) and `knocks NAME [S]` (at a strike, louder the harder); a weather says `sound NAME`. Window > Sounds lists, plays, opens and checks them, and sets how loud. A sound post in the library; the lab sounds. `-Tour -Only sound`, `-Demo sound` (7 beats), protocol p65. Nobody has listened yet.
+
+Before that: 2026-10-15, Signals finished to a first version (amendment 7ar): a thing may be joined several ways (`joins` a line each; Inspector > Physics: joint N of M, + another joint; a bridge of planks in the lab held at both ends), and a saved game keeps what waits (how long a `when … for` has held, how far a `ticks` is to its next), so a loaded game goes on from there. 7am's six decisions reviewed (one changed: what waits is kept). The user's hand trials of the batcher and the strength tester recorded. `-Tour -Only bridge`, `-Demo signals` (10 beats). Next: the next major capability, sound (7as).
+
+Before that: 2026-10-15, a field that fills an outline (amendment 7aq): Plants > Add a field, its corners clicked on the land, and rows of a crop fill it (wheat grown first if the world has no crop); its outline is a line whose corners are dragged, and it fills again keeping the patches that were inside and what was done to them by hand; rows turned, gaps, a headland, several crops, colour variation. `-Tour -Only field`, `-Demo field` (4 beats), protocol p64. Untried by hand.
+
+Before that: 2026-10-15, after the user's first look at the plants (amendment 7ap): the Plant Generator showed trees because the editor ran a host built before the plants (`run.ps1` now builds an out-of-date host first, and the Generator says so if its host is older); fields, grass, ferns and low thickets are gone through, not walked into, slowing whoever goes through them (a kind's `solid wade` line, every body), and bend away from the walker as they pass; bamboo as a family of its own (six presets), six stranger trees (baobab, dragon tree, Joshua tree, acacia, cherry blossom, twisted) and five flowers of four new forms (lily, bluebell, rose, peony, thistle); and what grows drawn lighter from farther off (a painted field of 3000 things went from 28 to 46 million triangles a frame to 3.5 to 6). "Now" reconciled against later work; the modular construction record rewritten. `-Tour -Only acres` (new), `-Only nature`, `-Only plants`, `-Demo nature` (7 beats). Untried by hand.
+
+Before that: 2026-10-15, plants grown and colours varied (amendment 7ao): six families beside the tree in the one generator (grass, flowers, ferns, crops in rows, berry bushes, fruiting plants; 34 presets, each a way of growing), a style list of fruit colours, and one colour variation for every design (`vary` by role: a share of things, hue, light, toward a colour, another of the style's colours), said on a design, a group, a maker and one thing, drawn by each thing's own seed and kept through saving and growing again. The Generator has a button a family, a mix shown side by side and the shared control; World outline and Objects have it too. A nature showcase, `editor\showcase-nature.json`. `-Tour -Only plants`, `-Tour -Only nature`, `-Demo nature` (5 beats). Untried by hand.
+
+Before that: 2026-10-14, after signals continued (amendment 7an): `feels NAME` makes how hard a thing was struck a number of the world's (a strength tester in the lab: lamps at 3, 6, 9 m/s, a reset), and a Signals row of a text opens that text at its line. `-Tour -Only signals`, `-Demo signals` (8 beats). Untried by hand.
+
+Before that: 2026-10-14, after signals (amendment 7am): `when` takes a condition (a count reached, compared, `not`, `… for S`), `clears` and `ticks` make a machine wait and reset, Window > Signals shows every fact's writers and readers and what is wrong, and a joint's other thing and anchor are clicked in the view; the lab's batcher runs in rounds of library designs and lines alone. `-Tour -Only signals`, `-Demo signals`. Untried by hand.
+
+Before that: 2026-10-14, after the workflow pass (amendment 7ac): one tool in hand at a time (`take_up`); the wheel over a window no longer moves the view; Erase made the one place to take things away (painted, placed one by one, terrain tiles; with the brush, or all at once in the whole world or one layout, said first; what is selected); a grid layout dragged by a ring at its middle, or following the pointer; Terrain and Erase in parts that fold, with words that no longer move what is under them; Build > street mended (the street was lost when its road was drawn, and a second street stood on the first one's lots); farm animals (horses, cows, goats) in the Asset Library and under Objects; cliffs and ledges traced and carried to the basic modelling tools. `-Tour -Only findings`, `-Demo findings`. Untried by hand.
+
+Before that: 2026-10-13, the editor's workflow pass (amendment 7ab): a toolbar down the left (Select, Move, Paint, Erase, Terrain, Objects, Plants, Build, Sky) with short lists beside its buttons; the bar regrouped as World, Edit, View, Characters, Window; the row under the bar saying the tool in hand first, the frequent actions as buttons and the rest under More; plain window names (Tree Generator, World outline, Objects in this world, Asset Library, Terrain); a general eraser that takes what any brush painted (also after its group was removed) and, when ticked, what was placed by hand (host `erase`); the Environment window for time, weather, wind and style, editing and playing; older library trees in a world given their wind by one line (host `gives`); the Tree Generator saying what each picture is and when numbers are too much for one tree; the wind tuned (ground plants move in clear weather, a storm comes on gradually, its first gust no longer thrashes). `-Tour -Only workflow`, `-Demo workflow`. Untried by hand.
+
+Before that, the same day: after the user's decisions on the brush, the tiles and the generator (amendment 7aa): the tree generator made an authoring tool (four forms that grow differently, eight presets, a picture browser, a design's numbers kept in the design and come back from a tree picked in the world, a mesh shaped by hand not grown over without asking), and the air made to move (one wind over every weather, none to three times; leaves and grass tremble; water rippled; a sunset to look at; grown trees in the style's colours). Not tried by hand.
+
+Before that, the same day: after the user's hand test of the brush and the tiles: what blocked was mended (paint reaching a tile's sides and the water; a refused tile said where it can be read, with "Put it down anyway"; the grid chosen in Tiles; "Works on:" under the bar; a tile on the land not lowered, and said), the brush finished (a group of designs painted as a mix; replace; each brush clearing its own), and a tree grown from numbers made a design (Things > Grow a design). Not tried by hand.
+
+Before that, the same day: after tile elevation was validated and paint with one design's first tier was built (Designs > a design > "Paint with it…": a stroke on the land or on tiles puts down many of that design, so far apart, each turned and sized as the brush is set; what it leaves is a maker, "painted", whose things are each picked and changed alone; "Clear it…" takes away what was painted with that design under the brush. See "Paint with one design, first tier" and "Tile elevation, validated" under Done, and amendments 7x and 7w. The host the editor runs is built. Not tried by hand.) Before that the same day: tile elevation's first tier (a terrain tile's ground is raised above the land under it, as the tile's own height: Page Up and Page Down, or a number in Tiles; what stands there stands on it, by one question of height the makers, the cells and placing all ask; its sides go down to what is beside it; it is a solid; the land under it is the land's still. See "Tile elevation, first tier" under Done, and amendment 7w. Before it the same day: a convenience pass, one thing looked at and shown alone. The host the editor runs is built. Not tried by hand.)
+
+Before that: 2026-10-12, after the user's five decisions on painting and tiles (paint goes on what is seen: a tile where one lies, the land elsewhere, with the land under tiles as the other choice; a tile put down has a surface of its own, painted whole; tiles agree in colour at corners and turn wholly into the land at a rim; a tile whose cell goes is kept, said to have no cell, and given one or removed by hand; amendment 7v; untried by hand).
+
+Before that: 2026-10-12, after the user's fourth look at tiles (tiles flickered as the eye moved because each tile's ground went 2 cm onto its neighbour's, two sheets in one place: no ground goes past its side now, and a tile's rim is lit as its ground; painting over a tile was traced to the land under it, by design, and a tile's own surface and a paint tool that says what it paints on were designed; the user's one way to paint and create, and the editor's workflow beside Godot, Unity and Unreal, were written down: amendments 7r to 7u, nothing of 7s to 7u built).
+
+Before that: 2026-10-12, after the user's third look at tiles (what still flickered while the land under tiles was shaped was found to be two things in what is drawn while a mesh is awaited, and both mended: a tile's ground standing as it stood now stands where it stood, and every cell a stroke touches changes in one frame; the stripes of a tool on a tile made thin and faint; and the direction for construction tools and generators written down as amendment 7q, none of it built. See "After 'the land under tiles'" under Done. No host code changed. Not tried by hand.)
+
+Before that, the same day: after the user's second look at tiles (the land's tools are drawn on a tile's ground, in stripes, and the panel says they work on the land beneath and which tile the pointer is over; the tearing that remained found to be four things and each mended: the land and a tile's ground drawn from both sides, so a steep hillside has no slit; no rim between two tiles; a ground drawn a little nearer than the land it lies on; the land and the grounds on it changing together while a brush is dragged; and a wood or a meadow told which tiles to make its things on, so many on each, uneven from tile to tile, clear of what the tile has, following its tiles. See "The land under tiles, and woods on tiles" under Done, and amendment 7p. The host the editor runs is built. Not tried by hand.)
+
+Before that, the same day: after the user's first use of tiles by hand (a closeout pass on tiles: a tile's ground is now drawn through the land's own triangles, so it lies on the land however the land under it is raised, lowered or made a cliff, where before the land came through it; how woods and meadows meet tiles looked at and written down; the direction recorded: the underlying terrain, a tile's elevation and a tile's surface kept apart, with what is to come on them and six risks to decide first. See "After L2 — tiles on land that is shaped" under Done, and amendment 7o, continued. The user built the host and tried it the same day: what they found is the pass above.)
+
+Before that, the same day: (L2, terrain tiles: pieces of land, each with its ground and what is on it, kept in sets beside the library and put down in the cells of a layout; a tile is picked, turned, moved, replaced and taken out as one, and each thing on it is still changed by itself; neighbours of another ground blend; a side says what it meets and a set says what may meet; a Tiles window, Ctrl+T; a showcase world. Cells hold several things, and a resize keeps each in its own cell. Before it the same day: L1, spatial layout: a world may have layouts, square or hex cells to build on; what is put down or moved inside the one snapped to goes to a cell; kept in the world's file; a Layout window, Ctrl+G; a showcase world, `editor\showcase-layout.json`. See "L1 — Spatial layout" under Done. Not tried by hand.)
+
+Before that: 2026-10-11, after the training ground (the asset library:Last updated: 2026-10-11, after the training ground (the asset library: designs kept in files apart from any world, each with a picture, browsed, placed, copied, customized and saved from one window; a rural and an urban collection of a hundred designs; two showcase worlds built of them, `editor\showcase-rural.json` and `editor\showcase-urban.json`. See "The library: designs kept apart from any world, and two worlds built of them" under Done. Gone through by script and looked at in stills; not tried by hand.)
+
+Before that, the same day: (asked for by the user after the town: a training ground on the island with three moves written for it (something low gone over at a run, a step up a wall, a backflip) and wall to wall tried and found to work as it was; children at play, one blowing bubbles; an old tractor under ivy. All of it in `editor\town.json`, built again. See "The training ground, the children and the old tractor" under Done. Gone through by script and looked at in stills; not tried by hand.)
+
+Before that, the same day: (the island town: a small town built on the test island as a world of its own, `editor\town.json`, of the editor's own makers and of designs written as text; a pond, animals, a woodcutter and townspeople; what is alive without a body, standing water, and someone who tends things, as words any kind may say. See "The island town, and what lives in it" under Done. Walked by script and looked at in stills; not tried by hand.)
+
+Before that, the same day: (the capability-exposure pass: what the engine could already do and the editor did not reach, made reachable; a world's file kept before it is written over; the editor starting on the world last worked on. See "Capability exposure, and worlds kept safe" under Done. Not tried by hand.)
+
+Before that, the same day: (the consolidated pass after D1: where a maker makes its things, one thing by itself, selection colours, a style that changes what stands, and an inventory of the whole interface. A wood's reach is measured on its own level and keeps its thickness; a wood or a meadow keeps to a level, or to where it was painted; one thing is given a design, a size or a shape of its own, and an arrangement one more by hand; what is selected is marked in colours a person chooses; the style 'evergreen' makes the same woods conifers. Not tried by hand.)
+
+---
+
+## The agreed order
+
+1. Run mode, state layer, save/load, colliders and traits crossing to Godot, interaction,
+   one enterable house, character motor
+2. Delivery loop v0 (a parcel, a gate that opens for good, save and reload)
+3. Standalone export
+4. Navigation and the clock
+5. Rigged character, moves as data
+6. Items
+7. Style and time of day
+8. Physics, second camera
+9. Weather, vehicles, creatures (taken as creatures, then vehicles, then weather: see
+   "Moves, actions and interactions" for why; the order was confirmed 2026-10-08)
+
+## Now
+
+Reconciled 2026-10-15 against the code and the later amendments, with the user's
+working defaults of that day. The requests for review as they were first written are
+kept, unchanged, at the end of this file under "Earlier requests for review, as
+written".
+
+**Characters parked (2026-10-16, the user's word).** The Character Studio, moves and combos are far enough for now; the to-do for when they are taken up again is in `Draw3D_Character_Maker_Plan.md`, "The user's answers after 7bh": fingers round the grip first (UAL2's hand does not close on the sword), a starting library of downloaded assets (approved: free for sold games, every one credited in `editor/assets/CREDITS.txt`), one character with face shapes that plays the move sets' clips and wears gear, expressions, the weapon designer and clothes made in the engine. The user then chose section 7 of the roadmap: items, equipment and the game's own screens (7bi, under Done).
+
+**Being built:** nothing. Items, equipment and the game's own screens (7bi, roadmap section 7, under Done): items each with its own id, gear of the library's Gear to find picked up and worn or taken in hand by the walker's character, the display while playing, the inventory (I) and the menu (Esc), all of it in a saved game. Before it, the Studio's fourth hand test answered (7bh, under Done): every box seen, the yard's stick as the game's and mirrored, a thing carried that stays where it is or goes with the one in hand, a fit kept for a model; a weapon designer, clothes and fingers on a grip planned. Before it, the third hand test answered (7bg, under Done): why the sword was not drawn by the cut (an old set in the world and in the profiles; the box read as on), the yard's pad and keys and its right stick, versions of a move, Make on the character's row, the sword's grip on other models. Before it, making a character, tier 1: the Studio's Make tab (7bf, under Done); tier 2 (faces, eyes, hair, expressions) waits on the user's choice of assets (`Draw3D_Character_Maker_Plan.md`). Before it, the Studio's second hand test answered: drawn by the cut, + Before, a weapon's own moves, lock-on, the yard, a cape that swings (7be, under Done); making a character planned (`Draw3D_Character_Maker_Plan.md`), tier 2 waiting on the user's choice of assets. Before it, the Character Studio after the user's hand test (7bd, under Done). Before it, a two-handed stance, both hands by IK (7bc; A1c open), after the other hand by IK (7bb), under Done with 7ba. Before it, gear, buttons of one's own, moves and combos on any button, and a phase's numbers all in sight (7ba, "Character Studio: gear and buttons" under Done; the audit, the stages after it and five decisions are in `Draw3D_Gear_Actions_Controls_Plan.md`). Before it, the Character Studio made easier to work in, and how its moves reach a player's buttons (7az, "Character Studio: what plays stays in sight" under Done; the four questions it leaves are there). Before it, Mixamo's clips taken in: FBX read, `map mixamo`, Import clips… in the Studio's Clips tab (7ay, "Character Studio: Mixamo's clips taken in" under Done); the steps after downloading are in the checklist. Before it, the Character Studio's workflow made to follow the work: what can be changed first, one Edit for a move or a combo, saved, copied or discarded, and Where under the preview (7ax, "Character Studio: the workflow" under Done). Keyframes, Mixamo, a kind's set chosen from a window and a project-wide save of moves are answered there, not built. Before it, the Character Studio's playback made explicit (Play plays what is chosen), dash-and-cut mended, its panels steadied, the paint brush agreed on between Objects and the Plant Generator, and a UI overhaul proposed (7aw, "Character Studio: Play plays what is chosen" under Done; the proposal is `Draw3D_UI_Overhaul_Proposal.md`). Animation work is parked there, at the user's word. Before it, the Character Studio made reliable, with phases, combos and Universal Animation Library 2 (7av, "Character Studio, reliable" under Done), after its authoring pass (7au, "Character Studio, authoring" under Done) and its first tier (7at, "Character Studio, first tier" under Done). Before it, sound, first tier (7as, "Sound, first tier" under Done), after Signals was finished to a first
+version (7ar: several joints a thing, what waits kept in a saved game). Before it: the pass after the plants is built (see "Plants walked through,
+bamboo and stranger forms, painted by the thousand" under Done, and amendment 7ap), and
+the field after it ("A field that fills an outline", 7aq).
+
+### Still the user's to say (genuinely open)
+
+Only what the code and later work have not settled, and what changes how the game
+already behaves:
+
+1. **Three changes to how the walker behaves** (the training ground, commit 5d7aed3):
+   at a run a fence or a bench is gone over without being asked; held to a wall, jump
+   with the way asked into it is a step up the wall, not a jump off; crouched with no
+   way asked, jump is a backflip, not a long jump. Built and kept until said otherwise.
+2. **Climbing** (stage 9, "Walls and edges"): a wall is caught only while a way is
+   asked into it (`pressing`); anything solid can be climbed, with no word for a thing
+   to say it cannot be. Kept as built.
+3. **The controller's shoulder buttons** are the quick step (crouch is LT only, run is
+   X only). No controller has been plugged in.
+4. **Gear, the second stage on** (amendment 7ba; `Draw3D_Gear_Actions_Controls_Plan.md`
+   says each with its benefit, cost, risks and smallest version). The 7az questions were
+   answered by the user and built in 7ba: buttons of one's own, remapping in the editor
+   (kept for every project), `following`, combos that play by themselves.
+   - A1 and A1b built in their smallest versions (7bb, 7bc: held before the body, both
+     hands by IK). A1c: whether the hold moves with a move's phases (a greatsword's cut
+     today moves the body, not the sword), or clips made for two hands;
+   - A2: firing (bows, guns, slings, the grappler's line);
+   - A3: gear in the world's inventory, and slots;
+   - A4: whether profiles carry gear, and a gear library shared across projects;
+   - A5: a stance of its own while a weapon is put away.
+
+### Waiting for a hand, no decision needed
+
+Built, checked by script and pictures, never tried by hand. Nothing is held up on
+them; what is found is taken up as evidence. Newest first: a field that fills an
+outline (7aq, `-Demo field`); Mixamo's clips imported (7ay, the checklist; it needs files the user downloads); the Character Studio and the samurai (7at, `-Demo studio`);
+sound (7as, `-Demo sound`); walking through plants,
+bamboo and stranger forms (this pass); plants and colour variation (7ao, `-Demo
+nature`); signals and `feels` (7am, 7an, `-Demo signals`); mechanisms (7al, `-Demo
+mech`); one thing's own physics and the general physics (7ak, 7aj, `-Demo own`,
+`-Demo physics`); the village answers, at work, living (7ai, 7ah, 7ag, `-Demo talk`,
+`-Demo work`, `-Demo villagers`); construction to its stopping point (7af); the
+workflow passes (7ac, 7ab, `-Demo findings`, `-Demo workflow`); trees and the air
+(7aa, `-Demo living`); the brush, groups and replace (7y, 7z, `-Demo mix`, `-Demo
+grow`); tile elevation (7w, `-Demo raised`); the library and its two worlds; the
+island town and the training ground; M3's roof made yours and corners in the view
+(`-Demo roof`, `-Demo handles`); what swings after a body (`-Demo sway`); and how
+things look and feel in motion, which stills cannot show: the wind in trees, grass
+and fields, every animal's gait, the motor's feel, the three eyes, the three styles
+by day and night, the door's reach, the crate's push.
+
+### Resolved, and by what
+
+Settled 2026-10-15 by the user's defaults, or by work built after the question was
+asked. None of them is to be asked again unless new evidence turns up.
+
+- **Plants and colour variation (7ao)**: all seven decisions stand; a variation is a
+  role's, over the style's named palette, never a colour per face. What next: painting
+  vegetation efficiently at scale, then a field that fills an outline; growth over time
+  and harvest are a later gameplay layer.
+- **`feels` (7an)**: kept, beside `hits`, used through signals and conditions.
+- **Signals finished to a first version (7ar, 2026-10-15)**: tried by hand by the user
+  (the batcher's count, lamps, gate, delay and reset; the strength tester's rebound).
+  7am's decisions 1, 2, 4, 5, 6 stand; 3 changed (what waits is kept in a saved game).
+  Several joints a thing built; dragged joint anchors and axes stay deferred. Smaller
+  things recorded in 7ar, not chased; Signals is not polished further before breadth.
+- **Signals (7am)**: conditions stay in `when`, with `clears` and `ticks`; no separate
+  logic or expression system. Extended where a gap is concrete.
+- **Mechanisms (7al)**: joints and references stay explicit lines naming the other
+  thing; not rebuilt; authoring improved where a concrete gap remains. (Joints picked
+  in the view were built in 7am.)
+- **Physics (7aj, 7ak)**: per-thing physics, colliders drawn, sensors are foundations;
+  what comes next is chosen by what gameplay needs, not by the old list.
+- **The village (7ag, 7ah, 7ai)**: the decisions of all three stand; the milestones are
+  not restarted. Its question of the next milestone was answered by 7ah and 7ai.
+  Reported faults (held pose, stairs while carrying, crowds, the ball) stay under
+  Known gaps.
+- **Trees and the air (7aa)**: decisions stand. A grown tree gives to the wind (7aa,
+  older ones by `gives`, 7ab). "Rocks next" was overtaken: plants were asked for and
+  built (7ao); rocks wait until asked.
+- **The brush (7x, 7y, 7z)**: a brush clears and replaces only its own layer; groups are
+  the world's; one maker for each design painted; nothing painted under water but what
+  floats; the narrower tile blend stays until shown wrong. Clearing what was placed by
+  hand is Erase's, when ticked (7ac).
+- **Tile elevation (7w)**: its three decisions stand (a raised ground is the land's
+  surface lifted; a side is a straight face; raised one at a time). A tile's height and
+  the land beneath stay distinct; never in the land layer.
+- **Paint on what is seen (7v)**: paint on a tile does not clear the tile's things;
+  forest and snow are not offered for tiles. Its question of order was answered (7w,
+  7x).
+- **Tiles and layouts (L1, L2, 7o, 7p, 7r)**: tried by the user 2026-10-12; their
+  findings were mended in 7p to 7v.
+- **D1, W1b, W1c, the consolidated pass, the capability-exposure pass**: answered by the
+  user 2026-10-11 (the words maker, arrangement, thing, sort; a duplicate stands by
+  itself), or overtaken: groups (D3) and painting (D4) built in 7x to 7y, the generator
+  (E1) in 7aa and 7ao. Backups beside a world are the protection; Save does not ask.
+- **The UI foundation and its follow-up**: overtaken by the workflow passes (7ab, 7ac).
+  The inventory stands as the reference before any rename.
+- **M1, M2, the probe, the land's tools**: tried and accepted by the user 2026-10-09.
+  F9 stays a saved game.
+- **M3's second part** (a mesh as lines): overtaken by the third and fourth parts.
+- **The eye that stopped following**: the cause found was put right; opened again only
+  if it is seen again.
+- **Modular construction**: postponed by the user; its requirements are kept in
+  `Draw3D_Modular_Construction_Feedback_and_Next_Systems.md`.
+
+### Unfinished implementation (not questions)
+
+Kept under Known gaps and in the amendments' "owed" lists; the ones nearest now:
+regions as things (an outline that is not a line, 7q), growth and harvest as a
+gameplay layer, the library tour's failure, the village faults the user reported, handles on
+a kind's part, water entry and exit.
+
+## Next
+
+**After the field (2026-10-15, 7ap, 7aq).** In the order the user set that day:
+painting vegetation at scale has its first tier (lighter ways from farther off;
+strokes were already quick), and spatial authoring its first (a field that fills an
+outline). What these leave nearest: an outline or region as a thing of its own that
+any maker can fill (7q, second: woods, meadows and fields in one drawn area); the
+closing side drawn while an outline is clicked; fields that keep clear of what
+stands. Beyond the plants, the engine's next systems are chosen by what gameplay needs
+(the user's defaults: reusable NPC behaviour, physics gaps that matter to play). Growth over time and harvest wait as a
+gameplay layer. Modular construction stays postponed
+(`Draw3D_Modular_Construction_Feedback_and_Next_Systems.md`).
+
+**After paint with one design's first tier (2026-10-13).** Of 7t's order, 1 (a
+tile's surface) and 2 (one design, a stroke, add and clear; what it leaves is a
+maker) are begun. What 7t has next, for the user to order: 3, **a group to paint
+with** and a group made from things picked (D3); 4, **where** said once for every
+brush (chosen tiles, an outline drawn, a region); 5, **replace**; 6, the hub (from a
+thing to a brush of its design). Small things owed to this tier are under Known
+gaps: painting from the Library window and from a thing picked ("paint with this");
+leaning to the slope; a tile painted by place.
+
+**After tile elevation's first tier (2026-10-13).** Next in the order the user set:
+**paint with one design** (7t's first tier: the brush puts down one design, by the
+same "paints on" as a surface, over the land or a tile, standing by the one question
+of height). After it, a tile painted by place. Of 7q's ten, 1 is now begun; 2 (a
+region as a thing) is what a group of raised tiles, and a level top over several
+tiles, wait for.
+
+**After the convenience pass (2026-10-13).** A short pass for everyday editing was
+made before going back to the roadmap (see "Convenience pass" under Done). The order
+the user set stands and is next: **tile elevation, first tier** (7o, and step 1 of
+7q: one question of height), then paint with one design (7t), then a tile painted by
+place. **The native modelling toolkit plan** worked out in conversation on 2026-10-13
+(an edit session shared by three ways of working, mesh `like`, milestones N0 to N9)
+is **a proposal, deferred and not approved**: it is in no roadmap document, nothing
+of it is built, and this pass is not its first tier (it changes only what the view
+draws). It is to be written into the amendment only if the user asks for it.
+
+**After paint on what is seen (amendment 7v, built 2026-10-12).** Of 7s the first
+tier stands: the paint tool says what it paints on, and a whole tile can be painted.
+Still to come, in the order the user has set so far: **tile elevation, first tier**
+(7o: a tile with a height of its own, said in one place, never in the land layer),
+then **paint with one design** as the first proof of 7t, then a tile painted by
+place (7s, second tier). Small things this pass left: forest and snow in the paint
+tool for tiles; whether paint clears a tile's things; a rule for one tile drawn over
+another, if stacking is to be a feature; "no cell" said in the view itself.
+
+**Painting what is seen, and one way to paint and create (amendments 7s to 7u,
+2026-10-12; traced and written down, nothing of them built).** Paint over a tile
+changes the land under it, which the tile covers: so found in the code, and by
+design. The mend designed: the paint tool says what it paints on ("what I see" or
+"the land under tiles"), and a tile has a surface of its own that can be painted,
+first one ground for the whole tile, then by place, never in the land's layer (7s).
+The user's principle for all placing, "choose what you want to paint with, choose
+where to paint it, and paint": with a material, one design or a group; varied or
+not; over a stroke, tiles, an outline or a region; adding, replacing or clearing;
+standing as the surface asks. To be built on makers, the list of designs and the
+library, a stroke of things leaving a maker whose things are picked one by one
+(7t, with what stands today against it and an order of seven steps). The editor's
+workflow beside Godot, Unity and Unreal, what to take and what to leave, the chain
+from a thing to its design, variants, group and generator, and five requirements
+for the interface (7u). Tile elevation's first tier is still owed; which goes first
+is the user's to say.
+
+**Construction tools and generators (amendment 7q, 2026-10-12; a direction, nothing
+built).** The user wants a family of tools that say what is meant (ridge, ridge
+round a mountain, a shelf on a wall, terraces, plateaus, passes, walkable slopes),
+some of which make a separate structure with air under it and not a change to the
+land; and generators over tiles, a region or the map (mountain ranges, hills, water
+bodies with shores, plants, and what lives in water) whose results stay things a
+person picks, changes, saves and uses again. Construction, style and simulation stay
+apart. The order its dependencies give, none begun: (1) one question of height, with
+tile elevation's first tier; (2) a region as a thing; (3) a landform as a thing and
+not only the heights it left; (4) tools on that; (5) structures apart from the land;
+(6) generators of landforms; (7) water with a level of its own, then water bodies,
+shore plants, wildlife; (8) plant communities (E1c, D3, D4, as before); (9) settings
+and arrangements kept in the library; (10) previews, as each tool comes. 7q has what
+stands today against each, and the decision to take before (3).
+
+**After W1b (2026-10-10).** The user's hands-on findings set the order that follows,
+and their larger aim is written down as **amendment 7i** ("Design, save, group,
+generate or paint, customise, reuse"): what a thing *is* (a design) is to be made and
+kept apart from what *arranges* it (a maker), so that a flower, a tree, a rock or a
+house is designed, saved, grouped with others, painted or generated into a world, and
+each one of them then changed by itself. W1b built the first rung (reliable choosing,
+and one thing of a maker worked on by itself). The rungs after it, in the order their
+dependencies give, none of them begun:
+
+**After W1c (2026-10-10).** The order below stands. W1c took from D2 what the editor
+could not go on without (a thing says what it is; what is taken away is kept by the
+thing's name and not by its place; another of one thing; the water as something to
+rest on) and left D2 its two real parts: "this one is of that design, with these
+numbers", and "one more of this maker's, here" (the core's `Add` record, which no
+maker of the land reads yet). **The next milestone is D1**, unless what the user finds
+trying W1c by hand comes first.
+
+**After the consolidated pass (2026-10-11).** Three things were begun, each the first
+rung of something named (amendment 7j): **A1**, where a maker makes its things (built:
+a reach on its own level, a level, a painted area; owed: an area by slope, surface or
+distance from a line, and one shared by several makers); **D2**, one thing changed
+beyond its place (built: its design, its size, a shape of its own, one more for an
+arrangement; owed: its other numbers, a meadow's places named for the place); and
+**S1**, a style that changes what stands (built: `trees`, `strewn`, five designs;
+owed: a style for a region, a style's lists edited in the editor). What the user
+asked to be kept in view is in the master roadmap: principle Q (a structural maker
+holding houses and other things together; replacement explicit), the new principle R
+(one shared Variation System, with locks and alternatives previewed), and maze and
+obstacle-course generators as later specialised makers. **The next milestone is the
+user's to say**: by dependency D3 (groups: the list a maker or a style is given, as a
+named asset) is what the most of the rest waits on (D4's brush, E1c's meadows, a
+style naming groups, variation of a group); E1 (plants with parts) needs none of them
+and is what the conifers are a stand-in for. **Before either, the inventory**
+(`Draw3D_UI_Inventory.md`) is to be gone over: names and places are cheaper to change
+before more is hung on them.
+
+**After D1 (2026-10-11).** D1 is built (see "D1" under Done). What it left for the
+milestones after it: **D2** has three parts now, each its own action: "this one is of
+that design", "this one's numbers", and "add another rock to this meadow" (the user's
+words; not a mode of Duplicate); and it is to decide whether a meadow's places should
+be named for the place, as a wood's are, so that giving it designs keeps what was done
+by hand. **D3** is the list a maker is given (`of`) made an asset with a name, used by
+several makers and kept in a file; and, as the user said, a group need not have a
+maker: one assembled by hand is a group too. **D4** paints from the same list. **The
+next milestone is the user's to say** among D2, D3 and D4; by dependency any of the
+three can be next, and E1 (plants) needs none of them.
+
+1. **D1: a design is an asset a maker is given.** Today a wood asks for a tree by a
+   number ("variant 3") and the code draws it. D1 makes what is scattered a *named
+   design of the world* (a kind, which M1 already has as document text with parts,
+   and M3 gave meshes): a wood, a meadow, a street and "Place" all take designs from
+   one list, and the eighteen things the code draws are in that list as designs to
+   start from. This is the old W2's first half, and nothing after it can be built
+   without it.
+2. **D2: one thing changed by itself, beyond where it stands.** W1b keeps "taken
+   away", "moved" and "turned". D2 adds "this one is of that design" and "this one's
+   numbers" (height, size, colour) as the same kind of record, shown and put back the
+   same way; and makes one of a maker's things into a thing of its own from the bar
+   (`detach`, which exists and has only a key).
+3. **D3: groups.** A named set of designs with a share for each (a meadow palette: two
+   parts blue flower, one part yellow). An asset of the world like a design; a maker's
+   input takes a design or a group. Kept in a file a second world can bring in (the
+   old W2's second half: assets between worlds, and the browser over them).
+4. **D4: painting.** A brush that puts down things of the chosen design or group
+   where it is dragged, with radius, density and spacing, and takes them away again:
+   a maker whose "where" is a painted layer (the land's layer of M2 is the model, and
+   its "grows here" paint is the same idea without a design). Makers that fill an area
+   stay, for the broad strokes.
+5. **E1: the plant engine.** A design with parameters and parts in place of a number:
+   a flower's petals (count, shape, size, colour), centre, stem and leaves; grass as
+   blades in tufts (length, width, bend, spread); then trees (trunk, branching,
+   foliage), bushes and rocks (silhouette). Each begins from built-in designs that are
+   recognisable, not blobs, and a person makes and keeps their own. Variation of one
+   design (taller, paler, older) is a maker's or a brush's, and is not another design.
+6. **E2: the house engine.** Floors, roof form, windows and doors, wall materials,
+   then what is added on (porch, garage) as parts of a design; a street arranges
+   designs and one house of it is changed by itself (D2).
+7. **E3: decorations, gardens, and arrangements kept.** A fence, a bench, a path, as
+   designs; a garden or a house plot as a small arrangement of makers saved and put
+   down as one (W1's `compose` and `recipe` are its ground).
+8. **Later, each as its engine comes of age:** wind in grass and leaves, seasons,
+   weather on what grows, and what is walked through bending. Grass is to be drawn so
+   that this can be added (many blades in one draw, moved in the shader), and is not
+   to wait for it.
+
+Lines of more than one kind (below, 2) and M3b (below, 3) keep their places beside
+these: neither depends on designs. What the user is asked to settle is in "Now".
+
+*(What follows was the order written after W1, before the user tried it. Its "W2" is
+D1 and D3 above; the rest stands.)*
+
+**After W1 (2026-10-10).** The direction, in the user's words: first a broadly usable
+basic editor, then its systems grown into specialised engines (master roadmap,
+principle P). W1 built the part every later engine stands on (see "W1 — a world built
+of makers"). What is left of the basic editor, in the order recommended, for the user
+to confirm:
+
+1. **W2: what is made once is used again.** Kinds and meshes brought into a world
+   from another world's file; the eighteen things the code has as kinds (so "whatever
+   else there is" is a list a world can add to); a composition written by a person
+   and kept (the playground's recipe is already data said to the public commands: W2
+   makes one something a person saves, names and begins a world from, and places a
+   group of makers as one); the asset browser over kinds, meshes, makers and
+   compositions. It stands on W1's `add`, `compose` and `recipe`.
+2. **Lines of more than one kind.** Today every line given to the land is a road,
+   with the ground levelled along it. A path the land does not level, a fence, and a
+   river (a line the land reads as water) are each a kind of line: one parameter of
+   the line, read by the land. It is the shared prerequisite of the water engine.
+3. **M3b, the tools of going over a shape** (amendment 7f), of which W1 built
+   position and turn as numbers.
+4. Then the specialised engines, each its own milestone on these: houses (the house
+   generator a `lot` and a street both already ask), trees and rocks (a kind a wood
+   scatters), water, decoration, gardens; and M4, behaviour (7g).
+
+*(What follows, down to the table of the land, was written before W1 was built, and
+is kept as the record of why it was taken and what it was to be. Where it says what
+there is not, the table under "The World-Building Workflow" now says what there is.)*
+
+**After the follow-up of 2026-10-10** (walking as someone, panels, what grows): the
+order is unchanged, **W1 next**. Two things were added to the plan and not begun: the
+tools of going over a shape by hand (amendment 7f, "M3b", after W1) and behaviour as
+sequences, routines, reactions and profiles (amendment 7g, which is M4 grown into four
+steps and an authoring window). W1 has two more things to settle that the follow-up
+met: where a game starts as a thing in the world, with whether someone put down is the
+one played; and growth made thicker in one place (a density the woods and meadow read).
+
+**The UI foundation was taken first** (2026-10-10, asked for by the user; see "UI
+foundation — one workspace, tools that can be found"). It is not one of the amendment's
+milestones and replaces none: it is the place the next ones are put. Of the
+World-Building Workflow below it built one thing, the entry: **World > New world**,
+which today makes the one arrangement there is from a seed, a height of hills and a
+size. **Recommended next: W1**, now with somewhere to go: an empty beginning and an
+outline asked for in that same window; generator nodes added, placed and removed from
+Environment and Things, with the inspector as their window; a line drawn as a tool
+with its way out in the row under the bar; the walker's beginning and creatures under
+Characters; the recipe of a beginning as data. M4 (rules, items, behaviours) is the
+other candidate, and the order between them is still the user's to say.
+
+The order after the nine stages is the amendment's (`Draw3D_Roadmap_Amendment_2026-10-09.md`):
+M1 kinds as content and M2 the land by hand (both built, both tried by the user), then
+**M3 editable mesh assets** (vertices and faces moved, extruded, bevelled; revolve,
+sweep, loft; a content-override record so a generated house's roof edited by hand
+survives its street being made again; handles on a kind's parts; the things the code
+has made kinds as they are needed; a first asset browser), then M4 rules, items and
+behaviours as data. The
+movement items below wait behind them.
+
+**M3 is the milestone being built** (2026-10-09). Looked at before it was begun: the
+amendment has it next, after M1 and M2, and nothing it needs is missing (a kind is
+text in the document, its realizer makes `MSH1` and a skin of four bones a corner, and
+Godot wears that as it comes). It is taken in parts, each a thing that can be used:
+
+1. **Parts that bend: built** (see "M3, first part — parts that bend"). Taken first
+   because it is what the probe found wanting (stiff parts, a skirt that stands out,
+   joints that are two things meeting) and because it is for every kind on every rig,
+   not for Wren.
+2. **A mesh as an asset: built** (see "M3, second part — a mesh as an asset"). Text in
+   the document (`mesh.NAME`): corners and faces, as the lines that made them (a box, a
+   line turned about the upright, a face pushed out, corners moved). A kind's part
+   names one (`part mesh NAME ...`, with `bone` or `bends` like any part); the same
+   `MSH1` comes of it. Listed and written beside the kinds: the first of the asset
+   browser. Not in it, and named there: a line swept along another, an edge taken off,
+   a colour for a face.
+3. **A shape changed by hand that stays: built** (see "M3, third part — a generated
+   thing's shape made the person's"). The record is the core's `Set`: a thing a
+   generator made is given a mesh in place of its own, and keeps it when the generator
+   makes its things again. The proof the amendment names, a house's roof, is in the
+   tour. A mesh's faces have colours for it.
+4. **Handles: a mesh's corners and faces, built** (see "M3, fourth part — a mesh taken
+   hold of in the view"): taken hold of and dragged in the view, each drag a `move` or
+   a `push` line of the mesh's text. **Still owed by it:** the same for a kind's part
+   (its place and size are numbers in its line); the things the code makes written as
+   kinds as they are needed; a mesh's lines shown folded when there are thousands.
+
+**The question the third part waited on, answered (2026-10-09), from the code as it
+is.** Asked: is the roof the code makes first to be written as a mesh, so that what is
+changed by hand begins from the roof that was there, or does the record only put
+another shape in its place? Found: (1) the core already has the record. `Set` puts a
+value into one field of what a generator asked for a thing, by that thing's key under
+the node that made it (`doc.rs` `Op::Set`, applied in `build.rs`, the host's `set`;
+turning a thing by hand is one). It is kept on the node, written out and undone with
+the document, found again when keys change, flagged when it lands somewhere it was not
+put (`Mark`), and taking it away is the generated thing again. A roof is the child
+`roof#main` of its house, with a brief; a leaf's content is already made from the
+assets its brief names (`leaf_assets_of`, which M3's second part uses for kinds). So
+"this roof is the mesh NAME" is a `Set` of one field on that key, and the roof's
+realizer baking that mesh where the field is said: **no new kind of record, and the
+roof's generator is not rewritten.** (2) The roof the code makes is not one colour
+(rows of tiles in two shades, gables the wall's colour, a chimney of stone), and a
+mesh is one colour: so the roof cannot yet be written out as a mesh without losing
+what it looks like. That is the one thing missing, and it is small: **a colour for a
+face** in a mesh's text.
+So: **both, the second as a tool over the first.** The record replaces the shape by
+naming a mesh; and "begin from the roof that was there" is a command that writes what
+the realizer made of that thing out as a mesh's lines (its corners and faces, each
+face its colour), under a name, and sets the record to it. From then the roof is that
+mesh, changed by its lines like any mesh, its thing the same thing (same id, same
+owner, same place in its house), and the record on the street's node is what tells it
+from what the generator would make. What is to be decided while building it, each
+small: whether a face's colour is written as the style's name where it was one (so a
+roof made a mesh still follows the style) or as the colour it had; and what a mesh
+made for a house 7 m wide is on a house the street now makes 8 m wide (kept as it is
+and flagged to be looked at, which the marks are for, is the least).
+
+**What is next, and why that** (2026-10-10). M3's fourth part has its first and
+largest piece: a mesh's corners and faces are taken hold of in the view (built, see
+under Done). What M3 still owes, each small beside it and none in the way of the
+rest: the same for **a kind's part** (its place and size are numbers in its line, so
+a drag writes those numbers); **the things the code makes written as kinds** as they
+are wanted; **a mesh's lines shown folded** when there are thousands. Recommended
+next, for the user to confirm: **the World-Building Workflow's first deliverable**
+(below), with a kind's part handles taken inside it when a prop is first wanted
+otherwise than it is. The reason: every authoring capability so far (kinds, the land
+by hand, meshes, overrides, handles) was reached from a world the code made; nothing
+yet lets a person begin one, and that is what shows which of them join up and which
+do not. M4 (rules, items and behaviours as data) is the other candidate and is what
+the amendment had next; it does not depend on this, nor this on it.
+
+### The World-Building Workflow (a milestone to come; the direction all of this serves)
+
+**The aim, in the user's words (2026-10-10):** to create and edit worlds from scratch
+with the same capabilities the island was made with. A person, in the editor, with no
+script and no source: starts a blank project and makes a piece of land of a chosen
+size, outline and elevation; paints it and chooses its surfaces; generates or places
+trees, bushes, flowers, rocks, props, buildings and whatever else there is; draws and
+edits paths and puts structures where they want them; adds a player character and
+other characters and creatures; has a randomized starting arrangement made from
+parameters they give; edits what came of it; saves, reopens, and goes on. **Every new
+authoring capability is to be a part of this**, reached from it, and not a tool by
+itself.
+
+**What there is for each step, and what there is not** (read from the code as it is,
+2026-10-10, after W1):
+
+| Step | There is | There is not |
+|---|---|---|
+| A blank project, and land of a chosen size, outline and elevation | a world begun as the playground, as an empty island, or as nothing (World > New world; the host's `begin`); the land added as a maker, with its seed, hills and size; its outline and height shaped by hand (F8) and kept; Ctrl+S / Ctrl+O | the land's outline said when it is made (it is always a round island); more than one land |
+| Painting, and choosing surfaces | paint with a soft rim or an edge, four surfaces, what grows kept apart (F8) | surfaces as content (a list a world defines, with their looks); two painted surfaces blending |
+| Generating or placing trees, bushes, flowers, rocks, props, buildings | one thing at a time from the palette, and a kind of the world's own; **makers added, placed, connected, made twice and taken out in the editor** (World > Makers; the host's `add`, `connect`, `copy`, `remove`); woods and a meadow about a place with a reach, dragged out on the land, as many as wanted; one house put down alone | an area that is not round (an outline drawn); what grows knowing of a house put down alone; any maker but woods and meadow with a reach |
+| Paths drawn and edited, structures placed | lines drawn on the land place by place, as many as wanted (16 to a land), each a road with level ground along it; each line's places moved, added and taken away; a street, its furniture and the rest told which line they follow | a line that is not a road (a path, a fence, a river); a street along a part of a line |
+| A player character, other characters and creatures | the walker as a kind (F6 "Walk as this"); **where a game starts put down as a maker** (the green flag), Play beginning there, written with the world; cats and sheep put down; kinds with behaviours' words | whether someone put down is the one played ("Play as this" still starts another beside them); who walks a day's round said outside the code (M4's) |
+| A randomized beginning from parameters | each maker's seed; the playground as a **recipe**: steps, as data, said to the same `add` an editor's button says (`recipe`, `compose`, `begin`) | a recipe written and kept by a person; one seed and a few numbers becoming those of several makers by a rule a person writes (W2) |
+| Editing the result, saving, reopening, going on | all of it: edit records, freeze, detach, the land's layers, kinds, meshes, overrides, undo, the project file; the Makers window as the list of what a world is built of; a world left with changes in no file asked about first | one place that lists what has been changed by hand; docking |
+
+**A correction to what was written here before W1** (and in amendment 7d): it said the
+host had a command (`generator`) for adding a generator and only a panel was wanting.
+That was wrong. The host's `generator` swaps versions of the prototype's row generator
+for the upgrade tests, and nothing else; before W1 the only callers of the core's
+`add_generator` were `playground`, `scene` and `place`. W1 added the commands.
+
+**The first deliverable, end to end (W1): an island begun from nothing and gone on
+with.** "New world…": a size, how round or broken its outline, how high its hills, a
+seed; an empty island and a place for the walker. Then, from a list of what can be
+generated: woods, a meadow, rocks, each put down as a node with a place and how far
+it reaches, its parameters in the inspector; a line drawn and a street of houses set
+along it; the walker's beginning put down; a cat. "A beginning from these numbers"
+makes the same kinds of node by a recipe, from the parameters given and one seed.
+Then what there is already: the land shaped and painted, a prop put down, a roof
+taken hold of, saved, opened, gone on with. Its proof: the playground island made
+again this way by hand, in the editor, by someone who has not read the code; and the
+recipe that makes the playground being data that was written the same way.
+
+**What it depends on, in the order they would be taken:**
+
+1. A blank document and the land's parameters said at its making (the host's
+   `fresh` and the `island` node are there; a dialog is not).
+2. Generator nodes added, placed, given an extent and taken away from the editor: a
+   panel over the `generator` command, and an extent each generator reads (a centre
+   and a reach first; an outline drawn as a line, which the road's editing already
+   is, after).
+3. More than one line, and a line begun by hand (amendment 3.1's feature lines).
+4. The recipe as data, and `playground` rewritten as the first one: **no generator
+   that is only this island's.** What a recipe makes is ordinary nodes of the
+   reusable generators (land, woods, meadow, street, placed things), so everything
+   after it is editing as usual.
+5. An asset browser that lists what can be put down or generated (kinds, meshes,
+   generators, recipes): the palette and the F6 list are its two halves now.
+6. From M3, as they are wanted: the things the code makes written as kinds (so that
+   "whatever else there is" is a list a world can add to), handles on a kind's part.
+7. From the editor as a place to work: the panels laid out so that none covers
+   another, and one list of what was changed by hand.
+
+Not its: rules, quests and behaviours (M4); surfaces as materials with cover that
+stands (its own milestone, see the land's table below); lands larger than one island.
+
+**Before it, M3's fourth part was the thing most in the way:** what M3 had was all
+said in text (a kind's parts, a mesh's lines, the shape of anything a house is made
+of), every one of the user's reports on it asked whether text is a way they would
+work "until corners can be taken hold of", and a roof written out is some two
+thousand corners. **What swings after a body
+was taken before the third part**
+(built, see under Done): it was a day's pass that wanted nothing of M3, it answers the
+half of "rigid and stiff" that a mesh does not, and it is what the user sees first.
+
+Not M3's, and kept apart on purpose: **what swings after a body** (hair, a skirt's hem,
+a tail: bones that follow with a little give, moved after the pose), which wants no
+mesh work first and is its own small pass; **a rig as content** (the three rigs are in
+the code: a cat borrows a sheep's bones); cloth.
+
+**Probes: small real things, soon, to find what the systems lack while it is cheap to
+change them** (asked for 2026-10-09). Each is made the way a person would make it, in
+the editor and in what is written, and not as a scene in code.
+
+- **Another walker, and two cats that follow her: built, 2026-10-09** (see "The probe —
+  someone else to walk as, and two cats", under Done, for what it took and what it
+  showed is missing). As it was asked: A woman: curly hair, fair and brown
+  with a little red in it; a fitted long-sleeved shirt with a V neck; a plaid skirt, as
+  of a school, in plain checks; low canvas shoes. Chosen in place of the walker there
+  is, by whatever way a walker is chosen, and not only in a demo. Two cats on the
+  island, one black, one striped orange and black, that follow her and do not stand in
+  each other or in her. She pets a cat lower than a sheep is petted: stooped or
+  crouched to it. Hair and skirt that move a little after her would be liked and are
+  not to hold it up: written down as wanted if the engine cannot yet.
+  What there is for it (read in the code, not tried): a kind is text with a rig, parts
+  and colours (F6), and can offer an act at a place on itself; an act names the move
+  its doer does, and the pose of that name is written per kind of body, so "pet, low"
+  is a second act and a second pose and no code. What there is not: **a way to say who
+  the walker is** (the player is dressed as the one person the code makes); **a rig for
+  a cat** (the rigs are person, sheep and skiff, in code; a sheep's would stand in);
+  **following** (someone strays, or goes by the clock: nobody keeps near another, or
+  apart from a third); hair, a skirt and stripes as shapes a kind can say (M3's meshes,
+  or more parts); anything that swings after the body. So it is not a small thing added
+  to a pass about the land: it is the next pass's, taken before or beside M3, and it
+  is what will say how principle N (who moves how, and who does what with whom) holds
+  for a second body and a third.
+- **Into the water, and out of it.** Off high ground into the water as a dive or a jump
+  that is one; and out of the water onto land from deeper than a beach. As it is
+  (`motor.gd`): below a depth a body floats and has no moves at all, and nothing is
+  felt for to hold on to while afloat, which is why only a shallow shore lets it out.
+  The probe: an edge caught from the water (the grasp there is, allowed afloat) and a
+  move for going in. With the movement items below, after the first probe.
+
+**The land, what is left to decide** (the review's findings and the last pass's, looked
+at together 2026-10-09). None stops the land being used as it is.
+
+| What | Is it in the way | When |
+|---|---|---|
+| Paint is one of four colours at a corner of the mesh, said by the host, by so much (a soft rim: since "the land worked on more easily"); two painted surfaces do not blend into each other, only each into the land's own; no texture, no grass that stands | Not for shaping. It is the whole of what "surface" can mean now | With the surface the user wants (materials, ground cover with height and density, wind): its own milestone. The first step is the surface going to Godot as data the land's shader reads, so that painting does not make the ground's mesh again; the land's own material is where it would be read |
+| Taking away what the world generated (grass off a meadow, one kind and not another) | Begun: whether anything grows at a place is kept apart from its surface (`Spot::grows`), written by paint "for its look alone" and, since "what grows, said and seen", by two brushes that set it alone (clear, let grow). It is one yes or no for everything that grows. Before that: Rock, sand and dirt already keep things from growing; one thing is taken away with Delete | With layers: a mask a generator reads, beside the surface |
+| Edits that hold a height when the hills change | No: flatten and ledge take a height, and what is kept is the difference | When the land's parameters are changed often after shaping |
+| Generators asked again for the whole land at each stroke (about 12 ms), whole patches made again, the whole stroke played again | Felt only with wide tools on long strokes: 20 to 47 ms a step at up to 64 m | Before larger lands |
+| A patch made again beside one that still stands: a crack between them for a frame; the pointer met a step late | Worked round for the pointer (it looks beside). Seen as a sliver at most | With narrower invalidation |
+| Other things made again shown as boxes meanwhile | No | When it is seen to matter |
+| The outline of a tool on a sheer face is a stripe | No | With a decal that knows the face, if cliffs are much worked on |
+| The land has a material of its own | No: it is where the surface would be read. What is said to everything's (the wind) must be said to it too when the ground is to take part | — |
+
+1. Facing something and keeping to it (lock-on): not begun, on purpose. The quick step
+   was made to take part in it: it goes to the body's own side, so a body kept facing
+   something goes round it. What is missing is only who says what to face
+   (`intent.face` is already there, and the eye from within uses it).
+2. Movement, what is still not there, each waiting for the move that needs it: going
+   along an edge hand over hand, and round a corner of it; an edge with no wall under
+   it (a roof's eave, a beam, a branch); getting over something low without stopping
+   (a vault: the first move that would be about a place while on the ground); what
+   pulls the body down as a curve (a glide: there is `hangs`, `cut` and now `sinks`);
+   and the others having any of it (the keeper's set is a line away from it, untried).
+   The feel of the motor itself is still unheard: these were built on it as it is.
+3. What the hub showed is missing, part of it now built: what a thing of a kind the
+   world defines says of itself (what it offers, its places, its set) is that kind's
+   text, written in the kinds panel (M1); what the things the code has say is still the
+   host's code (`real.rs`), to be migrated as kinds when M3 gives them handles and
+   meshes; and the hub's way to where a thing is written now ends where it can be
+   written: the texts are the document's, and its button opens the entry in the
+   editor (F10; M2). A model writing a set from words is still last in
+   the table below, and now has what it needs to ask and to write (`editor\ask.ps1`,
+   which lists the kinds too).
+
+---
+
+## Moves, actions and interactions: where they stand
+
+Asked for 2026-10-08, after stage 8 was played: that move sets, authored moves, authored
+interactions (actor + target + action) and how each looks are foundations of Draw3D and
+not polish, to be accounted for now and built from real cases. The roadmap has it as
+cross-cutting principle N. The agreed order is not changed by it. This section is looked
+at before each stage is begun, with the six questions at its end, and brought up to date
+when a stage has taught something.
+
+**Also asked, 2026-10-08, with stage 9 under way** (roadmap, principle N, the second
+list): creatures are not decoration, and each kind comes to offer something that suits
+it, by the same model as everything else; walking into a thing is told apart from
+doing something with it on purpose; whatever is built as an example is something the
+user can look at, copy, change, take pieces of, and make from nothing; and a keyboard
+and a controller are both first-class wherever something is played, with one shared way
+to see what each asks with. For every system: can the user inspect it, edit it, make
+another, copy it, recombine its pieces, and use it for what was not foreseen. How far
+each example can be made and changed by the user today is the table "What the user can
+make and change" below.
+
+**What is already there**
+
+| Asked for | What there is | Where |
+|---|---|---|
+| A move set is assigned to an entity, not coded for it | A set is a line of `moves.txt`; content says which a body has (`moves NAME`). The walker and the keeper differ by that line only | `moves.txt` `set`; `shapes.rs` `traits`; `motor.gd` `mine` |
+| A move is written: conditions, phases, timing, speed kept, steering, what may cut in, what it turns into, landing | `when`, `upon`, `rests`, `heads`, `faces`, and for a phase `time`, `covers`, `pace`, `throw`, `launch`, `hangs`, `cut`, `aims`, `turns`, `damp`, `brake`, `keeps`, `lets ... from ... keeping`, `lands`. One script does every move | `moves.txt`, `moveset.gd`, `move.gd` |
+| What it does and how it looks are apart and joined | The motor says `doing`, `phase`, `progress`, `side`; a pose is written against those names. The jump has gather, push-off, stretch, tuck; the dash shifts its weight first | `motor.gd` `show`; `poses.txt`; `figure.gd` |
+| One vocabulary for the player and everyone else | The motor is given an `intent` and does not know who made it; a move is asked by button or by name | `intent.gd`; `folk.gd`; `player.gd` `ask_for` |
+| The target says what can be done with it | A thing's content says so in words (`opens`, `carried`, `kept`, `takes`, `held`, `does`, `loose`, `pressed`); no script knows of a door or a lantern | `shapes.rs` `traits`; `things.gd` `said` |
+| A thing names the action its user does | `does MOVE`: a hatchet used asks whoever holds it for `chop`, a move like any other | `things.gd` `use` |
+| Places that mean something, on the actor and on the target | A rig names its points (`tread`, `carry`, `hand.R`, `head`); a thing says the point it is held by (`held PLACE x y z`); a door says its hinge | `real.rs` `person_rig`, `prop_traits`; `figure.gd` `hold` |
+| A person and a model write the same thing | Moves, poses, eyes and styles are lines of text, read again when saved, and a line not understood is said with its number. What a thing can do is text made by content | `book.gd` and what extends it |
+| A body can be given other numbers, moves and poses | `body.gd` is made with them as arguments; a set says its own numbers, and a kind of body has its own file of poses (stage 9) | `body.gd` `_init`; `folk.gd` `_look` |
+| A set says how it goes plainly, where numbers are not enough | Under `set NAME`: `afloat ahead`, `ground ahead S`. `ahead` is one more way of steering beside legs, swimming and the air: only the way it points. A boat has it; the walker given the boat's set goes so too (stage 9) | `moves.txt`; `moveset.gd` `ways`; `motor.gd` `steer_ahead` |
+| An interaction is three: who does it, what it is done with, and the act | An act is written (`acts.txt`); what it is done with offers it at a place on itself (`offers ACT PLACE`); whoever does it needs the act's move in their own set and does it as their own poses say. The walker and the keeper do the same act. Since stage 9 for what has a body; now also for what has none: a door, a parcel, a post box, a lantern, a crate. Nothing is done with a thing any other way | `acts.txt`, `actbook.gd`, `acts.gd`; `real.rs` `prop_traits`, `shapes.rs` `traits` |
+| A place on a thing that has no bones | The thing says it: `point NAME x y z`, and with `from FX FZ` the side it is come to from, so whoever does something there stands off it squarely. Said more than once of one name (a handle on each side of a door, the four sides of a crate), the nearest that can be gone to straight is meant | `shapes.rs` `traits`; `things.gd` `said`; `acts.gd` `_which`, `_stand` |
+| What an act does to a thing is done at a moment of the move, and is a fact put | `at F`; `puts FACT [V]`, `clears FACT`; and for what is carried `lifts`, `lays D`, `gives`. When it is offered: `while FACT`, `unless FACT`. What follows from the fact is where it always was: a door swings because `open` was put, whoever put it | `acts.gd` `_effect`, `_may`; `things.gd` `_heard`, `lift`, `lay`, `give` |
+| Pushing on purpose is not walking into something | A loose thing offers `push` at its sides. `holds POSE`: from then on it is held to the doer where it was to them, goes as they go (forward, back, and round them), as hard as they can push and no harder; the pose is laid over how they walk and their hands are kept on it. Walking into it is still the collision it was | `acts.gd` `_grip`, `_held`; `acts.txt` `push`; `poses.txt` `push`, `push/back` |
+| The act sets up where they stand to each other, and then what each does | `stands D` (where the doer goes to stand, facing the place), `does`, `theirs`, `touches`, `counts`; and for what is got onto `rides POSE`, `takes`, `grips`, `leaving` | `acts.gd` `_step`, `over` |
+| A hand goes to a place | The figure brings a named place on it to a place in the world by the two bones above it, over whatever pose it is in: a hand to a sheep's back, hands to the oars wherever the oars are (stage 9) | `figure.gd` `reach` |
+| What is ridden goes by its own set, asked by its rider | Held to a place on it, the rider is not moved by their own motor; what they ask is asked of what bears them, which is moved as any body is | `acts.gd` `_hold`, `over`; `body.gd`, `player.gd` `borne` |
+| A move goes to the body's own side, keeping what speed it had ahead | `heads left` / `heads right`; `carries K` on a phase. The quick step is so: no script knows of it | `moves.txt` `step_left`; `move.gd` `start`, `borne` |
+| A move is made from another, as a variant of it | `move NAME like OTHER`: the other's lines, with what is said after said instead (a phase of the same name written again whole). The step to the right is the step to the left with two lines; changed, the one changes the other | `moveset.gd` `_line` |
+| What a thing does of itself in the wind is its own to say, and the wind is the weather's | Every corner of a mesh says how much it gives to the wind (content: a tree's crown, grass's tips; a wall nothing). One way of drawing moves each corner by that much of what the weather that holds says. A pose says a number of the world's stirs it (`stirs swell all`: a boat's rocking) | host `Mesh::gives`; `world_view.gd` `PAINT`; `weather.txt` `sways`, `swell`; `poses.gd` `stirs` |
+| One place to see who can do what, with what, and the way to where each is written | One account joins a body's set, a thing's words and the acts, by asking the one reader of each and the one rule that decides an act (`could`). Shown with F4; told to the host, where a program beside the editor asks for it | `hub.gd`, `hubview.gd`; `acts.gd` `could`; host `hub`, `beside` |
+| A move begins upon what is before the body, unasked | `upon wall`, `upon ledge`: beside `upon hard_landing`. What is before the body is found by feeling for what is solid, the way it is asked to go: a wall near enough to be against, or an edge within reach of the hands with room over it. Only for a body whose set has a move that could use it | `grasp.gd`; `motor.gd` `place`, `_can`; `moveset.gd` `UPON`, `feels` |
+| A move is about a place, and the place has spots | A phase says `to SPOT`: the body is brought there in the phase's time, or kept there while a phase with no time waits. The spots of what is held on to are `wall`, `hang`, `press`, `above`, `top`: a climb is three phases, each to a spot, and how high the edge was is written nowhere | `move.gd` `_do`; `motor.gd` `spot` |
+| A move waits | A phase with nothing to end it lasts until what it `lets` cut in is asked, or what it `needs` is gone, or a button `ends` it. A hang is that | `move.gd` `step`; `moves.txt` `ledge_hang` |
+| What only a move lets, is asked of the move | `when gripped`: held to something by the move it is in. A climb, and a jump off a wall, begin only so; `heads off` goes straight out from what is held | `motor.gd` `_holds`; `move.gd` `start` |
+| A place on the body is kept on what the body holds on to | A pose says `holds hand.L hand.R 0.44`: those places are on the edge, so far apart, wherever the edge is, by the same reaching an act's hand does | `poses.gd`; `figure.gd` `express`, `reach` |
+| The controls are told from the table they are read from | One table says what each thing is asked with; the line at the top, each offer and the card are made from it, for a keyboard or a controller, whichever is used or chosen | `controls.gd` `MAP`, `SAYS`, `says`, `card` |
+
+**What stands in the way, and is provisional from now on**
+
+Each of these works and stays until a real case replaces it. None is to be built on.
+
+- **The plain ways are a set's by its numbers and by one word** (stage 9: a set says
+  any of the numbers for itself; and that afloat or on the ground it goes `ahead`,
+  not as a body does). There are four ways of steering in `motor.gd`, in code: on
+  legs, swimming, in the air, and ahead. A set chooses among them and gives them
+  numbers; it does not write one. Standing, walking, running, crouching are still the
+  words the legs' way says. What flies or climbs would be a fifth way, in code, until
+  a way of steering is itself written.
+- **How a body looks goes by its kind of body, not by its set** (since stage 9: a file
+  of poses for each kind, by what its rig says it is). Two sets on one kind of body
+  look alike: a samurai's stance on a person's bones has no word yet.
+- **What a move can begin on is a list in code** (`motor.gd` `_holds`, `moveset.gd`
+  `WHEN`), and `upon` knows three things (`hard_landing`, `wall`, `ledge`). A
+  phase's words are the ones the moves so far needed.
+- **What can be held on to is found, and nothing says it.** (Walls and edges.) One
+  feeler (`grasp.gd`) finds a wall or an edge in whatever is solid, by a few numbers
+  that are a set's (`grip_reach`, `ledge_low`, `ledge_reach`) and a few that are in
+  the script (how upright a wall is, how level a top, where on the body it feels).
+  So everything solid can be climbed if its top is in reach, and nothing can say it
+  cannot, or that it is slippery, or that it is a ladder. And a thing is held on to
+  by the box it is walked into by, which for a haystack or a stall is bigger than it
+  looks. Content saying so (a word like `loose` is) waits for the thing that needs it.
+- **The spots of a place are a list in code** (`motor.gd` `spot`: against it, hung
+  from it, up on the arms at it, beside its edge, on it). A move chooses among them
+  and says how long each takes; another spot (astride it, under it, a hand's width
+  along it) is code until a spot is itself written.
+- **A move is about a place only if the place is before the body in the air.** The
+  motor finds it; nobody gives it. What an act is done with still does not go to the
+  motor with the intent (`intent.act` is a name), and on the ground nothing is felt
+  for: a vault over a low wall, or a hang let down onto from above, has no way in
+  yet. That it will be the same thing (a place with spots, whoever found it) is
+  the reading; it is not built.
+- **A move asked for is still not about anything; an act is.** (Stage 9.) `intent.act` is a name
+  with no target. What it is done with, where the doer stands to it, and where a hand
+  goes are the act's (`acts.gd`), which asks the doer's motor for the move and brings
+  the hand there itself. That was enough for stroking and for a boat. It will not be
+  enough for a move whose motion depends on the target (a vault over this wall, a
+  climb up that ledge): then what the move is about has to go with the intent to the
+  motor. Not built ahead of that case.
+- **What an act can do to a thing is a short list in code.** A fact put or cleared is
+  anything. But "in the doer's hands", "on the ground before them", "on what takes it"
+  are three words (`lifts`, `lays`, `gives`) that `things.gd` knows how to do, with
+  what `carried`, `kept` and `takes` mean. A fourth thing done with what is carried
+  (thrown, handed to someone, put on a shelf) is a fourth word there, until what
+  "carried" is can itself be written.
+- **What is held is held one way.** `holds` is: kept where it was to the doer, turned
+  as it was, pushed through its middle. That is pushing and pulling a crate. Lifting
+  one, carrying it, tipping it, throwing it, dragging something by one end are not
+  that, and `loose KG` still says only what a thing weighs. Walking into something
+  (`motor.gd` `_push`) stays what it was: the physics of blundering, not an act.
+- **A door is opened by a hand and still swings by an easing** (`things.gd` `_swing`):
+  the hand goes with the handle, it does not move it. And nothing stops a door being
+  shut on someone who stands in the doorway (the walker used to be refused; now
+  whoever shuts it goes to its handle first, which takes them out of the way, and
+  anyone else is not looked for).
+- **An act goes to its place in a straight line.** Where the doer is to stand is come
+  to by walking straight at it for at most 2.5 seconds; a place with something
+  between is not offered. Nobody finds a way round to do something.
+- **A hand reaches; nothing else does.** (Stage 9.) Two bones to a place, with no say
+  over which way the elbow points, nothing of the spine or the feet in it, and only
+  while an act asks or a pose says it holds an edge. On a wall the hands are posed, not
+  put on it; climbing, the feet are not put on anything. A place out of reach is come as near to as the arm is long, and
+  how far short it was is said. Feet do not find the ground they tread.
+- **Getting on and off is carried, not done.** The rider is brought to the seat in a
+  low arc in the time the act says. No move is written for climbing in: in the water
+  there are no moves, and from the ground none was written.
+- **How a thing moves of itself is half written.** (Stage 9, weather.) That it gives
+  to the wind, where and how much, is content; how far the wind moves what gives, how
+  fast, how gustily, is a line of the weather. But the motion itself is one formula
+  in one shader (a lean and a to-and-fro along the wind): a thing cannot say it
+  twists, or flutters, or swings from a hook. And a door's swing is still an easing
+  in `things.gd` `_swing`. A way of moving written, not chosen, waits for the
+  thing that needs another one (a sign on a bracket, a flag, washing on a line).
+- **What is written is kept by the host, and not understood by it.** The moves, poses,
+  acts, eyes and weathers are the host's now, with the world (after stage 9): asked
+  for and written by command, whole or an entry, and written out with the world. But
+  the host knows only that a line not set in begins an entry. What a line means is
+  known to the one reader of each text, on the Godot side, which tells the host what
+  it did not understand. So the host can say what is written for the walker's set, and
+  what the walker can do with a door only as the editor last told it (the hub): with
+  no editor open, or before it has read a text just written, the host says that what
+  it was told no longer holds, and cannot work it out. Since M2 the texts are the
+  document's (an asset each): undone and done again with it, and in its file. The styles (the host reads their file itself, into the
+  document), the controls (a script) and `feel.cfg` are not among them.
+- **What a thing says of itself is the host's code.** The hub shows it (a door says
+  `opens`, `offers`, `point`) and says where it is: not in a text. What a kind of
+  thing offers, where its places are, and which set a body has are written in
+  `real.rs` and `shapes.rs`, and are changed there. Until that is content a person
+  or a program writes, the hub's "where it is written" stops short for the things.
+- **The hub is of what the editor has seen.** A kind of thing in a part of the world
+  whose cells have not been sent is not in it; and it is by kind, not by thing: every
+  door is "the door", and one door cannot be asked about by itself.
+- **Only the walker is ever made to do anything.** Anyone with a body can do any act
+  (the keeper opens a door, picks a parcel up, carries it and puts it down, by the
+  same lines), but who decides that one of the folk does something is not there: a
+  script begins it. Only the walker keeps things (a lantern is theirs; `kept` has no
+  owner). And what the others do toward someone (shy from them, greet them) is toward
+  the walker only.
+- **One offer is taken.** What offers two things (a horse: pet, mount) is offered as
+  the first of them the doer can do. Choosing among offers has no key and no words yet.
+- **The controls are one table in a script** (`controls.gd`): what is told is always
+  what is asked with, but a person changes it by editing the script, not a file or a
+  panel, and a move's button is named in `moves.txt` by a name from that table.
+
+**Seams to keep whole**
+
+1. The motor is given an intent and nothing else. Whatever a target adds goes with the
+   intent, not round it.
+2. The motor says what it is doing in words and draws nothing. The figure reads words
+   and moves nothing.
+3. No script knows one move, one kind of thing, or one kind of body by name.
+4. What a thing can have done to it is said by its content. A new thing is content, not
+   a branch.
+5. A consequence is a fact put, and what follows from facts follows wherever they came
+   from. So an action can put the same fact a key press does today, at its own moment.
+6. Places are named by content (a rig's points, a thing's points). More are added the
+   same way: a handle, where to stand, which side to push.
+7. A body is made with its numbers, moves and poses given to it.
+8. Everything written is text, read again when saved, with what is not understood said.
+9. An act knows no one act, no one doer and no one thing by name: who does it has a
+   body, a set and poses; what it is done with offers it at a place. A new interaction
+   is lines in `acts.txt`, a move, a pose, and a word in content. Whether what it is
+   done with has a body or not is asked in one place (`acts.gd` `_frame`, `where`).
+10. Whoever is in an act is still moved by their own motor, by what the act wants of
+    them, or not moved at all (held): the act moves nobody itself.
+11. What the person is told they can press is read from where it is asked.
+12. Nothing is done with a thing but by an act. `things.gd` does not act: it is what
+    follows from the facts, for whoever put them.
+13. Walking into something and doing something with it on purpose are apart: the one
+    is the motor's (`_push`), the other an act it offers. Neither calls the other.
+14. What is written is the host's, and has one reader. Whoever does what a text says
+    reads what the host has of it, wherever that came from (a file saved, a command,
+    the world's file), and says back what it did not understand. The host is not a
+    second reader, and no script reads one of those files for itself.
+15. Whether someone could ever do an act with something is decided in one place
+    (`acts.gd` `could`): it is asked when the act is offered, and by the hub. What is
+    told of who can do what is never worked out a second way; and it is said by the
+    side that reads the texts, and only kept by the host.
+
+16. What there is to hold on to is found in one place (`grasp.gd`) and said by the
+    motor (`place`), for anyone with a body. What is done there is a move's, in words;
+    how it looks is a pose's. No script knows a wall grip or a climb by name.
+
+**To be built, each from the case that needs it**
+
+| What | The case that should teach it | When |
+|---|---|---|
+| A set owns its numbers, and poses go with the kind of body they are for | A creature: other bones, other gaits, other speeds, with no second motor and no second pose reader | **done**, stage 9 (sheep) |
+| A set says its plain ways, where numbers are not enough | What does not walk: a boat | **done** as far as a boat needs, stage 9: a set chooses a way of steering. A way written, not chosen: when something flies or climbs |
+| A set has a look of its own on bones it shares | A second set on a person's bones (armoured, samurai) | **done** another way, 7at: a character's look (characters.txt) says which clip shows each thing the motor says; the samurai has its own on another skeleton. For the figure posed by poses.txt (no clips), still by kind |
+| An act with a target: where the doer stands to it, what each does, a hand brought to it, the doer held to it | Stroking a creature; getting into a boat and rowing it | **done** for what has a body, stage 9 |
+| Reaching: a hand brought to a named place | The same | **done** as two bones to a place, stage 9. Which way the elbow points, the spine, the feet: when a case shows the lack |
+| Each kind of creature offers what suits it | A sheep: pet. Next: whatever creature is made next (a dog, a horse: pet and mount, which needs a choice among offers) | sheep **done**, stage 9; the rest with each creature |
+| The things with no body done with as acts, by anyone: a move, a place on the thing, the fact put at a moment of it | Opening a door, picking up and putting down a parcel, done over; the keeper doing one | **done**, after stage 9 |
+| Push and pull as things a loose thing says and an actor does, with the thing held to the actor meanwhile; blundering stays what it is | The crate of stage 8 | **done**, after stage 9 |
+| Lift, carry, tip, throw of what is loose; a thing held some other way than squarely before the doer | A crate carried onto the plate, or thrown; a cart drawn by its shafts | when one is wanted |
+| What "carried" is, written: where it is held, by what, what the hands do | A second thing that is carried otherwise (a bucket in one hand, a sack on a shoulder) | when there is one |
+| A way found to where an act is done | The keeper sent to do something | with behaviour |
+| What can begin a move, and what a phase can say, as far as the next moves need: something to hold on to, pull as a curve, a move that waits | Wall grip, ledge hang, a glide | **done** for something to hold on to (`upon wall`, `upon ledge`, `to SPOT`, `gripped`) and a move that waits (a phase with no time; `ends`, `needs air`), with walls and edges. Pull as a curve: `sinks` is a speed, not a curve; a glide will want more |
+| Along an edge, and round its corner; an edge with nothing under it | Shimmying; a roof's eave, a beam | when one is wanted: the feeler finds only what is straight before the body and has a wall under it |
+| What can be held on to, said by content: this cannot be climbed, this is a ladder | A thing that should not be climbed, or one that is climbed otherwise | when there is one |
+| What a thing does of itself, written: a tree in wind, a boat on a swell | Weather | **done** as far as giving to the wind and being stirred by the swell, stage 9. Another way of moving than leaning and swaying; a door's motion: when a thing needs one |
+| What the weather is to the world besides how it looks: wet ground, what creatures and folk do in rain, what a lamp does in a storm | A weather that says a fact holds while it is (`when wet`), and something that goes by it | when something in the world should go by it |
+| Who the body faces, and keeps to (lock-on) | A fight, or anything circled | when taken up; the quick step is ready for it |
+| What the target of a move is goes to the motor with the intent | A move whose motion depends on what it is done to: a vault, a ledge | a ledge **done** another way: the motor finds the place itself, in the air, and a move is brought to its spots. Given with the intent, and on the ground (a vault): not built |
+| Who decides that one of the folk does an act | The keeper with something to do at the yard | with behaviour, after stage 9 |
+| A move strikes, and someone is struck | A cut with a sword | **done**, 7at: `strikes PLACE R` on a phase (a place on the body or on what it holds), `upon struck` on a move; once a move; loose things knocked, bodies told. Damage, guarding, directional reactions: with a fight |
+| A character from a file: its own bones, clips from libraries carried to them | The Character Studio's samurai and mannequin | **done**, 7at: characters.txt, clips.gd, animated.gd. Layering, IK on clips, characters for the folk from content: when wanted |
+| The controls as a file a person changes, and shown in a panel | A second way of playing that wants other buttons | when one is wanted |
+| Moves, poses, sets and eyes kept by the host with the project, asked for and written by command | The hub, and a model writing a set | **done**, after stage 9: kept by name, asked for whole or by entry, written by command or by saving a file, said back what was not understood, written out with the world. Not: understood by the host; undone. (Reached by a second program beside the editor: since the hub) |
+| The hub: for each kind of thing and body, what it can do and can have done to it, and the way to where each is edited | When there are several sets and kinds to look over | **done**, after stage 9: one account, shown (F4), told to the host and asked there from beside the editor. The way to where a thing is edited is the entry shown and its file opened; nothing is changed in the hub |
+| What a thing says of itself (what it offers, its places, its set) as content a person or a program writes | A thing wanted that offers something else, or a set given to another body, without the host's code | when one is wanted: the hub shows where it stops |
+| A set written by a model from words ("a parkour set") | When the vocabulary has stopped changing weekly | last |
+
+Not to be built ahead of a case: a general schema for moves, an action graph, a
+constraint system, an animation state machine.
+
+**What the user can make and change** (asked 2026-10-08: nothing built as an example
+is to be the only way to use what it shows)
+
+| Example | Looked at and changed, today | Another made, today | Not yet |
+|---|---|---|---|
+| A set of moves (walker, folk, sheep, skiff) | `moves.txt`: its line, its numbers, its ways; read again when saved, while playing | A new `set` line with moves borrowed by name from any other, and any numbers; given to a body by `moves NAME` in content, or to the walker by a script; or its line written by command (`text`, entry `set NAME`) | Giving a set to a thing from the editor (it is in the content's code); a panel |
+| A move (jump, dash, pet, graze) | Its lines in `moves.txt`; its numbers in the F1 panel | A new `move` of the words there are; one changed while it runs is shown in the `figure` demo | A word that is not there yet is code |
+| How something looks doing it | `poses.txt`, `poses.sheep.txt`, `poses.skiff.txt`: turns of bones, by name of what the motor says | A pose of any name; a file for a new kind of body | Drawn rather than typed; seen while it is written except by playing |
+| An act (pet, board, open, shut, pick_up, put_down, take, deliver, push) | `acts.txt`: where they stand, which move, which hand or hands and how far apart, the moment, what is put, how fast and how it turns what is held | A new `act`, of those words; offered by anything that says `offers`, with a body or without | Which things offer what, and where their places are, is the host's code; choosing among offers; a consequence that is not a fact nor one of `lifts`, `lays`, `gives`, `holds`, `rides` |
+| A creature (the sheep), a vehicle (the boat) | Put down from the palette in the editor, moved, turned, taken away, undone. What it does: the words it says | A copy by putting down another | Its mesh, bones and words are host code (`real.rs`): another kind of creature is written there, not made in the editor |
+| An eye, a style | `eyes.txt`, `styles.txt` | Another of either, by a few lines | |
+| The controls | The table in `controls.gd` | An entry there | A file; a panel |
+| A character (mannequin, samurai) | Characters > Character Studio: its bones and map, its clips (searched, played), its look, its set, what it holds, when its moves strike; characters.txt (F10) for every line | "Make a copy", "Copy the look", a row of the look shown by another clip, its set chosen; a new `character`, `look`, `library` or `map` written; clips of your own as pose text baked by charmake.gd, or any glTF file | A model made in the editor; a clip edited in the Studio (it is played, not drawn); the folk given a character |
+| What is written, all of it (moves, poses, acts, eyes, weathers) | As files, as before: a file saved is given to the host. Or asked of the host by command: what there is, the lines that begin each entry, one entry, a whole text, what its reader did not understand (`written`). By another program too, while the editor is open: `editor\ask.ps1` | A text or one entry written by command (`text`), while playing or not, from the editor or from beside it; a new text of any name a reader reads (`poses.KIND`); the world written with Ctrl+S carries all of it, and a game built from it needs no file | Undone with Ctrl+Z; edited in the editor (it is shown: the hub); a text written by command put back into its file by a key (the command is there: `written` with `to`) |
+| Who can do what, with what (the hub) | F4: everyone with a body, every kind of thing, every act; of each what it can do or have done to it, who can and who cannot and why, and where each of it is written, with the entry shown and a button that opens its file. `editor\ask.ps1 hub`: the same as words and numbers, for a program | Nothing is made there: what it shows is made in the texts, and it follows them within a second | Changing anything from it; one thing asked about, not its kind; what a thing says of itself changed at all (it is the host's code) |
+| Holding on (catching an edge, hanging, climbing, holding to a wall, sliding, jumping off) | `moves.txt` `ledge_hang`, `climb`, `wall_grip`, `wall_jump`: when each begins (`when air pressing`: take `pressing` out and an edge is caught without asking), how long each part takes, which spot each goes to, what ends it and what it lets, how fast it slides. Its numbers in F1 ("Walls and edges"): how near, how high, how far it hangs, how high and far it jumps off. `poses.txt`: each pose, and which places hold the edge | Another of the words there are: a climb in two parts or four, a wall run that only slides, a hang that drops by itself after a time (`time` on its phase), a second jump off an edge; any of them given to another set by its line | Another spot of an edge, or another thing felt for, is code; what can be held on to cannot be said by a thing; nobody but the walker has been given them |
+| Going over, up and between (a rail gone over at a run, a step up a wall, wall to wall, a backflip) | `moves.txt` `vault` (`upon low`, `when ground running pressing`: how long up beside the edge, how far and how fast over it, how much speed it comes out with), `wall_run` (how high the step is, how often before the ground: `aloft 1`), `backflip` (how high, how far back, how long); wall to wall is `wall_grip` and `wall_jump` as they were, and their numbers in F1 ("Walls and edges": how high and far a jump off a wall goes, how long a wall is held). `poses.txt`: `vault/up`, `vault/over`, `wall_run`, `backflip/...`. How high a thing may be to be gone over is `ledge_low` (F1) | Any of them given to another set by its line (a child that vaults); a vault that is asked for with a button instead (`asks jump` in place of `upon low`); a second step up a wall (`aloft 2`); a front flip (`tumble 1`, `heads asked`) | How low is too low to go over (0.3 m) is a number in `grasp.gd`; a run along a wall, a slide under something and a swing from a bar are not written and each needs code (a wall felt for to the side; a body that is lower while it slides; something to hang from that is not an edge) |
+| The quick step | `moves.txt` `step_left`: how far, how long, how much speed it carries, what may cut in; its numbers in F1; `poses.txt` `step_left/...` | Another like it (`move lunge like step_left`, with its own lines and its own button from the table), put into any set | A button that is not in the table is the table's script |
+| A weather; something that falls | `weather.txt`: light, wind, sway, swell, what falls and how much, how long it lasts and what follows; read again when saved, while playing or editing | A new `weather` (from nothing or `like` another); a new `falling` thing, by six lines | A weather for a part of the world; how a thing gives to the wind is the host's code (`gives`) |
+
+So: what each thing does and how it looks is text a person can change while it runs,
+and since the host keeps it, text a program can ask for and change by command.
+What a thing is (its shape, its bones, what it says of itself) is still the project's
+code. The editor shows the text an entry at a time, from the hub, and does not change it.
+
+**Asked before each stage** (roadmap, Central Development Question)
+
+1. Does it bring in a system that will make authored moves and actions harder?
+2. Is something being coded that should be content?
+3. Are movement, how it looks, interaction, physics and what a thing can do still apart
+   and joinable?
+4. Where would a move set join it?
+5. Where would an intended interaction join it?
+6. Is enough said (places, contacts, what is held to what) to give it a proper action
+   later?
+
+---
+
+## Demos
+
+Run with `editor\run.ps1 -Demo <name>`; without a name, the stage being worked on. The
+script is `editor/godot/demo.gd`: a demo is a function of beats there and a line in
+`PARTS`. Add `-Check` to have it run through and quit, leaving a picture of each beat
+in `editor/godot/demo/` (that is how a demo is itself looked over before it is handed on).
+A demo saves to its own slot (`demo`).
+
+| Demo | Command | Shows | Still to be tried by hand |
+|---|---|---|---|
+| `inventory` (8 beats, about 1.5 min) | `editor\run.ps1 -Demo inventory` (or `-Demo` alone) | items, section 7 (7bi): two axes, a helmet and a round shield of the library's Gear to find put by the road; the walker as the swordsman; each picked up and kept; 1 takes an axe in hand (the katana put away); the inventory (I) puts on the helmet and the shield; the menu (Esc) holds the game and saves it; the other axe dropped; stopped | all of it |
+| `make` (6 beats, about 1.5 min) | `editor\run.ps1 -Demo make` (or `-Demo` alone) | the Character Studio's Make tab (7bf): a copy of the swordsman made with longer legs, a bigger head, broader; tinted; two outfits (a backpack and a hat; a cape) put on in the Gear tab, and Next outfit while it cuts and in the yard; the mannequin copied onto Quaternius's model, its joints tinted | all of it |
+| `yard` (5 beats, about 1.5 min) | `editor\run.ps1 -Demo yard` | the Character Studio: the swordsman's cut drawing the katana first; a cape put on that swings at a run; the yard opened, locked on to the post, walked up to and cut three times; left | all of it |
+| `studio` (10 beats, about 2.5 min) | `editor\run.ps1 -Demo studio` | the Character Studio: the samurai made from its files, clips found and played (the cut once, at half speed), the same clips on the mannequin's other bones, a thrust tried with its run-up, and the combo cut_thrust (7av); walked as on the road: walking and running, a cut knocking a post away, a sparring partner struck and thrown back, a long jump into a roll; the swordsman's katana put away at its hip by its move and drawn again (Gear), and the Buttons tab with dash's moves (7ba); then the controls are yours as the samurai (7at) | all of it |
+| `sound` (7 beats, about 2½ min) | `editor\run.ps1 -Demo sound` | the physics lab heard: Window > Sounds listing the sixteen written, a chime, a bell and birds listened to; F10 opened at the bell's lines; the birds post by the start and the stream post by the goal; the batcher's lamps clicking, the gate creaking, the belts humming and the chime knocking; the strength pad thumped and a ball bouncing; rain, storm and clear weather (7as) | all of it |
+| `field` (4 beats, about 1 min) | `editor\run.ps1 -Demo field` (or `-Demo` alone) | a field drawn by its outline on a new island: four corners, wheat grown and filling it in rows; a corner moved and the field filling again; its rows turned, gaps, wheat and young wheat mixed; walked into (7aq) | all of it |
+| `nature` (7 beats, about 3 min) | `editor\run.ps1 -Demo nature` | the nature showcase (with a bamboo garden and stranger trees, 7ap): a garden, fields, a meadow and a wood all grown in the Generator; the Plant Generator on a daisy with its colour variation and a mix of five; the meadow's group told mostly purple and pink, every flower drawing again, and taken back; the wheat field's riper patches drawn again; the one sunflower given a red bloom by hand (7ao); the bamboo and the stranger trees; the walker in the wheat and the maize, which part and hold back (7ap) | all of it |
+| `signals` (10 beats, about 3 min) | `editor\run.ps1 -Demo signals` | on the physics lab: the batcher, of Library designs and one line of each thing; Window > Signals with `batch` open and the wiring drawn; the gate's line in the Inspector; played twice through: three parcels, three lamps, the belts stop, the gate opens a second later, six seconds on all is as it was and the belts run again; the strength tester struck at 5 and 10 m/s, its lamps lit by how hard (7an); a bridge of planks held at both ends (one plank joined two ways); a game saved part way through a wait and loaded, the wait going on from there (7ar) | all of it |
+| `mech` (7 beats, about 3 min) | `editor\run.ps1 -Demo mech` | on the physics lab: the bell machine of Library > Mechanisms designs; a link joined to another by name and a wheel driven `by ring` in the Inspector; joints and a fan's room drawn; played: parcels ring the chime, the wheel faster with each ring, the gate opens, two welded crates blown on together, a chain, a spring, an updraft | all of it |
+| `own` (7 beats, about 3 min) | `editor\run.ps1 -Demo own` | on the physics lab: one design, four balls, three with physics of their own, in the Inspector beside the design's; a ball given a box to meet things with, and colliders drawn; a goal, a lamp and a spinner told `when goal`; played: bounces, a ball that lies, a goal scored, the lamp lit and the spinner started; a grip tuned and kept for one ball | all of it |
+| `physics` (10 beats, about 5 min) | `editor\run.ps1 -Demo physics` | the physics lab: balls let fall by what they are made of, with the Physics window following one; ramps and a hill; a pen of balls and a spinner; a table of bumpers and kickers; pendulums, a gate of groups, a gliding platform; gravity, slow motion, held and stepped; a kick; falling blocks played and a level cleared, its blocks flying off | all of it |
+| `talk` (8 beats, about 5 min) | `editor\run.ps1 -Demo talk` | the village answers: the cook's talk (not now, then yes), the ! and the ▼; the shopkeeper's greyed answer; the journal; the baker's greeting; rain, everyone in under a roof and back to work; the shopkeeper coming to serve | all of it |
+| `work` (8 beats, about 4 min) | `editor\run.ps1 -Demo work` | the village at work, opened with no file and run: the baker's day as a sequence (bake, wait, take out, lay out on the stall), followed by the eye; bread as goods; the cook's quest taken by talking, two loaves bought, left on the long table, paid; Playtest's goods and quests; an empty stall saying why | all of it |
+| `villagers` (6 beats, about 3 min) | `editor\run.ps1 -Demo villagers` | the village opened with no file and run: its people (a day as `goes HOUR at PLACE`); the eye following the smith out of his house, along the street and into the barn, each door opened and shut behind him; the Playtest window; the pen's gate open; the ways to every place checked | all of it |
+| `village` (6 beats, about 2 min) | `editor\run.ps1 -Demo village` | the village of structures on cells, part by part; up the terrace steps and in at the hall's door | all of it |
+| `findings` (4 beats, about 2 min) | `editor\run.ps1 -Demo findings` (or `-Demo` alone) | on the tile showcase opened with no file: Erase saying what clearing a layout's tiles would take, clearing them, and Ctrl+Z; a layout's ring, and the layout drawn where a drag would put it, then moved; Build > street on a road that has one, asking for a new road, and the street along it; the Asset Library's Farm animals, and five of them on the grass | all of it |
+| `workflow` (6 beats, about 3 min) | `editor\run.ps1 -Demo workflow` (or `-Demo` alone) | on the tile showcase opened with no file: the toolbar and the lists of Objects and Plants; a barrel picked, the row under the bar and More, Move from the toolbar and Undo; the Tree Generator under Plants, a 'reference only' picture, numbers too much for one tree, a birch saved; a group painted with and rocks beside it, the group removed; the eraser taking only the bushes, then any object under it, one stroke undone; the Environment window, older trees given their wind, grass near the eye with no wind and in clear weather, sunset, a storm coming on | all of it |
+| `living` (7 beats, about 2 min) | `editor\run.ps1 -Demo living` (or `-Demo` alone) | on the tile showcase opened with no file: every tree preset made a design and stood in two rows; a preset changed in Grow and kept; six of it painted, one picked, its numbers back from the row under the bar, and a variation kept beside it; an oak shaped by hand and the question before it is grown again; the wind at none, as written and a breeze at twice; the water; noon and sunset; the style 'autumn' | all of it |
+| `grow` (3 beats, about 1 min) | `editor\run.ps1 -Demo grow` (or `-Demo` alone) | on the tile showcase opened with no file: the Grow window, its numbers set one after another and the tree they make; two trees made designs, put in a group and painted in one stroke; one of them grown again at 15 m, every one of it following | all of it |
+| `mix` (4 beats, about 1 min) | `editor\run.ps1 -Demo mix` | on the tile showcase opened with no file: rocks painted with one design; a group of three designs shown in Designs and painted across a raised tile and the ground beside it; half of the rocks replaced with trees where they stood; the group's own cleared from a part and that undone; one tree made twice as big by itself | all of it |
+| `brush` (3 beats, under 1 min) | `editor\run.ps1 -Demo brush` | on the tile showcase opened with no file: rocks painted in one stroke across open ground; trees painted over a tile raised 2 m and the tiles beside it, each on the ground it is on, and the same stroke again adding nothing; one rock made three times as big by itself, and half the rocks cleared with the brush while the trees stay |
+| `raised` (3 beats, under 1 min) | `editor\run.ps1 -Demo raised` | on the tile showcase opened with no file: a tile picked and raised 2 m with what stands on it; the tiles beside it made as high, a terrace; the land raised under it, the tile still 2 m above |
+| `paintseen` (3 beats, under 1 min) | `editor\run.ps1 -Demo paintseen` (or `-Demo` alone) | on the tile showcase opened with no file: paint chosen, the panel saying what it paints on and the tile under the pointer tinted whole; that tile painted sand and then rock, the land under it left as it was; then paint told to go on the land under tiles, which paints the land and leaves the tile | all of it: is it plain what a stroke will paint before it is put down? |
+| `ontiles` (4 beats, about 1 min) | `editor\run.ps1 -Demo ontiles` | on the tile showcase opened with no file: a tool for the land drawn on a tile's ground in stripes, and the panel saying it is the land beneath that is worked on and which tile the pointer is over; the land raised to a spike where four tiles meet, in steps, the ground whole on it, and smoothed again; a wood told two tiles to make its things on; then every tile of one ground, uneven from tile to tile | all of it: see the checklist |
+| `tiles` (6 beats, about 1.5 min) | `editor\run.ps1 -Demo tiles` | on an island of its own and a copy of the tile sets: the Tiles window with a picture of every tile, and a square layout made for them; meadow, woodland, pine wood, rock and snow put down side by side, their ground blending; a path of three straight pieces, a bend and an end, each turned by the host to join, and a piece refused between two meadows; a homestead picked as one, turned twice and changing places with a meadow; its well moved, a fence taken away, a scarecrow added, and the tile saved as a tile of one's own; the tile showcase opened with no file | all of it: see the checklist |
+| `layout` (5 beats, about 1 min) | `editor\run.ps1 -Demo layout` (or `-Demo` alone) | on an island of its own: a square layout made in its window and its guides; five things put down off the middle of cells and standing at the middle, a sixth in a taken cell standing where it was put; a crate moved three cells and turned a quarter; the layout made hexes with its things, and six rocks in the six cells beside the lamp; snapping stopped, the guides hidden, the layout removed and everything still standing | all of it: see the checklist |
+| `library` (6 beats, about 1.5 min) | `editor\run.ps1 -Demo library` (or `-Demo` alone) | on a copy of the library: the Library window on an empty island, a picture taken of each of its hundred designs; the urban shelf beside the rural one; a beach hut and a windmill placed from it; a copy of the hut made, its stripe and roof recoloured and made half as tall again, two put down beside the original; the copy saved to the library and found on "My library"; then `editor\showcase-urban.json` opened with no file, the saved hut brought into it and put down in its park. Then it is yours, in that world | whether the designs read as what they are when walked round; choosing colours with the picker; the size and stretch numbers by hand |
+| `course` (8 beats, about 1.5 min) | `editor\run.ps1 -Demo course` | the training ground of `editor\town.json`, opened with no file: the course from above; three rails gone over at a run, and one again five times slower; a box, two pillars and a deck jumped from one to the next; a wall caught and climbed, and the high wall held to, stepped up, caught and climbed; the two towers gone up between, wall to wall, to the top; a backflip, as it is and four times slower; the playground, the girl blowing bubbles, a child running; the tractor from afar and from each side. With `-Check`, 40 pictures in `godot\demo` |
+| `town` (9 beats, about 3 min) | `editor\run.ps1 -Demo town` | the island town of `editor\town.json`, opened with no file: Main Street and the green; the shop, the doctor's and the vet's; the church and Church Lane's houses of four sorts; Rose Cottage, its garden and the gardener; the pond from three places; the woodcutter followed to a tree and seen chopping; the horses, the cows, the farm, the sheep, the goats, the wood; the shopkeeper and the gatherer. Then it is yours, at the crossroads | all of it in motion: the animals' gaits, a bird flying, a fish leaping, a frog leaping from you; whether each building reads as what it is from the street; stroking a cow, a horse or a dog (the act is the sheep's and the cat's, not tried on these) |
+| `region` (5 beats, about 1.5 min) | `editor\run.ps1 -Demo region` | in the editor: a plateau and a wood clicked onto it, most of its trees below; kept to its level; painted over the top; one tree made a rock and twice as big, one more added to the arrangement; a tree shaped alone, with what is being edited said and its corners shown, in other selection colours; the style 'evergreen' making the same wood conifers over ferns and mushrooms | all of it: the reach dragged at a plateau's rim; painting and rubbing out; whether the conifers read as conifers; which colours read on what |
+| `motor` (10 beats, about 1 min) | `editor\run.ps1 -Demo motor` | stand, walk, run, stop; a skid on turning back; a held jump and a tapped one, with the height and time it came to; a running jump; a dash; a dash in the air; crouch, long jump, roll; a hard landing, and one rolled out of | how any of it feels under the hand: that is not something to watch. Coyote time is shown in `climb`, where there is an edge; the two hard landings are made by lifting the walker 6 m |
+| `door` (8 beats, about 1 min) | `editor\run.ps1 -Demo door` | a shut door in the way and offered in words; E opens it; in, onto the floor; shut from inside, it holds; opened and saved with F5; out, shut behind, away; F9: back inside with the door open | the controller's Y; the camera indoors |
+| `stage1` | `editor\run.ps1 -Demo stage1` | both, in that order | |
+| `delivery` (9 beats, about 1.5 min) | `editor\run.ps1 -Demo delivery` | a parcel by the road, offered; E picks it up and it is carried; the gate at the road's end is locked; at the post box delivering is offered; E delivers, the parcel stays on the box and the gate swings open; in through it; F5; the world stopped and started (gate shut, nothing delivered); F9: delivered and open again | the errand by hand, in any order (the gate first, the box with empty hands); whether the gate opening 13 m away is noticed without being told to look; the controller's Y |
+| `stage2` | `editor\run.ps1 -Demo stage2` | the delivery | |
+| `standalone` (4 beats, about half a minute) | `editor\run.ps1 -Demo standalone` | shown **in the built game**, which is built first if it is not there or is out of date: the game with no editor and no project; the world opened from its file, looked round; Tab and Esc hold the game and nothing goes back to editing; where saved games are kept | the game started by hand (`game.bat`, or `build\Draw3D-game\Draw3D.exe`); Esc, then Q; F5, leaving, starting again and F9; closing the window instead of Q; F1 and whether the numbers keep; a controller |
+| `stage3` | `editor\run.ps1 -Demo stage3` | that, then the delivery, in the built game | |
+| `keeper` (8 beats, about 2 min) | `editor\run.ps1 -Demo keeper` | half past six, the sun low; the keeper at home; 7: the keeper walks to the yard, the walker going along; the gate is locked and the keeper waits at it; the world is told a parcel was delivered, the gate opens, the keeper goes in to the well; noon, F5; half past seven in the evening, dark, the keeper walks home; F9: noon again and the keeper by the well | time passing by itself (an hour a minute: in a demo it stands still between beats); T, an hour on; the errand done by hand with the keeper about: do they get in your way at the gate; standing in the keeper's way; how night looks, and whether it can be played in; the same in the built game (`editor\run.ps1 -Game -Demo keeper`, checked by script) |
+| `stage4` | `editor\run.ps1 -Demo stage4` | the same | |
+| `figure` (12 beats, about 3 min) | `editor\run.ps1 -Demo figure` | the walker with bones, looked at all round; walking and running; crouched, still and going; a jump, a dash, a long jump and its roll, each now lines in `moves.txt`; a jump and a dash again, each as it is and then five times slower, to see the knees bend and the weight go back before it goes; speed gathered and lost, walking and running, with the seconds each took; the dash asked for backward, to the left and to the right, each as it is and then five times slower; a hop written into a copy of that file while it runs, and done; how it stands rewritten the same way, and put back; a greeting; a parcel picked up with E and carried, walking, running, jumping; the keeper, who has the same bones, waving | how the poses look in motion, which pictures do not show: they were written as numbers and looked at in stills. G (or D-pad left) to wave. Changing `editor\godot\poses.txt` or `moves.txt` in an editor while walking, and seeing it at once. Walking up to the keeper by hand. The same in the built game (`editor\run.ps1 -Game -Demo figure`) |
+| `stage5` | `editor\run.ps1 -Demo stage5` | the same | |
+| `items` (10 beats, about 2 min) | `editor\run.ps1 -Demo items` | a lantern and a hatchet left by the road, each offered; E keeps them, and they are listed at the bottom left; 2: the hatchet in the hand; R: it chops, as it is and then five times slower, seen from the side; 1: the lantern instead, the hatchet put away; nine in the evening, R: lit; walked, run and jumped with; F5; put out, put away, the hatchet out, noon; F9: night, the lantern in hand and lit, the hatchet put away | the keys under the hand: 1 to 9, Q (the next thing, and after the last nothing), R; on a controller D-pad right and the right stick pressed. How the chop looks in motion, and the lantern while running and rolling. A dash or a jump out of a chop. E on the parcel with something in the hand (it is put away), and 1 with the parcel carried ("Your hands are full"). A lantern or a hatchet put down in the editor from the palette, then found. Night by lantern, away from the road. The same in the built game (`editor\run.ps1 -Game -Demo items`, checked by script) |
+| `stage6` | `editor\run.ps1 -Demo stage6` | the same | |
+| `style` (10 beats, about 1.5 min) | `editor\run.ps1 -Demo style` | in the editor, the world standing: the island as it is made; F2, summer and then autumn, with how many pieces were made again and how long it took; close to, in the street; F2, highland, from near and far; Ctrl+Z, autumn again; a copy of `styles.txt` rewritten while it runs, the leaves red, and then only the haze, with nothing made again; T, the hour shown moved to noon, five and eight at night with the lamps. Then walked: the afternoon let go at an hour every three seconds, the sun down at five, the lamps lit; F5 at dusk, noon, F9: dusk and the lamps again | F2 and T by hand. `editor\godot\styles.txt` changed in a text editor with the editor open: a colour, a roof's pitch, an hour of the day. How each style looks to the eye, above all highland's haze and the nights; whether night can be played in by the lamps. A day at its own pace, an hour a minute, through a dusk. Ctrl+S in a style, and that world opened again. The same in the built game: `editor\export.ps1 -Style autumn`, then `editor\run.ps1 -Game -Demo style` (three beats there: nothing is edited in a game; checked by script) |
+| `stage7` | `editor\run.ps1 -Demo stage7` | the same | |
+| `loose` (8 beats, about 1.5 min) | `editor\run.ps1 -Demo loose` | by the pen at the road's end: a crate and a barrel that are loose, a plate, a gate; stood on the plate, the gate opens; stepped off, it shuts; the crate pushed onto the plate, and the gate stays open with nobody there; in through it; the barrel pushed, slower, with the speeds each went at; F5, the crate pushed off and the gate shut, F9: the crate on the plate and the gate open | pushing by hand: whether a crate can be got where it is wanted, and whether it is too slow or too quick (`push` in F1). The barrel run into, and rolled down a slope. A crate from the palette (5) put somewhere and pushed. Standing in the gateway while the gate shuts. Things pushed into the sea. The same in the built game (`editor\run.ps1 -Game -Demo loose`, checked by script) |
+| `eyes` (6 beats, about 1 min) | `editor\run.ps1 -Demo eyes` | the eye from behind, as it was; V: from within, looked about and walked; V: from above, walked and run; a copy of `eyes.txt` with a fourth written into it while it runs, close over the shoulder; the keeper followed in place of the walker, from behind and from above; F5 from within, V, F9: from within again | V by hand, and the left stick pressed on a controller. Each eye walked, run, jumped and dashed with; from within indoors, and at night with the lantern; from above in the street and in the woods. `editor\godot\eyes.txt` changed in a text editor while walking: how far back, how wide, how quickly it comes after. The same in the built game (`editor\run.ps1 -Game -Demo eyes`, checked by script) |
+| `stage8` | `editor\run.ps1 -Demo stage8` | both, in that order | |
+| `creatures` (7 beats, about 2 min) | `editor\run.ps1 -Demo creatures` | four sheep behind the houses, each content with bones of its own; left alone, straying and eating; one strolling, with the numbers its set says for itself beside the walker's; come at, one runs and is not caught; the walker given the sheep's set by name: a sheep's stroll, no jump, eating when asked; a copy of `moves.txt` in which sheep stroll at 4 m/s and bolt at 11, read while it runs; F5, the flock run off, F9: each where it stood | how the stroll, the bolt and the eating look in motion: they were written as numbers and looked at in stills. Coming at them by hand, walking and running; herding them somewhere. `editor\godot\poses.sheep.txt` and the `set sheep` lines of `moves.txt` changed in a text editor while watching them. A sheep followed with the eye (a script does it; no key does). Sheep driven into the sea, and onto the plate by the pen. The same in the built game (`editor\run.ps1 -Game -Demo creatures`, checked by script) |
+| `petting` (3 beats, under 1 min) | `editor\run.ps1 -Demo petting` | a sheep come to crouched, which does not run, and offers to be stroked; the act done: the walker goes to stand by it, bends, and their hand is on its back while it stands for it; a copy of `acts.txt` in which the act says the other hand, read while it runs, and done again | E on a sheep by hand: crouch (C) to come near, or stand still and let one come. Whether it reads as stroking. `editor\godot\acts.txt` changed in a text editor while playing: `stands`, `touches`. A sheep put down from the palette and stroked |
+| `boat` (6 beats, about 2 min) | `editor\run.ps1 -Demo boat` | a boat lying off the shore past the road's beginning; the walker offered it, got in, sat, hands on the oars; rowed: way gathered slowly, a stroke for every 2.6 m, round to one side, harder with run held; let go, it runs on; a copy of `moves.txt` in which it turns nearly three times as fast, read while it runs; F5 in it, rowed on, F9: in it again where it was; out of it, beside it | **rowing by hand**, keyboard and controller: is it too slow to turn, too slow to start, does it want to go backward. Run aground and got off again. Got into from the beach and from deep water. Got out of far from shore, and swum back. The eye from within (V) while rowing. A boat put down from the palette on a pond-less hill, and dragged. The `set skiff` lines of `moves.txt` and `poses.skiff.txt` changed while rowing |
+| `controls` (1 beat) | `editor\run.ps1 -Demo controls` | the card of all the controls, for the keyboard and then for a controller | **with a controller plugged in**: that what is shown goes over to it at the first button, and back at the first key; F3; every button on the card under a thumb. Whether the card says what is wanted of it |
+| `vehicle` | `editor\run.ps1 -Demo vehicle` | those three, in that order | |
+| `weather` (6 beats, about 2.5 min) | `editor\run.ps1 -Demo weather` | on a hillside by a tree: clear, and a breeze coming on; overcast, then rain, laid over the light of the hour; a storm, the trees leant and swaying; snow, which is another six lines; by the boat, calm and then rocked by the storm's swell; a copy of `weather.txt` with a gale written into it (dry, harder, from the other side), F5 in it, cleared, F9: the gale again | **the wind in motion**: pictures do not show swaying. N by hand, walking and editing. `editor\godot\weather.txt` changed in a text editor while watching: a colour, `sways`, `falls rain 0.2`, a weather of your own. Rain under a roof and indoors. A storm at night, by the lamps and by lantern. A weather left to last (`lasts 3 then rain`: an hour is a minute). Each weather in each style (F2). The same in the built game (`editor\run.ps1 -Game -Demo weather`) |
+| `stage9` | `editor\run.ps1 -Demo stage9` | all of stage 9: the creatures, those three, then the weather | |
+| `byhand` (7 beats, about 2 min) | `editor\run.ps1 -Demo byhand` | a door opened by its handle, the hand on it as it begins to swing; shut from inside, five times slower; a parcel picked up with both hands, five times slower; put down again where the walker stands; a crate taken hold of and pushed; pulled, and turned about the walker, and let go; a copy of `acts.txt` in which pushing is at a walk and with one hand, read while it runs | **E on a door, under the hand**: is the second it takes too long. A crate got onto the plate by the hands, and round a corner; the barrel taken hold of; something pulled over an edge; pushing uphill. A parcel put down and picked up anywhere; put down in a doorway; E with a parcel in the hands at a door (it opens the door) and at nothing (it puts the parcel down). `acts.txt` changed in a text editor while playing: `stands`, `at`, `pace`, `turns`, `apart`. A controller's Y for all of it |
+| `hub` (5 beats, about 1 min) | `editor\run.ps1 -Demo hub` | the hub opened on the walker: its set, its moves, what asks for each and where each and its poses are written, what it can do with what; a door, and who can open it and why not the others; a crate, which a sheep cannot take hold of for want of hands; the way to where `act open` and the keeper's set are written, shown as the host has them; before a door, the walker's set written by command without `reach`: nothing is offered, and the hub says so and why; the host asked by another program at its second door, and the keeper's set written from there, which the editor has within a second | **F4** by hand, editing and walking: the list, the underlined words, the button that opens the file; a text changed in the text editor it opens, and the hub a second later. `editor\ask.ps1 hub` and `editor\ask.ps1 -Pretty written` in another terminal while the editor is open |
+| `written` (5 beats, about 1 min) | `editor\run.ps1 -Demo written`; in the built game, `editor\run.ps1 -Game -Demo written` | what the host keeps, by name, with how many entries each has, and the walker's set as it answers it; the entry `move jump` asked for and written back by command with its launch doubled: a jump before and after; a move written with a word that means nothing, and the host asked what was not understood; the walker's set written by command without the dash, then the file given again; a copy of `eyes.txt` saved in another folder, as a person saves one, and the eye in it looked through | `moves.txt`, `acts.txt`, `poses.txt`, `eyes.txt`, `weather.txt` changed in a text editor while playing, as before: the next step's, and what is not understood said on the screen. Ctrl+S, then `editor\run.ps1 -Game`: the game goes by what the files said when it was built, with none of them beside it. One of them put beside `Draw3D.exe` and changed while the game runs |
+| `quickstep` (4 beats, about 1.5 min) | `editor\run.ps1 -Demo quickstep` | a quick step to its left and to its right, each as it is and then five times slower, seen from behind; the dodge and then the quick step from the same place, with how far and how long each was; at a run, left and then right, the run going on; a copy of `moves.txt` in which the step to the left covers 4 m, and the step to the right, written as like it, does too | **the step under the hand**, keyboard (Z, X) and controller (LB, RB): is it far enough, quick enough, too quick to see; at a run; twice in a row to one side and to both; into a jump and into a dash. Whether LB and RB for it, and crouch on LT only, is right. The numbers in F1 ("Quick-step") and the lines in `moves.txt` changed while playing. How its poses look in motion: they were written as numbers and looked at in stills |
+| `kinds` (7 beats, about 2 min) | `editor\run.ps1 -Demo kinds` (or `-Demo` alone); in the built game, `editor\run.ps1 -Game -Demo kinds` | a kind of thing written as text (the kinds panel shown with it): a drum of the style's wood that is loose and offers a push; one put down by name; pushed; someone of a new kind, the hopper, with the sheep's bones and the words a sheep says; straying, and running from the walker; come to crouched and stroked; both kinds kept with the world | **the panel under the hand** (F6): New, the text, Apply, a wrong line, Put one down, Duplicate, Delete; the drum's wood changed and the drums following; F7 on a drum and a parameter set; Ctrl+Shift+S and Ctrl+O; `editor\ask.ps1 kinds`; the built game with your kinds in it. The whole manual script is in `Draw3D_Milestone_M1_Brief.md` |
+| `cast` (4 beats, about 1 min) | `editor\run.ps1 -Demo cast` | cast.txt's three kinds added to the world and shown in the kinds' panel; the walker made Wren, seen from before; two cats put down, walked and run away from, and by her again; the black one stroked from a crouch, her knees and elbows bent and her skirt over her legs (parts that bend: M3, first part) | **how she bends in motion** (it was looked at in stills): the skirt as she walks, runs and crouches, the sleeves as she reaches and climbs; **walking as her**: every move the walker has, and how the parts hold together in each (a jump, a roll, a climb); the cats in the village, on a slope, round a house, by the water, with the keeper and the sheep about; stroking each cat; Ctrl+Z after "Walk as this"; a kind of your own "like cat" in another colour |
+| `chosen` (5 beats, about 1.5 min) | `editor\run.ps1 -Demo chosen` (or `-Demo` alone) | in the editor, from above, what is said at the bottom: an island with a street and a wood on its shore; the street chosen in Makers, every house with a blue stroke, the square about them and its line in blue; one house clicked, a yellow frame about it, the bar and Makers saying one of 18; it deleted, the street made again with another seed and the gap kept, then put back from Makers; the wood's ball dragged in to 15 m, and the wood turned 137 degrees on the shore, no tree in the water; the list of what can be added under headings, the boat saying what its line is for | **whether the two are told apart at a glance**: blue for a maker, yellow for one thing |
+| `editing` (5 beats, about 1.5 min) | `editor\run.ps1 -Demo editing` | a rock of a meadow picked and said to be a rock of that meadow, the others of it dim; another of it shown as a green frame and put down by a click; its maker selected from it, and "Move the whole maker" saying how much goes with it; the rock taken away and still the one away when the meadow makes more and reaches further; a boat afloat on the water and one ashore | all of it, by hand: the checklist in the editor |
+| `designs` (5 beats, about 1.5 min) | `editor\run.ps1 -Demo designs` (or `-Demo` alone: it is the latest) | the list of designs, a rock chosen in it; the rock made a kind of the world's, 'boulder'; a wood given boulders and one tree of the six, three parts to one, every place where it was; a boulder of it saying its design and its arrangement; a tree put down from the list, and the wood back to the usual | all of it, by hand: the checklist in the editor |
+| `makers` (6 beats, about 2 min) | `editor\run.ps1 -Demo makers` (or `-Demo` alone) | in the editor, from above, what is said at the bottom: a world begun as an empty island, the Makers window with one maker; a line drawn place by place, a road, and a street added along it; two woods and a meadow, each dragged out where it is to be; one house put down alone, and the flag where a game starts; a wood made twice and the copy taken out, then the road taken out (asked first, saying who reads it), its street empty, and Ctrl+Z bringing it back; Play beginning at the flag. The world it built is left to you, with no file | **all of it** by hand: the checklist in the editor says what, in order, beginning with your own worlds |
+| `playas` (5 beats, about 1.5 min) | `editor\run.ps1 -Demo playas` (or `-Demo` alone) | in the editor, on the village road, what is said at the bottom: Wren put down and picked, the row under the bar offering "Play as this"; it pressed, and her walked (a script holds W); five windows opened and closed at once from the Window list; the inspector opened on the woods from Environment, the count doubled, more trees; a mesh's corner dragged aslant with X chosen, going along x only, the line drawn. When it ends the world has no file: it is the demo's | **all of it** by hand: the checklist in the editor says what, in order |
+| `workspace` (6 beats, about 1.5 min) | `editor\run.ps1 -Demo workspace` | in the editor, the world standing, what is said of each beat at the bottom: the bar and two of its lists, with what cannot be done greyed and why; the inspector and the land's tools as windows, one moved and folded; a roof picked, the row under the bar saying so, "Shape by hand" pressed from it; the reach stepped and then dragged, one number; Play, the bar for playing and the walker's numbers; the list of what to try and the window a new world is asked for in | **all of it**: this is a thing for a hand. The list in the editor (the bar's Checklist) says what, in order |
+| `handles` (6 beats, about 1.5 min) | `editor\run.ps1 -Demo handles` | in the editor, the world standing: a mesh of the world's own and something made of it, taken hold of from the meshes' panel; a corner dragged up, and the line that wrote; a face dragged out and then pushed out on new corners; a roof of the village taken hold of from the inspector, 1,400 corners; the reach, and the corners about one place dragged up as one; its street made again with the roof still held | **all of it under the hand**: this is a thing for a hand, and a script only shows that it holds together. A corner with and without Shift, from several sides; a face; Ctrl on a face; the reach from nothing to several metres on a roof; Ctrl+Z after each; "its text (F6)"; a wall, a window or a door taken hold of the same way; a shape of your own made from a block by dragging alone; Ctrl+Shift+S, Ctrl+O |
+| `roof` (5 beats, about 1 min) | `editor\run.ps1 -Demo roof` (or `-Demo` alone) | in the editor, the world standing: a roof of the village picked, and what the inspector says of it; the button, and the roof written out as a mesh in the panel where meshes are; two lines added and applied, a turret through its ridge; "another seed" on the village: every house another house, this roof still the mesh, its tiles in the new house's colour; the generated shape given back | all of it by hand: the pick, F7, the button, lines of your own at the end of the text, Apply, F6. `push` on a face found by its number. A wall, a window or a door written out the same way. Ctrl+Z step by step. Ctrl+Shift+S, Ctrl+O. Whether a roof that keeps its size on a house made wider is what is expected |
+| `sway` (5 beats, about 1 min) | `editor\run.ps1 -Demo sway` (or `-Demo` alone) | Wren's text with its five `sway` lines; seen from her side, near: she runs and stops twice, the second time at a third of the pace, her hair left behind and going on past her, her hem after her legs; she turns right about, and goes down on her heels; the same run with "sway" at 0, nothing swinging; a cat run from, the end of its tail after it | **all of it, in motion**: this was looked at in stills and by numbers. Every move the walker has, as her; F1 "sway" dragged between 0 and 1 while walking; her lines changed in F6 (`swings 2` on her hair, `within 60`, `wind 3` and N for a storm); a kind of your own with something that swings (an ear on the cat: `sway ear.L on head ...` and the ear's part `bone ear.L`) |
+| `meshes` (6 beats, about 1.5 min) | `editor\run.ps1 -Demo meshes` | a mesh's text in the kinds' panel, with what each line made beside it; three anvils on the road, of two kinds made of the one mesh; a line added to the mesh and all three with a spike; Wren, whose skirt is a mesh and its bands one mesh four times; the skirt written longer and worn at once, walked in and crouched in; what is kept with the world | **writing one yourself**: F6, "New mesh", "A kind of this mesh", "Put one down", then lines added and applied with the thing in view; `turn` for something round (a pot, a hat, a bell), `box` and `push` for something square; `move face N by ...` and `move 3 4 by ...` with the numbers read from beside the text; a line that is wrong, and what is said under the text; Duplicate and Delete on a mesh; Ctrl+Z after each; her skirt's line changed while you walk as her (Tab back to editing first) |
+| `land` (6 beats, about 1.5 min) | `editor\run.ps1 -Demo land` | the land's tools (F8) shown; a brush dragged along a line, the ground rising as it goes; a cliff put down, 6 m, and a ledge 3 m up it; its top painted rock, and what grew there gone; the woods given another seed, every tree elsewhere and the cliff as it was; the walker at its foot: the ledge's edge caught and climbed, then the top's; what is kept with the world | **the brush under the hand**: does the ground follow the pointer closely enough, is a stroke the size you meant, `[ ] - =`; each brush; a cliff turned (`, .`) and put where you want it, and a ledge on it; climbing what you made, and falling off it; a house's ground levelled with flatten; a pond dug with lower, down to the water; F7: `?`, freeze, the road's places; F10: a move changed and taken back. The whole manual script is in `Draw3D_Milestone_M2_Brief.md` |
+| `climb` (6 beats, about 1.5 min) | `editor\run.ps1 -Demo climb` | the yard's wall gone at with a jump: its edge caught on the way up, and hung from, the hands on it; jump, up onto it, as it is and five times slower; walked off its edge, a jump asked just after (it counts) and too long after (it does not); hung again and let go with crouch, hung again and pushed off; a house's wall held to, slid down, and jumped off; a copy of `moves.txt` in which it slides at 0.5 m/s | **all of it under the hand**, keyboard and controller: is an edge caught when it is wanted and not when it is not (it wants a way asked into the wall); the pace of the climb; C to let go; a wall jump from one house to the next; a hang caught from above, having walked off and turned back; up onto a stall, a well, the pen's wall and along it; a roof, if one can be got onto. The numbers in F1 ("Walls and edges") and the four moves in `moves.txt` changed while playing. How it looks in motion |
+
+Any of the others can be shown in the built game too: `editor\run.ps1 -Game -Demo door`.
+
+In the demos F5 and F9 are pressed as key events, not called; so is E, except on a
+sheep or a boat, where the act is begun as the key would begin it. Since the things
+with no body are done with as acts, E in the older demos (`door`, `delivery`, `figure`,
+`items`) begins an act, and the demo waits for it to be over.
+
+Every demo ends with the controls card up (H, or Back on a controller, puts it away),
+shown for whichever of keyboard and controller is used from then on.
+
+---
+
+## Done
+
+### Foundation (before 2026-10-07)
+
+| What | Where | Checked by |
+|---|---|---|
+| Headless core: document, generators and their recorded reads, plans, cooked cells, undo history, stable ids | `core/` | test (`core/tests`, `core/acceptance`) |
+| Host process: the core behind a local socket, one protocol for everything the editor asks | `editor/host/src/lib.rs` | test (`editor/host/tests/protocol.rs`, 10 protocol tests) |
+| Godot adapter (scripts only): shows cooked cells, orbit camera, exact picking | `editor/godot/world_view.gd`, `main.gd`, `link.gd` | tour |
+| 21 architecture and performance review passes | `engine-architecture-review-*.md` | — |
+
+### The playground scene (2026-10-07)
+
+| What | Where | Checked by |
+|---|---|---|
+| Island, route, street of houses, furnishings, woods, meadow, all from generators reading one land shape | `editor/host/src/shapes/land.rs` | tour, test |
+| Sky, sun shadows, fog, water | `editor/godot/main.gd` | tour, hand |
+| Collision bodies for the cells about the walker | `editor/godot/solid.gd` | tour, hand |
+| One table for keys, mouse and controller | `editor/godot/controls.gd` | tour (fake events); no physical controller tried yet |
+| Placing a thing by hand (14 kinds), turning, moving, deleting, undo and redo | host ops `place`, `turn`, `move`, `delete`; `editor/godot/palette.gd` | tour, hand |
+| No faces of one part fighting in the same plane | `editor/host/src/shapes/real.rs` | test (`no_part_has_faces_that_fight`) |
+
+### Stage 1 — character motor (2026-10-07)
+
+| What | Where | Checked by |
+|---|---|---|
+| Intent: person, controller and script all ask the same way | `editor/godot/intent.gd`, `player.gd` | tour |
+| Motor: ground, air, afloat, jump; momentum, turning, skid | `editor/godot/motor.gd` | tour |
+| Jump given as height and times; held longer goes higher; press remembered before landing | `motor.gd` | tour (1.30 m in 0.65 s; tap 0.51 m) |
+| Coyote time | `motor.gd` | tour (`climb`, since there is a way up to an edge: a jump asked 0.05 s after walking off it is a jump; one asked 0.18 s after is not) |
+| Dash, once in the air, leaves momentum | `editor/godot/moves.txt` `dash` (was a script until stage 5) | tour |
+| Long jump from a crouch, landing in a roll | `moves.txt` `long_jump`, `roll` | tour (9.18 m, 1.60 m high, 0.85 s) |
+| Hard landing: recovery, or a roll if crouch is held | `moves.txt` `land`, `roll` | tour (long jump only) |
+| Poses by a table, apart from the moves | `editor/godot/figure.gd` | tour picture |
+| Every number tunable while playing, kept in a file | `editor/godot/tune.gd`, `feel.gd`, `feel.cfg` | tour; **hand: waiting** |
+
+### Stage 1 — state, run mode, save and load (2026-10-07)
+
+| What | Where | Checked by |
+|---|---|---|
+| State layer: facts about a thing (by its stable id) or about the world, apart from the document; every change numbered, so anything can ask what changed since it last looked | `core/src/state.rs` | test (2 unit tests) |
+| Host commands `fact`, `facts`, `save`, `load`, `run`; every answer carries the number of the last change | `editor/host/src/lib.rs` | test (protocol test `p11`) |
+| Edits and undo do not touch facts | same | test (`p11`) |
+| Run mode: walking about (Tab) is the world running; the host refuses anything that would change the document; on stopping, the facts are what they were before | same; `editor/godot/main.gd` `play` | test (`p11`), tour |
+| Saved game = the facts plus the name of the document they were gathered in; kept in `editor/saves/<slot>.json`; loading says if the world was edited since and how many remembered things are gone | same | test (`p11`), tour |
+| Godot side: a copy of the facts with a `changed` signal, the one way one part of a game hears of another | `editor/godot/state.gd` | tour |
+| F5 or K saves and F9 or L loads while walking; the walker’s place and view are a fact | `main.gd` `save_game`, `load_game` | tour, by the key events themselves (walked 6.1 m on, loaded, back to the spot); **hand: works** (failed once, see below) |
+
+Limits, on purpose for now: one save slot is used by the keys (`quick`).
+
+**Save by hand, 2026-10-07.** The user pressed F5, then F9, and was put back at the
+start. The save file on disk was still the one the tour had written: F5 never reached
+the game, and F9 loaded the tour's game. Two things were wrong and are fixed: the tour
+saved into the person's slot (it has its own now, `tour`, and the stale file is gone),
+and the tour called the save function instead of pressing the key (it presses F5 and F9
+now, and that passes). Why the F5 key itself did not arrive is **not found**: the same
+key event, sent by script, saves. K and L were added as second keys for it. If F5 still
+does nothing by hand while K saves, something outside the game takes the key.
+Afterwards the user reported that F5 saves. Nothing about the key was changed between the
+two tries except K and L being added, so the stale file is the likeliest whole cause, and
+the first F5 may have saved after all somewhere it was not looked for. Not known.
+
+### Stage 1 — colliders and traits, interaction, a house to go into (2026-10-07)
+
+| What | Where | Checked by |
+|---|---|---|
+| What a thing is to walk into is said by its content: the realizer's `collider` text (boxes, a slope, a post, or the mesh itself) is sent with each piece of content, and collision is made from it. The adapter's own rules by kind are gone | `editor/host/src/shapes.rs` `solid`; `lib.rs` content frame; `editor/godot/solid.gd` | test (protocol), tour (the whole walk) |
+| What can be done with a thing is said the same way: a `traits` text. One trait so far: `opens`, with its hinge and swing | `shapes.rs` `traits`; `editor/godot/things.gd` | test (protocol), tour |
+| A wall with a doorway: the wall is built around a hole, with the frame, sill and steps its own; the door is only the leaf, a thing of its own | `shapes.rs` `Mesh::hole`, `doorway`, `door`; `shapes/real.rs` | test (`no_part_has_faces_that_fight`), tour pictures |
+| Every house has an inside: a floor level with the sill, a table, the roof's underside for a ceiling | `shapes.rs` `inside`, `House` | tour (walked in, stood on the floor) |
+| Near a door, words offer what can be done; E (or Y on a controller) does it. Opening is putting the fact `open` about that door; how it stands and whether it is in the way follow from the fact | `things.gd`, `main.gd`, `controls.gd` | tour (shut: stopped; opened: walked in; shut from inside: held in); **hand: waiting** |
+| A thing with a fact is drawn where the fact puts it, in the batched view; only while it swings is it a mesh of its own | `world_view.gd` `stirred`, `posed` | tour |
+| An open door is saved and loaded with the game, and shut again when the world stops running | — | tour (saved open, shut it, loaded: open; stopped: none open) |
+
+Limits, on purpose for now: an open door is not solid, and the way through is as wide as
+the frame's outside (0.9 m), so the walker's body can brush the frame. The tour calls the
+function the E key calls; the door demo presses the key.
+
+### Stage 2 — delivery loop v0 (2026-10-07)
+
+| What | Where | Checked by |
+|---|---|---|
+| Four more things a part can say of itself (`traits`): `carried`; `takes NAME x y z` (what is carried can be given to it, and the world's NAME is one more); `when NAME` (not opened by hand: open while the world's NAME holds); `called WORDS` | `editor/host/src/shapes.rs` `traits`, `shapes/real.rs` `prop_traits`; `editor/godot/things.gd` `said` | test (protocol `p10`: the playground says all three), tour |
+| A parcel, a post box, a walled yard and its gate, as content with what is solid of each | `shapes/real.rs` `prop` 11 to 14, `prop_solid` | test (`no_part_has_faces_that_fight`), tour pictures |
+| An errand in the playground: the parcel by the road, the post box 52 m on, the yard past the road's end with a well in it. A generator like the others, on the land and the route | `shapes/land.rs` `Errand`; `lib.rs` `playground` | test (`p10`), tour |
+| Picking up: the fact `where` = "hand" about the parcel. It is left out where it lay and drawn in the walker's hands | `things.gd` `act`, `_moved`, `_show` | tour (`where` is "hand"), demo picture |
+| Delivering: `where` = the place on the box, `holds` about the box, and the world's `delivered` one more. The box offers nothing after | `things.gd` `act` | tour |
+| The gate: locked in words and in the way until the world's `delivered` holds, then it swings open and is walked through. Nothing joins the box and the gate but that name | `things.gd` `pose`, `_opened_by`; `world_view.gd` `posed` | tour (stopped 2.6 m short while locked; walked in after) |
+| For good: saved, the world stopped and started (no facts, gate shut), loaded: delivered, parcel on the box, gate open | — | tour, demo |
+| What is offered is the nearest thing that offers something; a thing with nothing to offer is passed over | `things.gd` `_offer`, `_nearest` | tour |
+
+Checked by `editor\run.ps1 -Tour -Only errand` (and as part of the whole tour). Shown by
+`editor\run.ps1 -Demo delivery`.
+
+Limits, on purpose for now: a parcel cannot be put down again except at a post box
+(it can since the things with no body are done with as acts, after stage 9).
+Carrying changes nothing about how the walker moves. One errand, with no reward but the
+way in. The link between box and gate is a name in their content, not something set in
+the editor. The parcel, post box and gate are not in the list of things put down by hand.
+
+### Stage 3 — standalone export (2026-10-07)
+
+| What | Where | Checked by |
+|---|---|---|
+| The world as a file: the document with the content it keeps, which code it is a project of, and where a game in it starts. Written by the host (`write`), opened by it (`open`) as a new project. Every thing has the id it had, so a game saved in the one is a game of the other | `editor/host/src/lib.rs` `write`, `open` | test (protocol `p12`: same ids, same places, a saved game loads with nothing missing and no "edited since"; what is not a world is refused), tour (`world`: after all the tour's edits, written and opened, the same byte for byte as this side holds it) |
+| The editor keeps its world: Ctrl+S writes `editor\world.json`, and the editor opens it when started by hand. `editor\run.ps1 -Fresh` starts from the playground instead; scripts (tour, demos) always do | `editor/godot/main.gd` `write_world`, `_ready` | run once by script (the notice that it was opened); the key itself by hand |
+| The game: the same scene with no editing in it. It starts the engine host that is beside it on a free port, opens `world.json`, and walks from where the world says. Esc or Tab (Start on a controller) holds it, Q from there leaves; closing it ends the host. Saved games go to the player's own folder | `main.gd` `_game`, `_host`, `hold` | export check |
+| Putting it together: `editor\export.ps1` makes `build\Draw3D-game` (the runtime, the scripts as a pack, the host, the world, the numbers) from a clean copy of the scripts; the editor's folder is not touched | `editor/export.ps1`, `editor/game-export.cfg` | export check |
+| `editor\run.ps1 -Game` (and `game.bat`): the built game, built first if it is missing or older than the scripts, the host or the world | `editor/run.ps1` | run by script with `-Demo standalone -Check` |
+
+The **export check** is `editor\export.ps1 -Check` (results in `build\check.json`, pictures
+in `build\Draw3D-game\demo`): the game is built; in it the delivery is made and saved;
+the game is left; it is started again and the saved game continued (delivered, 4 facts,
+the walker on the ground); no host is left running. Shown by `editor\run.ps1 -Demo stage3`.
+
+**Exported with Godot's export template (2026-10-07, later the same day).** The official
+4.7.2 templates were downloaded (1.28 GB, its checksum the one Godot publishes) and the
+two for 64-bit Windows installed where Godot looks for them. `export.ps1` uses the
+release template with no change to the script, and the export check passes as before:
+
+| | With the editor's program (before) | With the export template (now) |
+|---|---|---|
+| The folder | 176 MB | 108 MB |
+| `Draw3D.exe` | 172 MB, the whole editor | 107 MB, the runtime only |
+| `Draw3D.pck` (the scripts) | 0.2 MB | 0.2 MB |
+| `engine-host.exe` | 3.3 MB | 3.5 MB |
+| Starts, opens the world, delivery made and saved, left, started again and continued, no host left | yes | yes |
+
+How it runs is the same; it was not timed. What the template is not is the editor: there
+is no editing in the program at all now, where before it was only not reached.
+
+One thing the export showed and is fixed: `engine-host.exe` needed the Visual C++
+runtime (`VCRUNTIME140.dll`), which a Windows machine need not have. The host is now
+built with that runtime inside it (`editor/host/.cargo/config.toml`); it and
+`Draw3D.exe` need only what Windows itself has (looked at with `dumpbin`).
+
+The folder to hand on is `build\Draw3D-game`: `Draw3D.exe`, `Draw3D.pck`,
+`engine-host.exe`, `world.json`, `feel.cfg`. All five are needed. (From stage 5 until
+the host kept what is written, `moves.txt`, `poses.txt` and the files like them were
+beside these: they are inside `world.json` now.) A `demo` folder
+beside them is the pictures the check took, and is not. **It has not been run on another
+machine**: that is the one thing here not checked.
+
+Limits:
+
+- Windows only, 64-bit.
+- The host is a second program beside the game, talked to over a local socket, as in the
+  editor. It is not built into the game.
+- The game makes its content when it starts, as the editor does: nothing is made
+  beforehand and shipped. The playground is walkable in a few seconds.
+- Where a game starts is where the editing view looked when the world was written. There
+  is no start that is a thing in the world.
+- The game starts afresh each time; F9 loads. There is no menu, and no choice of saved game.
+- A world written before a generator's code changed has not been opened after it: what
+  the editor says then is not known.
+- F1 (the numbers) works in the game and keeps them in the game's folder.
+
+### Stage 4 — navigation and the clock (2026-10-07)
+
+| What | Where | Checked by |
+|---|---|---|
+| The time of day: counted while the world runs, an hour a minute. What the world knows of it is one fact, `time`, put each time the hour turns and when the game is saved. A world starts at 09:00, and is back there when it stops running | `editor/godot/clock.gd` | tour (`keeper`), demo |
+| The sun goes over by it (up at 6, down at 18), and the light with it; by night a moon's worth of light | `clock.gd` `_light` | tour and demo pictures |
+| T: an hour on, while walking. The time is on the screen | `controls.gd`, `main.gd` | **hand: waiting** |
+| The ways there are to walk: made from what is solid, a cell at a time, by Godot's navigation baker on a thread of its own, and only where someone who goes by themselves needs them. Never saved. Water too deep to wade is no way | `editor/godot/nav.gd`; `solid.gd` `body_of` | tour (12 cells for the keeper's walk, 24 to 29 ms each off the main thread; gathering a cell's solids about 2 ms on it) |
+| When what is solid in a cell changes, its ways are made again and whoever had a way planned plans again. A shut gate is a wall and an open one a way through, with nothing said about gates | `nav.gd` `_process`, `changed`; `solid.gd` `changed` | tour (kept out; the gate opens, 2 cells made again, by the well 4.2 s later) |
+| Two more things a part can say of itself: `someone` (it has a body and goes about by itself), `goes HOUR x z` (from that hour it is to be there) | `editor/host/src/shapes.rs` `traits`; `things.gd` `said` | test (protocol `p10`) |
+| The keeper: lives by the road, is to be by the well in the yard from 7 and at home from 19. Part of the errand's generator, on the land and the route like the rest | `shapes/land.rs` `Errand`; `shapes/real.rs` prop 15 | test (`p10`), tour |
+| Others have the walker's body: the same motor by the same numbers, the same figure, asked by the same `intent`. What decides where to be (the hour) and which way (the ways) only fills the intent in | `editor/godot/body.gd`, `folk.gd`; `figure.gd` (a colour) | tour (walked 33.7 m to the gate) |
+| Bodies for the cells about each of them, not only about the walker | `solid.gd` `also` | tour |
+| Where each stands is a fact (`stands`) put when the game is saved; loaded, they are there and it is that time | `folk.gd` `saving`, `loaded`; `main.gd` | tour (saved by the well in the morning, sent home at night, loaded: morning, by the well, 0.0 m off) |
+| The game held: nobody moves and no time passes. The world stopped: no bodies, no ways, 09:00, no facts | `folk.gd`, `clock.gd` | tour |
+
+Checked by `editor\run.ps1 -Tour -Only keeper` (and as the last walk of the whole tour).
+Shown by `editor\run.ps1 -Demo`.
+
+Limits, on purpose for now:
+
+- One person, with two lines of routine, by the hour. The routine is written by the
+  generator; it cannot be set in the editor, and the keeper is not in the list of things
+  put down by hand.
+- They walk, and nothing else: no running, jumping or swimming, no doors opened (a shut
+  door is a wall to them), nothing picked up. Bodies stop one another; stopped, they try
+  to step round (since stage 6, see there), but do not plan a way round the walker or
+  each other.
+- Kept out, they stand as near as they can get and try again every two seconds and
+  whenever the ways change.
+- Ways are made for those who go by themselves, not for the walker, and only for the
+  cells between where one is and where they are going, and one cell more all round.
+- A cell's ways are made again whole when anything solid in it changes.
+- The time stands still while a script has the editor (tour, demo), unless the script
+  moves it: what a script sees must not depend on how long it took. (Since stage 7 the
+  tour lets it pass by itself, at an hour a second, and checks that.)
+- Every world starts at 09:00; the world file does not say.
+- A routine is acted on when the hour turns, not between.
+- Someone exists only while the world runs, and only when their cell has arrived (in the
+  playground all have).
+- Night was a stand-in until stage 7: darker, bluer, no lamp lit. Since then it is what
+  the world's style writes for it, and the lamps light (see there).
+- Running the world without a walker in it (to watch it) is not built.
+
+### Stage 5 — a rigged character, moves as data (2026-10-08)
+
+| What | Where | Checked by |
+|---|---|---|
+| A person is content: a mesh, seventeen bones, and for every corner of the mesh the bones that move it, made by the project's code in the host like a house. Two more outputs of the realizer cross with the mesh: `rig` (a text: the bones, and the places on them that mean something: where it treads, where what it carries is held, its hands, its head) and `skin` | `editor/host/src/shapes/real.rs` `person`, `person_rig`, `BONES`; `shapes.rs` `Mesh::bind`, `outputs`; `lib.rs` content frame | test (`a_person_is_held_together_by_its_bones`; protocol `p10`: the keeper has a rig of 17 bones and a skin for every corner) |
+| Content asked for by itself, for what is not a thing in the world: the command `made` (a kind and what is asked of it; the realizer's outputs come back). The walker is made so. It may be asked while the world runs | `lib.rs` `made`; `editor/godot/main.gd` `_dress`, `player.gd` `dress` | test (`p10`) |
+| The figure: bones built from the rig, the mesh skinned to them, posed each frame from what the motor says it is doing. On the ground its feet are on the ground however it is bent: nothing says how high it stands. A landing bends it, the harder the more | `editor/godot/figure.gd` | tour (`figured`: 17 bones; feet at 0.000 m standing and crouched; crouched, the head 0.40 m lower), demo pictures |
+| Poses are written, not coded: `poses.txt`, a line a bone. Held still, or gone round by the metre (walk, run, sneak), by the second (treading water, a wave) or once through a move's phase (a long jump's flight); a half written and mirrored; a pose laid over another (carrying). Read again whenever the file is saved | `editor/godot/poses.txt`, `poses.gd`, `book.gd` | tour (nothing in it not understood; a pose laid over standing raises the hand), demo (rewritten while it runs) |
+| Moves are written, not coded: `moves.txt`. A move says what asks for it, when it can begin, and its phases, each a few words (`covers`, `launch`, `hangs`, `aims`, `lets`, `lands`...). One script does what the words say for every move; the four scripts in `moves/` are gone, and the jump is a move like the rest. Read again whenever the file is saved; a line not understood is said, with its number | `editor/godot/moves.txt`, `moveset.gd`, `move.gd`, `motor.gd` | tour (`moves`: the same numbers as before from the scripts: 1.30 m in 0.65 s; tap 0.51 m; dash 5.15 m in 0.20 s; long jump 9.18 m, 1.60 m high, 0.85 s, rolled; an air dash once) |
+| A move written while it runs: in a copy of the file, a hop that did not exist is done as written, the jump written twice as high is twice as high, and a line that means nothing is complained of, once | `tour.gd` `figured` | tour (0.60 m; 2.60 m; 1 complaint) |
+| Who has which moves is said by content: `moves NAME`, a set in `moves.txt`. The walker has all of them, the keeper one | `shapes.rs` `traits`; `motor.gd` `mine`; `folk.gd` | test (`p10`), tour (`keeper`) |
+| A move is asked for with a button named in the file, or by its name by whoever steers the body: a key, a script, or whatever decides for someone else | `intent.gd` `held`, `act`; `motor.gd` `_can` | tour (waved, asked by name; it ended by itself) |
+| A greeting: G, or D-pad left. A move that does nothing but stand and be seen | `moves.txt` `wave`, `poses.txt` `wave`, `controls.gd` | tour; the key: **hand: waiting** |
+| The keeper has the same bones, poses and motor, their own clothes and their own set of moves, and waves to the walker who comes within 5 m while they stand | `folk.gd` `_steer`; `body.gd` | tour (`keeper`: 17 bones, has only `wave`, waved), demo |
+| What is carried is held at the place the rig calls `carry`, and the arms go under it whatever the legs do | `things.gd` `_show`, `_moved`; `figure.gd` `hold`, `over` | demo pictures; the errand's tour as before |
+| The game on its own has the two files beside it, and reads them the same way | `editor/export.ps1`, `run.ps1` | export check |
+
+Checked by `editor\run.ps1 -Tour -Only moves` (and as part of the whole tour, with the
+keeper's part). Shown by `editor\run.ps1 -Demo`.
+
+Asked for after it was played (2026-10-08): the jump and the dash each to be seen
+pushing off, written in the two files and not in a script.
+
+| What | Where | Checked by |
+|---|---|---|
+| A jump bends its knees first: a phase `gather` of `jump_gather` (0.08 s, in the panel) on the ground, going as it was; none when it jumps off an edge. Its pose lets it down 0.39 m; then the way up is three poses gone through as it rises: pushed off straight with the arms thrown up, stretched, gathered in | `moves.txt` `jump`; `poses.txt` `jump/gather`, `jump/rise`; `tune.gd` | tour (`figure`: head down 0.39 m, on the ground 0.07 s; `moves`: 1.30 m in 0.65 s, tap 0.51 m, running 5.67 m: as before), demo pictures |
+| A dash shifts its weight back first: `dash_pause_ground` is 0.06 s (it was 0; the phase was there). Then kicked off one leg, flat out, and coming upright: four poses gone through as the distance is covered | `poses.txt` `dash/gather`, `dash/go`; `feel.cfg` | tour (5.15 m, out at 8.8 m/s: as before; 0.25 s from the press, was 0.20), demo pictures |
+
+What it took besides the two files and a number: how far through a phase that only says
+`launch` is (so a pose can go by the way up), one line in `move.gd`; and the figure is
+let down quicker than it is raised, one line in `figure.gd`. No new word.
+
+Asked for next (2026-10-08): speed gathered and lost, a run that is not a quick walk,
+and the dash to any side.
+
+| What | Where | Checked by |
+|---|---|---|
+| Walking and running gather speed and lose it in a moment, not at once: `accel` 20 (was 30), `brake` 24 (was 36); and turning has a little more weight: `turn_rate` 520 (was 620), `skid_brake` 48 (was 60). Numbers only; the top speeds are as they were | `tune.gd`, `feel.cfg` | tour (`moves`: walking 0.22 s to its speed, 0.18 s and 0.37 m to stand; running 0.42 s, and 0.37 s and 1.44 m) |
+| Running is its own gait: leant into, a stride of 4.4 m (was 3.4), three poses a step (strike, weight under, drive off) with the knee high in front and the heel behind, elbows bent and pumping, shoulders against hips. Walking is smaller and level | `poses.txt` `walk`, `run` | demo pictures |
+| The dash with a way asked that is not the way it faces is a dodge: one move, which goes the way asked without turning to it: gathered, 3.6 m in 0.3 s, down on bent knees for 0.1 s; a jump may cut in late. Backward it goes over backward, to a side over sideways; the right is the left written once and mirrored. Ahead and in the air it is the dash as before | `moves.txt` `dodge`; `poses.txt` `dodge/...`; `tune.gd` (Dodge) | tour (`moves`: back, left, right each 3.75 m, 0 degrees off the way asked, not turned, its own pose seen), demo pictures |
+| The saved games there were before still load (one from before stage 5, one from stage 5), and the walker stands where they say | `tour.gd` `old_saves` | `editor\run.ps1 -Tour -Only saves` (the older one says the world was edited since, which it was) |
+
+What it took besides the two files and the numbers, each the least that would do:
+`when ... away` (a way is asked that is not the way it faces), in `motor.gd` and
+`moveset.gd`; `faces same` on a move (it does not turn to the way it goes), and the
+motor then says which side the move goes to, which a pose may be named for
+(`dodge/go/back`), in `move.gd`, `motor.gd`, `figure.gd`; in `poses.txt`, `wheel N`
+(over sideways, as `tumble` is head over heels) and `mirror NAME as OTHER`.
+
+What the two files could not say, and was left unsaid rather than coded round:
+
+- The plain ways (standing, walking, running, turning, the air) are the motor's, with
+  numbers. How speed is gathered is a number, not a line in `moves.txt`.
+- A pose knows what is being done and how far along, not how fast the body is gaining
+  or losing speed or turning: no leaning into a start, a stop or a bend. Walk and run
+  are two poses with a line between them at 1.15 of walking speed, not one gait that
+  grows.
+- A pose that turns over is held at one height (`lift`); it cannot rise and come down.
+- Which side a dodge goes to is by the way the body faces, and the body turns to the
+  way it walks: so a side or a back dodge is got by asking a new way and the dash
+  together (or within the turn). Nothing holds the facing (no aim, no lock).
+- A move has one set of numbers: back and side dodges go the same distance in the
+  same time.
+- Feet slide: a stride is by the metre, but nothing puts a foot where it trod.
+
+Known of it: while the knees bend the way it goes is not steered (0.08 s); a jump let
+go before it has left the ground is cut from the start, 0.43 m, a little under a tap's
+0.51 m; the tour's controller part waits 8 steps for the jump, not 4. Once, in one
+whole tour of three, the keeper's part stopped on a body that was gone (`tour.gd`,
+after the gate opens); not seen again, not explained.
+
+What the motor does was not changed, with two exceptions: crouched and going is called
+`sneak` (it was `crouch` whether still or going), and a move ends if the body is in water
+deep enough to float (a long jump into the sea went on to the bottom).
+
+Limits, on purpose for now:
+
+- One kind of body: a person. A rig is a text and a creature could have another, but
+  `poses.txt` is the one file, written for these bones.
+- The walker is still not a thing in the world: who they are is asked of the host when
+  the editor or the game starts, and is always the same.
+- No bone reaches for anything: feet are put on the ground by raising or lowering the
+  whole figure, level ground or not; hands do not close on what is carried.
+- A pose goes to the next evenly, and what is doing now eases to what is done next at
+  one speed for the whole body. Nothing of the body moves by itself (cloth, hair).
+- The poses were written as numbers and looked at in still pictures. They are a first
+  set, to be changed by whoever watches them move.
+- A phase's words are the ones the five moves needed. A move that needs another word
+  needs it added to `move.gd` and `moveset.gd`.
+- The numbers a move names are still the table in `tune.gd` (so the panel, F1, changes
+  them); a number written out in `moves.txt` is not in the panel.
+- The keeper waves, and nothing else: no work done by the well.
+- The moves and poses are files of the Godot side. The host does not know them, and a
+  saved game does not say which were in force.
+
+### Stage 6 — items (2026-10-08)
+
+A thing to be kept is a thing in the world like any other: content, which says of itself
+what can be done with it, and facts about it once something has been. There is no list
+of items anywhere, and no script knows of a lantern or a hatchet.
+
+| What | Where | Checked by |
+|---|---|---|
+| Five more things a part can say of itself (`traits`): `kept` (it can be picked up and kept); `held PLACE x y z [POSE]` (taken out, that point of it is at that place of whoever has it, a point of their rig, and they hold themselves so); `hangs` (held, it hangs upright); `lights r g b far x y z` (used, it is lit; used again, not); `does MOVE` (used, whoever holds it does that move) | `editor/host/src/shapes.rs` `traits`, `shapes/real.rs` `prop_traits`; `editor/godot/things.gd` `said` | test (protocol `p10`: two things say `kept` and where they are held, one lights, one does `chop`), tour |
+| A lantern and a hatchet, as content; neither is in the way | `shapes/real.rs` `prop` 16, 17 | test (`no_part_has_faces_that_fight`), tour and demo pictures |
+| Where they are found: left beside the road, by a generator of their own, on the land and the route like the rest. Both can also be put down by hand: they are in the palette (16 things now) | `shapes/land.rs` `Finds`, `PLACEABLE`; `lib.rs` `playground` | test (`p10`), tour; the palette's two new lines: **hand: waiting** |
+| Keeping: E near one. The fact `where` about it is "kept", and `found` the how-manieth it was. It is left out where it lay | `things.gd` `act`, `_moved` | tour (`items`) |
+| What is kept is listed at the bottom left while walking, in the order it was found, the one in the hand in brackets | `things.gd` `kept`, `kept_words`; `main.gd` | tour (the words), demo pictures |
+| In the hand: 1 to 9 takes that one out (`where` is "held"), or puts it away if it is the one out; Q, or D-pad right, the next, and after the last nothing. One at a time: what was out is put away. It is drawn at the rig's `hand.R`, by the point it says it is held by; a lantern hangs upright from there, and the arm holds it clear of the leg by a pose laid over the rest, as carrying is | `things.gd` `take_out`, `next_out`, `put_away`, `_show`, `_held_so`; `controls.gd`; `poses.txt` `hold` | tour (0.00 m from the hand, upright), demo (the keys themselves) |
+| Used: R, or the right stick pressed. A lantern is lit or put out: the fact `lit` about it, and while it is in the hand a light and a glow where it says. Put away, it is put out | `things.gd` `use`, `_lit` | tour, demo pictures by night |
+| Used, a hatchet asks its holder for a move by name. The move and how it looks are written like the others, and nothing has a button for it | `things.gd` `use`; `player.gd` `ask_for`; `moves.txt` `chop`; `poses.txt` `chop` | tour (asked, done), demo pictures (slowly, from the side) |
+| Something carried wants both hands: picking up the parcel puts away what was in one, and nothing is taken out while it is carried | `things.gd` `act`, `take_out` | tour ("Your hands are full") |
+| Saved and loaded with the game, because it is all facts: what is kept, which is in the hand, whether it is lit. A world that stops running has nothing kept, and both lie by the road again | — | tour (saved with the lantern in hand and lit; changed; loaded: as saved. Stopped: no facts), demo |
+
+Checked by `editor\run.ps1 -Tour -Only items` (and as part of the whole tour). Shown by
+`editor\run.ps1 -Demo`.
+
+Of the roadmap's list for this part (section 7) that is: definitions (content), instances
+(things, by their ids), an inventory, equipment in one place, use, the saved state, a
+prompt, a notice, and a first line of HUD. Not touched: containers, trading, attachments,
+menus, an inventory screen, remapping, and everything there about the editor's own UI.
+
+Limits, on purpose for now:
+
+- Only the walker keeps things. `where` = "kept" does not say whose: the keeper has no
+  pockets, and nothing is given to anyone.
+- A thing kept cannot be put down again. (Nor can the parcel, except on a post box.)
+- One place to hold a thing, the right hand, though the trait names the place. Nothing
+  is worn.
+- What is kept has no limit, weight or kind; keys take out the first nine.
+- A thing has one use, and using it is the same key whatever it is. Nothing is used up,
+  and nothing is used *on* something (a key in a lock, the hatchet on a tree: the chop
+  only looks, as the greeting does).
+- The lantern lights only while it is in the hand. (A lamp post in the street lights
+  when it is dark, since stage 7.)
+- The lantern's light casts no shadows.
+- The list is words. There is no picture of a thing, and no screen to open.
+- The chop's poses were written as numbers and looked at in stills, like the rest.
+- What is held goes with the hand bone, stiffly; the fingers do not close on it.
+
+Found on the way, and fixed: the keeper did not always go home at night. In two runs of
+three they set off from the well and stopped dead a metre on, beside something solid in
+the yard that the ways run within a hand of (likely the stone the meadow leaves there, a
+known gap below; which thing it is was not looked at), asked to go and not going. It is nothing of stage 6: where they come to stand by
+the well differs by a few centimetres from run to run, and that decides it. Someone who
+is asked to go and is not going now steps round, to one side and then the other
+(`folk.gd` `_steer`, `STUCK`, `ROUND`). After it: home in four runs of four of
+`-Tour -Only keeper`, and in the whole tour. So they also try to step round the walker
+now, where before they stood; that is not checked by anything. Why a body pressed
+against that edge does not slide along it is not found: it reports only the ground
+under it.
+
+Found on the way, not fixed: the host's protocol tests, run together as `cargo test`
+runs them, now and then fail in the tests of the rows of houses (`p01`, `p03`, `p04`,
+`p11` seen: a thing or a generator that should be there is not). Run one at a time
+(`cargo test --release -- --test-threads=1`) all 12 pass, every time tried. The tests
+share the process's knobs for slow content and slow planning, which is the likeliest
+cause; not looked into further.
+
+### Stage 7 — style and time of day (2026-10-08)
+
+A style is what a world is like to look at, and what is made in it for that reason. It is
+written by a person as lines of text, kept in the world's document, read by whatever
+makes things, and it says what the air and the light are like through the day. No script
+and no generator knows of a style by name.
+
+| What | Where | Checked by |
+|---|---|---|
+| Styles are written: `styles.txt`, a line a thing (`wall`, `roofs`, `pitch`, `storeys`, `leaves`, `pines`, `woods`, `meadow`, `grass`, `day`, `moon`, `at HOUR sky sun fog fill`...; the file's head says them all). `like NAME` makes one from another. A line not understood is said, with its number, and left out. Three are written: `summer` (the world as it is made, written out), `autumn`, `highland` | `editor/godot/styles.txt`; `editor/host/src/shapes/style.rs` `read`, `check` | test (2 unit tests: what is wrong in a file is said, line by line; `like`), tour (`style`: a line that means nothing is told to the person, and the rest holds) |
+| The style a world has is in its document, as assets: its name, and the lines of each of six groups (`build`, `wild`, `ground`, `village`, `growth`, `air`). So it is undone and redone like any edit, written out with the world, and a game needs no file of styles. Host command `style` (a file, a name; no name lists; the name "" is no style) | `style.rs` `assets`; `editor/host/src/lib.rs` `style` | test (protocol `p13`: undone; written to a world file and opened; the same again is no edit; refused while the world runs), tour (five steps undone leave the world byte for byte as it was made) |
+| What is made reads the style for itself. A generator reads the group it goes by: how high houses are built (`storeys`), how many trees are pines and how thick the woods, what a meadow is made of. What is there changes, not only its colour | `shapes/land.rs` `styled`, `Street`, `Woods`, `Meadow` | test (`p13`: a meadow of rocks: no grass, flowers or bushes, three times the rocks), tour (highland: rocks 272 to 808, flowers 367 to 92, trees 232 to 347) |
+| What a thing looks like is the look it is built with: colours for walls, trim, stone, wood, roofs, panes, bark, leaves, greens, blooms, rock and the ground, and how steep a roof is. The realizer is given the part of the style its kind is made from. With no style every part is exactly what it was | `style.rs` `Look`; `shapes.rs` `Mesh.look`, `made_from`, `shape_in`; `shapes/real.rs`, `land.rs` | test (`p13`: every kind made of other content under a style, and of the same again with none; `no_part_has_faces_that_fight` as before), tour (autumn trees redder than green; highland roofs 7.17 m to 8.18 m on walls 3.4 m to 2.8 m), pictures |
+| **A change to the core**, which making this showed was needed: a generator says which of the document's assets its leaves are made from beside their briefs (`Generator::leaf_assets`). They are part of the request for a leaf's content and of what its scope is remembered by. Before, only a plan could read an asset, so a style could reach a thing only by being handed down through every brief on the way, which a generator that knows of no style (the prototype's facade, which makes the windows and the door) does not do | `core/src/plan.rs`, `core/src/build.rs` `expand` | test (`p13`: a facade's windows and door are made again under a style; core and acceptance tests as before) |
+| Only what is made from the part that changed is made again. The air alone: nothing, and nothing is sent. The leaves: the woods and the meadow, and no house, nor the ground | the core's record of what each scope read | test (`p13`: 0 cells, 0 pieces, 0 owners built; then at most 2 owners), tour (the same, through the file rewritten) |
+| In the editor: F2 gives the world the next style in the file, and after the last none. The file is read again when what is written in it changes, and the world's style with it | `editor/godot/main.gd` `restyle`, `next_style`, `_styles_changed` | tour (a copy of the file rewritten three times while the editor runs), demo (the key itself) |
+| The air and the light by the hour, from the style: where the sun comes up and goes down, its colour and strength, the sky overhead and at the horizon, the haze, the light in the shade, the sea, the moon. Written for some hours; between two, between the two. The host says with every answer which style's air the world has, and the Godot side asks for it when that is another | `editor/godot/air.gd`, `clock.gd` `_light`; `lib.rs` `air`, `status` | tour (at ten in autumn the sky, the haze, the sun's colour and strength and the light in the shade are what `styles.txt` writes for ten, to the digit) |
+| Time passing by itself is checked now: let go at an hour a second, 7.6 hours in 7.6 s, the hour told as a fact each time it turned (7 times) | `clock.gd` `let_run`, `day_s` | tour |
+| Dark: while the sun is down the world's fact `dark` holds. It is saved with the game like any fact | `clock.gd` `_process` | tour (told at 17:00 in autumn, whose sun goes down at 17) |
+| Street lamps light when it is dark. A lamp says `lights ...` (the word the lantern of stage 6 says) and `when dark` (the word the gate says of `delivered`): lit for as long as that holds. Nothing joins the clock and a lamp but the name | `shapes/real.rs` `prop_traits` 5; `editor/godot/things.gd` `world_says`, `_lamps`, `_glow` | test (`p13` builds with it; the realizer's version went up), tour (13 lit at dusk, none by day), pictures |
+| The hour shown while the world stands: T, an hour on. A look, to see a style through its day; no fact is put, and a world that starts running starts at nine | `clock.gd` `peek`, `reset`; `main.gd` | tour (20:00 shown: 13 lamps, 0 facts; then running: 09:00, no lamps) |
+| Saved and loaded: the hour, the dark and the lamps as they were. A game saved under one style and loaded under another says the world was edited since: the style is the document's | — | tour (saved at 17:36, noon, loaded: 17:36, dark, lamps lit, "edited since" not said; under highland: said), test (`p13`) |
+| The built game: the world written in a style has it, with no file of styles beside it. `editor\export.ps1 -Style autumn` builds the game with the playground in that style | `editor/export.ps1`; `main.gd` `--style` | run by script: `export.ps1 -Style autumn`, then `run.ps1 -Game -Demo style -Check` (the style is autumn; dark at 17:00; 13 lamps; saved, noon, loaded as saved; no host left running); `export.ps1 -Check` as before on the world as it is made |
+
+Checked by `editor\run.ps1 -Tour -Only style` (and as part of the whole tour, which has no
+problems). Shown by `editor\run.ps1 -Demo`.
+
+Measured there: the whole island given another style in 17 to 23 ms of the core's time;
+7 owners built (21 where things had been put down by hand); 273 to 288 pieces of content
+made again, all of it arrived and drawn 0.16 to 0.19 s after it was asked. At dusk in
+autumn with 13 lamps lit, a frame 0.95 ms.
+
+Of the roadmap's list for this part (sections 4 and 5): a day and night, light by the
+time of day, fog, sky, explicit style definitions with parameters, one for the whole
+world, edited while it runs, read by generators and not only by what draws, influencing
+what is made and how often, the proportions of buildings, what grows, palettes, and the
+mood of light and fog; more than one style that is not the same things in other colours.
+Not touched: weather, seasons as such, particles, sound, a style for part of a world,
+styles for people and creatures, effects, another way of drawing (outlines, cel shading).
+
+**What it showed about the architecture**
+
+- Leaves could not read what the document shares (above). Fixed in the core, in general:
+  nothing in it knows of styles.
+- A style is assets of the document, not a node in it. That fits what it is (it stands
+  nowhere and makes nothing), and it is why nothing had to be connected to anything. But
+  assets are the whole world's: **a style for a part of a world has nowhere to be said.**
+  It would need assets that hold for a node and what is under it, or a region.
+- What is remade goes by group, not by line: a rock is made again when the leaves
+  change, because both are made from `wild`. Six groups was the least that kept the air,
+  the houses, what grows and the ground apart.
+- The same numbers are written in three places: the look every part has with no style
+  is constants in the host's code, the air with no style is a text in `air.gd`, and
+  `summer` in `styles.txt` writes both out again. A world with no style could instead be
+  given `summer` when it is made; it is not, so that the world as it is made, and games
+  saved in it before this stage, are what they were.
+- The air does not come to the Godot side as content does, but by a command of its own,
+  asked when the host says the style is another. It is the first thing of the document
+  that is neither a thing in a cell nor a fact.
+- The file of styles belongs to the editor, not to a world. A world keeps a copy of the
+  style it was given, under its name: if the file is changed while that world is not
+  open, the world has the old lines and nothing says so. Opened in the editor it is
+  brought up to date only when the file is next saved, or with F2.
+
+Limits, on purpose for now:
+
+- Three styles, written blind as numbers and looked at in pictures. Highland's haze and
+  autumn's nights most want a person's eye.
+- A style is chosen with one key, in the order of the file. There is nothing to edit one
+  with in the editor but a text editor beside it. Every save of the file that changes
+  the world's style is a step of undo.
+- A look is colours and one proportion (a roof's pitch); a village goes by one number
+  (how high its houses are built). Houses are not otherwise built differently: the same
+  timbers, the same windows.
+- Not made from the style: people, the parcel, the post box, the yard's walls, what is
+  kept, iron, and a lamp's own light. Rocks put down by hand in the old rows of houses.
+- Every world starts at nine, and a day is twenty-four minutes: neither is the style's
+  or the world's to say. Only `dark` follows from the hour: a thing cannot say "from
+  seven".
+- The keeper goes by the hour, not by the dark: in highland, where the sun is down at
+  16, they walk home in the dark at 19.
+- Lamps are lit in the cells about the eye (three each way), without shadows. The
+  lantern by a door is part of its wall and does not light. Windows do not glow, and a
+  room by night is as dark as the street.
+- The sky is Godot's own, in two colours: no clouds, no stars, no moon to be seen, and
+  the sun is where the light comes from but hardly a thing in the sky.
+- Shown at another hour while the world stands, the lamps follow, but nobody is about:
+  folk exist only while it runs.
+
+Found on the way, not explained: `editor\run.ps1 -Demo keeper -Check` ended with the
+keeper not home at night in 2 runs of 10 after this stage, and in none of 7 with the
+host and scripts of stage 6. In it the walker stands five metres from the keeper's
+house when they come home, which is the weakness stage 4 names (bodies do not plan a
+way round one another). The tour's keeper part, where the walker is elsewhere, passed 4
+runs of 4. Nothing of this stage touches how anyone walks, and what differs was not
+found: it may be chance.
+
+### Stage 8 — physics, and a second eye (2026-10-08)
+
+Two things. Things that are fixed to nothing, moved by Godot's physics, and what comes
+of where they lie made into facts the rest of the game goes by. And the eye the world is
+seen through made into something written, of which there are now three.
+
+**What is loose**
+
+| What | Where | Checked by |
+|---|---|---|
+| A thing says it is loose, and what it weighs: `loose KG`, a line of its content beside its mesh, as what can be done with a thing is. A barrel (40 kg) and a crate (25 kg) say so: every one in the world, the street's and those put down by hand too. A barrel is round to walk into (`post`), so on its side it rolls | `editor/host/src/shapes/real.rs` `prop_traits`; `shapes.rs` `solid`, `traits` | test (`p10`: at least four say it, each with a shape, a barrel's round) |
+| While the world runs, each loose thing in the cells that have bodies is a rigid body in Godot's physics, made from the same shapes it is walked into by, and drawn by that body. As it was made it stands still until something moves it (whoever pushes it, or something loose that comes by moving). Nothing here moves it: it falls, slides, tips and rolls as Godot has it | `editor/godot/loose.gd` | tour (`loose`: 19 bodies by the pen; the crate stands exactly as made, held; let go, a crate knocked at 5 m/s lands 2.5 m off) |
+| Whoever has a body pushes what it walks into, the way it wanted to go: toward the speed it wanted, as hard as it pushes (`push`, one of the numbers, 500 N) and less hard the nearer the thing is to that speed. So what is heavier goes slower, and what is too heavy does not go. It is the motor's, so the keeper pushes as the walker does | `editor/godot/motor.gd` `_push`; `tune.gd` `push` | tour (walking at 4.4 m/s: the crate up to 2.8 m/s, the barrel 0.5 m/s; pushed with 40 N the barrel moves 0.0 m) |
+| A plate says a name while enough stands on it: `pressed NAME KG w d`. What is loose counts by its weight, whoever walks as 70 kg. The world's NAME is a fact put when that changes (after 0.2 s of it), like any other | `real.rs` prop 18; `loose.gd` `_plate`, `weight_on` | tour (stood on: 70 kg, `pressed` holds; stepped off: gone; the crate on it: 25 kg, holds with nobody there) |
+| A gate goes by it: the gate of stage 2 says `when delivered`; this one is the same gate with another name in its brief (`fact`), `when pressed`. Nothing joins the plate and the gate but the name. So what comes of physics opens a way, for the walker and for whoever plans a way by what is solid | `real.rs` `prop_traits` 14; `editor/host/src/shapes/land.rs` `Pen` | test (`p10`: a plate that is not in the way, a gate that goes by it), tour (the gate open while the plate is pressed, shut when not, each way) |
+| A pen beside the yard at the road's end, to show it: walls, the gate, the plate before it, a crate and a barrel to push, and stores inside. A generator of the project's, like the errand's | `land.rs` `Pen`; `editor/host/src/lib.rs` `playground` | tour, demo |
+| Saved and loaded: where each loose thing lies that is not where it was made is a fact about it (`rests`: a place and how it is turned), put when the game is saved, as where the keeper stands is. Loaded, it lies there, at rest; the plate under it says so again, and the gate is open | `loose.gd` `saving`, `loaded` | tour (saved with the crate on the plate; knocked 2.5 m off, the gate shut; loaded: within 1 cm of where it lay, `pressed`, the gate open) |
+| Left far behind, a loose thing is no body: it is drawn where it lay by the view, as an open door is drawn open. Come back to, it is a body there again | `loose.gd` `_look`, `_draw_lying`; `things.gd` `pose` | tour (`-Only loose`: a barrel in the street knocked 1.4 m, left 99 m behind, and come back to) |
+| The world stopped: every loose thing is where it was made, and nothing is said of any | `loose.gd` `clear` | tour (0 facts, 0 bodies, nothing drawn otherwise than made; started again, the crate as made) |
+| The physics is Jolt now (`project.godot`). With Godot's own, a round barrel that had come to rest was not woken by being pushed, in some runs and not in others. How the walker moves came out the same to the centimetre | `editor/godot/project.godot` | tour (`moves`: jump 1.30 m in 0.65 s, long jump 9.18 m, as before) |
+
+**The eye**
+
+| What | Where | Checked by |
+|---|---|---|
+| The eyes there are, are written: `eyes.txt`, a few lines each (where it turns about, how far back and how near and far the wheel takes it, how far it tips, how wide it sees, how quickly it comes after, whether it gives way to a wall, whether whoever it follows is drawn to it, whether they turn with it). Read again when it is saved, as moves and poses are. Three are written: `behind` (the eye there was), `within`, `above` | `editor/godot/eyes.txt`, `eyes.gd` | tour (`eyes`: three read, nothing not understood; a fourth written into a copy while it runs is there to use, and a line that means nothing is said) |
+| One eye, that follows someone in the way the one in use says. V (the left stick, pressed) takes the next. It is carried from one to the other, not cut | `editor/godot/eye.gd`; `player.gd`; `controls.gd` `eye` | tour (V as a key event; on the way the eye is between the two for 12 steps) |
+| From within: at the head, the walker not drawn to it (what they hold is), and the walker faces the way it looks whichever way they go. That is one line of the eye (`turns`) and one of what is asked of a body (`intent.face`); the motor knows of no eye | `eye.gd` `facing`; `intent.gd`; `motor.gd` `step` | tour (within 0 cm of the head; not drawn; walking sideways, facing where the eye looks) |
+| From above: high over, looking down, held at its tip; the wheel only so near | `eyes.txt` | tour (12 m over at its nearest; the tip not turned by turning it) |
+| Forward is the way the eye looks, with any of them | `player.gd` `_wanted` | tour (W as a key event with each: 3.2 m, the way the eye looks) |
+| It follows whoever has a body (`follow`), not only the walker | `eye.gd` | tour (the keeper followed), demo |
+| Which eye is in use is saved with where the walker was | `main.gd` `save_game`, `load_game` | tour (saved from within, changed, loaded: within) |
+
+In the built game all of it is the same: `editor\run.ps1 -Game -Demo stage8 -Check` runs
+its 14 beats there with the same things seen (`eyes.txt` is put beside the game, as the
+moves are), and `editor\export.ps1 -Check` passes as before.
+
+Measured: by the pen with 19 bodies, a frame 0.65 ms and a step of physics 1.0 ms (a step
+was 0.75 to 1.05 ms before, walking the street). The whole tour has no problems; the
+host's 13 protocol tests pass one at a time; the demos of stages 2, 4, 6 and 7 run
+through as before (the keeper home at night in the one run made).
+
+Checked by `editor\run.ps1 -Tour -Only loose` and `-Tour -Only eyes` (and as parts of the
+whole tour). Shown by `editor\run.ps1 -Demo`.
+
+Of the roadmap's lists (section 2: cameras not locked to third person, first person,
+third person, top-down, the camera as a layer that can be reused; section 8: physics
+with gameplay and with saved state; section 9: static and dynamic bodies, gravity, a
+trigger, something of a physics puzzle). Not touched: joints, forces and wind, cloth,
+casts as something a game asks for, a fixed or diorama camera, vehicles.
+
+**What it showed about the architecture**
+
+- Nothing was needed in the core, and in the host only content: two words a thing can
+  say, a prop, and a generator. The text that says what a thing is to walk into served
+  for a body that moves, unchanged.
+- Whose state is whose came out as decided: how a thing moves is Godot's, every step;
+  Draw3D is told where it came to rest when the game is saved, and what the plate says
+  when it changes. No physics is in a saved game but that.
+- A gate was reused by giving its brief another name to go by. So a thing's words can
+  be filled in from its brief; before, each name was written into the realizer. Only
+  the gate and the plate do it.
+- **What is saved only when the game is saved has no one place.** The walker, the clock,
+  those who walk, and now what is loose each have a `saving` and a `loaded`, and
+  `main.gd` calls each by name. A fifth should not be a fifth line there: the state
+  should say "about to be saved" and "loaded" and whoever keeps something hears it.
+- What a body weighs on a plate is a number in `loose.gd` (70 kg), not something the
+  person's content says.
+- The eyes, like the moves and the poses, are a file beside the scripts: not something
+  the host keeps with a world. A world cannot say which eyes it has, or which it starts
+  with.
+
+Limits, on purpose for now:
+
+- A thing is pushed through its middle, the way the walker walks: pushing does not spin
+  it or tip it. Nothing is pulled, lifted, carried or thrown (what is `carried` is
+  another word, and is not a body). A dash does not hit harder than a walk.
+- What is loose does not push back: a barrel rolling into the walker stops against
+  them; the walker standing on a crate does not weigh on it.
+- Bodies are only where the walker, or someone who walks, is near (the cells that have
+  bodies). Farther off nothing moves, and what lies there is in nobody's way. A thing
+  that has gone more than a cell from where it was made is not thought of.
+- How fast a thing was going is not saved: saved in the air, it is loaded at rest
+  there, and falls.
+- As made, a thing stands until something moves it, on a slope too.
+- The ways there are to walk do not know of what is loose: the keeper walks into a
+  crate, and pushes it or steps round.
+- Two plates that say the same name would each put it and take it back.
+- Whether a gate that shuts on someone standing in it lets them out was not tried.
+- A plate and its gate are only where the pen's generator puts them: neither is in the
+  palette. A crate or a barrel put down from the palette is loose.
+- While the world stands, nothing is loose: nothing that happens to a thing while it
+  runs is written into the document.
+- Seen from within, the walker's shadow is still cast, and what is in the hand hangs in
+  the air where the hand is: there are no arms to see. A dash asked any way but ahead
+  is a dodge there, since the body faces where the eye looks.
+- Seen from above, a roof or a tree is between the eye and the walker: it does not give
+  way, and nothing is made see-through.
+- An eye that stands at a place of the world (fixed, or a diorama) is not written: every
+  eye follows someone. Following someone other than the walker is for a script; no key
+  does it.
+- In the editing view the eye is the editor's own, not one of these.
+- The three eyes were written as numbers and looked at in pictures; how each feels under
+  the hand is for a person to say.
+
+### Stage 9, first part — creatures: someone of another kind (2026-10-08)
+
+Stage 9 is three things. Creatures were taken first because of what was asked for on
+2026-10-08 (the section "Moves, actions and interactions" above): a second kind of body
+is the case that shows whether a set of moves can be given to anyone, and what a set has
+to own. Weather and vehicles are not begun.
+
+The six questions, asked before it: it brings in no system of its own (no second motor,
+no second reader of poses, no script that knows of a sheep); what was code and should be
+content (the keeper's wave) was made content on the way; a set joins it by its name,
+which is all a sheep says of how it moves; an intended interaction has nowhere to join
+yet, and none was faked (a sheep is not petted, herded or sheared); places are named on
+its rig as on a person's (where it treads, its head, its back).
+
+| What | Where | Checked by |
+|---|---|---|
+| A sheep is content, as the keeper is: a mesh, thirteen bones of its own (hips, chest, neck, head, tail, four legs of two bones), the bones that move each corner, and a rig that says which kind of body it is (`rig sheep`) and the places on it. One in four is dark | `editor/host/src/shapes/real.rs` `sheep`, `SHEEP_BONES`, `sheep_rig`, `rig_of`; `shapes.rs` `outputs_in` | test (`a_sheep_is_held_together_by_its_bones`; protocol `p10`: at least three, each `rig sheep`, 13 bones, a skin for every corner, nothing to walk into where it was made) |
+| A few of them behind the houses, by a generator of their own, on the land and the route like the rest | `editor/host/src/shapes/land.rs` `Flock`; `lib.rs` `playground` | test (`p10`), tour (4 with bodies) |
+| **A set of moves has numbers of its own.** Under `set NAME` in `moves.txt`, any of the numbers as that set has it; what it does not say is everyone's (`feel.cfg`, F1). A sheep's says how fast it strolls and bolts, how it gathers speed, stops and turns, how deep it floats. The motor goes by its body's set's numbers; nothing else in it changed. So the plain ways of moving are a set's own as far as numbers make them | `editor/godot/moves.txt` `set sheep`; `moveset.gd` `numbers`; `motor.gd` `_numbers` | tour (`flock`: a sheep walks at 1.5 and the walker at 4.4 in the same step, runs 6.2 against 8.5, floats at 0.55 against 1.15; what the set does not say is the same for both) |
+| How deep a body floats is one of the numbers now (`float_depth`); it was a constant of the motor | `tune.gd`; `motor.gd` | tour (`moves`, as before) |
+| **Poses are written for a kind of body.** `poses.txt` is a person's; whoever's rig says another kind has `poses.KIND.txt`. A sheep's: standing, a stroll with the legs in pairs across the body, a bolt with fore and hind legs together and the back bending, a skid, eating, rising, falling, afloat. The same words, the same reader, the same figure; only the bones named are others | `editor/godot/poses.sheep.txt`; `poses.gd` `file_of`; `player.gd` `poses_of`; `figure.gd` `kind` | tour (each sheep `sheep`, 13 bones, `poses.sheep.txt`; nothing in either file not understood; standing, its lowest foot within 3 mm of the ground; eating, its head down to 0.35 m from 0.95), demo pictures |
+| **The set is given by its name, to anyone.** The walker with `sheep` in place of `walker`: a sheep's stroll, no jump, eats when asked, and stops eating to go. Put back, it is as it was | `motor.gd` `has` | tour (1.5 m/s; Space: still on the ground; `graze`; gave way; then 4.4 m/s), demo |
+| A set's number written while it runs is the next step's; a word that is not one of the numbers is said | `moveset.gd` `_line` | tour (in a copy of the file: 3 m/s for the sheep, 4.4 for the walker, one complaint; read back: 1.5, none), demo (4 and 11 m/s) |
+| Eating is a move like the others: `graze`, a few lines. One new word for a phase, `yields`: the move is over as soon as a way is asked, so one that eats runs at once | `moves.txt` `graze`; `move.gd`, `moveset.gd` | tour (seen eating; the walker's eating gave way) |
+| **What someone does is said by its content,** in words anyone could say: `roams R` (with nowhere to be, it strays within R metres of where it was made), `shies R` (it runs from the walker who comes within R, until well clear, and turns for home if it has run far or into water), `idles MOVE` (standing, it does that move now and then), `greets MOVE R`. The keeper's wave was code in `folk.gd`; it is `greets wave 5` now, said by the keeper | `shapes.rs` `traits`, `real.rs` `prop_traits`; `editor/godot/folk.gd` `_stray`, `_flees`, `_steer`; `things.gd` `said` | test (`p10`: a sheep says each; the keeper says `greets wave 5`), tour (`flock`: left alone 40 s they walk, stand and eat, never faster than 0.75 m/s nor farther than 7.3 m from home, nobody runs; come at, one runs at 6.2 m/s, is not come nearer than 4 m by walking, and is calm again after; `keeper`: waves as before) |
+| How big a body is and what it weighs is said by its content (`body R H`, `weighs KG`); a plate goes by that. The 70 kg that was a number in `loose.gd` is the walker's and the keeper's own | `body.gd`; `folk.gd` `_look`; `loose.gd` `weight_on` | tour (a sheep 0.8 m tall, 60 kg; the walker 70; `loose`: the plate as before) |
+| Saved and loaded like anyone: where each stands is a fact about it | `folk.gd` `saving`, `loaded` (unchanged) | tour (saved; run off up to 9.9 m; loaded: each within 1 cm of where it stood), demo |
+| One that only strays is left where it stands while the walker is more than 75 m off, until they come within 60: not stepped, and nothing made solid about it. Found by measuring: with four sheep stepped wherever they were, a step of physics was 2.0 to 2.8 ms down at the shore, where it had been 1.1 to 1.3. The keeper, who is to be somewhere by the hour, goes there wherever the walker is, as before | `folk.gd` `_left_be`, `SLEEPS` | tour (far from the flock a step is 1.3 to 1.6 ms again; within 60 m of it 1.9 to 2.5) |
+| The eye follows one, as it follows anyone | `eye.gd` (unchanged) | tour and demo pictures |
+| A run beside an editor that is open: `run.ps1` and `export.ps1` take another build of the host (`$env:DRAW3D_HOST`) and, with another `-Port`, keep their logs apart; a run that does not end in time stops only what it started | `editor/run.ps1`, `export.ps1` | used for everything above: an editor was open throughout |
+
+Checked by `editor\run.ps1 -Tour -Only flock` (and as part of the whole tour, which has
+no problems). Shown by `editor\run.ps1 -Demo` (`creatures`, 7 beats).
+
+In the built game it is the same: `editor\run.ps1 -Game -Demo creatures -Check` runs its
+7 beats there with the same things seen (`poses.sheep.txt` is put beside the game, as
+the other files are), and `editor\export.ps1 -Check` passes. The host's 13 protocol
+tests and 5 unit tests pass one at a time; the demos of stages 2, 4, 5, 6, 7 and 8 run
+through as before (the keeper home at night in the one run made); the saved games there
+were still load. The core was not touched and its tests were not run again.
+
+All of that was run with a host built aside (`editor\host\target-w`), because an editor
+was open and held the one in `target\release`: **that one is still the host of before
+stage 9** until it is built again with the editor closed.
+
+Of the roadmap's lists (section 2: creature entities; body structure that means
+something to animation and locomotion; behaviour hooks; reusable movement sets; "sheep"
+of its representative demo). Not touched: generated creatures, a creature made from
+parts, attachments, layered or blended animation, a dog, anything unusual.
+
+**What it showed about the architecture**
+
+- A second kind of body needed no second anything. What it did need was small and is
+  general: numbers by set (about 25 lines), poses by kind of body (a file each), a
+  body's size and weight from content, and one word for a phase.
+- **A set is now a name, its moves and its numbers. It is not yet its plain ways or its
+  look.** A sheep "walks" and "runs" by the motor's ground steering with other numbers,
+  which is enough for a sheep. It would not be enough for something that moves
+  otherwise in kind (flies, climbs, rolls on wheels): standing, walking, running,
+  crouching, the air and the water are still the motor's code, and the walker given a
+  sheep's set still crouches if asked. That is for the case that needs it: a vehicle
+  is next, and is one.
+- **How a body looks goes by its kind, not by its set.** So two sets on one kind of body
+  look alike: the walker with a sheep's moves strolls like a person, slowly, and stands
+  while it "eats". An armoured walk or a samurai's stance on a person's bones has no
+  word yet: a set's own poses for a kind of body.
+- What a creature does was four words in `folk.gd`, each a few lines of steering. They
+  are about the walker only: a sheep does not shy from the keeper, nor from another
+  sheep that runs. Who is shied from or greeted should be said, not be `ed.player`.
+- The figure has a person's sizes in two places (`MIDDLE`, how hard a landing bends
+  it). Neither is seen on a sheep, which does not tumble; a creature that does will
+  need them from its rig.
+- An eye says where it turns about as a height (1.5 m for the one behind): on a sheep
+  it looks over its back. An eye's place should be one of the rig's, not a number.
+- The poses, like the moves, are files beside the scripts, and now there are two of
+  them. The need for the host to keep them with the project grows with each.
+
+Limits, on purpose for now:
+
+- Four sheep near by cost about a millisecond of each step of physics (their bodies,
+  the ground made solid about them, their ways planned, their bones turned). That is
+  much for four: forty would not do as they are. What of it is which was not measured.
+- One creature, and four of them. (Since the second part a sheep is in the palette.)
+- A sheep runs straight from the walker and steps round what stops it; it does not go
+  by the ways there are while it runs, and may be run against a wall or into the sea
+  (from where it turns for home). Sheep in water, and a sheep on the plate, were not
+  tried.
+- They do not flock: each strays by itself, and one running does not start the rest.
+- (Since the second part a sheep can be stroked.) It is in the way like anyone with a
+  body: it can be pushed against, not through.
+- Eating takes nothing from the grass. The head comes down to 0.35 m, not to the
+  ground: the neck is short.
+- Feet slide, as a person's do; on a slope its body does not tip with the ground.
+- In the editing view a sheep stands as it was made.
+- The poses were written as numbers and looked at in stills. How the stroll and the
+  bolt look in motion is for a person to say.
+- Saved games from before this will say the world was edited since: the flock was
+  added to the playground.
+
+---
+
+### Stage 9, second part — a vehicle, and what is done with someone (2026-10-08)
+
+A boat was taken as the vehicle: the sea was there, a boat does not walk, and somebody
+has to be in it. With it came what the direction of the same day asked for: creatures
+that can be done something with (a sheep is stroked), by the same means as the boat is
+got into; and the controls told for a keyboard and for a controller from one place.
+
+The six questions, asked before it: it brings in no second motor and no second reader of
+poses (a boat is a body with bones, a set and a file of poses, like a sheep); what would
+have been code (how a boat steers, what stroking is, which hand, where the rider sits,
+what the buttons are called) is words in `moves.txt`, `acts.txt`, the poses, the rig
+and one table; a set joins it by its name, and now says how it goes plainly; an
+intended interaction joins it as an act, which is the first of them there is; places
+are named on the rig (a sheep's back, a boat's seat, where each oar is held). And the
+question added that day: each of these can be looked at and changed by a person as
+text while it runs, and another made beside it; what cannot yet is in the table "What
+the user can make and change" above.
+
+| What | Where | Checked by |
+|---|---|---|
+| A boat is content, as a sheep is: a mesh, three bones (a hull, and an oar to each side that turns about where it lies on the gunwale), the bones that move each corner, and a rig that says its kind (`rig skiff`) and the places on it: where whoever is in it sits, and where each oar is held | `editor/host/src/shapes/real.rs` `skiff`, `SKIFF_BONES`, `skiff_rig`, `rig_of` | test (`a_boat_is_held_together_by_its_bones`; protocol `p10`: one boat, `rig skiff`, 3 bones, a skin for every corner, a seat, nothing to walk into where it was made) |
+| It says it has a body and goes nowhere by itself (`bodied`), which set it has, how big it is and what it weighs, and what it offers (`offers board seat`). `someone` is one who also goes about by itself | `real.rs` `prop_traits`; `shapes.rs` trait words; `folk.gd` `_look`, `_steer` | test (`p10`), tour |
+| One lies off the shore where the road would come to it if it went on, where the water is deep enough, its bow to the sea; by a generator of its own, on the land and the route like the rest | `editor/host/src/shapes/land.rs` `Mooring`; `lib.rs` `playground` | test (`p10`), tour (afloat at -0.2 m, at rest) |
+| A sheep and a boat can be put down by hand in the editor, like a crate: from the palette (they are past the nine the number keys reach) | `land.rs` `PLACEABLE` | tour (`acts`: one of each put down in the grass; a fifth sheep strays there; the boat lies on the hill, not afloat, and offers to be got into) |
+| **A set says how it goes plainly.** Under `set NAME`: `afloat ahead`, `ground ahead 0.12`. `ahead`: only the way it points; asked a way it turns toward it at its rate and gathers speed that way, and asked nothing it runs on and slows. One more way of steering in the motor, beside legs, swimming and the air; which a body has is its set's. The boat's numbers are its set's too (2.6 m/s, 4 pulled hard, 1.5 m/s each second, 50 degrees a second, afloat at 0.3 m) | `editor/godot/moves.txt` `set skiff`; `moveset.gd` `ways`; `motor.gd` `steer_ahead`, `_plain` | tour (`acts`: 2.6 m/s at most, 4.0 with run held; asked a way square to it, it has turned 25 degrees in half a second and has no speed sideways; asked nothing at 2.6 m/s it is at 1.9 a second later; the walker given the set, on the ground, goes ahead at 0.31 m/s) |
+| What floats stays afloat until it is well out of the water. Before, a body resting on the water was by turns afloat and falling, a few times a second: unseen in a swimmer, but a boat would have been steered as a faller half the time | `motor.gd` `step` | tour (`moves`, as before; the boat at rest says "rest", not "fall") |
+| A stroke for every 2.6 m: the oars' part is a cycle written for a boat's bones; lying, it rocks and its oars trail | `editor/godot/poses.skiff.txt`; `figure.gd` (what goes round by the metre goes round afloat too) | tour (6.15 strokes in 15.9 m), demo pictures |
+| **An act: what is done with something by someone who means to.** Written in `acts.txt`, a few lines each. What it is done with offers it, in its content, at a place on itself (`offers pet back`). Whoever does it needs the act's move in their own set, and does it as the pose of that name says for their kind of body. So the same act is the walker's and the keeper's, and one whose set has no such move is not offered it | `editor/godot/acts.txt`, `actbook.gd`, `acts.gd` | tour (`acts`: the walker strokes a sheep, then the keeper strokes it by `acts.begin` with the same lines; the walker given a sheep's set is not offered it) |
+| An act goes: the doer comes to stand where it says, facing the place (`stands`), while the other stays; does the move (`does`) while the other does theirs (`theirs`); a hand is brought to the place meanwhile (`touches`); and when it is over a fact about the other is one more (`counts`). Whoever it has is moved by their own motor, by what the act wants of them: it is put over what was wanted of them otherwise, for the walker and for the folk alike | `acts.gd` `_step`, `over`; `player.gd` `_wanted`; `folk.gd` `_steer` | tour (offered as "E    pet the sheep"; the sheep does not move; the walker is seen doing `pet` and the sheep `settle`; `petted` is 1, then 2) |
+| **A hand goes to a place.** The figure brings a named place on it to a place in the world by the two bones above it (an elbow bent, a shoulder turned), over whatever pose it is in, by as much as it is asked. How far short it was is said | `editor/godot/figure.gd` `reach`, `where` | tour (the hand on the sheep's back to within a millimetre, for the walker and for the keeper; hands on the oars to within a millimetre while rowing, 3 cm at rest) |
+| A sheep is not afraid of one who comes slowly (`shies 5 2.6`: within 5 m, faster than 2.6 m/s); nor does it run from someone who is doing something with it. Stood still, the walker may be come up to | `real.rs` `prop_traits`; `folk.gd` `_flees` | tour (`acts`: come to crouched, it does not run; `flock`: come at walking, it runs as before) |
+| What stroking looks like: the walker's part is a move and a pose in the files that have the others; the sheep's is a move and a pose of its own | `moves.txt` `pet`, `settle`; `poses.txt` `pet`; `poses.sheep.txt` `settle` | tour and demo pictures |
+| **Got onto: `rides POSE`.** From then on the doer is held to the place, is not moved by their own motor, holds themselves as the pose says for what the other is doing ("row/go", "row/rest"), in step with it, and has their hands kept where the act says (`grips hand.L grip.L`). What they ask is asked of the other, which goes by its own set. The same button gets them off, beside it. They are carried on and off in a low arc, in the time the act says | `acts.gd` `_mount`, `_hold`, `_carry`, `press`; `body.gd`, `player.gd` `borne`; `poses.txt` `row`, `row/go` | tour (offered as "E    get into the boat"; held to the seat to the millimetre while it goes; not in the way of anything meanwhile; "E    get out of the boat"; out, 1.2 m from it, their body their own again) |
+| Saved in a boat, a game is loaded in it: that the walker is on something is a fact about it, and where the boat lies is where it stood | `acts.gd` `loaded`; `folk.gd` `saving` (unchanged) | tour (saved; rowed 8.9 m off; loaded: the boat where it lay, the walker in it), demo |
+| Loaded where what the walker was on has no body yet (far from where the world was looked at last, or at once in a game on its own), they are in it as soon as it has one. Found by the tour of old saved games, which loaded one saved in the boat and found the walker swimming | `acts.gd` `_board_again` | tour (`acts`: let go and looked for again, in it within a third of a second; `saves`) |
+| The eye that follows the walker does not shy from what they are in | `acts.gd` `_mount` | demo pictures |
+| **The controls are told from the table they are read from.** What each thing is asked with is one table; what each is for is another beside it. The line at the top, every offer ("E", or "Y"), and a card of all of them (H, or Back on a controller) are made from those, for a keyboard or for a controller. What is shown follows whichever was last used; F3 chooses. A controller's buttons are given as they are called and as Godot numbers them. A demo ends with the card up | `editor/godot/controls.gd` `MAP`, `SAYS`, `says`, `line`, `card`, `heard`; `main.gd` `show_card`; `things.gd` `prompt`; `demo.gd` | tour (`acts`: E and Y; "left stick (axes 0, 1)", "A (button 0)", "RT (axis 5)"; nothing in the table is missing from the card; the card is within the window), pictures |
+| The numbers panel is F1 only: Back on a controller is the card now | `controls.gd` | |
+| Nobody plans a way while an act has them | `folk.gd` `_steer` | tour |
+
+Checked by `editor\run.ps1 -Tour -Only acts` (and as part of the whole tour). Shown by
+`editor\run.ps1 -Demo` (`petting`, `boat`, `controls`: 10 beats).
+
+Run at the end of it, with the host built as usual: the host's tests one at a time (6 and
+13 pass); the whole tour (no problems); `-Tour -Only saves` (both old saved games load,
+one of them saved in the boat); `-Demo stage9 -Check` (17 beats); `export.ps1 -Check`;
+`-Game -Demo vehicle -Check` (10 beats, in the built game). The demos of stages 2, 4, 5,
+6, 7 and 8 ran through as before, a little earlier: before the last changes, which were
+to the tour's own checks, to boarding after a load, and to the petting demo. The core's
+tests were not run: the core was not touched.
+
+Of the roadmap's lists (section 2: vehicles as entities with movement of their own,
+mounting and riding, multi-domain movement; section 1 and principle N: contextual
+interactions tied to actor, object and state). Not touched: a vehicle on wheels or
+legs, a passenger, anything carried in a boat, a boat pushed off or tied up.
+
+**What it showed about the architecture**
+
+- **A boat needed one thing of the motor: a fourth way of steering.** Everything else
+  it is, it is as a sheep is. That the set chooses the way is a word; that there are
+  four ways and each is code is the limit that is left (above, "provisional").
+- **The interaction model came out as: an act, something that offers it at a place, a
+  doer with the move.** Stroking and boarding are the same thirty lines of a script
+  going through different words. The act does not move anybody: it says what is
+  wanted of each, and brings a hand. That kept the motor's rule (an intent and nothing
+  else) and made the keeper able to do it for nothing.
+- **Two cases are not the abstraction yet.** Both are with something that has a body
+  and a rig. A door has neither; a crate has a body of another sort (it is loose). The
+  act's words were chosen so those can come under them (`stands`, `does`, `touches`,
+  `counts` are what opening a door is), but that is a guess until it is done.
+- **The move does not know its target; the act does.** It was enough here because
+  neither move goes anywhere. See "provisional".
+- **Reaching was forty lines and changed how everything looks.** With it the pose says
+  how the body leans and the act says where the hand is; a pose no longer has to be
+  written for where a thing happens to be. Its limits are real (no say over the
+  elbow, an arm's length) and showed at once: the first pose for stroking left the
+  hand 16 cm short, and the fix was the pose (lean, and turn the shoulder to it), not
+  the reach.
+- **What is told of the controls had been written out four times** (two lines in
+  `main.gd`, the prompts, the comments). It is one table now. That the table is a
+  script and not a file is the next thing wrong with it.
+- **A boat is "someone" to `folk.gd`.** Whatever has a body is kept there, steered or
+  not. The name is wrong now and the script is not: it wants to be "whatever has a
+  body", with going about by oneself one thing such a body may do.
+- **Three more files beside the scripts** (`acts.txt`, `poses.skiff.txt`, and the
+  controls in a script). The host keeping what is written, with the project, is the
+  thing most wanted by the hub, by a model writing a set, and now by the user finding
+  any of it.
+
+Limits, on purpose for now:
+
+- No controller was plugged in while this was built. What a controller is told is
+  checked against the table; that the buttons do what the card says was not tried.
+- One boat. It rows facing the way it goes (a person in a rowing boat faces aft). It
+  does not go backward: asked the way behind it, it turns round. It does not rock with
+  its rower or with the water, lean in a turn, or leave a wake; an oar goes through
+  the water without a splash.
+- Getting in and out is being carried in an arc, with nothing of climbing in it.
+- Aground, a boat is dragged at an eighth of its speed, by the same oars, through sand.
+- A boat is a round body 0.62 m across to walk into, not the shape of its hull: the
+  walker can stand inside its bow.
+- Only what has a body can be done something with as an act. The door, the parcel, the
+  post box and the lantern are as they were.
+- One offer of a thing's is taken; the walker cannot choose among several.
+- Stroking: the hand is laid on and held, it does not stroke. The sheep is held where
+  it is from the moment the act begins, which is right for a sheep and would be wrong
+  for a cat.
+- A sheep come to slowly and not stroked may still be walked into and shoved.
+- The folk are never made to do an act but by a script.
+- What a set says of its ways cannot be changed in the F1 panel (its numbers cannot
+  either: the panel is everyone's numbers).
+- Saved games from before this will say the world was edited since: the boat was
+  added to the playground.
+
+### A quick step to a side (2026-10-08, asked for before the weather)
+
+Asked for: a short, quick step to the left or the right that goes on facing ahead,
+keeps a fitting amount of momentum, recovers quickly, will be of use when the body is
+kept facing something, and is not the sideways dodge (which goes over, farther, and
+takes longer to come up from). To be a written move and not one more special case; no
+lock-on to be built. What there was to be left as it was.
+
+| What | Where | Checked by |
+|---|---|---|
+| Two moves, `step_left` and `step_right`: a moment's shift of weight (0.03 s), 2.2 m to the body's own side in 0.16 s, 0.06 s before it walks on. On the ground only. A jump may cut in late in the step; a jump or a dash after it | `editor/godot/moves.txt`; `tune.gd` ("Quick-step": six numbers, in F1) | tour (`moves`: 2.20 m each way, 0 degrees off, not turned, 0.27 s from the press, standing after; the dodge beside it 3.76 m in 0.48 s) |
+| It goes to the body's side, whatever way is asked: `heads left`, `heads right`. Two more ways a move may head | `moveset.gd` `_of_move`; `move.gd` `start` | tour |
+| It keeps what speed it had ahead: `carries K` on a phase. Whatever speed the body came into the phase with across the way the phase goes, it has K of beside what the phase does, and after. So a run goes on as a run, a pace to one side | `move.gd` `borne`, `_enter`, `_do` | tour (`moves`: running at 8.5 m/s, never slower ahead than 8.5 through it; 2.20 m aside; not turned; running after) |
+| The second is written as the first: `move step_right like step_left`, then its own button and its own side. A word for any move: what is said after is said instead, a phase of the same name written again whole | `moveset.gd` `_line` | demo (the step to the left written to cover 4 m in a copy of the file: both go 4.00 m) |
+| How it looks: upright, facing ahead; the weight onto the far leg, pushed off it with the near leg reaching, low and wide, the far leg drawn in. The right is the left mirrored | `poses.txt` `step_left/gather`, `/go`, `/recover`, and their mirrors | demo pictures |
+| Asked with Z and X; on a controller LB and RB. Told on the card like everything else | `controls.gd` `MAP`, `SAYS` | the table; **no controller tried** |
+
+Checked by `editor\run.ps1 -Tour -Only moves`. Shown by `editor\run.ps1 -Demo quickstep`.
+
+**What was there is as it was.** Every number the tour measures of the moves that were
+there came out the same as before, to the last figure: the jump 1.30 m in 0.65 s, the
+hop 0.51 m, the running jump 5.67 m, the dash 5.15 m in 0.25 s and out at 9.0 m/s, the
+long jump 9.18 m, each dodge 3.76 m in 0.48 s, walking and running gathering and
+losing speed in the same times. A move that says none of the three new words is done
+by the same lines of `move.gd` as before (`borne` is nothing for it).
+
+**One thing was changed that was there: the controller's shoulder buttons.** Every
+button of a controller was taken. LB and RB were second ways of asking for crouch and
+for run (LT and X are the others, and stay). They are the quick step now. Nobody has
+played with a controller yet, so nothing learnt is lost; it is the user's to say.
+
+The six questions: it is two moves in the file and three words in the one interpreter,
+no branch for it anywhere; a set has it by naming it; its look is poses by its name.
+What was coded that might have been content: nothing new (the three words are of the
+kind the others are). Where an intended interaction or lock-on joins it: it heads to
+the body's side, so whoever keeps the body facing something (`intent.face`) makes of
+it a step round that thing, and whoever steers a body can ask for it by name.
+
+Limits, on purpose for now:
+
+- Nothing keeps the body facing anything yet, so behind the ordinary eye a step is to
+  the side of wherever the body last went.
+- It is to the body's left and right, not the eye's: walking toward the eye, Z goes
+  to the right of the screen.
+- No step back, and none in the air. Either is a few lines of `moves.txt`
+  (`heads` has no "back" yet: one word).
+- Left and right rest apart (0.12 s each): left then right at once is allowed, and
+  was not tried by hand.
+- The step is exact in its distance to the side; a wall in the way stops it short,
+  and what is on the far side of a kerb or a slope was not tried.
+- The poses were written as numbers and looked at in five stills each side.
+
+---
+
+### Stage 9, third part — the weather (2026-10-08)
+
+What the air does besides being an hour of the day, and with it the case stage 9 kept
+for last: what a thing does of itself (a tree in wind, a boat on a swell) said by the
+thing and by the weather, and not coded for trees or for boats.
+
+The six questions, asked before it: it brings in nothing that moves a body, so nothing
+for moves and acts to work round. What would have been code and is content or text:
+which things move in wind and where (each corner of a mesh says how much it gives, in
+the host, where the thing is made); what a weather is (a few lines); what falls (six
+lines); that a boat is rocked by the swell (two words of its pose). A set joins it
+nowhere yet, and need not. An intended interaction joins it by the fact: the weather
+is a fact about the world, so anything that goes by facts can go by it. What is said
+that a later action could use: the wind's way and speed and the swell are numbers by
+name, for any pose.
+
+| What | Where | Checked by |
+|---|---|---|
+| **A weather is written**: `weather NAME`, and under it the light (`dims`, `greys`, `haze`, `fill`), the wind (`wind FROM SPEED`, `gusts`, `sways LEAN TO SECONDS`), `swell`, `falls NAME N`, `turns SECONDS`, `lasts HOURS then NAME`, and `like NAME`. Six are written: clear, breeze, overcast, rain, storm, snow. Read again when the file is saved; a line not understood is said | `editor/godot/weather.txt`, `weatherbook.gd` | tour (`weather`: six weathers, two things that fall, nothing not understood; a line that means nothing complained of once) |
+| **Which weather it is, is a fact about the world**, `weather`. N puts the next (walking); a script puts any; so it is saved with a game and loaded with it, and a world that stops running is back at the first one written. While the world stands, N is a look and no fact, as T is for the hour | `weather.gd` `wanted`, `become`, `next`; `main.gd`; `controls.gd` | tour (no fact to begin with; a storm is a fact; saved in it, cleared, loaded: the storm; stopped: clear, no fact; looked at standing: no fact) |
+| It comes on a little at a time, in the seconds it says | `weather.gd` `_show` | tour (a second into a storm that takes five: its lean between the two) |
+| It lasts as long as it says and goes over to the next by itself: a breeze 4 hours then clear; overcast, then rain, then a breeze; a storm, then rain. Clear lasts, so a world is as it was until someone asks for weather | `weather.gd` `_process`; fact `weather_since` | tour (half way through: still it; past its hours: the next, as a fact) |
+| **The light**: laid over what the world's style says of the hour, whatever the style: the sun and moon so many times as strong, the sky and the haze toward a grey that is as dark as the hour, the haze thicker, the shade lighter or darker | `clock.gd` `_light`, `relight` | tour (a storm at nine: the sun a tenth, the haze five times as thick, the sky darker), pictures |
+| **What gives to the wind says so itself.** Every corner of a mesh has, where a colour's fourth number is, how much it gives to the wind. A tree: nothing at its foot, wholly at its top. A bush, grass, a flower: a little, at the top. Everything else says nothing, and stands. It crosses with the mesh as it always did: nothing new is sent | host: `editor/host/src/shapes.rs` `Mesh::gives`; `shapes/real.rs` `tree`; `shapes/land.rs` `bush`, `grass`, `flower` | test (`what_grows_gives_to_the_wind_and_what_is_built_stands`) |
+| **The wind moves what gives.** Everything in the world is drawn by one way of drawing (it was Godot's own; it is a few lines now, and looks the same), which moves each corner along the wind by what it gives times what the weather says: a lean, a to-and-fro, gusts that go over the land the way the wind blows. Nothing in it knows of a tree | `editor/godot/world_view.gd` `PAINT`; `weather.gd` `_show` | tour (the numbers the drawing has are the storm's), pictures (trees leant the way the rain slants; with a gale written from the other side, the other way; walls, lamps and rocks stand) |
+| **What floats is stirred by the swell.** A pose may say `stirs NAME [BONES]`: its turns are done as many times as far as the world's number of that name. The boat's rocking says `stirs swell all`. The weather puts `swell` and `wind` where any figure reads them | `poses.gd`, `figure.gd` `stirred`, `express`; `poses.skiff.txt` | tour (the swell is the storm's 4; the boat's pose says it is stirred), demo pictures |
+| **What falls is written too**: `falling NAME`: how many are in the air about the eye, how fast, how long and thick one is, its colour, how much of the wind it has. Rain and snow are two of them. It is about whichever eye is looking, slants with the wind, is as bright as the hour, and stops at roofs | `weather.txt`; `weather.gd` `_fall`, `_make` | tour (rain falling in the storm, as much as it says; ash, written while it ran, falling), pictures |
+| A weather and a thing that falls written while it runs: there at once, and gone when the file is as it was | `weatherbook.gd` | tour (mist: the haze six times as thick; ashfall; then clear again and no ash), demo (a gale) |
+| A game on its own has the file beside it, and the weather in it | `editor/export.ps1`, `run.ps1` | export check; `-Game -Demo weather -Check` (6 beats, in the built game) |
+
+Checked by `editor\run.ps1 -Tour -Only weather` (and as the last part of the whole
+tour). Shown by `editor\run.ps1 -Demo weather` (and at the end of `-Demo stage9`).
+
+Run at the end of both, with the host built as usual: the host's tests one at a time (7
+and 13 pass); the whole tour (no problems); `-Demo quickstep -Check` and
+`-Demo weather -Check`; `-Demo stage9 -Check` (23 beats); `export.ps1 -Check`;
+`-Game -Demo weather -Check` and `-Game -Demo quickstep -Check`, in the built game.
+Not run again: the demos of stages 1 to 8, `-Tour -Only saves`, `-Measure`,
+`-Weigh`, the core's tests (the core was not touched).
+
+The whole tour said one thing on its first run: the quick step at a run lost speed
+and came 2.09 m aside. The walker had stepped into something that stands beside the
+road there. The tour now counts what the walker runs into during the step, and tries
+the other side when it did; a step that falls short with nothing in the way is still
+a problem.
+
+Of the roadmap's lists (section 4: weather systems, rain, snow, wind; time-of-day
+lighting it is laid over; principle K's "Weather ↔ Environment" as far as light, what
+grows and what floats). Not touched: seasons, puddles and wet surfaces, sound, clouds,
+lightning, temperature, weather that differs from place to place, weather that
+changes what anyone does.
+
+**What it showed about the architecture**
+
+- **A mesh had a number to spare, and it was the right place.** That a tree gives to
+  the wind is a fact about the tree, known where the tree is made. It rides in the
+  mesh that already crosses; the adapter did not have to learn what a tree is, and
+  what is drawn together in thousands is still drawn together. A thing put down by
+  hand, or made by a generator not written yet, sways if its maker says so.
+- **Everything is drawn by a way of drawing that is ours now.** One small shader in
+  place of Godot's standard material. It is where anything else that all content
+  should do belongs (wet, snow lying, a season's tint), which is why it was worth
+  taking; and it is one more thing that must be kept looking as it did.
+- **The weather is a fact, and that was all the joining it needed.** Saving, loading,
+  stopping, a script changing it, a weather turning into the next: none of them has
+  a line of its own beyond putting or hearing the fact. It is the first thing saved
+  that `main.gd` does not call by name to save.
+- **"Stirred by a number of the world's" is a small word that reaches far.** A boat
+  on a swell took two words in its pose. A flag, a sheep's wool, a cloak in wind
+  would be the same word on other bones. It scales turns; it does not add a motion
+  that is not written.
+- **Weather is not style, and is laid over it.** Kept apart, every style has every
+  weather for nothing. But a style is the world's, kept by the host, and a weather
+  is a file beside the scripts: the world does not carry its weathers.
+- **Nothing in the world goes by the weather yet but how it looks.** No creature
+  shelters, no ground is wet, no lamp is lit for a storm. The way is there (a fact),
+  and no case has used it.
+
+Limits, on purpose for now:
+
+- **The sea is flat.** A swell rocks the boat and nothing else: no waves, no rise and
+  fall, nothing on the shore. The boat is rocked lying; rowed, it is not.
+- The motion in wind is one: a lean and a to-and-fro along the wind. Whether
+  neighbours sway each in its own time was written for (by where each stands) but
+  **not looked at in motion**: pictures cannot show it.
+- What is moved by the wind is not moved for what walks into it or stands under it:
+  a tree's post is where it was, and its shadow goes with its crown.
+- People, sheep, the boat's hull, things carried and things loose are not blown, and
+  nothing is pushed by wind: it changes no speed and no steering.
+- What falls stops at whatever is under the sky within about 26 m of the eye, by a
+  picture of heights taken from above. It does not splash, wet nothing, lie nowhere.
+  Under a tree it is as dry as under a roof. Indoors was not looked at.
+- What falls is about the eye: looked at from far off (the editing view, high up), it
+  is a patch of rain about the eye, not rain over the land.
+- No clouds: the sky goes grey all over. No lightning or thunder; no sound at all.
+- One weather over the whole world.
+- A weather that lasts counts the hours of the world's clock: T moves it on. While a
+  script has the editor the clock stands, and so does the weather.
+- The weathers are the editor's file, beside the scripts, as the moves are. No panel.
+- N has no button on a controller (none is free), as T has none.
+- The numbers were chosen by eye from stills, at nine in the morning, in the world
+  as it is made (no style). Night, the three styles, and motion are for a person.
+- In the flat light the measurements are taken in there is no weather; but everything
+  is drawn by the new way of drawing there too. `-Measure` and `-Weigh` were not
+  run again.
+
+### Things with no body, done with as acts (2026-10-08, after stage 9)
+
+Asked for as "doors, parcels and crates as acts": the rest of what stage 9's second
+part began. Until now a door, a parcel, a post box and a lantern were done with by
+`things.gd` `act`: a `match` over what was offered, the facts put at once, by the
+walker only, with nothing seen of the doing. And a crate could only be walked into.
+Now each is an act it offers, done by whoever has the move, and `things.gd` does
+nothing itself.
+
+The six questions, asked before it: it brings in nothing beside the motor and the one
+reader of poses (the walker reaching for a handle is a move and a pose like waving),
+and takes a second way of doing things out. What was code (that a door is opened, by
+whom, when the fact is put, where they stand, which hand) is lines in `acts.txt` and
+words in the door's content. Movement, how it looks, the interaction, the physics and
+what a thing can have done to it are five places still: `moves.txt`, `poses.txt`,
+`acts.txt`, `loose.gd` under it, and the thing's own words. A set joins it by having
+the move or not (`reach`, `stoop`: the walker and the folk have them, a sheep does not,
+and is not offered a door). An intended interaction is what this is. Whether enough is
+said for a proper action later: a place and the side it is come to from are said, and
+how the thing lay to the doer when they took hold; not said yet are how a hand lies on
+what it holds, and anything of a thing that is lifted (see the limits).
+
+| What | Where | Checked by |
+|---|---|---|
+| **A place on a thing that has no bones.** Content says `point NAME x y z`, and with `from FX FZ` the side it is come to from. A door has a handle on each side; a crate and a barrel a place on each of four sides; a parcel its middle; a post box its top; a lantern and a hatchet where they are gripped. And what each offers there: `offers open handle`, `offers shut handle`, `offers pick_up middle`, `offers put_down middle`, `offers deliver top`, `offers take grip`, `offers push side` | `editor/host/src/shapes.rs` `traits`; `shapes/real.rs` `prop_traits`; `editor/godot/things.gd` `said` | test (protocol `p10`: each of the seven is said, with its one, two or four places) |
+| **An act is done with a thing as with a body.** `acts.gd` asks of what it is done with only where it stands now and what it says; whether that is someone with bones or a thing with none is asked in one place. Where a thing stands now is wherever what is said of it has put it: swinging, in someone's hands, where it lies | `editor/godot/acts.gd` `thing`, `_frame`, `where`; `things.gd` `stands` | tour (`hands`, `door`, `errand`, `items`) |
+| Of several places of one name, whoever comes is given the nearest they could stand off: not one whose side faces the sky (a barrel on its side), nor one with something between them and where they would stand. They stand off it squarely, on the side it says | `acts.gd` `_which`, `_stand` | tour (`hands`: the walker stands 0.37 m from the handle, on their side of the door; a crate is come to by the side they are on) |
+| **What an act does to a thing is done at a moment of the move, and is a fact put.** `at 0.4`; `puts open side` (1 before the thing, -1 behind it); `clears open`. `while open`, `unless open`: when it is offered. So a door offers `open` or `shut`, whichever can be done, and neither act knows of a door | `editor/godot/acts.txt`, `actbook.gd`; `acts.gd` `_effect`, `_may` | tour (`hands`: "E    open the door", then "E    shut the door"; `door`: opened, walked in, shut from inside, held in, saved and loaded open) |
+| **A door is opened by its handle.** The walker goes to stand 0.3 m off it, does `reach`, their hand is brought to the handle, and two fifths through the fact is put. The door swings because the fact was put by someone (`watched`), from under the hand, which goes with the handle until the move lets it go. A loaded game's door simply stands open, as before | `acts.txt` `open`, `shut`; `moves.txt` `reach`; `poses.txt` `reach`; `things.gd` `_heard`, `watched` | tour (`hands`: the hand 5 cm from the handle as it begins to swing; seen swinging while the move goes), demo pictures |
+| **Anyone does it.** The keeper opens the next house's door by `acts.begin`, with the same lines; and picks the parcel up, carries it and puts it down. That a parcel is in someone's hands other than the walker's is the same fact with their id (`where` = "hand ID"); it is drawn in their hands, they hold their arms under it, and it is not offered to the walker meanwhile | `things.gd` `_whose`, `borne_by`, `lift`, `_show`; `moves.txt` `set folk` | tour (`hands`: the keeper's hand 6 cm from the handle, the door open; the parcel at the place their rig calls `carry`, to the centimetre; put down 0.6 m before them) |
+| **A parcel is picked up with both hands.** `does stoop`, `touches hand.L hand.R`, `apart 0.46`, `at 0.5`, `lifts`: bent down to, a hand to each end, and half way through it is in their hands, which stay on it as it comes up. What is taken up or put down goes there in a fifth of a second and does not jump | `acts.txt` `pick_up`; `moves.txt`, `poses.txt` `stoop`; `acts.gd` `_touch`; `things.gd` `_moved`, `_process` | tour (`hands`: each hand within 8 cm of its end of the parcel; `errand`), demo pictures |
+| **A parcel can be put down.** What is carried offers `put_down` to whoever carries it (`lays 0.6`: on the ground, so far before them, turned as they are), when nothing else near offers anything. Left there, it can be picked up again; on the post box it cannot | `acts.txt` `put_down`; `things.gd` `lay`, `lying`; `acts.gd` `_nearest` | tour (`errand`: at the locked gate "E    put down the parcel"; it lies 0.6 m before the walker, their hands empty; the gate is said to be locked; picked up again, and delivered) |
+| Delivering is an act the post box offers to whoever carries something (`gives`): held out to it, and at the moment it lies on the box, the box holds it and the world's `delivered` is one more, as before | `acts.txt` `deliver`; `things.gd` `give` | tour (`errand`: "E    deliver the parcel to the post box"; the gate opens; saved, stopped, loaded) |
+| A lantern and a hatchet are picked up by the same stooping, one hand (`take`): kept, as before | `acts.txt` `take`; `things.gd` `lift` | tour (`items`, as before) |
+| **A crate is taken hold of, and pushed, pulled and turned.** `holds push`: the walker stands 0.46 m off a side, and from then on the crate is held to them where it was to them: it is pushed after them through its middle, as hard as they can push (`push`, F1) and no harder. They go forward and back only, at 35% of a walk, still facing it; asked to a side they turn, 70 degrees a second, and it goes round with them. E again lets go. Too heavy, it does not go and they wait for it; farther than 0.7 m from where it should be, it is let go | `acts.txt` `push`; `acts.gd` `_grip`, `_held`, `over`; `real.rs` `prop_traits` (crate, barrel) | tour (`hands`: pushed 3.82 m with the walker's 3.81, never more than 3 cm from its place, upright, at 1.85 m/s at most; pulled back 2.57 m, the walker facing it throughout; turned 57 degrees with the crate's 56; pushing a tenth as hard, the crate 0.00 m and the walker 0.13; let go, and offered again) |
+| How they hold themselves meanwhile is a pose laid over how they walk: leant in with the arms out (`push`), leant away going backward (`push/back`). Their hands are kept on the side they took hold of | `poses.txt` `push`, `push/back`; `acts.gd` `_held`, `_touch` | tour (`hands`: both poses seen; hands 4 cm from the crate while it goes, 12 cm as they take hold), demo pictures |
+| **Walking into something is still what it was.** `motor.gd` `_push` is not touched and not called by any act. What is held is kept a hand's breadth clear of the walker's body by the act, so that they do not walk into it as well | `motor.gd`; `loose.gd` | tour (`loose`, as before: the crate walked onto the plate, the barrel too heavy for a weak push) |
+| An act waits for whoever is to do it to be done with what they are in the middle of (a wave, a dash) before it counts them late | `acts.gd` `_step` | tour (`hands`: the keeper, who greets the walker, then does it; found by the tour: at first the keeper was given up on, mid-wave) |
+| The words at the bottom are one function's: what can be done (an act), or else what is said of what cannot (a gate that is locked, a post box that wants something); both, when all that can be done is to put down what is carried | `main.gd` `offered`; `things.gd` `prompt` | tour |
+| The card of controls says what is asked with hold of something | `controls.gd` `SAYS` | tour (`acts`: the card within the window, nothing missing) |
+
+Checked by `editor\run.ps1 -Tour -Only hands` (and as part of the whole tour; the door,
+the errand and the things kept are done by the same acts in their own parts). Shown by
+`editor\run.ps1 -Demo byhand` (7 beats).
+
+Run at the end of it, with the host built as usual: the host's tests one at a time (7 and
+13 pass). The whole tour twice. The first time it said two things: that the keeper's
+set was not the two moves the tour expected (it has four now: the tour's own check,
+put right), and that a sheep come at was got within 0.6 m of. The second time it said
+nothing; the sheep let the walker within 2.2 m, where the check wants 2.0, and alone
+(`-Tour -Only flock`) 2.3. So that check passes by a little and failed once in three
+runs; nothing of the sheep was changed, but the errand is longer now and the flock
+is elsewhere when the walker comes. **Not explained further.** After that the words at
+the bottom, the card of controls and the older demos were changed, and only parts of
+the tour were run again: `errand`, `acts`, `saves` (both old saved games load), with
+no problems. The demos `byhand`, `door`, `delivery`, `items`, `figure`, `loose` and
+`petting` run through with `-Check`; `export.ps1 -Check` (the delivery made in the
+built game by the new acts, saved, continued); `-Game -Demo byhand -Check` (7 beats,
+in the built game). Not run: the other demos (`keeper`, `style`, `eyes`, `creatures`,
+`boat`, `weather`, `quickstep`, `motor`), the core's tests (the core was not
+touched), `-Measure` and `-Weigh`.
+
+Of the roadmap's lists (principle N: interactions as actor, target and action, with
+approach, contact, the body's movement, the consequence and how it looks; collision
+told apart from doing something on purpose; whatever is built can be looked at and
+changed). Not touched: lifting, carrying and throwing what is loose; a lever, a ladder,
+a ledge; anything done between two of the folk.
+
+**What it showed about the architecture**
+
+- **The guess of stage 9 held.** `stands`, `does`, `touches` were what opening a door
+  is. What had to be added was when (`at`), what (`puts`, `clears`), and whether it is
+  offered (`while`, `unless`): six words, none of them about doors.
+- **`things.gd` came apart cleanly into two halves it had always been.** What follows
+  from facts stayed (it was already written to go by facts wherever they came from).
+  What decided and did, went. The one join left is `watched`: whoever does something
+  on purpose says "this is seen to happen", so a door swings for a hand and a loaded
+  game's door just stands. Nothing else passes between acts and things but facts and
+  three calls.
+- **Carrying is not yet an act's to write.** `lifts`, `lays`, `gives` are words an act
+  says and `things.gd` does. That is honest for one kind of carrying. It is the place
+  where a second kind would be code (see "provisional").
+- **Push came out as the mirror of ride.** Got onto, the doer is held to the thing and
+  the thing goes by its own set as they ask. Taken hold of, the thing is held to the
+  doer and the doer goes by their own motor as they ask. Both are an act that lasts
+  until the same button, a pose for the meantime, and places kept together. They are
+  two stages in `acts.gd`, not one: the abstraction under them (what is held to what,
+  and who is moved by whom) is visible now and not extracted.
+- **The motor's rule held again.** Pushing and pulling needed nothing of the motor: the
+  act asks for a way and a facing through the intent, and waits by asking for less.
+  `intent.face`, put in for the eye from within, is what keeps the walker facing a
+  crate they pull.
+- **Making it anyone's showed where "the walker" was written in.** Carrying was a
+  variable of `things.gd`. It is now a fact that says whose hands, and `carrying` is
+  the walker's reading of it. Keeping things is still the walker's only.
+- **Use changed a behaviour that had not been decided.** E with a parcel in the hands
+  and nothing else near now puts it down. The tour pressed E at the locked gate
+  expecting nothing to happen, and the parcel was put down: the tour was right that
+  the gate does nothing, and now checks that, and the putting down too.
+
+Limits, on purpose for now:
+
+- **It takes about a second.** A door, a parcel, a lantern were done with at once; now
+  the walker goes to the place (up to 2.5 s, usually a step) and does a move (0.8 s
+  for a reach, 1.1 s for a stoop), and cannot do anything else meanwhile: an act is
+  not cut short. Whether that is right for a door is for a hand to say.
+- An act goes to its place straight. A place with something between is not offered,
+  so a door that stands open into a house is shut from inside it, or through the
+  doorway if the way is clear.
+- The leaf of a door swings by an easing, through whoever stands where it goes; the
+  hand follows the handle and is let go by the move, not by the door. Shutting, the
+  door is not pulled: the hand is on it and it goes.
+- Nobody is looked for in a doorway when a door is shut.
+- One hand opens a door, the right, whatever side the handle is on, and whatever is in
+  it: with a lantern or a hatchet held, and with a parcel in the arms, it has not been
+  looked at.
+- A parcel is put down where the walker stands, before them, on whatever ground a
+  line straight down finds: not on a table, and not refused where there is a wall.
+- What is carried is carried one way (the place the rig calls `carry`, the pose
+  `carry`), and only what says `carried`: a crate is not lifted.
+- A thing taken hold of is pushed through its middle: it does not tip. It was tried
+  on the level ground by the pen only: not on a slope, at a step, or against a wall;
+  and the barrel was not taken hold of at all.
+- Held, a thing goes forward, back and round the walker: not sideways, and there is no
+  word for another way to hold one (dragged by an end, drawn behind).
+- How fast the walker goes with it is the act's (`pace`), not the thing's weight: a
+  barrel is pushed as fast as a crate, as long as it can be moved at all.
+- The keeper does these only when a script begins them. Nobody but the walker keeps a
+  lantern.
+- Hands come within 4 to 12 cm of where they are put, not onto it: an arm is two bones
+  and as long as it is, and the walker stands where the act says, not where the reach
+  would be best.
+- `reach`, `stoop`, `push` and `push/back` were written as numbers and looked at in
+  stills.
+- No controller was plugged in: Y does what E does by the table only.
+
+### What is written, kept by the host (2026-10-08, after stage 9)
+
+Asked for as the first thing under "Next": the moves, poses, acts, eyes and weathers
+kept by the host with the project, asked for and written by command. They were seven
+files beside the scripts, each read by its own script from the disk.
+
+The six questions, asked first. It brings in no system that makes authored moves
+harder, and takes one away: no script reads a file of its own any more. What was code
+(which files there are, where a game finds them) is the world's content. Movement,
+how it looks, interaction and what a thing can have done to it are apart as they
+were: seven texts, each with its one reader. A set joins it as an entry (`set NAME`)
+that can be asked for and written alone; an interaction as an entry `act NAME`. And
+enough is said for a proper action later only as far as the texts say it: the host
+adds nothing to them.
+
+| What | Where | Checked by |
+|---|---|---|
+| The host keeps texts by name (`moves`, `poses`, `poses.sheep`, `acts`, `eyes`, `weather`): beside the document and beside what has happened, as a third thing. It does not read them | `editor/host/src/lib.rs` `Written`, `Session.written` | test (`p14`) |
+| Asked for by command, `written`: the names; of each how big it is, the lines that begin its entries, whether its reader has read it and what it did not understand. With a name, the text; with an entry too ("move jump"), that entry alone; with `to`, written out to a file | `lib.rs` `"written"`, `heads`, `entry_at` | test (`p14`), tour (`written`: the walker's set and the jump asked for) |
+| Written by command, `text`: whole; or read by the host from a file; or one entry written anew, added at the end, or taken out, with everything else as it was, remarks and all. An entry is the line that is not set in and the lines set in under it, called by its first two words | `lib.rs` `"text"`, `with_entry` | test (`p14`), tour (`written`: a jump written twice as high went 2.60 m for 2.60) |
+| Whoever reads a text tells the host what it did not understand (`read`), and it is kept only for the text as it stands. So whoever wrote it can ask | `lib.rs` `"read"`; `book.gd` `read`; `main.gd` `settle_written` | test (`p14`), tour (`written`: "'wings' is not something said of a move", said back by the host; gone when the entry is taken out) |
+| It is not the document: nothing is made again, undo does not take it back, a game saved before is still a game of the same world. It may be written while the world runs, and stopping does not put it back | `lib.rs` `writes` | test (`p14`), tour (`written`: written while running) |
+| It goes with the world: written into the world's file, gone with another world, back when the file is opened | `lib.rs` `write`, `open`, `fresh` | test (`p14`), tour (`world`: an eye written by command and in no file was in the world opened) |
+| Every answer of the host carries the number of the last change to it (`writ`) | `lib.rs` `status` | test (`p14`) |
+| On the Godot side, what the host has is what is read: one place holds what was last heard (`written.gd`), and a reader (`book.gd`) reads from it, at once when it changes. Until the host has been heard from, the file is read | `editor/godot/written.gd`, `book.gd` | the whole tour (every part that goes by a move, a pose, an act, an eye or a weather) |
+| A person writes files as before. One that is saved is given to the host; a new world, which has nothing, is given all of them; what the host has that is not what is here is fetched. A file is given when it is saved and not otherwise, so what was written by command stays until then | `main.gd` `settle_written`, `written_files` | tour (`written`: the host has what the seven files have; a copy of `eyes.txt` saved in another folder was the host's and was read) |
+| What is not understood in a text is said to the person on the screen, not only in the log | `main.gd` `settle_written` | demo picture |
+| For a script: a text or an entry written by command, an entry asked for, the file given again, the files looked for in another folder | `main.gd` `write_text`, `write_entry`, `entry_of`, `unwrite`, `write_from` | tour, demos |
+| Every demo and tour part that changed a text while it ran now does it by command to the host. None writes a copy of a file for a script to read in its place | `demo.gd` `rewrite`; `tour.gd` | the whole tour; ten demos |
+| The game on its own has none of the files beside it: they are in `world.json`. One put beside it is given to its host in place of the world's, and again when it is saved | `editor/export.ps1`; `main.gd` `_game` | `export.ps1 -Check`; `-Game -Demo written -Check` ("from files beside it:" none) |
+| The export writes the world through the host even when the editor has written one (Ctrl+S), so that it has what is written as the files are now | `export.ps1`; `main.gd` `--from` | by hand, once: a world file with no texts in it, and a start of its own, came out with the seven texts and the same start; the game walked from there |
+
+Checked by `editor\run.ps1 -Tour -Only written` (and as part of the whole tour).
+Shown by `editor\run.ps1 -Demo written` (5 beats).
+
+Run at the end of it: the host's tests one at a time (7 and 14 pass). The whole tour,
+twice, with no problems (once when the Godot side first read from the host, once with
+the new part in it). After that the way a text is put back where there is no file of
+it was changed, and only `written` and `world` were run again, with no problems. The
+demos `written`, `figure`, `eyes`, `creatures`, `petting`, `boat`, `weather`,
+`quickstep`, `byhand`, `style`, `delivery` and `controls` run through with
+`-Check`; `export.ps1 -Check` (the delivery made in the built game, saved,
+continued); `-Game -Demo written -Check`. The sheep that let the walker within 0.6 m
+once in the slice before this did not do so in either whole run. Not run: the demos
+`motor`, `door`, `keeper`, `items`, `loose`; the core's tests (the core was not
+touched); `-Measure` and `-Weigh` (they do not use what is written, and are kept
+out of it on purpose).
+
+What it showed:
+
+- **It could not be the document.** A style is the document's, undone and rebuilt
+  with it. What is written had to be changed while the world runs (a jump tuned while
+  it is played is the point of it), and the document is not changed then; and a game
+  saved names the document it was saved in, so a move tuned would have made every
+  saved game one "of another world". So it is a third thing the host keeps, beside
+  the document and beside what has happened. The price is that Ctrl+Z does not undo it.
+- **The host keeping the text did not need the host to understand it.** One reader
+  for each text stayed one. What the host needs to write one entry is only where
+  entries begin, and that was already how every one of the files is laid out.
+- **Every answer of the host was something a script might read later.** The first
+  version of the giving and fetching, run every frame, wrote over the host's last
+  answer, and the tour's world then "started" in the wrong place. Found by the tour.
+- **A world written before this has no texts in it.** A game built by copying such a
+  file would have had no moves at all. So the export no longer copies a world file.
+
+Limits:
+
+- The host does not understand what it keeps. It answers "what is written for set
+  walker" and not "what can the walker do to this door".
+- Not undone by Ctrl+Z, and no history of its own. A text editor has its own; a
+  program writing by command has none.
+- One program talks to the host at a time. A hub or a model reaches what is written
+  only through the editor's own connection (as the tour and the demos do). (No longer
+  so: see "The hub".)
+- In the editor the files win: when it starts, and whenever one is saved, the host is
+  given the file, whatever the world written with Ctrl+S carried and whatever was
+  written by command meanwhile. Nothing writes a text back into its file unless it is
+  asked to (`written` with `to`), and no key asks.
+- A file is known to be saved by its time, to the second: saved twice within one
+  second, the second is not seen until it is saved again.
+- An entry is found by how the text is laid out (a line not set in), which the
+  readers themselves do not go by. A text laid out otherwise is still read rightly
+  and still kept whole; only writing one entry of it would go wrong.
+- The styles, the controls and `feel.cfg` are not among them.
+- What a figure finds wrong (a pose that names a bone the rig has not) is not told to
+  the host: only what the reader of the text finds.
+- A saved game does not carry them and does not say whether they have changed since.
+- The built game was not run on another machine, as before.
+
+### The hub: who can do what, with what, and where it is written (2026-10-08, after stage 9)
+
+Asked for as the first thing under "Next" (roadmap, principle N: "a central Movement /
+Action hub in the editor: for every entity, the movement and action capabilities it
+has, from which the right specialized editor opens. A discoverability and management
+layer, not one editor for everything"). It needed two things that were not there: the
+three answers joined, and a way in to the host for a program that is not the editor.
+
+The six questions, asked first. It brings in no system that makes authored moves
+harder: it reads nothing and decides nothing, and asks the one reader of each text.
+What was being coded that should be content: nothing new; but it shows where content
+stops (what a thing says of itself is the host's code). Movement, how it looks,
+interaction and what a thing can have done to it are still apart: the hub is the one
+place they are looked at together, and it holds none of them. A set joins it as a
+row under who has a body, with its entry; an interaction as an offer under the thing
+and a line under whoever can do it. And as to places and contacts: it found that
+nothing asked whether the doer has the places an act uses, and now that is asked.
+
+| What | Where | Checked by |
+|---|---|---|
+| One account of who can do what, with what: everyone with a body (their kind of body, the places on it, their set, the numbers and plain ways the set has of its own, each move with what asks for it), every kind of thing (what it says, what it offers, who can do each and who cannot and why), every act (the move it takes, what offers it, who can), and what does not join (an act offered that is not written, a set named that is not, a place offered at that the thing does not say) | `editor/godot/hub.gd` `account` | tour (`hub`: four with a body, thirteen kinds of thing, nine acts, nothing that does not join; who can open a door, pet a sheep, take a lantern, push a crate, get into a boat) |
+| It reads nothing itself: the moves are asked of `moveset.gd`, the acts of `actbook.gd`, what a thing says of `things.gd`, and whether someone could do an act of the rule that decides it when it is done | `hub.gd`; `acts.gd` `could`, used by `offer` | tour (`hub`: the walker's set written without `reach`: the account says only the keeper can open a door, and before a door nothing is offered; given back, both) |
+| Whoever does an act needs the places on their body that the act brings to the thing or holds them by. A sheep and a boat have no hands: they are not offered a crate, nor a boat to get into. Nothing asked this before | `acts.gd` `could`; `figure.gd` `places` | tour (`hub`: "their body has no 'hand.L'"); the whole tour (the keeper and the walker do as they did) |
+| Where each is written: the name of the text, what the entry is called, its line. For a set, a move, an act; and for how a move looks, every pose of its name written for that kind of body, a mirrored one too | `hub.gd` `where`, `looks`; host `about` (`called`, `at`), `written` with an entry (`line`) | test (`p15`), tour (`hub`: the line said is the line each is on in the file; every move anyone has is written and has a pose) |
+| Shown, F4, editing or walking: a list, what is said of the one chosen, and what is underlined shown below as the host has it, with its line and a button that opens the file in whatever the machine opens text with | `editor/godot/hubview.gd`; `main.gd`; `controls.gd` `hub` | tour (`hub`: a door chosen, `act open` shown; the keeper, `set folk`), pictures |
+| It is made again by itself when a text is read again, another kind of thing is seen, or the walker has another set: looked at once a second | `main.gd` `settle_hub` | tour, demo |
+| The host is told what it came to, with the texts it was said of (`hub` with `says`), and keeps it. Whoever asks (`hub`) is told it and whether it still holds: of the texts as they all stand now. The host works nothing out | `editor/host/src/lib.rs` `"hub"`, `Session.joined` | test (`p15`), tour |
+| A door beside the editor's (`--beside PORT`; `run.ps1` gives the port after the editor's). Any number of programs, whether or not an editor is there. They are sent no cells and may ask for what is written, write it, ask for the hub, and what only reads; everything else is refused as the editor's | `lib.rs` `beside`, `Session::aside`, `beside_may`, `run` | test (`p15`: written and asked for with no editor there; refused: `playground`, `run`, `fact`, `read`, `write`, telling the hub; two beside at once and the editor between, five rounds, each its own answer) |
+| The host's program asks there itself: `engine-host --ask`, a command as it is or in plain words (`written name=moves entry="set walker"`). `editor\ask.ps1` does it for a person | `editor/host/src/main.rs`; `lib.rs` `ask`; `editor/ask.ps1` | tour (`hub`: the hub and one entry asked so; `playground` refused; the keeper's set written so), by hand once while the tour ran |
+| What is written from beside the editor reaches it by itself: the editor asks the host how things stand once a second, fetches what is another, and its readers read it | `main.gd` `settle_hub`, `settle_written` | tour (`hub`: the keeper's set written from beside without `reach`; 40 frames later the editor's account said the keeper cannot open a door, and the host's, asked again, the same) |
+| The game on its own has the hub (F4) and no door beside it | `main.gd` `_host` | `-Game -Demo hub -Check` (the same account; "there is no file of it here") |
+
+Checked by `editor\run.ps1 -Tour -Only hub` (and as part of the whole tour).
+Shown by `editor\run.ps1 -Demo hub` (5 beats).
+
+Run at the end of it: the host's tests one at a time (7 and 15 pass; `p15` is new).
+The tour's parts `hub`, `written`, `hands`, `acts` and `world`, each with no problems,
+and `eyes`, `style` and `errand` once each while something else was looked into. The
+demos `hub`, `byhand`, `petting`, `boat`, `written` and `controls` run through with
+`-Check`; `export.ps1 -Check` (the delivery made in the built game, saved,
+continued); `-Game -Demo hub -Check`.
+
+**Since then (the same evening, the screen on): the whole tour passes**, as it stood at
+the end of the hub and again with walls and edges in it. What follows is how it was left.
+
+**The whole tour did not pass, and it is not known to pass with this in it.** It was
+run three times. The first two had four and then six problems of the kind that comes
+of time (a walk ended metres short, the eye within come to in 6 ticks where 8 to 30
+are looked for, the errand not reached), none of them in the new part. The third was
+run with the hub's once-a-second work switched off, as a control, and failed the same
+way (four walks short, and a sheep). In all three the frames were either 1 ms or 22 to
+26 ms, with half-second stalls that were in no script (332 to 451 of them); what the
+hub does was measured at about 1 ms a second, 5.7 ms at most. The machine's screen
+was locked by then, with nobody at it for three quarters of an hour, and a window
+that is not shown is not drawn steadily. So the reading is that the tour could not be
+run rightly then, with the hub or without. That is a reading, not a pass: **the whole
+tour is to be run again with the screen on** (`editor\run.ps1 -Tour`), before this is
+taken as not having broken anything else. Not run: the other demos; the core's tests
+(the core was not touched); `-Measure` and `-Weigh` (the hub is kept out of them).
+
+What it showed:
+
+- **The join had to be made where the texts are understood, and told.** The host
+  keeps the texts and reads none of them (seam 14). So the account is made by the
+  side that has the readers, and the host keeps what it was told with the marks of
+  the texts it was told of. The price: the host cannot answer when no editor has read
+  what is written now; it says so (`current`), and does not guess.
+- **The rule had to be one.** Whether a set has the move an act takes was asked in one
+  line of `acts.gd`, among things that hold only for a moment. The part that never
+  changes was taken out as `could`, and both the offer and the hub ask it. A hub that
+  worked it out for itself would have been a second opinion.
+- **Joined, the rules said something nobody had asked.** Taking hold of a crate takes
+  no move, so the first account said a sheep and a boat can push a crate. That was
+  what the rules were. The act names two hands; now whoever does it must have them.
+- **A mirrored pose is not headed as a pose.** The first account said the quick step
+  to the right has no pose written: it is `mirror step_left/go as step_right/go`.
+- **Numbers do not come back from the host as they went.** A count sent as 1 comes
+  back as 1.0, so what the host was told cannot be compared with what was said letter
+  for letter. Found by the tour's own check, which was wrong.
+
+Limits:
+
+- Nothing is changed from the hub. The way to where a thing is edited is its entry
+  shown and its file opened by the machine's own program for text, at the top of the
+  file: it is not taken to the line. In a game on its own there is no file to open.
+- What a thing says of itself is not in a text, and the hub says so and stops there.
+- It is of the kinds the editor has seen, and by kind: not this door, but doors.
+- What holds only now and then is not in it (a door already open, hands full, a thing
+  too far to reach, something in the way): it says who could, not who can this moment.
+- The host's account is the editor's last. With no editor open, or within the second
+  before it has read something just written, `current` is false.
+- The editor asks the host how things stand once a second, always, to hear of what
+  was written from beside it. What that costs was not measured.
+- A program beside the editor cannot edit the world, put a fact, save, or run it.
+- The door beside the editor's is on this machine only, and has no key: any program
+  here may write the texts while the editor is open.
+- The quoting of words with spaces to `engine-host --ask` is the shell's; `ask.ps1`
+  does it for PowerShell. A text with line breaks is given as a file (`file=`) or as
+  a whole command piped in (`--ask -`).
+- No controller was plugged in, as before.
+
+### Walls and edges: held on to, hung from, climbed (2026-10-08, movement)
+
+Asked for as "the next pass", and chosen by the user from what stood under "Next":
+movement. It was the last of stage 1 (wall grip, ledge hang, and a test of coyote time,
+which wanted an edge), and had been waiting for the feel of the motor to be heard. It
+was built on the motor as it is.
+
+The six questions, asked first. It brings in no system: one script that feels for what
+is solid, and words. What is coded that should be content: the spots of an edge are a
+list in the motor, and what can be held on to is whatever is solid, which nothing can
+gainsay (both under "What stands in the way"). Movement, how it looks, interaction,
+physics and what a thing can do are apart: the motor says what is before the body,
+a move says what is done there, a pose says the hands hold it, and what is loose is
+left to pushing. A set joins it as it joins everything: the four moves are words on
+the walker's line, and whoever has none of them is not felt for at all. An intended
+interaction does not join it yet: this is movement, found by the body, not offered
+by a thing; the place it finds (where, which way out, how high) is the shape a
+thing's own `point ... from` has, which is where the two would meet. And as to what
+is said for a proper action later: where the edge is and which way the wall faces
+are kept, and the hands are on it; the feet are on nothing.
+
+| What | Where | Checked by |
+|---|---|---|
+| What there is before a body to hold on to: a wall near enough to be against, or the edge of something whose top is within reach of its hands, level, with nothing over the body on the way and room over the edge. Felt for the way the body is asked to go, each step it is in the air, among what is solid; what is loose and whoever has a body is not held on to | `editor/godot/grasp.gd`; `motor.gd` `place` | tour (`climb`: the yard's wall is an edge; a house's wall, under its eaves, is a wall) |
+| Only a body whose set has a move that could use it is felt for | `moveset.gd` `feels` | tour (`climb`: the walker is; the keeper and a sheep are not) |
+| A move begins unasked upon what is found: `upon wall`, `upon ledge`, as `upon hard_landing`. And asks of it: `when wall`, `ledge`, `pressing` (a way asked into it), `falling`, `gripped` (held to it by the move it is in) | `motor.gd` `_can`, `_holds`; `moveset.gd` `UPON`, `WHEN` | tour |
+| A phase brings the body to a spot of what it holds on to, in its time, or keeps it there: `to wall`, `hang`, `press`, `above`, `top`. It is moved there as it is always moved, by its speed, through what is solid | `move.gd` `_do`; `motor.gd` `spot` | tour (hung 1.72 m below the edge as `hang_drop` says, 0.34 m from the wall, still; climbed in 0.92 s, where the three times written are 0.88, to stand 0.22 m in from the edge) |
+| A phase waits (no time), and is ended by a button (`ends crouch`), by standing on something (`needs air`), by there being nothing to hold; it comes down at a speed (`sinks`); a move goes straight out from what is held (`heads off`) | `move.gd`; `moveset.gd` | tour (waited a second, nothing asked; let go with crouch; slid at 2.4 m/s as `grip_slide` says, and was over on the ground) |
+| Four moves, written: `ledge_hang` (an edge caught going into it, on the way up or down), `climb` (jump, from a hang: three phases), `wall_grip` (a wall gone into on the way down: held, then sliding), `wall_jump` (jump, from a wall; from an edge with a way asked that is away) | `editor/godot/moves.txt` | tour (the edge caught on the way up; pushed off a hang 1.5 m up and 6 m out; a house's wall held to 1.3 m up, and jumped off 1.5 m up) |
+| How they look: hung, pulled up, a knee up, stood; held to a wall; gathered to push off. A pose says which places on the body hold the edge (`holds hand.L hand.R 0.44`), and they are on it | `editor/godot/poses.txt`; `poses.gd`; `figure.gd` `express` | tour (hands 6 mm from the edge), demo pictures |
+| A hang is no lower than the ground lets it be: from what is low it hangs with its arms bent, and climbs from there | `grasp.gd` `_edge` (`floor`); `motor.gd` `spot` | **not checked**: the wall tried is high |
+| Coyote time, which had no edge: a jump asked 0.05 s after walking off the wall is a jump, one asked 0.18 s after is not (`coyote_time` 0.1) | `motor.gd` (as it was) | tour (`climb`) |
+| A move that waited rests from when it ended, not from when it began | `motor.gd` `_over` | tour (let go, an edge is not caught again on the way down) |
+| Fourteen numbers, "Walls and edges", in F1 | `tune.gd` | read by the moves above |
+| A roof is solid: its eaves and its ridge, as one shape. It was walked through, which nobody could find out from the ground. So a house's wall has no edge to catch (the eaves are over it), and a roof got onto is stood on | host `shapes.rs` `solid` (`hull`); `solid.gd` | tour (`climb`: a house's wall is held to, not hung from); the whole tour (the keeper's ways, the rain) |
+| The controls card says it, and the walker led by a script holds crouch as a button | `controls.gd` `SAYS`; `player.gd` | demo |
+
+Checked by `editor\run.ps1 -Tour -Only climb` (and as part of the whole tour).
+Shown by `editor\run.ps1 -Demo climb` (6 beats).
+
+Run at the end of it: the host's tests one at a time (7 and 15 pass); `-Tour -Only
+climb`, no problems; the demo with `-Check`, through (in the editor its window was put away part of the way through both times, and the pictures stop there; in the built game all sixteen were taken, and looked at); the whole tour, with the window showing: no problems, the climbing last in it so that what comes before is step for step what it was (three whole runs before that had one problem each, the sheep: see "Known gaps", where what was found of it is; the tour comes at the sheep from another side now); `editor\run.ps1 -Game -Demo climb -Check`: the same seen in the built game. Not run: the other demos; the core's tests (the core was not touched); `-Measure` and `-Weigh`.
+
+What it showed:
+
+- **A move could not begin by itself, except on landing.** `upon` knew one thing and
+  was done in the landing. Whether a move is asked for is now one question (`_can`):
+  by a button, by its name, or by what is before the body. So a hang is let cut into
+  a jump by the same word a dash is (`lets dash ledge_hang`).
+- **A climb is not a distance.** Every phase so far covered so far, or lasted so long.
+  A climb goes to where the edge is. `to SPOT` is the first word of a phase that is
+  about something outside the body, and the spots are the first places that are not
+  on a thing or a rig.
+- **Waiting was already there.** A phase with no time never ended; nothing had used
+  it. What was missing was ending it (`ends`, `needs air`), and resting from the end.
+- **Caught at once, it was let down.** With the feet nearer the edge than a hang is
+  long, the first version kept them there, arms bent; then a hang from the ground
+  would have put them in it. Now it hangs at arm's length where there is room, and as
+  low as the ground lets where there is not.
+- **A roof was not there.** Climbing a house's wall put the walker inside its roof:
+  roofs had never been solid, and nothing could reach one to find out. They are now,
+  and the first thing that showed was a jump off a house's wall stopped by its eaves
+  at once; the jump now pushes a hand's width out first (`covers 0.25 0.06`, a line).
+- **The tour's sheep was a trial of the village.** Three whole tours running failed
+  on it and nothing else. It was not this work: the chase went in among the houses,
+  and how it came out went by where everyone stood when it began, which any change
+  to the tour before it moves. What was found is under "Known gaps"; the chase now
+  goes into the open, and a sheep that can be cornered is still a sheep that can be.
+- **The arm is shorter than was guessed.** Hung 1.88 m below the edge the hands were
+  0.11 m short of it. The tour's own check said so; `hang_drop` is 1.72.
+
+Limits:
+
+- What can be held on to is anything solid, by the shape it is walked into by: a
+  haystack and a stall by the box round them, a tree by its post. Nothing can say it
+  is not to be climbed.
+- Only what is straight before the body, with a wall under the edge. Not along an
+  edge, not round its corner, not an eave or a beam, not from above (walked off and
+  turned back it is caught, if the way asked is into the wall by then).
+- Only in the air. A wall as high as the chest or lower is jumped onto as before;
+  nothing is vaulted.
+- An edge is caught only while a way is asked into the wall, and never with crouch
+  held. Whether that is what is wanted is the user's to say; it is one word.
+- The hands are put on an edge; on a wall they are posed. The feet are put on
+  nothing: climbing, they hang clear of the wall. One pose serves holding and sliding.
+- Climbing, the body goes to three spots in three times, whatever is there: it does
+  not look whether there is room to stand before it starts, beyond a quarter of a
+  metre over the edge.
+- Only the walker has the moves. The keeper would by a word on a line; untried.
+- The measurements (`-Measure`, `-Weigh`) were not run again with roofs solid, nor
+  was what the ways cost to bake.
+- A roof can be stood on if it is got onto, and walked on where it is not steeper
+  than the walker can stand (52 degrees). Nobody has been up one: not tried.
+- No controller was plugged in, as before.
+
+### M1 — Kinds as content (2026-10-09)
+
+The first milestone after the nine stages, from the reconciliation of 2026-10-09
+(`Draw3D_Audit_and_Next_Milestone_2026-10-09.md`, `Draw3D_Roadmap_Amendment_2026-10-09.md`,
+`Draw3D_Milestone_M1_Brief.md`): principle O, content is data and engine code is the
+interpreter. Approved by the user with seven conditions (the brief's checklist), and
+one constraint: the data model must not assume geometry is always rebuilt from fixed
+primitives. The repository was put under git first (`1d92092`).
+
+The proof asked for: a pushable prop and a simple creature that roams, shies and can be
+petted, both authored through the editor with no change to Rust or GDScript. Both are
+done: the drum and the hopper are text in the document, and nothing in the code names
+either (`grep -ri "drum\|hopper" core editor/host/src editor/godot/*.gd` finds only the
+tour and the demo, which write them as a person would).
+
+| What | Where | Checked by |
+|---|---|---|
+| **A kind of thing is text the document keeps**, as the asset `kind.NAME`: `kind NAME [like OTHER]`, `size W D`, parts (`block`, `post`, `blob`, `limb`, `face`, each with a colour written rrggbb or as one of the style's: wall, trim, stone, wood, bark, rock, roof1.., pane1.., leaf1..), `solid` (auto, none, mesh, or the collider lines the realizer writes), `rig` (none, or one the code has: person, sheep, skiff, each part saying which bone moves it), and any trait line in today's vocabulary. A line not understood is said with its number and left out; the text is never refused | `editor/host/src/shapes/kind.rs` | test (three unit tests: read and what is wrong; like another; built into a mesh, a collider and a rig), test `p16` |
+| **A kind like another** is that one but for what its lines say: parts add, a word said once replaces, `no WORD` takes away. A change to the other follows through | `kind.rs` `resolve`, `chain`; `land.rs` `Placed` reads the chain | test (`p16`: the red drum follows the drum) |
+| **Realized from data**: mesh (in the world's look), collider, traits (`called` defaulted, `kind NAME` added), rig and skin. The content of a thing of a kind is named from the kind's text, the texts it is like, and the style's colours; a change to any makes it again and nothing else | `shapes.rs` `kind_outputs`, `kind_assets`; `core/src/plan.rs` `Generator::leaf_assets_of` (new: a leaf's assets may follow its brief), `build.rs` | test (`p16`: other content, the same thing, nothing else made; tour: `made_again` 0) |
+| **Put down by name** from the palette, which lists the kinds after the things the code has, and from the kinds panel; `Placed` gains a `kind` parameter and reads the kind's text for its footprint | `land.rs` `Placed`; `lib.rs` `place`, `placeable`; `palette.gd` | test (`p16`), tour (`kinds`) |
+| **Host commands**: `kinds`; `kind` with a name (text and what is said of it), with `text` (written: a document edit), with `delete` (refused while anything put down is of it or another kind is like it), with `as` (a new kind like it); `node` (a node's parameters as declared and as they are). Kinds are read from beside the editor and written only by it | `lib.rs` `run`, `kind_about`, `beside_may` | test (`p17`: written with the world and back when opened; deleted with care; undone and redone; read and not written from beside), `ask.ps1 kinds` (tour) |
+| **The kinds panel (F6)**: the list with how many of each are put down and `!` for one with problems; New (a kind to start from), Duplicate, Delete, Put one down; the text, Apply (Ctrl+Enter); what was not understood under the text, line by line; the status line. The world is the preview: every thing of the kind is made again on apply, and Ctrl+Z takes it back. The list follows the host (an undo, a program beside) | `editor/godot/kindview.gd`; `main.gd` | tour (`kinds`: opened with the key, New, a wrong line said as `line 11 (...): 'wheel' is not a part`, the rest held; put down from the panel; taller on apply, undone and redone with the keys), pictures |
+| **The inspector (F7)**: what is picked, the node that made it under which path, the generator and its mode, its parameters as fields (Enter sets one, through `param`; whole numbers kept whole; read-only while frozen), the way to the kind. It says they are knobs of the generator, not the thing's shape | `editor/godot/inspect.gd` | tour (`kinds`: the four fields of a placed drum, `yaw` set to 90 and the thing turned, undone), picture |
+| **Open and Save As** (Ctrl+O, Ctrl+Shift+S): a file dialog; the file is the world's from then on, said in the window's title and the top line; the palette and the kinds follow an opened world | `main.gd` `open_world`, `save_world_as`, `ask_file`, `_title` | tour (`kinds`: written to `tour/world-kinds.json`, the playground made anew, the file opened: the kinds and their things back, 2825 things both times) |
+| **Someone of a kind the world defines**: a body with the bones of the rig it names, posed by the poses written for that kind of body, going by its set of moves; it strays, runs from the walker who comes fast, stands to be stroked by one who comes slowly; what it says of itself is in the hub, with the way to the panel | `kind.rs` `build` (binding), `rig`; `things.gd` (`kind`), `hub.gd`, `hubview.gd` | tour (the hopper: `sheep 13 poses.sheep.txt`, nothing unread; strays 1.5 m; runs at 6.2 m/s from a walker running at it; offered "E pet the hopper"; stroked, the hand 0.000 m from its back, `petted` 1), demo (`kinds`), pictures |
+| **A loose thing of a kind the world defines** is a body that goes where it is pushed | the kind's `loose` line; nothing new | tour (the drum pushed 3.8 m in 3.5 s), demo |
+| **In the built game**: the kinds are in the world's document; the game needs nothing else | `export.ps1` (no change) | `editor\run.ps1 -Game -Demo kinds -Check` |
+| The palette's `new kind…` button; things of a kind say `kind NAME`; the hub says of such a thing that it is written in the kinds panel | `palette.gd`, `things.gd`, `hubview.gd` | tour (hub part unchanged), by eye |
+
+Held to: no mesh editing, no terrain, no rigs of the user's own, no migration of the
+things the code has, no rules as data, no handles. One widening against the proposal,
+needed for the proof: a kind may name a rig the code has (`rig sheep`), since nothing
+without a rig can be someone. Deferred, with why, in the brief.
+
+The data model and what comes after: a kind's text is the representation (principle N:
+one representation, the panel over it); a later `mesh NAME` line names an editable mesh
+asset (M3) that the realizer bakes to the same bytes, and the sculpt layer (M2) is
+document content read by the same realizer. Nothing here assumes geometry is always
+rebuilt from fixed primitives.
+
+Checked by `editor\run.ps1 -Tour -Only kinds` (and as part of the whole tour, last).
+Shown by `editor\run.ps1 -Demo kinds`. Tests: `cargo test` in `editor\host` (`kind`
+unit tests, `p16`, `p17`); the whole protocol suite and all earlier suites pass.
+
+**From the hands-on pass (2026-10-09): "a kind made after saving survives loading."**
+What was pressed was F5 and F9 (the run log: `Saved: 12 facts.`, `Loaded: 12 facts. The
+world has been edited since it was saved.`; no `editor\world.json` was ever written).
+F5/F9 are the saved game: what has happened (facts), which the host keeps apart from the
+document. Kinds and what is put down are the document, written with Ctrl+S and opened
+with Ctrl+O; loading a game puts nothing of them back, and never did. Opening a world
+does replace the whole document (kinds, things, what is written): `p18` pins the exact
+sequence, with a kind written otherwise and a kind deleted after the save as well.
+What was wrong and is fixed:
+- The words. F5 now says "Game saved: N facts, what has happened. The world itself (its
+  kinds, what is put down) is not in it: Ctrl+S writes that."; F9 into an edited world
+  says that only what has happened was loaded, that the world stays as it is now, and
+  that Ctrl+O opens a written world (shown 10 s). The controls card says "save the game:
+  what has happened, not the world".
+- A defect `p18` found in opening itself: a new project (`open`, `playground`, `scene`)
+  kept the empty world before it as a step of history, so Ctrl+Z straight after Ctrl+O
+  emptied the world. `Session::fresh` now makes the edit that fills a new project its
+  beginning (`keeping = false`): nothing to undo or redo after opening, and undo and
+  redo from there on as ever.
+Checked: host tests (10 unit, 18 protocol, one at a time), `-Tour -Only kinds` (now also
+makes a kind after the save, opens the file over it, and tries the undo): 0 problems.
+**Decided by the user (2026-10-09):** F9 stays as it is. It loads what has happened and
+does not put an edited world back; F5/F9 are said to be the game's, Ctrl+S/Ctrl+O the
+project's, wherever either is told. The undo after opening is covered by `p18`
+(nothing to undo or redo after an open; an edit after it undone and redone).
+
+### M2 — The land by hand (2026-10-09)
+
+The second milestone of the amendment (`Draw3D_Roadmap_Amendment_2026-10-09.md` §3.1,
+§5 item 2), begun on the user's word after M1's first hands-on report was answered. The
+brief, with the manual script, what was not built and the decisions taken, is
+`Draw3D_Milestone_M2_Brief.md`. The proof asked for: a cliff with ledges sculpted, the
+woods regenerated, the cliff standing and climbable. Done: the tour and the demo put a
+6 m cliff down with a ledge 3 m up it, give the woods another seed and the land other
+hills, and the walker goes up it by the ledge with the moves written for the yard's wall.
+
+| What | Where | Checked by |
+|---|---|---|
+| **What is done to the land by hand is document content**: for each patch of ground touched, an asset `land.LAND.GX.GZ`, text: how far each sample, a metre apart, was raised (to the millimetre) and what its surface was made. The land publishes which patches have a part. Undone, written out and opened with the rest | `editor/host/src/shapes/land.rs` `Tile`, `Layer`, `Shape`; `Land::plan` | test `p19` (written and opened: as shaped; cleared; that undone) |
+| **A stroke makes the patch under it again and no other.** A patch's part reaches one sample past it on every side, so a patch is made from its brief, the style's ground and that one asset (`leaf_assets_of`) | `land.rs` `Land::leaf_assets_of`, `ground`; `shapes.rs` `made` | test `p19` (1 patch of 144 made again; over an edge, 2); tour `land` (at most 2 a step) |
+| **Whatever stands on the land follows it**: every generator that reads the land reads the parts with the shape, and is asked again when one changes; what stands elsewhere is not made again | `land.rs` `Ground::read` | test `p19` (a rock put down there stands 2 m higher; the woods given another seed make no patch again) |
+| **Brushes**: raise, lower, smooth, flatten (to the height where the stroke began, or one said), erase (back toward the land as its parameters make it); round, easing to the rim; a radius and a strength | `land.rs` `Shape::stroke`; host command `sculpt` | test `p19` |
+| **Stamps**: `cliff` (ground raised behind a line, sheer at the line, easing down behind and at its ends) and `ledge` (a level shelf behind a line), each turned the way its edge looks out | `Shape::stroke` | test `p19`; tour `land` |
+| **A face, not a slope**: two samples a metre apart, one raised 2 m more than the other by hand, are a sheer step. The ground between stays low until 5 cm from the higher; the mesh's lower corner stands there, and is coloured as the face. So what is put down as a cliff is a wall with an edge to whatever feels for one (`grasp.gd`, unchanged) | `land.rs` `sheer`, `Layer::lift`, `Layer::lean` | test `p19` (low at 10 cm before the line, up at 1 cm); tour (caught and climbed) |
+| **Paint**: the surface made grass, rock, sand, dirt, or as it was. Drawn so; and nothing grows on rock, sand or dirt (the woods and the meadow read it), but that a rock may lie on rock | `Shape::colour`, `surface`; `Ground::bare` | test `p19` (fewer grow; the same number again when unpainted) |
+| **No parameter of the land, and nothing made again on it, changes it.** Other hills (`amp`): what was done is as far over them as it was. `sculpt clear` takes it all away | the layer is not a parameter | test `p19`; tour (`still_over_them_m` 6.25 of 6.22) |
+| **A drag is one stroke and one step of undo**: the stroke so far staged again and again while the button is held, and one commit when it is let go; Esc lets it go. About 12 ms a step to answer, 30 ms to the new mesh | `editor/godot/terrain.gd`; `main.gd` (`land_at`, the left button while a tool is chosen) | test `p19` (staged, dropped, committed: one step); tour `land` (a drag by mouse events: 1.78 m raised where 1.77 was worked out, undone, redone, dropped) |
+| **The land's tools (F8)**: the eight tools, radius, strength, how a cliff and a ledge are, the surface, the button that takes all of it away; the tool shown on the land where it would fall; `[ ] - = , .` | `terrain.gd` | tour `land`, pictures |
+| **Climbed**: the walker jumps at the face, catches the ledge's edge and climbs onto it, then the top's | nothing new: `moves.txt` `ledge_hang`, `climb` | tour `land` (edges 3.04 m and 6.16 m above the ground, stood on both); demo `land` |
+| **Host commands**: `sculpt`; `ground` (heights and surfaces at places; read from beside the editor too); `preview` (what a parameter's value would do: how many would go, come, stay; nothing done); `param` takes a list | `lib.rs` | test `p19` |
+| **The inspector (F7), more of it**: every node of the world in a list (the road makes nothing to pick); `?` beside a parameter; freeze and thaw; another seed | `inspect.gd` (rewritten) | test `p19` (frozen woods stand while the hills change; thawed, they follow); tour `knobs` |
+| **The road's line, on the world**: its places marked; one taken hold of with the left button and let go where it is to be, which is one `param` edit; a place added after it, or taken away. The level ground, the houses and what stands before them follow | `editor/godot/line.gd`; `main.gd` | test `p19` (a place moved, the ground level along it, undone); tour `knobs` (let go 0.4 m from where it was aimed; one step; undone; added; taken away) |
+| **What is written is the document's**: the moves, poses, acts, eyes and weathers are assets `written.NAME`. Writing one is an edit: undone, done again, in the world's file (a world written before is opened as it was). Unlike other edits it is written while the world runs and from beside the editor; a text there was none of is no step; it is no part of what a saved game is a game of | `lib.rs` (`written`, `settle_writ`, `text`, `document`) | test `p14` (rewritten: undone and done again in its turn, the count of what is written going on each time), `p15` unchanged |
+| **What is written, written in the editor (F10)**: the texts by name, the one chosen, Apply (Ctrl+Enter), what its reader did not understand under it. Applying writes its file too where there is one, and so does a Ctrl+Z that takes a text back. The hub's button opens the entry there | `editor/godot/textview.gd`; `main.gd` `step`, `keep_file`; `hubview.gd` | tour `penned` (a line that means nothing said and left out, the rest held; one step; undone, redone, the panel and the file following; in a folder of the tour's own) |
+
+Held to: no bake (one layer: nothing to bake into), no more stamps than the two named,
+no feature line but the road, no overhangs or caves (M3's meshes). Each with its reason
+in the brief.
+
+Checked by `editor\run.ps1 -Tour -Only land` (the land, then the knobs) and
+`-Tour -Only written` (now also the panel), and as the last parts of the whole tour.
+Shown by `editor\run.ps1 -Demo land`. Tests: `cargo test --release -- --test-threads=1`
+in `editor\host`: 10 unit, 19 protocol (`p19` new, `p14` rewritten).
+
+The whole tour, once, at the end: the parts of M2 (penned, land, knobs) passed in it. Three
+problems were said by older parts. Two were the kinds part's (the inspector showed a
+window, the drum was not pushed): the tour's window had been resized while it ran
+(its pictures are 958 wide there, 1280 before), so the click that puts the drum down
+fell by a house; run by itself at its own size the kinds part passes. One was the
+flock's (a sheep let the walker within 0.6 m): the cornering in Known gaps; the flock
+part by itself then passed that and said the other known one (a sheep 0.19 m from
+where it stood after a load). Demos run through with `-Check`: land, kinds, written,
+hub.
+
+### After M2 — the land stands while it is made again; a tool shown on the land (2026-10-09)
+
+Asked for after the review of Terrain3D (kept: the land stays Draw3D's own, the host's
+document its one source; the plugin is not brought in; looked at again if large worlds,
+levels of detail or textured ground are wanted). Two things, and no more.
+
+| What | Where | Checked by |
+|---|---|---|
+| **The land is not bare while it is made again.** It was: a staged step names a new mesh for each patch under the stroke, the host says "not yet" (its workers make it), and until it came the patch was drawn as nothing and then as the grey box of a thing with no mesh, 32 m square: the square that flashed. Nothing was there for a ray to meet either, so the tool's ring went out and the stroke went on over a flat plane at the height it last had. Now a patch stands as it stood, drawn, met by a ray and stood on, until what it is now is here: the cell keeps the content each thing of the land was last drawn with and names it, so it is held until then and let go after, by the count there already was | `editor/godot/world_view.gd` (`LAND`, `stand` in `_put`, `stands_as`, `land_bare`), `solid.gd` (`body_of`), `main.gd` (`land_at`: no plane to fall back on) | tour `land`, each frame of a stroke over the corner where four patches meet: bare as it was in 12 to 21 frames of 26, not met by the pointer in 5 to 12, and as it is in none of 29; nor in a stroke 64 m wide; nothing left standing for anything after, nothing more held than before, everything drawn once |
+| **Where a tool would fall is drawn on the land.** By the land's own material (the same shader as everything's, apart, so what is said to it is on nothing else): seen from above, so it lies on slopes, on faces and on the bed of the sea as they are; a brush as its rim, tinted the more the more of the brush a place gets, by the same easing the host works with (`raise`, `lower`, `smooth` to the rim; `flatten`, `erase` level over most; `paint` all of it); a stamp as its outline, as far back as it goes and turned as it is, its line bold and a mark on the side the edge looks out from; a cliff tinted as it eases behind and at its ends. It is no thing in the world: nothing a ray meets, nothing the left button or the view's keys know of. Not shown with no tool, off the land, over a panel, or with the pointer out of the window | `world_view.gd` (`PAINT`: `tool`, `tool_turn`, `tool_ease`, `tool_shown`; `land`), `terrain.gd` (`point`, `EASES`), `main.gd` (`pointer`, from what the mouse last said) | tour `land` (shown where the pointer is, as wide as the tool; not on what is not land; a stamp's depth and turn; the view turned and brought nearer with it shown and nothing done to the land; on the shore), pictures `land-brush`, `land-stamp`, `land-shore` |
+
+The tools do what they did; the document, a world's file, undo and the host are as they
+were (no line of the host changed). Tests: `cargo test --release -- --test-threads=1`,
+19 protocol, pass. `run.ps1 -Tour -Only land`: no problems. `run.ps1 -Demo land -Check`:
+6 beats of 6. The whole tour, twice: the second time no problems; the first, one, of
+this part's own: in 2 frames of 29 of the stroke the pointer met no land, though none
+was bare. Not seen again in four runs after (three of the land alone, one whole), and
+not explained: the check now says where the pointer was when it happens. Not tried by
+hand: only by the tour's mouse events and its pictures.
+
+Left as it was, to be decided together (the review's other findings): edits that hold
+their height when the hills change; painted surfaces that blend into the land's own;
+generators asked again only for the patches they stand on; what layers the land has.
+And seen here: a step still makes whole patches again and plays the whole stroke again,
+24 to 44 ms to answer at 64 m wide on this machine; the land's look is still colours at
+its corners, said by the host, which is where a style would say it.
+
+### After M2 — the land's tools made plain (2026-10-09)
+
+Asked for after the user had shaped the land by hand: it works, and three things were
+not plain. What "erase" does; why painting grass out past the shore changed the colour
+of the water; and how to work the tools without knowing their keys. And the view was to
+be moved with the mouse.
+
+| What | Where | Checked by |
+|---|---|---|
+| **Erase is restore.** It never took anything of the land away: under the brush it brings what was raised or lowered back toward nothing and makes the surface the land's own again, both. So it is called what it does, in the host and in the panel; `erase` is still taken, by a command and by a script. Nothing kept in a document names a tool, so no world changes. The three things that word could mean, as they stand: **restore** (this); **paint taken off** and the shape left: paint with "as generated", which was there and is now called that; **what the world generated taken away**: one thing with Delete, and nothing grows on rock, sand or dirt, and no more than that (see "Next") | `host/src/shapes/land.rs` (`TOOLS`, `stroke`), `godot/terrain.gd` | test `p19` (by both names; what was painted goes with it), tour `land` |
+| **The bed of the sea is not painted, and does not show paint.** The water is a sheet one sees through, over the land's own mesh; the land's colour darkens to the sea's under it, but what was painted was that colour at any depth: bright grass under the water, which is the blue that changed. Now what was painted darkens under the water as the rest does, so worlds already painted there look right; and a brush that paints leaves alone what is under the water, so nothing is kept that cannot be seen (making it plain again reaches everywhere). What is raised out of the water can be painted | `land.rs` (`WATER`, `stroke`, `colour`) | test `what_is_painted_under_the_water_is_the_colour_of_the_sea_bed`, test `p19` (a stroke over the shore: dry painted, wet not; raised, then painted), tour `land`, picture `land-shore-painted` |
+| **Flatten by the shore, said and not changed.** It levels to the height where the drag began, and what it makes takes the colour its height gives: sand to 1.5 m over the water, grass above; and where ground comes up out of the sea the meadow and the woods grow on it as on any ground that high, which is the green that was not expected. That is the world's rule and is left; the panel says it, and says how high the ground under the pointer is | `terrain.gd` (`ABOUT`, `here`) | read in the code; the line in the panel by the tour's pictures |
+| **The panel.** The tools in rows by what they change (shape, surface, stamp, by hand); under them what the one chosen is for; then only the numbers it goes by, each with a slider, the number to write, and - and + beside it; what paint makes, only for paint. The keys are as they were | `terrain.gd` (`GROUPS`, `ABOUT`, `KNOBS`, `USES`) | tour `land` (the rows of restore and of paint; a slider, a click on +, two on -, a key: one number), pictures |
+| **The right button dragged moves the view.** It takes the ground by the place under the pointer and keeps it there, level. Begun on what is picked it moves that, as it did (it used to from anywhere); let go before it has gone six pixels it is a click, which puts what is picked there, as it did. With a tool for the land chosen or not; the tool's outline is nothing a button meets | `main.gd` (`right_down`, `panning`, `pan_to`, `_on_picked`, `_see`) | tour `land` (the place held stays under the pointer; nothing done to the world; the tool still shown; beside what is picked the view moves and it does not; on it, it moves and the view does not) |
+| **A stroke that met nothing for a frame.** Seen again in the tour (once in a wide stroke, no patch bare). Likeliest a crack between a patch made again and its neighbour still standing; not shown to be. The pointer now looks 3 pixels to each side before it has missed; the tour counts the bare misses (`through`) and fails on none | `main.gd` (`land_at`), `tour.gd` | tour `land` |
+
+Tests: `cargo test --release -- --test-threads=1`: 11 in the host, 19 protocol, pass.
+`run.ps1 -Tour -Only land`: no problems (twice, after one run that found the two things
+put right above). `run.ps1 -Demo land -Check`: 6 beats of 6. The whole tour, twice: no
+problem of the land's, and each time "a sheep come at was caught" (0.6 m and 1.9 m
+against 2.0), once with the road's place not added in time in the inspector's part.
+The whole tour of the commit before, run the same hour for comparison: the same sheep,
+0.6 m, and another of its own (a world opened not starting where it was written). So
+the sheep is not this pass's and is no longer steady (Known gaps); the other two were
+seen once each and pass alone. Not tried by hand: only by the tour's mouse events and
+its pictures.
+
+### After M2 — the land worked on more easily (2026-10-09)
+
+Asked for after the user had tried the pass before. Five things about working on the
+land, and nothing else of the engine.
+
+| What | Where | Checked by |
+|---|---|---|
+| **The view turns about the place under the pointer.** It turned about what it looks at (`focus`, the middle of the screen) and nothing else. Now the middle button, where it goes down, takes the place of the ground under it (the land, or the water), and while it is dragged the view is put so that that place stays at the same place of the screen, as far off: turned about the world's up, tipped about the view's own side. Let go, the view stays and what it looks at is put on the ground at the middle of the screen, so that the wheel and the keys go on from there. Over the sky, or a place more than six times as far as the view stands off, or with **P** (and the box in the land's panel), it turns about the middle as it did. The keys (Q E R F) turn about the middle. Not kept between sessions | `godot/main.gd` (`orbit_begin`, `_orbit`, `orbit_end`, `meets`) | tour `land` (`orbit`): four places of the screen, at 3.4, 6.6, 5.1 m and on the water: the place held is 0.0 px from where it was, the view does not move when let go, what it looks at is on the ground at the middle; P: about the middle; the sky: about the middle; nothing done to the world |
+| **Where a ray meets the land, far off.** Found on the way: the ground a long way from what the view looks at is drawn together with the rest and is nothing a ray meets, so "the ground under the pointer" went through a far hill to the water behind it. `meets` asks the host for the land's height along the ray when the drawn ground is not met. Used by the turning; `ground_at` (the right button, things put down) is as it was | `main.gd` (`meets`) | tour `land` |
+| **Paint with a soft rim, or to an edge.** A place keeps, beside what its surface was made, how much of that shows over the land's own, in tenths (`Spot::much`; `a` rows in a patch's text, only where it is not all). A painting brush has "soft rim, m": so far in from its rim it goes from none to all; 0 is all of it to the rim, the edge there was. The colour of a corner is the land's own and the surface's, mixed by it. Paint taken off with a soft rim leaves less toward the middle. One surface is kept for a place: a fainter one does not take a stronger one's place, so **two painted surfaces meet at an edge; each is soft only into the land's own**. The tool's outline on the land shows the rim. Nothing grows where rock, sand or dirt is half or more | `host/src/shapes/land.rs` (`Spot`, `Tile`, `stroke`, `colour`), `godot/terrain.gd` (`soft`), `world_view.gd` (`tool_soft`) | test `p20` (soft, sharp, a fainter over a stronger, taken off softly, undone), unit `a_part_of_the_layer_is_its_text`, tour `land` (`soft`), picture `land-paint-soft-and-sharp` |
+| **A surface with what grows on it, or for its look alone.** Read in the code first: painting never made anything or took anything away itself. Generators ask, for each thing they would stand, whether the place is bare; bare was "its surface is rock, sand or dirt". So rock cleared what grew, grass over rock let it back, and grass on plain land did nothing. Now whether anything grows at a place is kept apart from its surface (`Spot::grows`; `g` rows, only where it differs). "And what grows on it" (on, as before): what grows goes by the surface. Off: the surface changes and what grew goes on growing, and what did not does not come up. Switching it changes nothing painted before. Only what paint does: nothing else of the world's making is switched off. Rocks: none are made by rock paint; the meadow's rocks lie where they lay and are seen when the grass is gone | `land.rs` (`Spot::painted`, `Spot::bare`, `Ground::bare`), `terrain.gd` (`details`) | test `p20` (rock for its look alone: as many grow as did, not bare; with what grows: fewer; grass for its look alone over that: still bare, no more grow; with: all back), tour `land` |
+| **Restore takes away what it is told.** As it was, it took the shape and the paint both, whatever tool was chosen before: what the user saw as "restore knows which" was that a place only painted has only paint to lose. Made so in earnest: the panel has "takes away: the shape and the paint / the shape only / the paint only", says which in the tool's line and under it, and when restore is chosen after another tool it is set to what that tool makes (the paint after paint, the shape after a tool that shapes). The host takes `only`; nothing said, both, as a command or a script always had; `erase` still | `land.rs` (`Stroke::only`), `host/src/lib.rs`, `terrain.gd` (`only`, `ONLY`) | test `p20` (paint only: the height stays; shape only: the paint stays; `erase`: both; undone and done again; a wrong word refused), tour `land` |
+| **A right click alone moves nothing.** With something picked it put it there at once. Now Shift + right click does; a right click alone says so in a line. The right button dragged from what is picked moves it, as before | `main.gd` | tour `land` (`slip`: alone, no step; with Shift, one) |
+| **Written and opened**, the three things kept for a place are as they were. A patch's text from before has no `a` or `g` rows and means what it did; a host from before reading a newer text leaves those rows out (all of the surface, what grows by the surface) | `land.rs` (`Tile::read`, `Tile::text`) | test `p20` (written to a file, another scene, opened: the same), unit test |
+
+Tests: `cargo test --release -- --test-threads=1`: 12 in the host, 20 protocol, pass.
+`run.ps1 -Tour -Only land`: no problems (three runs; the first two found two faults of
+the checks' own and the far ground above). `run.ps1 -Demo land -Check`: 6 beats of 6.
+The whole tour: see the report of this pass. Not tried by hand.
+
+To try by hand (F8 for the land's panel):
+
+1. Middle-drag with the pointer on a hilltop, on a shore, near a corner of the window:
+   the place under the pointer should stay put while the view goes round it. Then on
+   the sky. Then P, and again.
+2. Paint rock with "soft rim" 3 or 4, then 0, side by side. Then sand over the rock's
+   soft rim: where they meet is an edge (known).
+3. Untick "and what grows on it", paint rock across grass and bushes: they stay. Tick
+   it, paint again: they go. Untick, paint grass there: nothing comes back. Tick, paint
+   grass: it comes back.
+4. Raise a hill and paint it. Choose restore straight after paint: "the paint only".
+   Choose raise, then restore: "the shape only". Choose both in the list.
+5. Pick a house; right click elsewhere: nothing but a line of words. Shift + right
+   click: it goes there. Ctrl+Z.
+
+### The probe — someone else to walk as, and two cats (2026-10-09)
+
+Asked for as a probe: a small real thing made the way a person would make it, to find
+what the engine lacks. Looked at first, and as was thought: there was no way to say who
+the walker is, no body for a cat, nobody who kept near anyone. There was more than was
+thought to build on: a kind is text with a rig and parts on bones (M1), and one on the
+sheep's bones was already someone (the tour's hopper); an act names a move, and a move's
+look is a pose written for that body.
+
+What it took, each a thing any world can use and none of it about a cat:
+
+| What | Where | Checked by |
+|---|---|---|
+| **Who the walker is, is the world's.** The document says a kind (the asset `walker`); the host's `walker` sets it, to a kind with a person's bones or to nothing (the one the code makes), and answers with what is made of it. Undone with Ctrl+Z, written with Ctrl+S, so a game on its own has it. A kind is not deleted from under the walker. In the editor: F6, a kind chosen, "Walk as this" (again: the code's walker) | `host/src/lib.rs` (`walker`), `godot/main.gd` (`_dress`, `play`), `kindview.gd` (`walk_as`) | test `p21` (set, refused of a kind with other bones and of none, undone, done again, written and opened), tour `cast` |
+| **A kind as big as it says** (`scale S`): written on its rig as the rig is, and that many times as big, its bones with it; its stride as many times as long. So a cat is the sheep's bones at 0.4, and goes by the sheep's poses | `host/src/shapes/kind.rs` (`Kind::scale`, `build`, `rig`), `godot/figure.gd` (`sized`) | unit `a_kind_is_scaled_with_its_rig_and_coloured_by_name`, tour `cast` (13 bones, x0.4, nothing unread) |
+| **A kind's own colours, by name** (`colour NAME rrggbb`): a kind like another that says the name again is the other in that colour. The striped cat is `kind tabby like cat`: two colours said again, eleven stripes added | `kind.rs` (`Colour::Own`, `Line::Colour`) | the same unit test, tour `cast` |
+| **Following** (`follows R`): someone who says it keeps by the walker. Farther off than R it goes to a place of its own behind them, to one side or the other by which of those that follow it is; near enough it stays where it is; left behind by two and a half times R it runs. By the ways there are, like anyone | `godot/folk.gd` (`_heel`, `wanted`), `things.gd`, `kind.rs` (`TRAITS`) | tour `cast`: walked 18 m and run 25 m from; both "there", 2.1 to 2.5 m from her, 1.6 and 1.7 m apart |
+| **Stroked low**, and nothing in the code for it: the act `stroke` (acts.txt: stands 0.5, does `crouch_pet`, theirs `settle`, touches hand.R, counts `stroked`), the move `crouch_pet` (moves.txt, in the walker's set and the folk's), its pose (poses.txt: on the heels, the right arm down), a set of moves `cat`. A cat says `offers stroke back` | `godot/acts.txt`, `moves.txt`, `poses.txt` | tour `cast`: offered "stroke the black cat"; her head at 1.03 m from 1.72; her hand 0.0 m from its back, which is at 0.36 m; the cat settles; counted 1 |
+| **The three kinds**, as text a world is given: `wren` (curls fair, brown and a little red; a fitted long-sleeved shirt with a V at the neck; a plaid skirt; low canvas shoes: 68 parts on a person's bones), `cat` (black, 19 parts), `tabby like cat` (orange, striped black). F6, "Add the examples" writes them into the world, each an edit, where they are the world's to change | `godot/cast.txt`, `kindview.gd` (`add_cast`) | tour `cast` (added, no problems in any; all of it undone: the code's walker again, no kinds), pictures, demo `cast` (4 beats of 4) |
+
+What it showed is missing, and where each belongs:
+
+- **A part goes whole with one bone.** Nothing bends at a joint: an elbow is two limbs
+  that meet, a skirt is a stiff cone that stands out when she crouches, and a fitted
+  shirt is as fitted as cones are. Shapes that bend are M3's meshes, with weights.
+- **Nothing swings after a body.** Hair and a skirt that move a little after her: not
+  begun. It wants bones that are not posed but follow (a chain with a little give),
+  said in the rig or the kind, moved in `figure.gd` after the pose. Its own small
+  milestone, with cloth; it does not want M3 first.
+- **A rig is the engine's.** The cat borrows the sheep's bones and so the sheep's walk
+  and its long neck's poses; a rig written as content (bones, points) would be the next
+  step, and then poses for it. Three rigs are in the code still.
+- **Who the walker is, is one kind, chosen in the editor.** No choosing while playing,
+  no second walker to change to, and her body is a person's size whatever the kind
+  says (`body` is not read for the walker).
+- **Following is the walker's only.** `follows` cannot name someone else; a follower
+  does not keep off the walker's path, wait at a door, or come into a boat; in the
+  water it is "kept out". It is one place behind, not a formation.
+- **An act is offered by a kind, not to a kind.** `stroke` is offered to anyone with the
+  move in their set; that it is for a cat is that only a cat's text offers it. "This act
+  looks like this for that pair" (a tall and a small body) is the pose alone.
+- The examples are a file beside the texts, added by a button. The exported game does
+  not carry the file (the world carries the kinds once added).
+
+Tests: `cargo test --release -- --test-threads=1`: 13 in the host, 21 protocol, pass.
+`run.ps1 -Tour -Only cast`: no problems (three runs). `run.ps1 -Demo cast -Check`: 4
+beats of 4. The whole tour, once with the probe in it: the cast part and the land part without a problem; the sheep come at caught at 0.6 m (as in every whole run today; Known gaps); and the keeper's check, which listed the moves the folk have and now has one more (put right, and passing alone; the whole tour was not run again after). Not tried by hand.
+
+### After M2 — what grows, said and seen; the editor closing, looked into (2026-10-09)
+
+The user's fourth pass by hand (2026-10-09). **Confirmed by them:** Wren is made and
+walked as; the two cats follow her and come to her; each is stroked, and moves a little
+while it is; the land's tools are better laid out; the view turns about the pointer,
+and the box puts it back to turning about the middle. **Found by them:** the box under
+paint ("and what grows on it") could not be got to do what was expected, whatever was
+tried; and the editor closed under their hand once, they do not know why.
+
+**What grows.** Followed from the box to the ground and back, each step read and then
+run: the box sets `details` in the panel; the stroke sends it; the host keeps, for each
+place, whether anything grows there apart from its surface (`Spot::grows`, `g` rows of
+a patch's text); the woods and the meadow ask `Ground::bare` for each thing they would
+stand. No step of it was broken: a run that clicks the box and drags the brush with
+the mouse (`-Tour -Only growth`, written first, against the code as the user had it)
+passed. So what was wrong was not that it did nothing, and **what the user saw is not
+known for certain**. What was found that would make it look as if it did nothing, each
+shown by that run or its pictures:
+
+- **Little grows under a brush.** Under a brush as wide as the panel opens with (5 m),
+  over the dry land: 3 things in the middle case, none at one place in nine, 12 at
+  most; most of them tufts and flowers a hand high. With the box on or off the picture
+  is nearly the same nearly everywhere.
+- **The box not ticked was not drawn.** The theme's empty box is as dark as the panel:
+  off, it was words with no box beside them (seen in the pictures).
+- **What a place keeps cannot be seen.** Rock painted with the box on clears what grew.
+  Painted grass, or "as generated", over that with the box off puts the look back and
+  leaves it cleared: ground that looks as it was made and grows nothing, with nothing
+  to say so. The box changes the next stroke and nothing already painted, so the order
+  things were tried in decides what is seen. (The log of that session ends with
+  "restore all of the land", 10 patches: everything by hand taken away.)
+- **Grass with the box on plants nothing** where the world grows nothing, or where
+  things grow already. It only lets back what was cleared.
+
+What was done, none of it a new name for the box or another default:
+
+| What | Where | Checked by |
+|---|---|---|
+| **What grows, said alone.** Two brushes under "what grows": **clear** (nothing grows under it from now on; the shape, the surface, the rocks and what was put down by hand stay) and **let grow** (what the world grows there grows again, whatever the surface: on painted rock too). The host's tools `bare` and `grow`; what they keep is the same `g` rows, and only where it differs from what the surface has | `host/src/shapes/land.rs` (`Spot::growing`, `barren`, `TOOLS`), `godot/terrain.gd` (`GROUPS`, `CALLED`) | test `p22` (clear: fewer grow, the rocks lie, the ground as it was; grass for its look over it: still bare; let grow: all back, nothing kept; on rock: said of the place, and taken back; restore of the shape leaves it, of the paint takes it; written and opened), tour `growth` |
+| **The box is seen, and says what the next stroke does.** An empty box drawn light on the panel (this one and the view's). Its words are "what grows goes by the surface painted"; under the tools, for the surface chosen: rock, sand, dirt with it: "nothing grows on it: trees, bushes, grass and flowers under the brush go"; without: "for its look alone: what grows under the brush stays"; grass or "as generated" with it: "what the world grows there grows again where it was cleared. It plants nothing new"; without: "where what grew was cleared it stays cleared" | `terrain.gd` (`DETAILS_ABOUT`, `_empty_box`) | tour `growth` (the box clicked with the mouse; the words each way; the pixel of the empty box) |
+| **What a stroke did to what grows is said** when it is let go, in green under the tools: "48 of the things that grew there are gone (1721 grow on the land now)", "48 things grow there again", "nothing that grows came or went". Always after paint, clear and let grow; after the others only when it did something | `terrain.gd` (`growing`, `tell_growth`) | tour `growth` (after each stroke) |
+| **What is kept under the pointer is said**, in the panel, while a tool is chosen: the surface ("as generated", "painted rock", "painted rock, 40% of it"), and whether anything grows and why ("what the world grows here grows", "nothing grows here: it is rock", "nothing grows here: cleared by hand", "grows, though it is rock: said by hand", "too near the water for most things to grow"). The host is asked a few times a second, not while a stroke is dragged (`ground` now says `grows`) | `terrain.gd` (`kept_there`), `host/src/lib.rs` | tour `growth` (after each stroke) |
+| **A tool that shapes takes nothing that grows away**, and has no box: what grows goes up and down with the ground. Sunk to within a metre or so of the water it is gone, by the world's rule for where things grow (grass above 0.6 m, flowers and bushes 1.0, trees 1.2) and nothing is kept of it: the ground brought back, it grows again. Said in the words of raise, lower and smooth. The box stays paint's: a tool that shapes has nothing to choose | `terrain.gd` (`ABOUT`) | test `p22` (raised: as many, higher; sunk under the water: fewer, nothing kept; restored: all), tour `growth` |
+
+`run.ps1 -Tour -Only growth` is the run that would have caught it: at the place where
+most grows (21 things in 8 m) it clicks the box off and paints rock (21 stand, on rock),
+on and paints (none), off and grass (none), on and grass (21), clear (none, the surface
+still grass), let grow (21), raises it 2.6 m (21), sinks it under the water (none,
+nothing kept), and undoes all of it (21); and reads what the panel said each time.
+Pictures `growth-*`.
+
+Not done, and why: what grows is still one yes or no for trees, grass, flowers and
+bushes together (a brush for one kind and not another wants a mask a generator reads:
+with layers); nothing is planted by hand with a brush (things are put down one at a
+time from the palette); what is kept is said under the pointer and not drawn on the
+land (it would be the land's shader's, with the surface). The panel is taller by the
+row of tools and three lines of words: at 1280 by 720 it reaches up over the palette.
+
+**The editor closing.** What there is to go by, and what it shows:
+
+- The session's own log (`%APPDATA%\Godot\app_userdata\Editor-Adapter\logs`, the one
+  before 16:45): the cast demo run through, the eye changed three times, "All that was
+  done to the land by hand is taken away (10 patches)", and nothing after. No error in
+  it. What it wrote to its error stream was written over when the editor was started
+  again at 16:45 (`run.log.err` is one file, emptied by each start); the host's error
+  stream was never kept at all.
+- Windows' own logs for the day: no fault of `Godot` or `engine-host` (the faults
+  there are another program's); no reset of the graphics driver (`nvlddmkm`,
+  `Display`); nothing saying memory ran out; nothing of heat or power; the machine has
+  been up since 30 September. Reports of graphics-driver time-outs on this machine were
+  sent that afternoon, all of them old (September 2025 to July 2026): the machine has
+  such a history, and none is of that day.
+- A run made to find what only shows with time (`run.ps1 -Tour -Only soak`: someone
+  else walked as and two cats put down, as in that session; then, round after round,
+  every brush dragged wide and held, stamps, the view turned and moved, all of it undone
+  and done again and undone, everything taken away and put back, and every third round
+  the world set running and the land walked across): 30 rounds (some 330 strokes), 18
+  with the walker and the cats, and several shorter: **the editor did not close, and the
+  host did not go.** This side held 146 to 150 MB throughout, the graphics card 246 MB,
+  the same count of objects to within ten; the host 160 to 325 MB, going up and down
+  with the history it keeps (which is bounded) and not climbing.
+
+**So: no cause is established.** It was not reproduced; nothing recorded says what it
+was; and what would have said, the error stream, is gone. Not a leak that these runs
+could find, and no sign in Windows' logs of the driver, of memory or of heat. That is
+not the same as knowing it was none of them. What was done about it:
+
+| What | Where | Checked by |
+|---|---|---|
+| **What a run said is kept.** Each start copies the logs of the run before to `editor\godot\logs` under the time they were last written (the last 60 files are kept); the host's error stream is kept too (`host.log.err`: a panic of the host is there now); how every run ended is a line in `editor\godot\runs.log`: when, how it was started, the editor's code (0: closed or ended itself), whether the host was still there and the most memory it had used. A run that did not end as it should says so, and where its logs are | `editor/run.ps1` | run: the lines of today's runs, one of them stopped after its time |
+| **The soak**, to run again whenever it closes: `run.ps1 -Tour -Only soak -Rounds 30`. It fails on the host gone, on the land not as it was after undo, on megabytes or objects that go up every round, on a stroke that takes three times as long as it did | `godot/tour.gd` (`soak`, `holding`) | run (above) |
+| **Found by the soak, and a fault in earnest: someone put down at a whole metre could stand in the air for good.** The ground's mesh has its corners at whole metres. The walker and everyone else find the ground under them with a ray straight down; through a corner exactly, that ray met nothing in most runs (the same ray half a metre aside met the ground), and whoever it was waited for ground, 60 m up, for as long as the world ran. A place under the pointer is never a whole metre, which is why it was not seen by hand; a place a script or a saved world names can be. A ray that meets nothing is now tried a little to each side before nothing is said; one place does it for the walker and for everyone | `godot/solid.gd` (`under`), `player.gd`, `body.gd` | tour `soak` (put down at -8, 86 on land just shaped: on the ground and walking, two after her: every round, where it was 1 round in 6 before) |
+| **A check of the tour's that went by a count of frames** (a place added to the road, and taken away: it failed once in this pass and once in the one before) waits for what it looks at, four seconds at most | `tour.gd` (`knobs`) | tour `land` |
+
+If it closes again: `editor\godot\runs.log` says how (a code other than 0 is the editor
+fallen over; "host: gone" is the host), and `editor\godot\logs` has what both said.
+What would tell the machine from the engine: a line of `nvlddmkm` or `Display` in
+Windows' System log at that minute, or the screen going black and coming back, is the
+graphics driver; a code of 0 with nothing in the error stream is the window closed (or
+the process ended from outside); a backtrace in `run.log.err` or a panic in
+`host.log.err` is ours.
+
+**The whole tour, and what in it is not a thing gone wrong.** Run four times in this
+pass (8 to 10 minutes each), and its parts alone many times. No run of the whole was
+without a problem, so **a clean whole tour is still not had**; but what fails is now
+told apart:
+
+- **The window not in front.** Two of the four runs lost the front about a minute in
+  (a tool started beside them took it) and found five and two problems, in checks that
+  go by time or by the pointer (a sheep stroked, the palette clicked, a second stroke
+  asked while the host was at the first: "busy"); none of them in the runs before and
+  after, and each of those parts passes alone. The tour now says so itself: when the
+  window stopped being in front and how many problems it had by then, or that it was in
+  front throughout. A run that lost the front is run again before it is believed.
+- **The sheep come at, 0.6 m: the sheep as it is, not a regression.** Followed with how
+  things stood at the nearest moment written down. In the runs where it passes (2.5 to
+  2.7 m, four runs), the nearest is where the sheep reaches the end of its range (22.5
+  m from where it was made: `folk.gd` `STRAYS`) and turns for home past the walker;
+  with room to run it keeps 3.9 to 4.2 m off. In the run where it is 0.6 m (the window
+  in front throughout): the sheep had run, was clear, and had **stopped against a
+  house's wall**, 11.5 m from home; and the walker, slowed going round something, came
+  up at 2.1 m/s, **under the 2.6 it shies at** ("it is not afraid of one who comes
+  slowly"). Both are what the code has always said; nothing of today's is in it (the
+  same 0.6 was seen in the commit before this morning's first pass). The check now
+  tells the three apart: caught with room to run is a problem; passing as it turns for
+  home is a number; walked up to when it has stopped against a wall or the walker is
+  slower than it shies at is said as **a known limit met** (`tour: known limits met`),
+  each time, and not as a problem.
+- **The keeper** ("has no bones, or did not greet"): the check listed the moves the
+  folk have and they had one more; put right in the pass before. It has passed in all
+  four whole runs since.
+- **A sheep stroked** ("come to slowly was not stroked"): in the two runs that lost the
+  front, and in neither of the two that kept it; passes alone, and after the flock's
+  part alone (`-Only flock+acts`, three runs). Taken for the window. It now writes
+  down how things stood when she stopped going to it, for the next time.
+- **The palette** ("did not do what it should": the cart not chosen from the list):
+  in two of the four, one of them with the window in front throughout. Not looked
+  into, and not touched by this pass: the list is clicked with the mouse's events, and
+  the real pointer over the window is the likeliest thing (the land's part failed so
+  once alone, on where the pointer was, and passed twice after).
+- One check that went by a count of frames was made to wait (above), and two strokes
+  asked one after the other in the land's part now wait for the first.
+
+Seen in the error stream of these runs and not looked into further: Godot's own
+"It's not expect to not find the most reachable polygons" from `nav.gd` `path`, two or
+three times a run while the land is being changed under those who walk. It is an error
+the engine reports and goes on from (no way is given that step), not a fall.
+
+Tests: `cargo test --release -- --test-threads=1`: 13 in the host, 22 protocol (`p22`
+new), pass. `run.ps1 -Tour -Only growth`: no problems (five runs). `-Only land`: no
+problems in five runs of six (the sixth: where the real pointer was). `-Only soak`:
+above. Not tried by hand: the box, the two brushes and what the panel says were looked
+at in the tour's pictures only.
+
+### M3, first part — parts that bend (2026-10-09)
+
+M3 is editable meshes (the amendment; its parts are under "Next"). This is the first of
+them, taken first because it is what the probe found wanting: Wren's parts each went
+whole with one bone, so an elbow was two limbs meeting, and her skirt was a cone that
+stood out before her when she was down by a cat.
+
+Looked at first: what a corner of a mesh is moved by has always crossed to Godot as four
+bones and how much of it is each one's, and Godot has always worn it so; the person the
+code makes bends at its joints by exactly that. Only a kind's text could not say it: a
+part named one bone. So nothing on the Godot side changed, and nothing of how a mesh or
+a skin is sent.
+
+| What | Where | Checked by |
+|---|---|---|
+| **A part bends between bones** (`... COLOUR bends A B [C ...] [soft S]`, in place of `bone B`). Each corner of the part goes with the bone it is nearest, a bone being the line from where it begins to where the next begins; where another is nearly as near it is that one's too: half and half where they are as near as each other (the joint), a little over a quarter where the other is `soft` farther off, none to speak of at twice that. `soft` is metres, 0.05 if not said: more for what hangs over two bones (a skirt, 0.12). Up to eight bones named, up to four to a corner. For any part, on any rig: it is worked out from the rig's own bones, as the rig is written | `host/src/shapes/kind.rs` (`runs`, `off`, `shares`, `Part::bends`), `shapes.rs` (`Mesh::bind_shared`) | unit `a_part_bends_between_the_bones_it_names` (an arm: the upper arm's at the shoulder, the lower's at the wrist, both of theirs at the elbow; a skirt's hem its own side's leg's, the front both legs' alike, the top the hips' too; every corner's shares come to one; a bone the rig has not, one bone only, a softness out of reach: each said) |
+| **A limb goes through as many places as are written** (two to sixteen, four numbers each: where, and how wide), so one limb is an arm from the shoulder by the elbow to the wrist, a tail, a skirt, a pot. A limb that bends is given rings between its places, 5 cm apart at most, to bend at; one that does not is as it is written | `kind.rs` (`Shape::Limb`, `ringed`) | the same unit test (a limb that bends has more than twice the corners of the same limb on one bone; with no rig: said, and built as written) |
+| **Wren and the cats written so**: her trunk one limb between hips, spine and chest; each sleeve one limb from shoulder to wrist; each leg one from hip to ankle; her skirt and all that is on it (bands, stripes, the line at its waist) hung between the hips and both legs, `soft 0.12`. 61 parts where there were 68. The cats' legs bend at the hock, the neck between chest and head, the tail from the hips; the tabby is still `like cat` and says none of it again | `godot/cast.txt` | tour `cast`: no problems in any of the three; of her 3956 corners 1226 are more than one bone's, of the cat's 425; down by the cat the front of her hem has come 0.5 m from where a skirt that went with her hips would be, up over her legs; pictures `cast-stroked-from-her-side`, `-front`; demo `cast` (4 beats of 4) |
+
+What it is and is not. It is the shape a kind already had, sharing its corners between
+bones by a rule: no corner is moved by hand, and nothing is painted. It is as good as
+that rule: right for a limb at a joint and a neck; for a skirt it is a fair guess (it
+lies over her legs when she is down, and goes with each leg as she walks), and at its
+top, where the legs turn most, corners are drawn in toward the joint, inside her trunk.
+A block has eight corners and bends as eight corners can. **A world that already has
+the examples keeps them as they were written**: the text is the world's (delete the
+three and add them again, or write `bends` into them). What is seen was looked at in
+stills, crouched, from two sides; not in motion, and not by hand.
+
+Still M3's: a mesh as an asset with the lines that made it, a shape changed by hand
+that stays when its generator makes it again, handles (see "Next"). Not M3's: hair and
+a skirt that swing after her.
+
+Tests: `cargo test --release -- --test-threads=1`: 14 in the host, 22 protocol, pass.
+`run.ps1 -Tour -Only cast`: no problems (three runs). `run.ps1 -Demo cast -Check`: 4
+beats of 4. The whole tour with it in: the cast's part without a problem in all three
+runs it was in (what failed in them is under "The whole tour, and what in it is not a
+thing gone wrong").
+
+### M3, second part — a mesh as an asset (2026-10-09)
+
+Asked for with the user's word that M2 and the probe are satisfactory by hand, and that
+the next thing is mesh content that is made, used, kept and used again, as something
+the engine can do and not something done for Wren.
+
+Looked at first: the amendment has M3 after M1 and M2, and its second part needs only
+what is there (a kind is text in the document, a leaf's content is made from the
+assets its brief names, `MSH1` and a skin of four bones a corner cross to Godot as they
+are). So, as with the first part, nothing changed in how a mesh or a skin is sent, in
+the core, or in how Godot draws.
+
+| What | Where | Checked by |
+|---|---|---|
+| **A mesh is text in the document** (the asset `mesh.NAME`): corners and faces, numbered from 1 as they are made, written as the lines that make them. `corner x y z`, `face A B C ...`; `box x y z w h d`; `turn SIDES [each D] r y r y ...`, a line turned about the upright, with rings between its places no farther apart than D for what is to bend; `push FACE D [S]`, a face pushed out on new corners, keeping its number; `move A B ... by dx dy dz` and `move face F by ...`; `smooth`, shaded round but for where faces turn more than about fifty degrees from each other. Read again, the same mesh comes of the lines: so what is done to it by hand is a line after the lines that made it, and is taken back by taking the line out. A line not understood is said with its number and left out | `host/src/shapes/mesh.rs` (`read`, `Read::line`, `bake`) | units `a_mesh_is_made_by_its_lines_and_what_is_wrong_in_it_is_said` (a box: each face looks its way, it holds 2 cubic metres; pushed and moved; a pyramid by corners; fifteen wrong lines each said) and `a_line_turned_about_the_upright_is_a_closed_shape_seen_from_outside` (a drum holds what a twelve-sided drum holds; points at both ends; rings each 5 cm; smooth: a corner half way down looks straight out, the rim has a corner for each side of its edge; put at a place and as big each way) |
+| **A kind's part is a mesh** (`part mesh NAME x y z sx sy sz COLOUR [bone B / bends A B ...]`): where its middle is put, how many times as big each way, in the part's colour. Its corners go with one bone or are shared between several, as any part's are: the rule of the first part, unchanged. One mesh is a part of many kinds, and of one many times | `shapes/kind.rs` (`Shape::Mesh`, `meshes`, `build` takes `mesh_of`) | unit `a_part_is_a_mesh_the_document_defines` (a skirt hung at 0.98: its hem its side's leg's, the front both legs' alike; the same mesh small on the head, the head's alone; a mesh not there said, a size of nothing said; the mesh written wider, what is built is wider) |
+| **What is made of a mesh follows it, and nothing else does.** A thing's brief names the meshes its kind's parts name (`meshes`, only where there are any: a kind that names none is asked for as it always was, so no world's things are made again by this), and its content is made from those assets. A mesh written is a document edit: undone, redone, written out and opened with the world. A kind may name a mesh not written yet: said of the kind, and made when the mesh is | `shapes.rs` (`mesh_asset`, `kind_assets`, `made`), `shapes/land.rs` (`Placed::plan`) | protocol `p23`: two kinds of one mesh (one of them twice) and a drum put down; the mesh given a line more, both are other content and the same things, the drum as it was; the mesh a kind waited for written, that kind's thing made again and not the other; undone twice and redone; written, another scene, opened: the texts as written and the things' content the same |
+| **Asked of the host**: `meshes` (each: corners, faces, how big, which kinds are made of it, how many of those are put down, what is wrong), `mesh` (its text; and what each line made and which way each face looks, by number, for whoever writes the next line; `text` writes it, `delete` takes it out unless a kind is made of it, `as` writes the same lines under another name). Read from beside the editor, written only by it. `kind` says which meshes it names | `host/src/lib.rs` | `p23`; tour `meshes` (`ask.ps1 meshes` from beside: listed, not written) |
+| **Written where kinds are** (F6): the meshes listed under the kinds; one chosen, its text, and beside it what each line made and each face's number, way and middle. "New mesh" (a block with its top pushed up), "A kind of this mesh" (a kind with it as its one part, as big as it is), Apply by what the text's first word is, Duplicate and Delete for either. "Add the examples" writes the meshes of cast.txt too | `godot/kindview.gd` | tour `meshes`: the buttons pressed with the mouse, the thing put down by a click on the land; pictures `meshes-panel`, `-put-down`, `-spiked`, `-opened` |
+| **The walker follows what they are made of.** They were dressed when they were chosen and not again: a kind written otherwise did not show on the walker until the world was opened again. Now, after a kind or a mesh is written or an edit undone, what the host makes of the walker is asked again and worn if it is other | `godot/main.gd` (`_dress(other_only)`, `run`) | tour `meshes`: her skirt's mesh written 1.2 m wide, she is 1.2 m wide at once (0.57 before); Ctrl+Z, 0.57 |
+| **Wren's skirt is a mesh**, and the bands round it one mesh four times: `mesh skirt` (16 sides where a limb has 8, a ring each 5 cm, smooth) and `mesh band` in cast.txt, each hung between her hips and both legs as the limbs were. 61 parts, as before; her stripes are still limbs | `godot/cast.txt` | tour `cast`: no problems; down by the cat her hem has come 0.51 m (0.5 as a limb); 4162 corners, 1432 of them more than one bone's; pictures `cast-stroked-from-her-side`, `-front`; demo `meshes` (6 beats of 6), beats 4 and 5 |
+
+What it is and is not. It is a shape said as lines, in a panel, with the world as the
+preview: there is nothing to take hold of in the view (the fourth part), and the
+numbers a line names are read from beside the text, not pointed at. Seven words: no
+line swept along another, no edge taken off, no face drawn in without being pushed, no
+mirror; **a mesh is one colour**, its part's (her checks are other parts laid over
+it); a face is drawn as a fan, so one that turns in on itself is drawn wrong. Numbers
+are by the order of the lines: a `turn` given more sides renumbers what comes after
+it, and a `move` written for the old numbers moves other corners. A copy (`as`) is
+the same lines and does not follow the mesh it was copied from: a mesh has no `like`.
+It does nothing for a thing a generator made (the third part), and nothing swings.
+**A world that already has the examples keeps them as they were written**: Wren's
+skirt there is the limb it was until the three are deleted and added again.
+
+Tests: `cargo test --release -- --test-threads=1`: 17 in the host (3 new), 23 protocol
+(`p23` new), pass. `run.ps1 -Tour -Only meshes`: no problems (five runs, the first
+three while its pictures were put right: the first looked at the sea from under the
+land, the second from inside a house). `-Only cast`: no problems. `-Only kinds`: no
+problems. `run.ps1 -Demo meshes -Check`: 6 beats of 6. The whole tour, twice. The
+first found a fault in this part's own check and not in what it checks: it looked at
+the first things of a kind the view has, and in the whole tour those are the drum and
+the hopper the kinds' part left; it looks at the things where it put its own now
+(`made_near`), and `-Only kinds+meshes` (new: the one part after the other) has no
+problems. The second: this part without a problem; one problem in the run, the sheep
+stopped against a wall and come up to at 0.6 m, which is under "Known gaps" and was
+there before (the check called it a problem this time and not a known limit, because
+it was turning for home when it was reached); the window was not in front once, at
+295 s, with nothing found by then.
+**Not tried by hand**: all of it was looked at in the pictures the runs took, with the
+screen locked (which the runs above did not mind).
+
+### What swings after a body (2026-10-09)
+
+Asked for as a question: whether a small thing that makes Wren's hair and skirt move
+after her can be made now so that what the engine is to have of physics later takes it
+up, and not as a thing for Wren. Taken before M3's third part (see "Next" for why).
+
+**What it belongs to.** The roadmap's section 9 (cloth, cloth on what moves, cloth and
+what is solid, what holds cloth, what each corner of cloth is given) and principle N's
+"secondary motion": what on a body moves by itself and not by a pose. That is three
+things, of which this is the first and the least: (1) **a bone that follows**: one
+weight on a spring for a bone (this); (2) the same weights joined to each other and
+stopped by what is solid (a chain that lies on a shoulder, a hem that lies on a knee);
+(3) a weight for each corner of a mesh, held by its neighbours (cloth). They share
+what a thing is said to be (hangs from where, how stiff, how damped, how heavy, how
+much of the wind) and where it sits (after the pose, before the picture, stepped at a
+fixed step); they differ in how many weights and what stops them.
+
+**Why now, and not with the rest.** It needed nothing that is not there: the skin was
+always four bones a corner, the rig crosses as text that Godot makes bones from as it
+comes, a pose turns only the bones it names. What was missing was a kind being able
+to have a bone of its own, which is one word, and a kind's parts already say which
+bones move them. Nothing of it is thrown away by (2) or (3): they are more weights
+under the same words. What would have been thrown away, and was not made: a way of
+its own for a skirt, anything that stops a hem on a leg, anything a corner at a time.
+
+| What | Where | Checked by |
+|---|---|---|
+| **A kind says what swings** (`sway NAME on PARENT x y z to x y z [swings F] [damp Z] [falls G] [within DEG] [wind W]`): a bone of its own, added to its rig after the rig's, hung from a bone of the rig or from a sway said before it (so a chain), with where it begins and ends as the body stands. A part is on it (`bone NAME`) or shared with it (`bends ... NAME ...`) as with any bone. `like`: a sway said again by name replaces; `no sway` takes them all. With `scale`, as many times as big. Its rig's text says each as a bone and a line of how it swings: the host moves nothing | `host/src/shapes/kind.rs` (`Sway`, `sway`, `frame`, `rig`) | unit `a_kind_says_what_swings_after_it` (five wrong lines each said; the rig has the person's bones and then the four that hang, in order, each with its numbers; a skirt's hem its side's sway's; a curl whole with what it hangs on; half as big, half as far; `no sway`: the rig as the code has it, and the parts that named one say so; with no rig, said) |
+| **What swings is a weight on a spring** (`sway.gd`): drawn to where the pose would put the bone's end (`swings`: times a second to and fro), losing its going against what it hangs from (`damp`), pulled down (`falls`), taken by the air going past it, the wind's and its own (`wind`), held at its length and never more than `within` from its place. Stepped a sixtieth of a second at a time whatever the frame is, with nothing left to chance. What it hangs from is put by poses and a motor, not carried as a weight is: so its going is evened out over a twentieth of a second and what that leaves out moves the end at once; and what is shorter than 20 cm swings as if it were 20 cm | `godot/sway.gd` | tour `sway`, the spring by itself: carried at 4 m/s it is 0.03 degrees from where it would stand; what it hangs from stopped dead, it goes 15.8 degrees past and is at rest (0.0 degrees, 0.000 m/s) three seconds on; kept within 10, it goes to 10.0; in a wind it rests leaning 7.7; done twice, the same place every step; with frames a third of its step 0.03 and 12.7, with frames two steps long 0.03 and 15.9 |
+| **A figure turns what swings after its pose** (`_swing`): each such bone turned from where the pose has it to where its weight is; one that a pose does turn swings about where the pose puts it; what hangs from another comes after it; someone borne by another (shown twice in a step) is stepped once; put somewhere else at once, it is at rest there | `godot/figure.gd` (`wear` reads `sways`, `_swing`, `swung`) | tour `sway`, on Wren: standing 0.5 degrees (the breeze) and still; setting off at a run her hair 13.3, her hem 19.7 at most; stopping, her hair 12.9, then 0.5 and still; turned right about 18.8; down on her heels her hem 14.9 at most and then still, and it has come 0.31 m with her legs as it did before it swung |
+| **It can be put out**, for everyone, by one number (`sway`, F1 while walking; kept in `feel.cfg`): at 0 no weight is stepped and every such bone is where the pose puts it; between, so much of the way | `godot/tune.gd`, `player.gd`, `figure.gd` (`Figure.sway`) | tour `sway`: at 0, running and stopping, the most any of her five bones is turned is 0.0 radians; put back, her hair goes 13.8 |
+| **The wind is the weather's** (`Figure.air`, where the wind blows to and how fast): what says `wind` takes so much of it | `godot/weather.gd` | the spring by itself, above; on her only as the 0.5 degrees she stands at |
+| **Wren, and the cats**: her skirt and all on it shared between her hips and two bones that hang from her legs (`hem.L`, `hem.R`), her curls at her neck on three that hang from her head (`hair.L`, `hair.R`, `hair.B`, which take the wind); the end of a cat's tail on one (`tip`), and the tabby's with it, saying nothing | `godot/cast.txt` | tour `sway`: the cat has 14 bones, one of them swinging, 7.9 cm long; run from, it comes at 7 m/s and its tail's end goes 31 to 37 degrees at most in the runs (40 allowed) and is still when it is; tour `cast`: no problems (22 bones, 14); demo `sway`, 5 beats of 5 |
+
+**What it shows for what comes later.** That what moves by itself can be said in a
+kind's text beside its shape and apart from it (her skirt written longer swings as the
+short one did); that it sits after the pose and is put out without touching a pose;
+that a fixed step gives the same swing whatever the frame; and two things found in
+making it that whatever comes later must also meet: **a body here is not carried as a
+weight is** (a pose changed in a moment moved her head at 40 m/s each second and her
+hair was thrown to its limit until the carrier's going was evened out), and **a
+spring's place must be taken at the time its weight is at** (taken a step late it
+leant 12 degrees when carried steadily: found by the numbers, not seen).
+
+**What it is not, and what is left for the physics there is to be.** Nothing it swings
+into stops it: only `within`. So her hem goes with her legs because it hangs from
+them, not because they push it, and hair goes through a shoulder if it is let go far
+enough. One weight to a bone: no cloth, nothing between the corners of a mesh, and a
+skirt is still two halves. Weights do not pull on each other but down a chain. What
+hangs has no weight on what it hangs from. It is not saved with a game (it is at rest
+when a game is loaded) and is not the host's: the host says the numbers and Godot
+moves it, as with poses. It is stepped only while a body is shown going (not in the
+editing view). Its numbers are in a kind's text and nowhere to be dragged but the one
+for all of it.
+
+**How far it was checked.** By tests: the host's unit test, and the spring by itself
+in the tour (numbers, the same every run). By the scripted run on her and the cat:
+numbers taken while she moved, and stills (`sway-running`, `-stopped`, `-crouched`;
+the demo's `sway-stopping`, `-crouched`, `-cat`), which show a moment and not a
+motion. **By hand: not at all.** Whether it reads as hair and a skirt is the user's
+to say, and is the thing most likely to want its numbers changed.
+
+Tests: `cargo test --release -- --test-threads=1`: 18 in the host (1 new), 23 protocol, pass. `run.ps1 -Tour -Only
+sway`: no problems (three runs as it now is; six before, while the spring was put
+right and her numbers found). `-Only cast`, `-Only meshes`: no problems.
+`run.ps1 -Demo sway -Check`: 5 beats of 5. **The whole tour, twice, and not clean
+either time**: this part, the cast's and the meshes' without a problem in both. The
+first run: the sheep against a wall at 0.6 m (under "Known gaps") and, new, the check
+of what grows (the "clear" brush not chosen by its click); the window had not been in
+front once, from 51 s. The second: what grows without a problem, and, new, the walker
+stood still when she was to come slowly to a sheep; not in front twice, from 118 s.
+Each of the two run alone afterwards (`-Only growth` twice, `-Only acts`,
+`-Only flock+acts`): no problems. So neither is shown to come of this pass, and
+neither is shown not to: both are parts that go by the pointer or by time, both came
+after the window lost the front, and the screen was locked throughout. A whole tour
+with someone at the machine is owed. The built game
+(`export.ps1 -Check`) was not run again.
+
+### M3, third part — a generated thing's shape made the person's (2026-10-09)
+
+**The larger thing it is a part of.** The roadmap's world is made by generators and
+then worked on by hand, and what is done by hand must outlast the generators being
+run again (the amendment's section 3.3, the six ways a change by hand is kept). Until
+now what could be kept on a generated thing was where it stands, how it is turned,
+that it is gone, and a number in what was asked of it. Its **shape** could not: a
+generated house looked the way the code made it, whatever anyone wanted. This is the
+way a shape is kept, said once for every generated leaf, with a roof as the proof.
+What it joins: generated things and their names (the key under the node that made
+it); meshes as the document's assets (M3's second part); the document's undo, its
+file, and the marks for what needs a look; and, to come, corners taken hold of in the
+view (the fourth part), which will write into the same mesh.
+
+**What was asked** (the user's brief, 2026-10-09): the roof the village generated,
+written out as a mesh a person can change; the change kept when the street is made
+again, with everything else free to change; written and opened; undone; without
+making the roof another thing or cutting it off from what made it; reached without a
+script or a file changed by hand.
+
+**How it is made.**
+- **The record is the core's own `Set`** (`doc.rs`; nothing in the core was changed).
+  It puts `mesh = NAME` into what the house asked of its roof, by the roof's key under
+  the street's node (`house#bn4/roof#main`). The roof is planned as before: its house
+  places it, sizes it and says what colour its roofs are. Only the realizer does
+  otherwise: where a brief names a mesh that the document has, it bakes that mesh in
+  place of the shape the code makes (`shapes.rs` `made`, `outputs_as`), and the
+  request for the roof's content carries the mesh's text (`leaf_made_from`, through
+  the generator's `leaf_assets_of`), so the mesh changed makes that roof again and
+  nothing else. A mesh named that is not there: the roof the code makes.
+- **Its identity is untouched.** Same id, same owner, same path, before and after, and
+  after its street is made again; the record is found by the path. Taking the record
+  away (`shape` with `generated`, or Ctrl+Z) is the generated roof again, exactly.
+- **"Change the roof that was there" is a command over that**: the host's `shape`
+  with `write` runs the realizer's own code for that thing (`shape_written`), writes
+  what it made as a mesh's lines (`mesh::written`: corners in one place made one,
+  triangles laid as a fan in one plane made one face), stores it as `mesh.roof-1` and
+  sets the record, **as one edit**. The roof generator was not rewritten or copied.
+- **A colour for a face** (the thing that was missing). A mesh's text has one new
+  word: `colour C [S]`, the colour of the faces made after it, and
+  `colour C [S] on F ...` for faces already made. C is rrggbb, one of the style's
+  names as a kind's part says them, or **`its`**: the colour whoever is made of the
+  mesh gives it (a kind's part, by its colour word; a roof, by the colour roofs of its
+  house are); S makes it lighter or darker. No line: every face is `its`, which is
+  what every mesh written before means, unchanged. A roof is written out in these
+  words where its colours are the style's or its own (`colour its 0.9` for a tile,
+  `colour wall` for a gable, `colour stone` for the chimney), so **a roof made a mesh
+  still follows the style and the colour its house gives it**: on a house made again
+  with another roof colour its tiles are that colour. Not a material system: a
+  colour, as everything here is drawn.
+- **Any part of a house**, not the roof alone: roof, wall, window, door, the inside
+  (`takes_mesh`). What is not one says so when asked.
+- **The way to it** (`inspect.gd`, `kindview.gd`): a thing picked, F7. The inspector
+  says "its shape: as it was generated" and has the button "edit its shape: write it
+  out as a mesh", which writes it and opens the meshes' panel (F6) on it. From then
+  it says "its shape: the mesh 'roof-1', changed by hand (F6); still made by
+  'village'", the button opens the mesh, and a second, "the generated shape back",
+  takes the record away. The meshes' panel says of such a mesh which thing it is the
+  shape of, and will not take it out while it is one. Each face's number, and which
+  way it looks, is written after the face's own line.
+
+**What was shown** (`run.ps1 -Tour -Only roof`, with the pointer and the keys; and the
+protocol tests `p24`, `p25`): a roof picked by a click; the button clicked; the mesh
+there, 2078 corners and 1139 faces, drawn as big as the roof was to the centimetre,
+one undo step, every other thing in the world made of what it was made of. A turret
+written onto it: that roof made again 1.6 m taller, nothing else. Ctrl+Z: as it was
+written out; again: as it was generated, and no mesh; Ctrl+Y twice: the turret.
+**"another seed" on the village: all 24 roofs there, 23 of them what the new seed
+makes, this one still the mesh, as big as it was written, picked again under the
+same path**, its tiles in the colour its new house gives roofs, the turret in the
+colour it was written in. Written to another file, the world made anew, the file
+opened: the roof the mesh. "the generated shape back": the roof as it was generated,
+to the byte; undone and redone; the mesh taken out; the world as it began.
+
+**What it leaves, said plainly.**
+- **A mesh is as big as it was written.** A street made again can make the house
+  under it wider or narrower: the roof is not made to fit, and overhangs or falls
+  short. No mark is raised for it (the core marks a record when where it lands
+  changed, not when the size asked for did). The inspector says both sizes when they
+  differ. Making a mesh follow a size (a frame it stretches in) is a real question
+  and is left for when handles are there to answer it with.
+- **What is walked into is still the generated roof's**: a turret is not stood on.
+  Said of a roof for now; a wall given a doorway by hand would want it sooner.
+- **Written to the millimetre.** Slivers under a millimetre wide are not written (40
+  triangles of 2040 on the heaviest roof; as much of it is drawn, to five parts in
+  ten thousand). What gave to the wind (a tree's crown) would not, written out;
+  nothing that can be written out yet does.
+- **Only the parts of a house.** Trees, props, the things put down by hand, the land:
+  not yet. Each wants its generator to say one line (`leaf_assets_of`); things with
+  bones are a kind's parts and are not written this way.
+- **The text is long**: some four thousand lines for a roof with its real weight, in
+  a panel that lies over the world while it is open, with the inspector showing
+  through it. Workable for adding to it; not for finding a corner. This is the case
+  for handles, next.
+- A roof of the same shape on another house is another roof: one mesh can be named
+  by many records (`set` by hand does it) but no button copies an edit to others.
+
+**For the world-building workflow, later** (seen while making this reachable, not
+done): one place that lists what in the world has been changed by hand (the records,
+by what they are on), where now each is found only by picking its thing; the
+inspector and the panels laid out so that one does not cover another; picking a
+house's part from a list of the house's parts, since a click picks whatever is in
+front; a way to say "this change, on every roof of this street".
+
+**How far it was checked.** Build: the host builds. Tests of what changed:
+`cargo test --release -- --test-threads=1`: 21 in the host (3 new: a face's colour;
+what was made written and built again; the roof, plain and with its real weight,
+written and built again in two looks), 25 protocol (2 new: `p24` the whole way
+through, with the street made again, the file, and the generated shape back; `p25`
+undone step by step, names refused, a mesh that is not there). The way of working:
+`run.ps1 -Tour -Only roof`, no problems (twice, the second as it now is; the run
+before them found two faults of the check's own: a button clicked in the frame it
+was laid out, which waits three frames now, and sizes read of content no longer
+drawn). Beside it: `-Only meshes`, `-Only kinds`, `-Only cast`: no problems (the
+meshes' panel, the inspector, and a mesh worn by someone with bones all go through
+what was changed). `run.ps1 -Demo roof -Check`: 5 beats of 5, its pictures looked at.
+**Not run: the whole tour** (by the rule above: nothing here reaches the parts that
+failed in it last time, and each part this does reach was run), and the built game
+(`export.ps1 -Check`: the realizer it carries is this one; nothing in a built world
+names a mesh for a roof unless the world written into it does). **By hand: not at
+all.**
+
+### M3, fourth part — a mesh taken hold of in the view (2026-10-10)
+
+**What it belongs to.** Amendment 3.2's third tier (the mesh itself changed by hand)
+and 4's Mesh workspace; and, since the third part, section 3.3's "protect one local
+change": the shape of something generated, changed by dragging it. It is the first
+tier of the mesh tools (corners and faces moved, a face extruded; bevel, loops, sweep
+and loft are later tiers and are more lines of the same text).
+
+**What was asked** (2026-10-10): corners or faces of a mesh selected and manipulated
+in the 3D view, the change kept in the mesh's own source, with clear feedback, undo,
+the file, and the override relationships as they are; usable on a roof of thousands of
+corners; nothing roof-specific and no second mesh-editing system.
+
+**How a drag maps to the mesh's words.** Looked at first: `move A B ... by x y z`
+moves corners that exist, `move face F by x y z` the corners of a face, and `push F D`
+makes new corners and faces. So: a corner dragged is `move`; a face dragged is `move
+face` along the way it looks; a face dragged with Ctrl is `push`. Nothing new is said
+in a mesh's text for any of them. **A drag is a line appended to the text**, written
+by the host (`mesh::moved`, `mesh::pushed`): the same line a person would type, to the
+millimetre. A thing dragged twice running is still one line (it says how far in all;
+back where it began, no line), and each drag is its own step of undo.
+
+**What there is.**
+
+- **The host's `handles` command** (`lib.rs`). Asked with a thing (`owner`, `path`, as
+  a pick says them) or with a mesh's name (the first thing made of it), it says which
+  mesh is that thing's shape, where the thing stands, and the mesh's corners and
+  faces **in that thing's own frame**: a part of a house whose shape was written out
+  is the mesh as written; a thing of a kind is its first part that is a mesh, put
+  where the part's line puts it and as many times as big. With `move` (corners by
+  number, or a face, and how far in the thing's frame) or `push` (a face, and a drag
+  that is measured the way the face looks) it writes the line: one document edit, the
+  one `mesh` makes when a text is applied. So undo, the project file, "every thing
+  made of it follows" and the `Set` record that makes a mesh a roof's shape are all
+  what they were; nothing was added to them. What cannot be held says why: a thing
+  with bones ("its parts go with them"), a roof still as generated ("written out
+  first"), a tree ("not a mesh"), a mesh nothing is made of ("put one down").
+- **`handles.gd`**, the tool in the view, and nothing in it is a roof's. The mesh's
+  edges are drawn on the thing (a hair in front of it, so they do not flicker). The
+  pointer finds **the face the ray meets first** (Godot's triangle mesh, one ray), and
+  of that face's corners the one within 14 pixels on the screen, if any: so a corner
+  on the far side is never taken by mistake, and finding costs the same for twelve
+  corners as for two thousand (0.01 ms measured on a roof of 2,078). Under the
+  pointer a corner has a mark and the faces that go by it are outlined; a face is
+  outlined with a line the way it looks; the strip at the bottom says which, by the
+  number the text knows it by. Held and dragged, what will move is drawn where it
+  will be, and nothing is asked of the host until it is let go: then one line, one
+  edit, and the mesh shown is the mesh the host has. A click that goes nowhere
+  chooses, for a line typed in F6. A corner goes in the plane the view faces, or up
+  and down only with Shift; a face along the way it looks.
+- **The reach**, which is what makes a large mesh workable: every corner within so
+  far of the one held goes with it, by the same amount, as one `move` line. A roof is
+  written out tile by tile (a corner belongs to one or two tiles), so one corner is a
+  nick in one tile; with a reach of a metre and a half a drag raises a hump of 150 to
+  200 corners. The slider in the strip, or `[` and `]`.
+- **Two ways in, neither a script.** The inspector (F7) on a picked thing: "shape it
+  by hand: take hold of its corners"; for something generated whose shape is not a
+  mesh yet it writes the shape out first (the third part's command, one edit) and
+  then holds it. The meshes' panel (F6) on the chosen mesh: "Shape it in the view",
+  which puts the panel away and brings the view to the first thing made of it. In
+  the strip: "its text (F6)" shows the lines the drags wrote.
+- While it is up, the left button is its own (nothing else is picked by mistake); the
+  view is moved as ever. A corner held stays held over a panel: the first run of the
+  check let go of one over the strip and it was never let go, because the panel had
+  the button's release; what is held is heard before the panels now. It follows what
+  happens under it: an undo, a line applied in F6, its street made again; and is put
+  away when the thing is no longer made of that mesh, when a land tool is chosen, or
+  on Tab.
+
+**What was shown** (`-Tour -Only handles`, by the pointer and the keys, and `p26`):
+
+| | |
+|---|---|
+| A mesh of the world's own (a block, its top pushed up), a kind of it, one put down | "Shape it in the view" pressed: held, 12 corners, 10 faces, the view brought to it, nothing written |
+| Under the pointer | its top is face 2; near a corner of it, that corner by number; off it, nothing |
+| A corner dragged up with Shift | `move 10 by 0 0.58 0`: one line, one step, the thing made again, the same thing |
+| Dragged again | the same line says how far in all; one step more |
+| Let go over the strip | still let go, and written |
+| A face dragged, then with Ctrl | `move face 4 by 0 0 0.68`, then `push 4 0.43`: four corners more |
+| Ctrl+Z four times, Ctrl+Y four times | the corners shown follow each; the text as it began, then as it was left |
+| A roof picked, the inspector's button | written out (one step) and held: 2,078 corners, 1,139 faces; the same thing, drawn as big; a frame 1.6 ms with it shown |
+| Reach 1.6 m, a corner dragged up with Shift | one `move` line of 198 corners by 3.36 m, one step, 63 ms from the button down to let go; no other roof made again |
+| Its street made again with another seed, the roof still held | every other roof the new seed's; this one as dragged, the same thing under the same path, still held |
+| Written with the world, the world made anew, the file opened | the roof as dragged, the block's text as left; held again from the inspector |
+| Tab | the corners put away |
+
+**What it settles for the mesh tools to come.** (1) A tool in the view is a writer of
+the mesh's lines and has no state of its own that is kept: what it shows is asked of
+the host, what it does is a line. Bevel, an edge loop, a sweep are each a word the
+text gains and a gesture that writes it. (2) The host says where a mesh is in a
+thing's frame, so the tool does not know what kind of thing it is on. (3) Picking is
+by the face first. (4) What is held is the tool's until it is let go, wherever the
+pointer is.
+
+**What it leaves, said plainly.**
+
+- **A corner or a face, one at a time, or all within a reach.** No corners chosen one
+  by one into a set, no edge, no loop, no box drawn round some. The reach moves all it
+  holds by the same amount: there is no falling off toward its edge (that would be a
+  line for each distance, or a word the text does not have yet).
+- **A tiled roof has no "slope" to take hold of**: its faces are tiles. A whole slope
+  is moved by a reach wide enough, which also takes whatever else is near (the
+  chimney). Meshes written as a few faces (a block, a turned shape) have none of this.
+- **Nothing snaps**, but to the centimetre: not to the ground's directions, another
+  corner, or a grid. A corner dragged without Shift goes in the plane the view faces,
+  which is another direction from every side.
+- **Things with bones are not held** (Wren's skirt): the corners shown would be where
+  the mesh is written, not where the bones have put them. Changed in its text, as before.
+- **A kind's parts that are not meshes** (a block, a post) have no handles yet: M3
+  still owes them.
+- **A kind that has the mesh twice**: the first part's place is the one held.
+- The text grows by a line a drag; a line that moves two hundred corners is long.
+  The panel still shows four thousand lines unfolded.
+- What is walked into, and a mesh on a house made wider: as the third part left them.
+- At 1280 by 720 the strip, the inspector and what the editor tells crowd each other
+  at the bottom; none covers a button of another.
+
+**How far it was checked.** Build: the host builds. Tests of what changed: `cargo
+test --release -- --test-threads=1`: 22 in the host (1 new: what is held and moved is
+a line after the lines), 26 protocol (1 new: `p26`, a mesh put down and a roof, each
+dragged, undone and done again, what cannot be held, the street made again, the file).
+The way of working: `run.ps1 -Tour -Only handles`: no problems, in the last five runs as it now is (of some fifteen while it was
+being made: those before found the faults written above and three of the check's
+own; one is under Known gaps, not explained). `run.ps1 -Demo handles
+-Check`: 6 beats of 6, its pictures looked at. Beside it: `-Only roof`, `-Only meshes`, `-Only
+kinds`, `-Only land`: no problems (the inspector, the meshes' panel and the mouse on
+the world, with a line's places and the land's brushes, all go through what was
+changed).
+**Not run: the whole tour** (by the rule at the head: the two problems written under
+Known gaps are the land's brushes and a walker's act, and nothing here is in either;
+the one thing changed that every part goes through is the mouse being heard by this
+tool first while it is up, which it is not in any other part), and the built game
+(nothing of this is in a game: it is the editor's). **By hand: not at all.**
+
+### UI foundation — one workspace, tools that can be found (2026-10-10)
+
+Asked for by the user before any more engine work: the editor had grown a panel and a
+function key at a time, and they could not find how to start a new world. Not a
+milestone of the amendment's list; taken ahead of W1 because W1 is made of exactly the
+things this gives a place to (see "Next").
+
+**What there was (read from the code before anything was changed).** Nine panels, each
+placing itself by anchors of its own: the palette (always up, top right), the F1
+numbers (while walking only, the left edge), F4 the hub, F6 kinds and meshes and F10
+what is written (each nearly the whole window, over one another), F7 the inspector
+(bottom left, growing up), F8 the land (bottom right, growing up), the strip of a mesh
+held (bottom middle, which lifted what the editor tells by 150 px to stay clear of it),
+and the card of controls (H, while walking). Ten lines of keys and engine numbers lay
+over the top left of the world at all times. Nothing but the palette could be reached
+without knowing its key; nothing could be moved, folded or made another size. Numbers
+were set five ways: a slider with a read-only number (F1), a slider with a field and
+two buttons of its own (F8), a slider with words (the reach), a bare field (F7), and
+keys. **A new world could not be made from the editor at all**: the host's
+`playground` command was reached only by starting with `-Fresh`.
+
+**What was decided.**
+
+- **One bar across the top, and the world under it.** Headings by what a person is
+  working on, not by which panel does it: **World** (new, open, save, save as, undo,
+  redo, what needs a look), **Environment** (the land's tools; style, hour, weather),
+  **Things** (placing, the inspector, kinds and meshes, shaping what is picked, taking
+  away), **Characters** (kinds to walk as and creatures, who can do what, what is
+  written, the numbers of movement), **Window** (every window, and the layout put
+  back). Then Undo, Redo, **Play**, Checklist, Keys. A heading is a list
+  (`desk.gd`, its own, not an operating-system menu: a script can press it as a hand
+  does). A thing that cannot be done now stays in its list, greyed, with the reason
+  after it. Nothing is listed that is not built.
+- **A second row that is about now.** What the left button does and what is picked,
+  with what can be done to it: "Picked: roof (made by 'village')" and Inspect, Shape by
+  hand, Its kind, Take away, Let go; or the tool in use and the way out of it (a land
+  tool and "No tool", placing and "Just pick", a mesh held and "Its text", "Done", the
+  engine working and "Stop it"). This replaced the ten lines.
+- **Playing has its own row**: Stop, Movement (F1), Controls (H), Game (save and load
+  the game, the hour, the weather, the eye, keyboard or controller), Who can do what,
+  Window, Checklist. The windows for editing are put away on Play and **come back on
+  Stop**. The pointer is the walker's while nothing is open; F1 (said on the bar)
+  frees it, and it stays free while any window is up. The numbers of movement can be
+  opened while editing too.
+- **Every panel is a window** (`win.gd`): a bar with its name; dragged by the bar;
+  folded to its bar by "-" or a double click; put away by "x" and brought back from the
+  bar's lists; made another size by its edges and its corner, never smaller than what
+  it holds needs; brought before the others by a press; kept on the screen when it is
+  let go and when the Draw3D window is made smaller. The panels themselves were not
+  rewritten: a window holds a panel and is shown while the panel is `visible`, so a
+  key, a list, a script calling `show_it` all go on working, and nothing a panel does
+  moved. Floating, not docked: the frame is the one place a dock would be added.
+- **Where windows are is the machine's, not a world's**: `user://layout.cfg` (place,
+  size, folded), written when a window is let go, read when one is first shown. While
+  a script has the editor nothing is read from it or written to it.
+- **One way to set a number** (`num.gd`): a step less, the number itself to type, a
+  step more, and before them a slider where there is a range worth dragging; one value,
+  whichever is used. The owner is told and shows back what the number then is, so its
+  own bounds hold. A slider says every value it passes (numbers of a tool or of the
+  walker: not steps of undo); a generator's parameter has no slider, and is set by
+  Enter or a step, **each one edit and one undo**, not by leaving the field.
+- **What the editor tells stays at the bottom middle**, and nothing starts there:
+  the inspector starts top left, placing top right, the land's tools under it, the
+  strip of a mesh held low at the bottom right (its help is now what the pointer
+  resting on it says).
+
+**Migrated.** As windows: Place and move (the palette), Inspector, The land by hand,
+Shape by hand (the strip), Kinds and meshes, What is written, Who can do what, Movement
+numbers, New world, Checklist, Engine status (the engine's numbers that were on the
+world), Keys and mouse (every key, which were the other lines). As numbers: every one
+of the walker's (70), the land's nine, the reach, every generator parameter that is a
+number in the inspector, and a new world's three.
+
+**A new world, from the bar** (World > New world, Ctrl+N; `newworld.gd`). What there
+is to begin from is one arrangement, the island the playground is; the host's
+`playground` now also takes the land's own `amp` and `patches` (it took a seed), so
+the three numbers asked for are a **seed**, the **height of hills** and the **size**.
+It asks twice (the world in the editor is replaced and its undo history ends), writes
+no file, and the new world **has no file** until it is given one: Save then asks
+where, so the world file there was is not written over by mistake. It says what is
+not built: a world that begins empty, an outline, a choice of what is generated (W1).
+
+**The list of what to try, in the editor** (the bar's Checklist; `checklist.gd`,
+`checklist.txt`). A window like the others; items under headings, each with a box and a
+small line of where to find it; "n of m tried"; "untick all". A line at its top says
+what scripts checked, which ticks nothing. **To refresh it for the next milestone,
+write `editor\godot\checklist.txt` anew** (its head says the form: `title`, `auto`,
+`== heading`, `- item`, set-in lines under an item) with another `title`: ticks are
+kept by title in `user://checklist.cfg`, so a new title is a new unticked list. It is
+of the latest changes, not of everything. Never in a world, never in a built game
+(`export.ps1` does not take the file, and a game has no bar to open it from); a
+script's ticks go to another file than a person's.
+
+**Found while building, and put right.** A panel put away was still a window for one
+frame, and a click in that frame fell on it (found by the kinds' part: a thing was not
+put down); a window is now shown and hidden in the same moment as its panel. The strip
+of a mesh held, as high as it was, lay over the middle of the view where the thing
+shaped is (found by the handles' part: a face could not be pushed); it is low now.
+Three panels were wider than the screen as windows, their headings being one unbroken
+line; they wrap. A window placed by its bottom edge before it was laid out stood at the
+top; where a window starts is settled over its first frames.
+
+**Checked.**
+
+- **Build:** the host builds.
+- **Tests** (`cargo test --release -- --test-threads=1`): 22 in the host, 27 protocol,
+  pass. New, `p27`: a new world asked for with a seed, a height of hills and a size is
+  made with them as the land's own parameters, replaces the world there was with no
+  step back to it, and numbers out of range are kept within what the land takes.
+- **The part of the tour for it, by real mouse and key events**
+  (`editor\run.ps1 -Tour -Only ui`, about 10 s; no problems in its last five runs):
+  the bar there and every entry of every list (34) present; a list opened and one of
+  it pressed with the mouse, a greyed one not pressable and saying why; **each of the
+  eleven windows** opened, within the room, folded and unfolded by its button, moved
+  by its bar, made another size by its corner and not smaller than what it holds
+  needs, put away by its x and brought back from a list where it was left; the one
+  last opened in front, a press bringing another before it, and the one in front the
+  one the pointer meets; with all put away nothing over the world but the bar; Play
+  from the bar, the editing windows away and refused with the reason, F1 and the bar's
+  button opening the numbers; **jump height a step more, a step less, written, dragged
+  and kept within its range, the walker's own number each time, and sway reaching
+  what swings** (written to a file of the script's own, then put back); Stop, and the
+  editing windows back; a generator's number a step more as one edit, nothing set by
+  leaving the field, Enter setting it, undone and done again from the bar; the land's
+  radius three ways with no step of undo; F1, F4, F6, F7, F8, F10 and Ctrl+N each
+  opening and putting away its window; a thing of a kind picked and "Its kind"
+  opening it; a roof picked with the mouse, the row saying so, "Shape by hand" pressed
+  there (one edit, the strip a window and clear of what is told, the reach three
+  ways), Done, Undo from the bar; the list of what to try opened from the bar, ticked
+  with the mouse, kept in the script's own file, unticked, the world untouched; the
+  Draw3D window at 900 by 560 with the bar's buttons all on it and the windows within
+  it; a window's place kept, found again, and given up; Open and Save as asking for a
+  file, a world written and opened as written; **a new world asked for from the bar,
+  its numbers set, asked twice, made with them, with no file and Save asking where**.
+  And last: **`editor\world.json` and `feel.cfg` are byte for byte what they were**.
+- **Beside it, alone:** `-Only handles`, `-Only roof`, `-Only meshes`, `-Only land`,
+  `-Only kinds`: no problems as the code now is. The first run of them after the
+  windows were made found three of the faults written above.
+- **The whole tour, once** (about ten minutes: every panel had been put into a window
+  and a bar laid over the top of the screen, which is the kind of change that only
+  shows across all of it). Everything up to the roof's part passed, the walker's and
+  the land's parts among them. It found: **the roof's part failing after the kinds'
+  part**, by a fault of the tour's own that the code as committed has too (shown by
+  running the two parts together on a copy of `c59f036`: the same failure): its
+  "press the palette's button" pressed "just pick" where it had last been shown, and
+  what is there once it is put away is "new kind", which opened the kinds' window
+  over the roof. The tour had not been run whole since the roof's part was added. Put
+  right in the tour (a button not shown is not pressed). And three things the
+  workspace's own part took for granted that are not so after the other parts (the
+  reach left at 1.6, a thing put down while the host was still at work, a window's
+  height when what it says is longer); put right in the part.
+- **The whole tour again, with those put right** (ten minutes): the roof's part and
+  the handles' part pass in their order, and so does everything before them. Three
+  problems. **The sheep come at, caught at 0.6 m**: Known gaps, the sheep as it is.
+  **The eye's check in the sway part** (next). And one more thing the workspace's part
+  took for granted (a thing picked by clicking where it had been put, where something
+  an earlier part left now stood before it); put right, and that part run alone, no
+  problems. Not run whole a third time.
+- **The sway part's eye check, looked into because it had not been seen to fail:**
+  "the eye should follow her as nearly with what swings shown as with none of it: on
+  0.61, off 0.03". Run alone, "off" is about 0.58 most times and under 0.1 some:
+  **3 of 12 runs of the code as committed (`c59f036`, from a copy), 4 of 14 as it now
+  is.** So it is that part's own, from before this work, and comes and goes: in the
+  stretch with nothing swinging she sometimes hardly gets going (21 m gone in all,
+  where it is 24.7). Why, is not known. Under Known gaps.
+- **The editor started as a person starts it** (no script; 20 s, then stopped): the
+  user's world opened, nothing said to be wrong, and no file of theirs written.
+- **The demo** (`editor\run.ps1 -Demo workspace -Check`): 6 of 6 beats, its pictures
+  looked at.
+- **Seen once and not again:** in a run of the kinds' part followed by the roof's (a
+  pairing made for the check above), "pet the hopper" was offered and E did not begin
+  it. Not in the three runs of the kinds' part after, nor in the whole tour. Not
+  explained; left by the rule at the head.
+
+**Not done, and what it is.**
+
+- **Docking, tabs, snapping to edges, several layouts.** Windows float. Two the size
+  of the screen (kinds, what is written) overlap wholly.
+- **The card of controls (H) and the texts at the bottom while playing** (what is
+  offered, what is kept) are not windows.
+- **A new world is one arrangement** with three numbers. It cannot begin empty.
+- **No "unsaved changes" mark.** New world always asks twice; Open a world does not
+  ask at all. Neither knows whether there is anything to lose.
+- **Numbers not made the one kind:** a generator parameter that is words, a line's
+  places, and the numbers written inside a kind's or a mesh's text.
+- **The inspector and the land's tools are as high as what they hold** and do not
+  scroll: on a window much lower than 720 a long one runs off the bottom.
+- **"all back to how they began"** in Movement numbers is one press and is not asked
+  twice (as before).
+- **By hand: nothing.** Scripts press the bar and drag windows with mouse events;
+  whether it is comfortable is the user's to say. The list in the editor is for that.
+
+### Follow-up — walking as someone, panels, what grows (2026-10-10)
+
+Asked for by the user after trying the workspace by hand: "I can create a new world,
+insert the female character, and select 'walk as this kind', but WASD does not move the
+character. The camera can move, and F1 exposes movement-speed sliders." With it: the card
+of controls at the bottom right at the start, a way to close every panel, why painting
+grass grows nothing, the tools for shaping to be in the plan, and the checklist anew.
+
+**Why she did not walk.** Looked for along the whole path (keys, `controls.gd`,
+`player.gd` `_wanted`, the motor, the ground under her in a new world) by doing what was
+described with real key and mouse events (`-Tour -Only firstwalk`), in a new world of the
+numbers the user's own run made (seed 4, 256 m, hills 3.5), and again in the session a
+demo leaves (`-Demo workspace -Only firstwalk`), which is how the user's session was
+started. **Once the world is played she walks, every time: the motor, the ground and the
+keys are sound.** What was wrong is that nothing got as far as playing:
+
+- **"Walk as this" says who the walker is and nothing more.** It played nothing and said
+  nothing of Play. While editing, W A S D move the view (so "the camera can move") and
+  F1 opens the walker's numbers (since the workspace), which looks like being in the
+  game. Someone put down is a thing in the world; the walker is another, made when the
+  world is played.
+- **Tab played nothing while a number's field had the keys.** Shown on the code as
+  committed (`62ea725`, from a copy): the land's radius field clicked, Tab pressed,
+  `tab_plays: false`. Tab was the panel's, went to the next field, and never reached the
+  editor. Since the workspace every number has a field.
+
+Which of the two the user met is not known: their run's log does not say whether the
+world was ever played. Both are put right, and the route is one that cannot be missed:
+
+- **"Play as this"**, in the row under the bar, when what is picked is of a kind with a
+  person's bones (`main.gd` `play_as_picked`): the walker is of that kind from then on
+  (the same document edit "Walk as this" makes) and playing begins beside where the one
+  picked stands, to one side as the view looks. Any kind with `rig person`: nothing of
+  it knows Wren.
+- **"Walk as this" says what comes next** ("Play (Tab, or Play on the bar) walks as
+  them ... until then W A S D move the view"), and **the green button says who**: "Play
+  as wren (Tab)".
+- **Tab plays whatever has the keys** (`main.gd` `_input`), but a text being written,
+  where Tab is a tab. Playing and stopping let go of whatever field had the keys.
+- The row under the bar, with nothing picked, says that nobody walks until Play.
+
+**The card of controls at the bottom right.** Not kept from one launch to the next:
+nothing remembers it. It was up because the session was started as a demo
+(`run.ps1 -Demo workspace`), and a demo ended by putting the card up; and once up it
+stayed over the editor after Stop. Now a demo in the editor does not put it up (the bar
+has "Controls (H)" while playing), and stopping puts it away. A game on its own shows
+it as before.
+
+**A demo's session is the person's when it is handed over** (`main.gd` `handed_over`).
+Found in the user's run, and the worst of what was found: **the session a demo leaves
+had `editor\world.json` as its file, while the world in it was the demo's.** The
+checklist asked for a save and a reopen; the user pressed Ctrl+S at 14:07, and **the
+demo's world (481,869 bytes) was written over their own (67,258 bytes, of 2026-10-09
+14:04).** The file is not in git (it is ignored), and no copy of it was found on the
+machine but `build\Draw3D-game\world.json`, the world as it was exported on 2026-10-09
+00:53 (63,317 bytes), which is older. This was so before the workspace too; the
+workspace's checklist is what led a hand to it. Now: when a demo hands over, the world
+has no file (saving asks where, and the window says "a new world"), what the demo says
+at its end says whose world it is, and where windows are and what is ticked are kept
+where a person's are (they were kept where a script's are: the user's ticks of that
+session are in `checklist-script.cfg`, and their windows' places were not kept at all).
+
+**Close all panels** (`desk.gd` `close_all`): at the foot of the Window list, in both
+bars. Every window is put away, and the card of controls; the bar stays; a new world
+asked for the second time is left asking; nothing is undone (what was dragged or set is
+in the world when it is let go). Greyed, with "none is open", when none is.
+
+**What grows.** Not a regression: looked at in `shapes/land.rs` (`Woods`, `Meadow`) and
+`terrain.gd`, and the land's part of the tour passes as it did. **No tool of the land
+has ever planted anything.** Trees are the woods' and grass, flowers, bushes and rocks
+the meadow's: each tries a `count` of places over the whole land, by its `seed`, and
+keeps those that are dry, off the road, and not cleared by hand. So land raised out of
+the sea, or flattened out over it, grows things (places that were under water are now
+dry), and that is what looked like sculpting making shrubs. Painting grass over grass
+changes nothing; painting grass where rock, sand or dirt was painted, or "let grow"
+where it was cleared, brings back what was stopped. To have more, the count is raised:
+
+- **Environment > "What grows: trees"** and **"What grows: grass, flowers, bushes,
+  rocks"** open the inspector on the woods or the meadow (`desk.gd` `grows`), and say
+  what `count` and `seed` do. Greyed with the reason in a world that has no such maker.
+- The land's tools say it where it is met: after a stroke that grew nothing, and under
+  "paint" with grass chosen.
+- Not built: a brush that makes growth thicker in one place. That is a density layer on
+  the land, read by the woods and the meadow, and belongs to W1 (amendment 7d), where
+  what grows is chosen and placed; written there.
+
+**A drag kept to a line or a plane** (`handles.gd` `lock`): the one small thing of the
+tools for shaping that was a step from what there was (Shift already kept a corner to
+the upright). The strip has "a drag goes: free, X, Y, Z, XZ, XY, YZ", in the thing's
+own frame; the keys X, Y and Z choose a line and the same key again lets go; what it is
+kept to is drawn through the corner or the face held, and the strip says "kept to X".
+A face goes the way it looks unless something is chosen; pushed out (Ctrl) it goes the
+way it looks whatever is chosen. The rest of what was asked is in the plan (amendment
+7f) and not built.
+
+**Checked** (risk-based: what moves the walker and what was changed; no whole tour):
+
+- **Build and host tests:** not run. Nothing of the host was changed (GDScript only);
+  each script was compile-checked headless before any run.
+- **The new part of the tour, by real key and mouse events**
+  (`editor\run.ps1 -Tour -Only firstwalk`, about 25 s; no problems in its last three
+  runs): a new world (seed 4, hills 3.5, 256 m); the land's radius field clicked, Tab
+  pressed: it plays, the field is let go, Tab comes back; the examples added, wren
+  chosen, "Walk as this" pressed with the mouse: the walker is wren, what to do next is
+  said, the green button says "Play as wren"; Play pressed on the bar, W held two
+  seconds on the keyboard: **3.4 m gone**; the card of controls put up while playing is
+  gone after Tab; one of her put down, clicked in the view, "Play as this" offered in
+  the row and pressed: playing, as wren, W held: **8.6 m gone**; six windows opened and
+  "Close all panels" picked from the Window list: none open, the bar there, the entry
+  greyed after, a new world asked for the second time left asking while the inspector
+  beside it is closed, Checklist opening from the bar; Environment > "What grows:
+  trees": the inspector on the woods, its count typed double: **305 trees, then 593**;
+  the meadow's entry opening the inspector on the meadow.
+- **The same in the session a demo leaves** (`-Demo workspace -Only firstwalk`, once,
+  before anything was changed but the part itself): she walked there too (3.4 m). So
+  what a demo leaves did not stop her; what it left wrong was the world's file.
+- **On the code as committed** (`62ea725`, from a copy, with the new part): Tab with the
+  field chosen: `a_field_has_the_keys: true, tab_plays: false`. The part stops there on
+  that code (what comes after is not in it).
+- **The handles' part** (`-Tour -Only handles`), with a new check in it: the key X, and
+  a corner dragged aslant goes along x and not at all in y or z; XZ by its button, and
+  it moves level and does not rise; Z and Z again, free; both undone. No problems in its
+  last two runs. Its first run after the row was added failed further on: the strip, a
+  row taller, lay over the face the part drags next, and the press was the strip's. The
+  part now moves the strip aside first, as a hand would. The strip is 30 px taller for
+  everyone: said here, not hidden.
+- **Beside it, alone, once each as the code now is:** `-Only ui` (twice; its first run
+  failed on the words under the bar, which had been changed and are put back to begin
+  as they did), `-Only land`, `-Only kinds`, `-Only cast`: no problems.
+- **The demo** (`editor\run.ps1 -Demo playas -Check`): 5 of 5 beats; offered, played as
+  wren 19 m, 5 panels closed, 231 trees then 486, a corner gone 1.06 along x and 0.00
+  in y and z. Its first and last pictures looked at. Its first run had the view inside
+  a house and the drag missing the corner: the demo's own faults, put right.
+- **The editor started as a person starts it** (no script; 22 s, then stopped): the
+  world file opened, nothing said to be wrong, `world.json` and `feel.cfg` not written
+  (481,869 bytes of 14:07 and 1,171 bytes of 2026-10-09 22:24, before and after).
+- **The whole tour: not run.** The walker's motor, the host and the land were not
+  touched; what was changed has parts of its own, run above. `firstwalk` is added to
+  the whole tour, last, for when it is next run.
+- **By hand: nothing.** The checklist in the editor is for that.
+
+**Not done, and what is still so:**
+
+- **The one put down and the walker are two.** "Play as this" starts another of her
+  kind beside her; she stands where she stood. A place a game starts at, as a thing in
+  the world, and whether the one put down is the one played, are W1's (a world has a
+  start: `start` in its file, which is where the view looked when it was written).
+- **Tab in a text** (a kind's or a mesh's lines, moves, poses, acts) is a tab: Play is
+  pressed on the bar there.
+- **More growth in one place** is not to be had: `count` is for the whole land.
+- **The user's world of 2026-10-09 is gone** but for the older export (above). Nothing
+  here could bring it back; it is said to the user first.
+- Extrude along a path, bevel, joining shapes, numbers typed for a move, a ring of
+  corners chosen at once: 7f.
+
+### W1 — a world built of makers (2026-10-10)
+
+Asked for by the user as the next foundational pass, with the direction written into
+the master roadmap as principle P: *almost anything placed or made by hand should be
+able to have a generator of its own, and generators should work together; the thing
+made is kept apart from what arranges it.* Not the specialised engines (trees, rocks,
+water, houses, decoration): what they are to be built on.
+
+**What was found, read from the code before anything was changed.** Every world there
+was, the user's own among them, was the one arrangement `playground` wrote in Rust:
+eleven generator nodes joined by calls no command exposed. The core had the pieces
+(`add_generator`, `connect`, `disconnect`, `copy_node`, `Document::remove`); the host
+exposed none of them but `place`, which adds one thing. The host's `generator` command,
+which this file and the amendment had said was the missing panel's command, only swaps
+versions of a test generator. An input took one source, so the land could know one
+road. Woods and meadow tried their `count` over the whole land. A house came only of a
+street. Where a game starts was wherever the editing view looked when the world was
+written. Open replaced the world without asking.
+
+**What a maker is.** A generator node of the document, as before: nothing of the
+document's model was changed, and no file's form. What is new is that it is public.
+`shapes/land.rs` has one table (`MAKERS`) that says of each kind of maker what it is
+called and for, what its inputs take and what it gives, whether it fills an area, and
+whether a world has one at most; the host's commands and the editor's window go by
+that table and know no maker by name.
+
+| Command (host) | What it does |
+|---|---|
+| `makers` | the kinds of maker there are: title, about, inputs (with what each takes, and whether it takes several), what it gives, parameters, and why one cannot be added now |
+| `nodes` | every maker of the world: name, kind, place, turn, mode, **what each input reads (by name), who reads it**, its reach, how many things it has made |
+| `add` | one maker: `gen`, `name` (or it is given a free one), `pos`, `yaw`, `params`, `inputs` (by input, a node), `feeds` (who is to read it). An input `ground` not said reads the land there is |
+| `compose` | several such steps as one edit; a later step names an earlier one's maker as `@name`. All or none |
+| `connect` / `disconnect` | an input reads another maker (checked: a street's `route` takes a line, not land; no cycle), with `more` one more source of an input that takes several; or reads nothing |
+| `copy` | another of a maker: its parameters, what it reads, what was done by hand to what it makes; a name and an id of its own. Nothing reads the copy |
+| `remove` | a maker out of the world with all it made; every connection to it is taken out and said. Not while things detached from it stand |
+| `rename`, `move_node` (with `reach`), `turn_node`, `param`, `freeze`, `thaw` | as their names say; `param` now gives a node a declared parameter it was written without |
+| `begin`, `recipe` | a world begun from a composition (`playground`, `island`, `nothing`, or steps given); the steps a named composition is |
+
+**Decided while building, each the smallest thing that holds:**
+
+- **An input may take several sources** (core: `Generator::many`, `plan::slot`). The
+  first is connected under the input's name and each more under `NAME+1`, `NAME+2`
+  (16 at most). The land declares `route` so: every line it is given is a road, with
+  the ground levelled along each in turn. A world with one line publishes the shape it
+  always did, so nothing in an existing world is made again. This is general: any
+  maker to come that reads several of something says so the same way.
+- **A maker that fills an area has a `reach`** (`Reach` in `land.rs`), a parameter in
+  metres about the place its node stands: 0, or a node written before there was one,
+  is the whole land as it was. Woods and meadow declare it. So the node's place is the
+  area's middle, moving the node moves what it makes, and each maker's keys are its
+  own: two woods never share a tree. A new maker given a reach and no count is given
+  as many as that ground takes.
+- **One house is a maker, `lot`**, whose one child is asked of the same `house`
+  generator a street asks, with the same brief. The split the principle wants was
+  already in the code: a street says where houses stand; `house` makes one. A house
+  engine, when it comes, replaces `house` and both get it.
+- **Where a game starts is a maker, `start`**, that makes nothing: its node's place
+  and turn are the start. The editor shows a flag; Play begins there; the world's file
+  says it (`start`), so a built game does too. A world without one is as it was.
+- **Taking out cuts, and undo is the document's.** `remove` takes every connection to
+  the maker out with it, so no node names one that is gone; undo is the version before,
+  so the maker is back with its parameters, its edit records and every connection.
+- **The playground is its recipe.** `playground` is now `recipe("playground")` given to
+  `begin`, which is `compose`: the same `add_maker` an editor's button reaches. A
+  protocol test makes it three ways (the command; `compose` of the recipe from
+  nothing; one `add` at a time) and gets the same makers, each with the same id, and
+  the same things.
+- **A world left with changes in no file is asked about** (the host counts edits and
+  says `unsaved`): opening another, and closing the window, offer Save, Leave, Stay;
+  New world says how many. The title says "(changes not saved)".
+- **What a world's file says that the host does not know is written out again**
+  (top-level keys). Unknown fields inside the document are still dropped by the
+  reader: Known gaps.
+
+**In the editor.** World > **Makers** (Ctrl+M; `makers.gd`): what can be added, with
+what each is for; the list (land, lines, then the rest; things put down by hand are
+counted, not listed); and for the one chosen its name, place and turn as numbers, its
+reach, what each input reads (a list to choose from, of what gives the right thing),
+who reads it, and Its numbers (the Inspector), Place it in the view, Duplicate, Remove
+(asked twice, saying what goes and who reads it). On the world (`marks.gd`): the flag
+where a game starts, a ring as wide as the chosen maker reaches, and three tools that
+each end in one command: **put** (a click), **area** (pressed at the middle and dragged
+out), **line** (a click a place, Enter to end, Backspace a place back). The places
+clicked are asked of the host, so they are exact from however far off. New world asks
+which beginning. Environment, Things and Characters have the entries for adding; the
+row under the bar has the tool's words and its way out, and Duplicate and Its maker
+for what is picked. The Inspector has what is picked as numbers (east, south, turned),
+for the whole of what it belongs to (a house, for a window); picking a thing shows it
+there in place of a maker chosen before.
+
+**Checked** (risk-based: what was changed and what it could reach; no whole tour):
+
+- **Build:** core and host build.
+- **Tests** (`cargo test --release -- --test-threads=1`): core, all pass; host, 22 and
+  **30 protocol**, all pass. New: `p28` (a world built from nothing: land, a second
+  refused; two lines, both read by the land and level along the second; a street
+  along each; two woods each within its own reach, one changed and moved with the
+  other untouched; a house alone with its roof, door and windows; the start, one
+  only; **seventeen things refused, each saying why, and the world unchanged after
+  them**; a wood copied; a street reading another line and back; a line removed, who
+  read it said, nothing naming it, no badge; **undone: the same makers and every
+  thing there was, each the thing it was**; a wood with a tree taken away by hand
+  removed and undone, the record still there; written, opened: the same; an unknown
+  key of the file written out again; `unsaved` counted and cleared), `p29` (the
+  playground three ways, the same), `p30` (a world file with the woods' and meadow's
+  `reach` cut out of it, as files before today are: every thing it had, each the thing
+  it was; and the wood then given a reach).
+- **The user's own world, read and not written:** `editor\my world.json` opened by the
+  host in a test since taken out again: 11 makers, 1,168 things, nothing needing a
+  look, no reach on its woods. The file is byte for byte what it was.
+- **The part of the tour for it, by real mouse and key events**
+  (`editor\run.ps1 -Tour -Only makers`, about a minute; no problems in its last three
+  runs): everything the list at the head of `makers()` in `tour.gd` says, the island
+  asked for in the New world window to the world written and opened as it was. Its
+  first runs found, and these were put right: a place clicked from far off was up to
+  4 m from where the pointer was (the ground as drawn is not met by a ray from that
+  far: the tools now ask the host); the Makers window was taller than the screen with
+  a maker chosen, and its Remove button under the edge (what is said of the one
+  chosen now scrolls, with what can be done first); a button of it rebuilt between
+  press and release was not pressed (it is rebuilt only when what it says is other);
+  the flag was shown while playing.
+- **Beside it, alone:** `-Only ui`, `-Only land`, `-Only kinds`, `-Only firstwalk`: no
+  problems, once each (`land`, `kinds` and `firstwalk` before the last small changes,
+  which were to the Makers window's list and words, the flag's size, and the
+  checklist: none of them theirs). **`-Only ui` then failed once, and why is known:** "a window's
+  place found again" did not hold after the checklist was written anew for this
+  milestone. The line of it that says what scripts checked was half as long again as
+  the last one, it is not in the part of that window that scrolls, and so the window
+  could not be made as low as the 300 px that check asks of it. The line was made
+  shorter; `-Only ui` run again: no problems. The window's fault is under Known gaps.
+- **The demo** (`editor\run.ps1 -Demo makers -Check`): 6 of 6 beats; 19 houses, 23 and
+  12 trees, the street empty without its road and 19 houses again after Ctrl+Z,
+  played from the start. Two of its pictures looked at.
+- **The editor started as a person starts it** (no script): the world file opened,
+  the window asked to close after 18 s and closed at once (nothing to save), code 0.
+  `world.json`, `my world.json` and `feel.cfg` byte for byte what they were (their
+  SHA-1 before and after).
+- **The whole tour: not run.** The walker, the land's tools and the kinds were not
+  touched; `makers` is added to the whole tour, last.
+- **By hand: nothing.** The checklist in the editor is for that.
+
+**Not done, and what is still so:**
+
+- **A reach is round**, and only woods and meadow have one. An outline drawn for an
+  area, and a reach for the other makers, wait for use to ask.
+- **Every line given to the land is a road**: the ground is levelled along it. A path,
+  a fence, a river: Next, item 2.
+- **What grows does not know of a house put down alone**: a tree may stand in it. The
+  land's "clear" brush is the way round. It wants makers to say what ground they take.
+- **One land to a world**, and it is not made twice (its shaping by hand is kept under
+  its own id).
+- **A house's own choices** (floors, roofs, windows): four numbers of the `lot`. The
+  house engine is its own milestone.
+- **"Play as this" still starts another of the kind** beside the one picked.
+- **A recipe is not yet a person's**: there are three, in the host. W2.
+- **One of many is not made twice alone** (a house of a street): it says so. Making it
+  a thing of its own is `detach`, which the editor has only as a key (X).
+- **The user's saved games** of worlds begun today will say "edited since" against
+  worlds begun before: woods and meadow have one parameter more.
+- Not multi-selection, nor scale by a number, nor anything of M3b but position and turn.
+
+### W1b — what is chosen, and one thing of a maker by itself (2026-10-10)
+
+The user tried W1 by hand and wrote what they found: what works (opening and saving,
+the question before leaving, makers added, placed, made twice and taken out, lines,
+streets, houses alone, boats), and five things that did not. This pass is those five,
+and the plan their larger aim asks for (amendment 7i; "Next", above).
+
+**What was found, read from the code before anything was changed.**
+
+| What the user saw | What it was | Kind |
+|---|---|---|
+| Choosing a road in the inspector marks it in the world; choosing a wood marks nothing obvious | Only a line had marks (`line.gd`). A maker chosen in Makers had one ring, and only if it had a reach; a maker over the whole land, or along a line, had nothing | missing |
+| "Selecting one of the village's houses selects the village" | It did not: a click picked the house, and `delete`, `move` and `turn` on it were already records its street keeps (`Exclude`, `Pin`, `Set`). But nothing in the view showed what was picked, the row under the bar said "roof (made by 'village')", and Makers, beside it, offered "Remove…" for the whole street. Two unconnected selections (`ed.picked`, `makers.chosen`) and no way to see or put back what had been done to one thing | unclear, and missing |
+| Adding woods "placed immediately without the drag" | Not reproduced. The press-and-drag is in the code and the tour drags it with real mouse events. A click without a drag adds a wood of 40 m at once, which the description did not say. Afterwards there was no way to change the reach in the view but to place the wood again | unclear |
+| Turning a wood put trees in the water | **Reproduced, and a bug.** A maker reads the land through a frame that says where the land stands and how it is turned as that maker sees it. `Ground` and lines used where and not how: a turned wood laid its places out turned, and asked the height of each where the *unturned* wood had it. With the fix taken out, the new test finds 2 of 98 trees under 1.2 m on the first turn | bug |
+| "5.5 sheep" | `count` of a flock was declared as a number and not a whole number, so the inspector stepped it by halves; the flock went by the whole part | bug |
+| A boat needs a line, unexplained | The line is not a way the boat goes: the boat is put straight out past the line's *first* place, as near as the water is deep enough. A flock stands to one side of its line, part of the way along. Neither was said anywhere | unclear |
+
+**Built.**
+
+| What | How it works |
+|---|---|
+| The ground under a turned maker | `Ground::on` and `line_of` (`shapes/land.rs`) turn a place by the frame's turn before the land is asked. It is at the root: every maker that stands things on the land, or follows a line, has it. No world with nothing turned changes (the user's has nothing turned: looked at). |
+| One thing chosen at a time | A maker (`makers.choose`, from its row or the inspector's list: nothing stays picked) or one thing a maker made (a click in the view: its maker's row is marked, the thing stays picked). A click on the ground, or "Let go", is neither. The inspector's list, Makers and the view are one selection. |
+| What is chosen, drawn (`marks.gd`) | A maker, in blue: its reach as a ring, or with no reach the square about all it made (the host says its `bounds`); its line or the lines it reads; a stroke over each thing it made (the host's new `things`); and, if it stands somewhere, its handles. One thing, in yellow: a frame as wide as it stands, turned as it is; its maker's reach still in blue, without strokes or handles. |
+| What is chosen, said | The bar: "Chosen: the maker 'street' (Street of houses), all 18 things it makes" or "Picked: one house (clicked on its roof) — one of the 18 that the maker 'street' makes. Delete takes away this one only." Makers says the same at the top of what it shows, in the same two colours, and the inspector "one of the 18 things 'street' makes". |
+| One thing taken away | Delete (or "Take away this one") is the host's `delete`, as it was, and now says what was done and that the maker still makes the rest. With a maker chosen and nothing picked, Delete takes nothing and says what would. The ground is not taken away. A thing put down by itself (`placed`, `lot`) is its own maker, and goes with it (`remove`), leaving no empty maker behind. |
+| What was changed by hand, counted and put back | The host's `nodes` says of each maker how many of its things were taken away, moved, turned or otherwise changed; `changes` lists them, each with where it stood; `restore` takes one back, or all of a sort, as one edit. Makers shows the count in the row ("1 taken away by hand") and has a button for each sort. A picked thing says what was done to it (`describe`: `of`, `changed`). |
+| A wood's handles | With a maker chosen that stands somewhere: a box in its middle (dragged, `move_node`) and, with a reach, a ball on its ring (dragged, its reach). One command each, one step of undo; a click on one is nothing. The words while adding say both ways: a click (40 m), or press and drag. |
+| Makers, listed | Under headings the host gives (`GROUPS`: Land and lines; Buildings; Growing things; Animals and boats; A game's start and its puzzles). Each maker that reads a line says what the line is to it (`Maker::line`), and how one is added. With no line to follow, Add has the line drawn first and adds the maker along it; such a line is given to the land as a road only for a street or its furniture. The description's place has a fixed height: the Add button no longer moves when another kind is chosen. |
+| A count is whole | `count` of a flock is declared whole (as a wood's and a meadow's were). A world written with a fraction there opens with the whole number it was made by (`open`), and is not thereby changed. |
+| "Look at it" | The view goes to the maker chosen. |
+
+**Checked.** Host: 22 unit and 33 protocol tests pass, run one at a time. New:
+p31 (a wood on a shore turned four ways stands no tree under 1.2 m, and what `things`
+lists is what is shown; a street along a turned line stands where the line is; it
+fails with the fix taken out), p32 (one house of a street described as one of N,
+taken away alone, counted, kept away when the street is made again with another seed,
+another house moved, both written and opened, put back by sort and by record, undone
+and done again; six things refused), p33 (every listed maker has a heading, every one
+that reads a line says what it is for, every count is whole; half a sheep refused;
+a file with 5.5 opens as 5 and is clean). Tour, with the mouse and keys:
+`-Only chosen` (new: all of the above as a person does it, and the wood's handles
+dragged) passed twice; `-Only makers`, `firstwalk`, `kinds`, `land` passed; `-Only ui`
+passed after two of its expectations were changed to the new words, then failed once
+in three runs in a part not touched (see "Known gaps"). The demo `chosen -Check`: 5
+beats of 5. A copy of the user's "my world.json" opened by the new host: 15 makers,
+1,170 things, nothing needing a look, nothing in it turned; the file itself, `feel.cfg`
+and `world.json` are byte for byte what they were. **Not run:** the whole tour.
+**Not tried by hand.**
+
+**Not done.**
+
+- **What is taken away is kept as a place** (an `Exclude` at where it stood, half a
+  footprint wide), as it always was. It stays away through another seed. A street
+  made again with another `pitch` puts other houses at other places, and the gap is
+  then whichever house stands there, or none. To keep "this house" by name needs the
+  record to carry its key, which the core's records allow and `delete` does not yet
+  use: D2.
+- **One thing cannot yet be given another design, or numbers of its own**, from the
+  editor (the host's `set` does it for a field of a child, and M3's roof override is
+  one case). D2.
+- **The square about a maker with no reach** is square-on in the world, about what it
+  made: for a wood over the whole land it is nearly the land.
+- **Whether the user's press-and-drag for a wood failed, and why**, is not known: it
+  could not be made to fail. The handles are there for after, whatever it was.
+- **Clicking a house chooses the house at once.** The other way (its street first,
+  the house on a second click) is a question for the user.
+- **A maker's turn is offered for all but the land and a line**; the land and a line
+  are not turned in the editor (their turn is honoured by what reads them, p31).
+- Not multi-selection. Not any design engine: the plan is amendment 7i.
+
+
+### W1c — one thing by itself, apart from its maker; what floats; kept by name (2026-10-10)
+
+The user tried W1b by hand (commit `9f95da0`) and wrote what they found: choosing, taking
+one thing away and undo work; what a thing *is* was not told apart from what made it;
+duplicating a rock was not understood; "Place it in the view" moved a whole meadow
+while a rock was picked; a boat put down over water sank to the sea's bed; the Makers
+window will not scale; and what is taken away was kept by where it stood.
+
+**What was found, read from the code before anything was changed.**
+
+| What the user saw | What it was | Kind |
+|---|---|---|
+| A rock of a meadow is called "meadow"; a boat would be a "prop" | What was said of one thing was its archetype (`rock`, `prop`) and its maker's *name*. Nothing said what the maker *is* (a Meadow), nor how many of the maker's things are of that sort. A prop's form (barrel, boat) was a number nobody was told | missing |
+| "Choose the home maker" | The button read "Choose its whole maker": it selects the maker in place of the thing and changes nothing, which the words did not say | unclear |
+| Duplicating a rock: a white box, nothing clear | Two different things under one button. For a thing put down by hand it made the copy at once, exactly 2 m off (twice, in the same place), and selected the new *maker*, whose move handle is the white box. For one of a maker's many it refused, in a line of text. Nothing was pending, shown, confirmed or given up | bug in the design |
+| "Place it in the view" with a rock picked moved the meadow | The button was the maker's ("move this maker to a click"), and stood in the same row as the rock's "Take away this one" with no line between. It did what it was written to do, to the wrong thing as the user saw it | unclear, and dangerous |
+| A boat put down over water sinks | **Reproduced.** Everything put down took its height from `Ground::height`, the land's, which under the sea is the bed. Only the mooring's boat floated, by a number of its own (`-0.2`). The water was not a surface anything could rest on: it is a level of the land (`WATER`), drawn by the editor. And a click on the water was taken through it to the bed behind, so the thing stood further off than where the click was | bug |
+| "Removed by position" | **Confirmed in `settle`** (`shapes/land.rs`): an `Exclude` record kept away whatever stood within 0.6 m of a place, and a street left empty any lot overlapping it. The record already carried the key of the thing (`path`); the core passed pins their key and exclusions only their place | weakness |
+| Orbit at the pointer; soft paint; paint with or without what grows | All three exist (M2's follow-ups): the middle button turns about the place under the pointer (P, or the box in the land's window, changes it); `paint` has a soft rim; a box shown with the paint tool says whether paint changes what grows. Only the first was hard to find | not missing |
+
+**Built.**
+
+| What | How it works |
+|---|---|
+| What a thing is, apart from what made it | The host says of every thing its `sort` (`land::sort_of`: a rock, a bush, a boat, a kind's name; never "prop"), and of its maker the name, the generator and what that is called (`describe`: `sort`, `owner_title`, `owner_gen`, `of_sort`, `afloat`; `things`: `sort`; `nodes`: `sorts`, how many of each). The bar: "Picked: one rock — one of the 148 that the maker 'meadow' (Meadow) makes, 12 of them rocks". Two meadows are told apart by name, and by what is marked. |
+| The others of its maker | With one thing picked, the other things of *its* maker have a short dim-blue stroke each (`marks.gd`, `others`); with the maker selected, the full strokes as before. |
+| Words that say what happens | "Select its maker" (was "Choose its whole maker"), "View its maker in Makers", "Duplicate this one…", "Move this one…", "Take away this one"; and for the maker "Move the whole maker…", "Duplicate the whole maker…", "Remove the whole maker…", each saying how many things go with it. One noun, *maker*, for what arranges; a thing *belongs to* it. No further hierarchy. |
+| Another of one thing | Ctrl+D, or "Duplicate this one…": nothing is made at once. A green frame follows the pointer; the one it is made after keeps its yellow frame; the bar says what is happening and that Esc gives it up. A click (or Enter) makes it there, as one edit, and the new one is what is picked. It works for any one thing: the host's `copy_one` makes a thing put down by itself (`placed`, or `lot` for a house) of the same sort, which of its sort, width and turn. The maker it came of is unchanged and does not make the new one. Choosing something else gives it up. |
+| One thing moved | "Move this one…": a click says where; only it moves. (The right-button drag is as it was.) Makers says of the one picked what was done to it by hand, and "Put this one back as its maker makes it" takes that back for that one alone. |
+| The whole maker moved or made twice | The same tool, said for what it is: "Moving the WHOLE maker 'meadow' and all 148 things it makes … Esc gives it up". Another of a maker is put down by a click too (a green ring). |
+| The Makers window in parts | What is said of the one chosen is under headings that fold (`_section`), remembered while the editor runs, apart for "a maker selected" and "one thing picked": **This one rock** (only with one picked, first); **Settings and placement**; **What it makes** (by sort, what was changed by hand, put back); **What it reads**; **Duplicate or remove the whole maker**. With one thing picked the maker's settings and its removal are folded away, under a line that says everything below is of the whole maker. Asked to remove, the button stays where it was pressed and the warning is under it. |
+| The water as something to rest on | `Ground::rest(place, floats, sunk)`: a thing that floats rests on the water wherever the ground under it is lower than `DRAUGHT` below `WATER`, and on the ground where it is not; anything else on the ground. One rule for the mooring, for a thing put down, and for a thing moved (a brief says `afloat`). What floats: a boat, and any kind whose text says `floats` (a new trait word). A thing put down has `on`: as its sort does, the ground, or the water. Makers shows "rests on" and what it is on now. A click on the water puts a thing where the click was (`spot_at`), not on the bed behind it. |
+| Taken away, by name | An exclusion tells the plan which thing it was (`exclude_val`'s `hint`, as a pin's). `settle` leaves out the thing of that key wherever the plan would stand it now; a street no longer treats such a record as something in the way of its other lots (`Ctx::others_in_the_way`). A record with no key (none is written now) keeps away what stands within a step, as before. While the maker makes nothing under that key, nothing else is kept away in its stead, and it applies again when it does. |
+| A new seed, said | A wood, meadow or flock given another seed lays everything out anew; changes by hand are then on whatever has those names. The host says so (`param`: `anew`, `by_hand`) and the inspector tells the person, with how to take them off. |
+| Small things | Grass and a flower can be put down alone (so that one of a meadow can be made again by itself). The Window list has the orbit choice. What is said of the one chosen has more of the Makers window than the list. |
+
+**Decided.** One selection, three words: a *thing* (which has a sort), the *maker* it
+belongs to (a named instance: 'meadow', 'meadow 2'), and what that maker *is* (Meadow).
+A duplicate of one thing is a thing of its own, not one more of the maker's: a maker's
+things are what its numbers make, and "one more rock here" as a record of the maker is
+`Op::Add`, which the core has and no maker of the land reads yet (D2).
+
+**Checked.** Host, release build, one at a time: 22 unit and 36 protocol tests pass,
+and the core's. New: p34 (a house taken away is still the one away with the street's
+houses closer together, no other house is kept from where it stood, restore brings back
+exactly one, and with fewer houses than that nothing stands in for it; a tree taken
+away and one moved are the same two trees with more trees and a wider reach; a new seed
+is said; written and opened), p35 (a boat put down over water rests at the water, on
+land on the land, moved either way and undone; a rock lies on the bed; each told
+otherwise; a kind that says `floats`; written and opened), p36 (a meadow's things by
+sort; a rock says it is a rock, of which meadow and of how many rocks; another of it is
+a thing of its own, as wide, where put, the meadow unchanged; of a flower, of a street's
+house as a house alone; undo and redo; a maker removed takes nothing of another's).
+Tour, with the mouse and the keys: `-Only editing` (new: all of the above as a person
+does it, and the folding parts) passed three times running; `-Only chosen` passed, and
+once more but for a picture not taken because the window had been minimized;
+`-Only makers` passed after three of its expectations were changed to the new words
+and the new duplicate; `-Only kinds`, `firstwalk`, `growth` passed. `-Only ui`: one
+run with the window minimized (no pictures, and "a smaller window" did not hold), one
+that failed in "the walker's numbers" exactly as recorded under W1b, and one that
+passed (see "Known gaps"). The demo `editing -Check`: 5 beats of 5. A copy of the
+user's "my world.json" opened by the new host: every maker there, nothing needing a
+look, what was taken away by hand still counted against its maker; four of the boats
+put down by hand rest on the water now. A thing that stood within 0.6 m of something
+taken away was kept away with it before, and is made again now: a meadow there may
+have a blade of grass more. The file itself, `feel.cfg` and `world.json` are byte for
+byte what they were. **Not run:** the whole tour. **Not tried by hand.**
+
+**Not done.**
+
+- **A new seed re-uses names.** `tree#s12` of a wood is the twelfth place tried, and
+  with another seed that is another place: a tree taken away or moved by hand is then
+  "the twelfth", wherever it is. It is said when it happens and is undone with Ctrl+Z,
+  but it is not prevented. Putting the seed into the key would change the id of every
+  thing in worlds already written. A street's houses do not have this (their names are
+  their lots; a seed changes how they look).
+- **A street made again with another pitch keeps "the third lot on the north side"
+  away**, which then stands a little further along. It is the same lot, not the same
+  place.
+- **One thing cannot yet be given another design or numbers of its own** from the
+  editor, nor be made "one more of this maker's" (D2).
+- **Several things cannot be selected together.**
+- **What floats does not bob, drift or tilt**, and nothing sinks: resting on the water
+  is a height.
+- **Grass and flowers put down alone are in the Place list** now, which makes it two
+  longer.
+- The folds are remembered until the editor closes, not between runs.
+- The inspector was not given folding parts: its list of makers and its numbers are as
+  they were. The Makers window was where the mixing was.
+- Not tried by hand.
+
+
+### D1 — a design is one of a list, and a maker is given designs; the words the user asked for (2026-10-11)
+
+The user answered the three questions W1c left, and asked for the next pass with them.
+
+**The answers, and what was done with each.**
+
+| The user decided | Done |
+|---|---|
+| "Maker" stays the word for what creates and controls; "arrangement" (or group) is the collection it created; a "thing" is one object; its "sort" what kind it is. The words are to be used by context. | The bar: "one rock, it belongs to the arrangement of 148 things made by the maker 'meadow' (Meadow); 12 of them are rocks". Makers: "This rock belongs to the Meadow arrangement made by the maker 'meadow'"; the part that lists what a maker made is "Its arrangement: the N things it made"; with one thing picked the line under it is "ITS MAKER, 'meadow', AND ITS ARRANGEMENT". No new level of selection: an arrangement is what a maker made, said by that name. |
+| A duplicate of one thing stays a thing of its own. "Add another rock to this meadow" is a different action, for later. | Nothing changed: `copy_one` is as W1c built it. The other action is D2's (`Op::Add`), and is written there as its own action, not as a mode of Duplicate. |
+| With one thing selected, its own actions first; the maker and its settings in a separate, labelled part; the destructive action says "Remove the entire maker and its generated contents", with a confirmation. | The layout was W1c's already. The button is now "Remove the entire maker and its generated contents…"; pressed, it asks "ARE YOU SURE?", says how many things go and how to remove one thing instead, and offers "Yes, remove the maker and all N things it made" and "No, keep the maker". The part is "Duplicate or remove the entire maker". |
+| "A group shouldn't necessarily need a generator to exist." | Not built; written into amendment 7i as a requirement of D3: a group is an asset of its own, made by hand or by a maker, and a maker is one of the things that may be given it. |
+
+**What was found, read from the code before anything was changed.** A wood asked the
+code for "tree, variant 3"; a meadow for one of four archetypes by four shares of the
+world's style; a street for the house generator. None could be given a kind, though
+M1's kinds are document text put down by `Place`, and `Placed` already knew how to
+read one for a plan. The key of a wood's thing (`tree#s12`) names a *place the wood
+tried*, not what stands there, so the same key can go on naming that place whatever
+design stands on it. And a shape the code makes can already be written out as a mesh
+of the document (`mesh::written`, M3's third part, used until now only for a roof):
+that is the way from one of the code's things to a design a person changes.
+
+**Built.**
+
+| What | How it works |
+|---|---|
+| A design | What a thing is, apart from where it stands and what put it there (`land::Design`): one of the twenty things the code has, by its name and, if said, which of its sort (counted from 1); or a kind of the document, by its name. Said as text: `tree 3`, `rock`, `tent`. |
+| One list | The host's `designs`: the code's things, each with how many of its sort there are, whether it floats and whether it has bones; then the document's kinds. Of each: how many stand in the world now, and which makers were given it. `place` takes a design by the same text (`design`), beside `what` and `kind`, which are as they were. |
+| A maker given designs | A wood, a meadow and a street of houses have a parameter `of`: designs, each with its parts of the whole (`tree 2*3, rock, tent`: three parts the second tree to one part any rock and one part the kind tent). Empty, and the maker makes what it always did, by the same code as before. Given, each place the maker finds is of one of the designs, by the shares, from that place's own number: the same every time. Checked when set (a design there is, a sort it has) and kept written one way. |
+| The same places, the same names | A wood's places keep their keys (`tree#s12`) whatever stands on them, and a street's lots theirs (`house#…`): what was taken away or moved by hand stays that place's. A meadow's usual things are named by what they are (`grass#s5`), so a meadow given designs names its places `grown#s5`: what was changed by hand before waits under the old names, is said when it happens, and is back with "Back to the usual". |
+| What a design stands on | A rock may lie low and on bare ground; what floats rests on the water (`Ground::rest`); a kind stands as wide as its text says. A street's lot is as big as the design on it, which faces the line as a house does. |
+| A kind that is missing | A maker that names a design there is not (a world written by hand) leaves those places empty, and `nodes` says which is missing; Makers shows it in the row. A kind a maker was given is not deleted: the host says which maker has it. |
+| A thing says its design | `describe`: `design` ("tree 2", "boulder") and `design_from` (built in, this world). Makers, under "This one …": "Its design: boulder (a kind of this world)". |
+| One of the code's made the world's own | The host's `design_own`: the shape the code makes of a rock, a tree, a bush, a barrel is written out as a mesh, and a kind of the name asked for is written whose one part is that mesh, as wide, as solid (a tree is still a post to walk into) and with what can be done with it (a barrel still rolls). One edit, undone as one. The code's thing is unchanged; the new kind is changed where kinds and meshes are, and every thing of it follows. What has bones (a sheep, a boat) is refused, with why. |
+| The Designs window | Things > Designs (`designs.gd`): the list under two headings, "Yours" and "Built in"; of the one chosen, what it is, which of its sort, and "Place one…", "Give it to '<the maker selected>'", "Make it mine" (with a name), "Change it (Kinds and meshes)". The Place window has "all designs…". |
+| "What it is made of", in Makers | A part of a wood, a meadow or a street: "the usual", or a row for each design given, with which of its sort, how many parts, and "take out"; "Add a design…" lists every design, the world's own first; "Back to the usual". The heading says it: "1 part boulder, 3 parts tree (no. 2)". |
+
+**Decided.** A maker's "what" is a list of designs with parts, kept as a parameter of
+the maker: so it is written, opened, undone, copied with the maker and previewed like
+any other parameter, and D3's group is that list given a name and kept as an asset. A
+place a maker finds is named for the place, not for what stands there. A design of the
+code's is never changed: a person changes a kind made after it.
+
+**Checked.** Host, release build, one at a time: 22 unit and 38 protocol tests pass
+(run twice, the second time after the last change to the host). New: p37 (the list:
+twenty of the code's and a kind, with sorts, floats, bones, standing and who was given
+it; a wood given designs has the same places under the same names, each of what it was
+given; over 300 things three parts to one is a quarter within a twentieth; each thing
+says its design; a thing taken away stays away when the designs change; a kind
+changed, what the wood made of it follows; a design there is not and a sort it has
+not are refused; given none, it is the wood it was; a meadow given designs makes those
+under names of its own and says so; a street stands a design on each lot under the
+lot's name; a line is not given designs; `place` by a design; a kind a maker was given
+is not deleted; a maker naming a design there is not leaves those places empty, says
+which, and fills them when the kind is written; written and opened), p38 (a rock made
+a kind: a mesh and a kind whose part it is, as big, in the list; a tree, a barrel, a
+bush and a flower too, with nothing wrong in them, a tree still a post; not a sheep,
+not under a name taken, not of a kind; undone, neither kind nor mesh is there). The
+core was not changed and its tests were not run. Tour, with the mouse and the keys:
+`-Only designs` (new: all of the above as a person does it) passed three times, the
+last after every change; `-Only ui`, `chosen` and `firstwalk` passed after every
+change (`ui` twice this pass, both times); `-Only editing`, `makers` and `kinds`
+passed after the words and the wood, meadow and street were changed, and before three
+last small changes (a tooltip in the inspector and one in Makers, and a button
+"all designs" in the Place window, which `ui` then passed with). The demo `designs
+-Check`: 5 beats of 5. A copy of the user's "my world.json" opened by the new host:
+every maker there, each making what it made (nothing in it is given designs), what
+was taken away by hand still counted, nothing needing a look. The file itself,
+`feel.cfg` and `world.json` are byte for byte what they were. **Not run:** the whole
+tour; the other tour parts. **Not tried by hand.**
+
+**Not done.**
+
+- **A design of your own made after a tree, grass or a flower does not move in the
+  wind**: what gives to the wind is said by the code's shape, and a mesh written out
+  does not carry it. It stands still beside the code's, which sway.
+- **A kind made after one of the code's is one mesh**: its corners are dragged
+  (M3's handles) and its lines written, but there is no petal, blade, trunk or
+  branch to set by a number. That is E1, and D1 is what E1's designs will be listed
+  and given to makers by.
+- **A street given designs has no houses**: it is one or the other. A house is not yet
+  a design in the list (E2).
+- **A meadow given designs names its things anew** (above). A wood and a street do not.
+- **The mooring, the flock, street furniture and the puzzles are not given designs.**
+- **No groups** (a named list used by several makers, D3), **no painting** (D4), and
+  one thing of a maker cannot be given another design by itself, nor "one more of
+  this maker's" be added (D2).
+- A maker's variation of one design (taller, paler) is not built: a design with
+  several of its sort is varied by which of them stands, as before.
+- The Designs window shows no picture of a design: a name, and what is said of it.
+- The list of designs is asked of the host a few times a second while its window is
+  open; it counts every thing in the world each time. Not measured on a large world.
+- Not tried by hand.
+
+
+### Capability exposure, and worlds kept safe (2026-10-11)
+
+The user's brief: before a window of hands-on time, find what the engine can already
+do that the editor does not reach, expose what is complete and safe, make saving and
+opening dependable, and leave an accurate inventory. No new subsystem.
+
+**The audit.** Read: the host's commands (about 80), every maker's declared
+parameters, the editor's scripts, `run.ps1`. Each command was matched against the
+scripts that send it (but for the tour and the demos). What it found is section 14 of
+`Draw3D_UI_Inventory.md`, in five lists. The largest finding: **every maker's own
+parameters were reachable only in the Inspector, under the engine's names** (`pitch`,
+`setback`, `gaps`, `amp`, `clear`, `keep_off`, `variety`, `wall_height`…), each with
+the tooltip "a parameter of the generator": a street's spacing, a house's size, the
+land's hills and a wood's variety could all be set, and nothing said so or what they
+did. The second: the host listed every single change by hand (`changes`) and could
+take one back (`restore` with a record), and the editor showed only counts.
+
+**A data-loss path found and closed.** At its start the editor took
+`editor\world.json` as the world's file and opened it. **If that file was there and
+could not be read, it went on to make the playground and kept the unreadable file as
+the world's file: the next Ctrl+S would have written a playground over it.** Now a
+world that will not open leaves the editor with no file (saving asks where), and says
+so for half a minute. Not seen to have happened; found by reading `_ready`.
+
+**Built, each small:**
+
+- *Worlds kept safe* (`main.gd`, the host's `write`). **Save keeps what it writes
+  over**: before a person's save writes a file that is there, that file is copied to
+  `backups` beside it, named for when it was written (`my world (2026-10-11
+  14.03.22).json`), the newest twelve of that world kept; if the copy cannot be made
+  nothing is written. It covers Ctrl+S on the wrong world, and "Save as" onto another
+  world's file. **An earlier save opens with no file** (World > Open an earlier save
+  of this world…), so neither it nor the world can be written over by a slip. **The
+  host writes a world to `FILE.part` and renames it**: a save cut short leaves the
+  old file whole. **The editor starts on the world last opened or saved by a person**
+  (`user://editor.cfg`, with up to eight of them: World > Open again), else on
+  `world.json` as before; `run.ps1 -World FILE` names one. **The World heading on
+  the bar says which file** and has a \* while there are changes in none. A script
+  (tour, demo, `--write`) remembers nothing and keeps no backups (`keeps_files`).
+- *A maker's settings, in Makers* (`makers.gd`: `SETTINGS`, `HOW`, `_fill_settings`).
+  A part named for the maker, with each of its parameters under words that say what
+  it is, a line saying what it does, bounds, and the engine's name in the tooltip;
+  **Lay it out another way** (the next seed) and **Freeze / Thaw**, which were the
+  Inspector's alone. Eleven kinds of maker, 31 settings. Nothing in the host changed
+  for it: the same `param`, `freeze`, `thaw`.
+- *Each change by hand, one by one* (`_fill_changes`): under "Its arrangement", a row
+  for every single change with **Show** and **Put back**. It is the "one place that
+  lists what has been changed by hand" the workflow table had as missing, for one
+  maker at a time.
+- *The look of a world, by name* (`desk.gd`, `clock.show_at`): Environment > Shown
+  at: dawn / noon / evening / night; Weather: each by name; Open styles.txt.
+- *Small*: Environment > "Change a wood, a meadow or a road that is there" (Makers);
+  Characters > "Walk as the one Draw3D makes again"; detaching says what it did;
+  World's entries say where they write; a heading says F5/F9 are a game's.
+- *Documents*: the inventory brought up to date, with 13b (what changed) and 14 (the
+  five lists); the checklist written anew as a tour of the engine by task; the
+  roadmap's principles Q and R given the two requirements they lacked, and amendment
+  7k.
+
+**Decisions taken, each the user's to change.**
+
+- **Save does not ask; it keeps.** The brief asked for protection "without excessive
+  confirmation dialogs". A question on every Ctrl+S is answered without reading by
+  the tenth time; a copy cannot be answered wrongly.
+- **The editor starts on the last world**, not always `world.json`. The user's own
+  world is `my world.json`; `world.json` is what a demo's world was once saved over.
+- **Wholesale renaming was not done.** The inventory's sections 11 and 12 are still
+  for the user to go over first, as they asked. Only entries that were wrong or
+  silent were reworded.
+- **Not exposed, with reasons** (inventory 14 C): compositions (`compose`, `recipe`:
+  nothing a person can author yet), review's `accept` / `forget` / `dismiss` (a pass
+  of its own: `forget` deletes a record of the person's), the game build, demos, the
+  upgrade commands and the measuring instruments.
+
+**Checked by** (2026-10-11, on the final code but where said):
+
+- *The build*: `cargo build --release` in `editor\host`. Every changed script
+  compile-checked headless.
+- *The tests of what changed*: `cargo test --release -- --test-threads=1` in
+  `editor\host`: 22 unit and 41 protocol tests pass (the world's writing and opening
+  are among them, now by way of the part file).
+- *The way of working, end to end*: a new part of the tour, `-Tour -Only keeping`,
+  with files of its own in this machine's folder: a first save keeps nothing; a
+  second keeps the first, byte for byte; a third keeps the second, though written in
+  the same second; no part file is left; "Save as" onto a file that is there keeps
+  what it had; the two are remembered, the latest first, and offered; the bar's
+  heading says the file and the star; an earlier save opens with no file, saving
+  asks where, and nothing is written; a file that is not a world is not opened, is
+  not changed, and is not the editor's file afterwards; the hour and a weather
+  chosen by name from the bar; a wood's settings shown with their words, one set,
+  laid out anew by a real click on the button (other places, the next seed), frozen
+  (the mode, the greyed field, the heading) and thawed; a house's width set; the
+  land's part shown; two changes by hand listed, one put back by a real click, the
+  other shown and picked. Passed four times running once its one fault was put right. It
+  found that fault of this pass's (two saves in one second gave their copies one
+  name, and the older was lost), put right.
+- *The parts beside it*: `-Tour -Only` makers, region, editing, chosen, designs,
+  firstwalk: each once, no problem and no script error. `ui`: see Known gaps (two
+  clean runs of five; one failure that was this pass's, found and put right).
+- *The person's files*: `editor\world.json`, `editor\my world.json` and `feel.cfg`
+  have the same SHA-256 after all of it as before it began.
+- **Not run**: the whole tour; the demos; the game build. **Not tried by hand.** Not
+  checked by a script: the editor's own start on the last world (the function it
+  calls for a file that will not open is; the start itself is a person's), the file
+  manager and the text editor being opened, the dialog's own question before a file
+  is written over.
+
+**Not done.** Save asking; backups thinned by age; a list of every change by hand
+across all makers; detach given a home; "What needs a look" given buttons; the Makers
+window regrouped; the bar made to wrap; any of the engines.
+
+### Where things grow, one thing by itself, colours, an evergreen forest (2026-10-11)
+
+The user's consolidated brief after trying D1 (partly, by hand): trees of a wood put on
+a raised plateau stand on the lower ground about it, "even reducing the forest radius";
+"Make it mine" and shaping do not say what is being edited or how far a change goes;
+blue marks are lost against green; styles change colours and trees stay round blobs;
+and tools cannot be found. One pass, in five parts, with an inventory of the interface.
+
+**What was found, read from the code and tried before anything was changed.**
+
+| What the user saw | What it was | Kind |
+|---|---|---|
+| Trees of a wood on a plateau stand below it | **No tree stood at a wrong height**: tried by a test first (a plateau 12 m high, a wood on it, each tree's height against the ground under it: all right, at every reach). A wood added by a click reaches **40 m**, and a round reach knows nothing of height: on a plateau 24 m across, 76 of 84 trees were on the ground below. Nothing said so, and nothing but the reach could say "here" | missing |
+| "Even reducing the forest radius does not reliably prevent this" | Three things. (1) A reach changed kept the wood's **count**: drawn in to a quarter of its ground it had all its trees still, crowded (84 trees within 3 m, in the test). (2) Dragging the ball on the ring measured the reach to **the ground under the pointer**: at a plateau's rim that ground is far below and far off, so the reach jumped. (3) The ring while dragging was drawn flat at one height, not on the land | bug, and unclear |
+| "Make it mine", then Kinds and meshes: which mesh, where are the handles, does it change all of them? | "Make it mine" writes a copy as a kind **nothing in the world is of**; "Shape it in the view" then found nothing to hold unless one had been put down by hand, and never looked among a maker's things. A corner was drawn only under the pointer; the edges dark grey; and nothing said how many things a mesh is the shape of. There was no way to change one thing's shape without changing every thing of its design | missing, and unclear |
+| Blue on green | Five colours were constants in `marks.gd`, others in `handles.gd`; no choice | missing |
+| Styles change colours only | True: a style had colours, three numbers of shares, and the air. A wood asked the code for "tree, variant N" | missing |
+| The `makers` tour part | **It had been stopping at a script error since W1c** (a button under the fold of the Makers window, clicked where it was not), and `run.ps1` printed "problems []" all the same: the committed scripts fail the same way, tried in a copy. Its last third (a maker taken out and brought back, duplicated, what it reads changed) had not run since, and was reported as passing | a fault of the checks |
+
+**Built.**
+
+| What | How it works |
+|---|---|
+| A reach on the maker's own level | `marks.gd` `_level`: dragging the ball on a ring, or dragging a new area out, the reach is to where the pointer's ray meets the level the maker's middle stands at. The ring, while dragged and after, lies on the land as it is. |
+| A reach changed keeps the thickness | The host's `move_node` with `reach`: the count goes with the ground covered (drawn in to half its reach, a quarter of its trees), said under the bar, one step of undo. `keep_count` keeps it; a painted maker's count is not changed. The reach number in Makers does the same. |
+| Kept to a level | A wood and a meadow have `level`: nothing is made on ground more than that much higher or lower than where the maker's own place stands (`Area::keeps`). On a plateau it stays on top; moved to the foot, off it. Makers: a box, and the number. |
+| Painted where it is to make its things | The host's `area` (`paint` add or remove, `dabs`, `radius`; `clear`; or what is painted, as runs). Kept as the document asset `area.ID`: squares 2 m a side in the maker's own frame, so it goes with the maker moved, turned, copied and removed (and comes back with undo). Painted, the maker makes its things there and nowhere else; its count is how many over all that is painted; each place is named for its square (`tree#a10_9_0`), so **painting more moves nothing that stands**, and more of them only adds. Only that maker is made again; no ground is. Editor: Makers, "Where it makes its things": Paint where…, Rub out…, Nothing painted; the brush dragged on the land, [ and ], Esc; the edge of what is painted drawn on the land in the maker's colour. |
+| One thing given a design, a size | The host's `one_design` (`design`, `scale`): for a thing of a wood, a meadow or a street the maker keeps it in its parameter `each`, by the thing's key; for a thing put down by itself it is that thing's own. It stays the thing it was (where it was moved to, its name), through another count, reach or set of designs; while the maker makes nothing under that key it waits. A size is the thing's footprint and `scale` in what is asked of it: its shape and what it is to walk into are made that size (not a house; not what has bones). |
+| One more for an arrangement | The host's `add_one` (`design`, `pos`): kept in the maker's parameter `added`, each with a name (`added#a1`). It is listed with what the maker made, moved and removed with it, stays through another seed, and is moved, turned, resized and given another design like any thing of it. Taken away, it is no longer added (not kept away), and what was done to it goes with it. Not Duplicate, which is as it was: a thing by itself. |
+| Listed and put back | `changes` lists them with the records ("given a design", "resized", "added"); `restore` takes one or all of a sort back; `nodes` counts them (`by_hand`). Makers shows the counts and a button for each. |
+| One thing shaped alone | The host's `one_own`: a kind of the name asked for is written after what the thing is (one of the code's as `design_own` writes it; a kind of the world's by its text, each mesh written again under a name of its own), and that one thing is given it: one edit. Nothing else is of it. Makers: "Shape this one only…" does it and takes hold of its corners; "Shape its design 'X' (all N of it)…" is the other intention, beside it. |
+| What is being shaped, seen and said | `handles.gd`: the strip's first line is whose shape it is (`scope`): SHAPING ONE THING ONLY, or SHAPING THE DESIGN 'X': EVERY thing of it changes, all N that stand (the host's `handles` says the kinds a mesh is the shape of and how many things of them stand). The shape's edges are drawn in the colour of the one thing picked; every corner is a dot (up to 1,500 corners); one line of how to use it. A mesh held is now found among a maker's things too. Designs: "Shape it in the view…" (with none standing, the next click puts one down and takes hold of it), and "Make it mine" says that it made a copy nothing is of, and what to do next. |
+| Selection colours | `tint.gd`: six things a mark is for (a maker, one thing, the others of its arrangement, what is new, a handle, a sketch) and four choices of colours for them, the first as it always was. Every mark of `marks.gd` and `handles.gd` asks there; the words on the bar and in Makers say the colour chosen. Window > Colours; kept in `user://editor.cfg` on this machine, never with a world. |
+| Five designs for a conifer wood | `conifer` (six sorts: a tall spruce, a broad fir, a pine bare below its crown, a young one, one the wind has had, an old fir), `mushroom` (3), `wildflower` (4: spikes of bloom), `fern` (3), `cones` (2: cones, acorns). Each a shape the code makes (`land.rs`), each a design in the one list: placed, given to a maker, made a kind. A conifer is flat faces in tiers, each face a little other in colour, lighter up and at the tips: read by its outline. Added after the twenty, so every number a world was written with means what it did. |
+| A style says what stands | Two words of a style's `growth`: `trees DESIGNS` and `strewn DESIGNS`, written as a maker's `of` is. A wood or a meadow given no designs of its own is made of those (`Given::read`'s `usual`); given its own, of its own. The style **evergreen** (`styles.txt`): `trees conifer*7, tree 2`, `strewn grass*6, fern*4, wildflower*2, mushroom*2, cones, rock, bush`, its own colours and day. A wood keeps its places and names in it. Environment lists every style by name. |
+
+**Decided.** Written into amendment 7j: where a maker makes its things is a reach, a
+level or a painted area, each its own; what a maker keeps of single things is its own
+data (`each`, `added`), not the core's `Add` record, which says a place and not what
+a thing is; a shape is never kept on an instance apart from a design, so one thing
+shaped alone has a design of its own; a style gives designs as a person does; selection
+colours are roles.
+
+**Checked.** *The build:* the host builds in release with no warning. *Tests of what
+changed* (host, release, one at a time, run after the last change to the host): 22
+unit and **41 protocol tests pass**. New: **p39** (a plateau; each tree on the ground
+under it at every reach; a reach drawn in keeps the thickness, said, undone as one;
+kept to its level on top and, moved, at the foot; painted: there and nowhere else,
+named for where, no ground made again; painted further, none has moved; more of them,
+every one that stood; rubbed out; a tree taken away and one moved still those trees;
+turned; copied and removed with its paint, and back; written and opened; cleared; a
+meadow painted; three things refused), **p40** (one tree made a rock, another a kind
+and bigger, a third smaller, each the thing it was through another count and other
+designs, waiting while its place is not made; one more added, kept through another
+seed and a move of the maker, itself moved and given a design; written and opened;
+taken away, undone; put back singly and by sort, with nothing left waiting; a thing
+put down given a design and a size; a duplicate standing alone; one tree and one tent
+made their own, the mesh held said to be one thing's, no other tree made again;
+five things refused), **p41** (25 designs with their sorts; the twenty numbered as they
+were; every conifer taller for its width than any broadleaf and each its own height;
+a wood and a meadow unchanged with no style and with a style that says nothing of
+them; in one that does, conifers at the same places under the same names and the
+open ground as strewn; a maker's own designs over the style's; three wrong lines
+said; no style again, as it was). p37's count of designs changed from 21 to 26.
+*The way of working, with the mouse and the keys:* `-Tour -Only region` (new: a wood
+clicked onto a plateau and standing where it was clicked; its reach dragged to 14 m
+at the rim, on its level; the box; a stroke painted, one undo, redone; one tree a
+rock, twice as big; one more added and a duplicate standing alone; one shaped alone
+with a corner dragged; the colours chosen from the bar, every mark that colour, the
+choices told apart from each other and from three greens by number, kept in a file
+and read again; the style picked from the bar and taken off) passed three times, the last
+after every change to the scripts. Its first run ended with the editor falling over
+as it closed (code 0xC0000005, after every check had passed): the colours were told
+of a change by functions kept in a list that outlived what they held; they are now
+looked at each frame instead, and no run since has ended so. *Beside it, after the
+last change to the interface:* `designs`, `editing`, `chosen`, `handles`, `kinds`
+passed (each also once before it), and `makers` passes to its end after being put
+right (above), three times; each with no script error. *Beside it, before the last
+small changes* (the size of the corner dots, two wordings, a line in Keys): `roof`,
+`growth`, `firstwalk`, `land`, `meshes` passed, once each. `ui` passed eight runs
+of ten after one expectation was changed to the new words; the two failures are
+under "Known gaps". The demo `region -Check`: 5 beats of 5, run again after the last
+change. *Worlds written before:*
+copies of `editor/my world.json` and `editor/world.json` opened by the host as
+committed and by this one, and everything every maker made written out (2,654 and
+2,312 lines): **the same, line for line**, with nothing needing a look. The two files
+and `feel.cfg` are byte for byte what they were. **Not run:** the whole tour; the
+tour's other parts; the core's tests (the core was not changed); `-Measure`, `-Weigh`;
+the built game. **Not tried by hand: none of it.**
+
+**Not done.**
+
+- **A painted area is squares 2 m a side**, with a hard edge; it is drawn as its
+  outline, not filled; and it is one maker's (two makers are painted twice).
+- **A level is one band about the maker's middle**: two plateaus of a height within
+  one reach both have it. There is no area by slope, by surface, or by distance from
+  a road or the water beyond what a wood already had.
+- **A wood painted names its places anew** (`tree#a…`): what was moved or taken away
+  before, by hand, waits under the old names and is back when the paint is cleared.
+  The same as a meadow given designs.
+- **Keeping the thickness can leave a hand-changed thing waiting**: a wood drawn in
+  has fewer places, and a tree moved by hand whose place is no longer made waits (it
+  is listed, and is back with the reach).
+- **A size is of the whole thing**, one number: not taller without wider, no colour,
+  no other number of its own. A house is not resized; nor is what has bones.
+- **"Shape this one only" on a kind that is "like" another** and has its mesh from it
+  is refused, with why. A thing made its own keeps the name `NAME-own`; the designs
+  made so are not gathered or cleaned up, and are listed under "Yours" like any.
+- **A street given designs still has no houses** (D1): the requirement that replaces
+  it is written (principle Q), not built.
+- **The corners of a shape are dots only up to 1,500 corners**; a tree written out has
+  about 1,200, which is many dots. A roof of thousands has its edges only.
+- **A line's own marks** (the places of a road, dragged) are orange and yellow
+  whatever colours are chosen; the land's brush likewise.
+- **The colours chosen are not applied in a session a demo began** (a demo reads no
+  file of the machine's): they are the next time the editor is started plainly.
+- **A style names only designs every world has**, for the whole world; its two lines
+  are written in `styles.txt`, not in the editor. A meadow in such a style names its
+  things `grown#`, as when it is given designs.
+- **The conifers are code**: six outlines, no parts a person sets, no branches, a
+  wind that moves them by height only. They are not E1b. A kind made after one ("Make
+  it mine") does not move in the wind, like every kind made so.
+- **Mushrooms, ferns and cones are small**: from far off they are colour on the
+  ground, and are seen for what they are near to.
+- Not the whole tour. Not tried by hand.
+
+
+### The island town, and what lives in it (2026-10-11)
+
+Asked for by the user as their main place to try the editor in: a small, coherent,
+playable town on the test island, with houses that are not one house, a shop, two
+surgeries and a church, gardens, a pond that is alive, animals, a woodcutter and a few
+townspeople; all of it left as a world that can go on being shaped, nothing of it a
+scene of its own. The optional part (more movement, an obstacle course) was to be
+begun only after the town was built, saved, opened and tested, and is **deferred**:
+see "Movement" below.
+
+**The world.** `editor\town.json`, built by `editor\town.ps1`. It is the island of the
+playground (seed 3), three lines (Main Street, Church Lane, Pond Lane), and 57 makers
+that made 1985 things. It is opened with `editor\run.ps1 -World editor\town.json`.
+`town.ps1` does not write over a town that is there (`-Over` does, keeping the one
+there was in `editor\backups` first).
+
+**How it was built, and why that way.** `editor/host/examples/town.rs` says to the host,
+one after another, the commands the editor says when a person works: `begin` with the
+lines and the land, `kind` and `mesh` for each design, `sculpt` (flatten, paint, bare)
+for the churchyard, the house sites and the pond, `place`, `add` for each maker,
+`add_one` for each thing of a garden, `param`, `delete` for the houses a road or a
+building is in the way of, `write`. 1197 commands, about a second. So the town is
+made of nothing the editor cannot make or change, and what is left is a world file
+like any other. The script is the town's alone; it is a hand that does not tire, not
+a generator, and nothing reads it afterwards.
+
+| What | Where | Checked by |
+|---|---|---|
+| The designs: 60 kinds and meshes a person can read and change. Roofs (gable either way, hip, lean, spire); cottage, cottage_slate, cabin, townhouse, farmhouse; store, vet, doctor, church; flowerbed, vegpatch, herbs, berrybush, picket, stepstone, stump, logpile, beehive, birdbath, trough; pondwater, lilypad, lily, reeds; horse, horse_grey, cow, cow_brown, goat, dog, dog_collie, tomcat, mouser, rabbit, squirrel; bird (three), butterfly (three), bee, dragonfly, frog, fish (two), duck; villager, woodcutter, shopkeeper, gatherer, gardener, caller, parson | `editor/godot/town.txt` (text, as `cast.txt` is) | test `p42` (every one written into a world with nothing not understood); demo pictures |
+| The town built by commands, written, opened again and written again: the same file, byte for byte | `editor/host/examples/town.rs`, `editor/town.ps1` | the build itself (it stops if the two files differ) |
+| What is alive and has no body: content says `flutters R H [V]`, `swims R H [LEAP]`, `hops R` or `perches R`, and while the world runs it is drawn going about so, in place of where it was made. A frog leaps from the walker; a bird sits in the top of a tree within reach and flies to another | host: trait words in `shapes/kind.rs`, said in `shapes.rs`; `editor/godot/wild.gd` (new); `things.gd` `said` | test `p42`; tour `-Only town` (32 that flutter, 9 that swim, 5 that hop, 15 that perch; 15 birds up in trees; none that swims out of the pond or off its depth; a frog 1.34 m from where it sat after the walker came) |
+| Standing water as a thing: a kind that says `sheer` is drawn seen through; one that says `water R H` is water for what hops to rest on. A pond is a hollow made with the land's flatten tool and one such thing put down in it; its edge is where the land comes up through the sheet | `world_view.gd` (`GLASS`, chosen in `_build`), `wild.gd` `_rest`, kind `pondwater` | tour `-Only town` (the walker put down in the pond stands on its bed, 0.00 m off); demo pictures (fish and lily stems seen under the water) |
+| Someone who tends things: `tends SORT R MOVE [S]`. They go to one of that sort within R metres of home, stand off it, turn to it, do the move again and again for S seconds, and go to another; several lines, each sort in turn. The woodcutter says `tends tree 30 chop 9`, the gatherer `tends wildflower 26 stoop 4` and two more, the gardener the beds, the caller the three doors | `folk.gd` (`of_sort`, `_tend`, `_tending`); set `worker` in `moves.txt` | tour `-Only town` (the woodcutter seen in `chop` 1.15 m from a tree and facing it squarely; the gatherer in `stoop` at a flower) |
+| Six sets of moves for animals on the sheep's bones (horse, cow, goat, dog, rabbit, squirrel): the sheep's moves by other numbers | `moves.txt` | demo (they stand, stray and graze); tour `flock`, `cast`, `keeper` still pass |
+| A way asked from ground not yet made walkable is not asked of the server (it answered with an error for each of many) | `nav.gd` `path` | tour `keeper` |
+| The checklist, written anew; the demo `town`; the tour part `town` | `checklist.txt`, `demo.gd`, `tour.gd`, `run.ps1` | run |
+
+**The town, in a list.**
+- *Streets:* Main Street (15 houses of the street maker, with doors that open; lamps,
+  fences, barrels, carts from the furniture maker), Church Lane (6 houses that are
+  designs: cottage, cottage_slate, cabin, townhouse), Pond Lane (a lane and no street).
+- *About the crossroads:* the general store (brick, a false front, a striped awning on
+  posts, a board), the doctor's (white, red tiles, a porch, a red cross), the vet's
+  (white boards, a green hipped roof, a half door, a paw on a board, a rail); the
+  green (a well, three benches, three trees, two beds, two stalls, a bird bath, a
+  signpost, lamps); things outside the shop.
+- *The church* on levelled ground at the head of Church Lane: nave, buttresses,
+  windows, tower, belfry, spire, cross; yews behind it.
+- *Three properties:* Rose Cottage and its garden (four beds, a path of six stones, a
+  fence with a gap, a bench, a bird bath, shrubs, flowers, herbs, butterflies); the
+  woodcutter's cabin and yard (two vegetable patches, three berry bushes, herbs, two
+  piles of logs, a stump, a hatchet, two hives and their bees); the farmhouse and its
+  yard (haystacks, a cart, a trough, a well, fences, beds, a patch).
+- *The pond:* six overlapping hollows with a level bed, sand about it; the water; 13
+  pads and lilies, 16 clumps of reeds, rocks, a bench, two trees; 7 fish, 2 ducks, 5
+  frogs, 3 dragonflies, 4 birds.
+- *What grows:* Home Wood, Hill Wood, West Copse, the churchyard yews; ferns,
+  mushrooms and cones under Home Wood; four meadows and a patch of wildflowers.
+- *Animals:* 7 sheep (the flock maker), 4 horses, 5 cows, 4 goats, 7 rabbits, 6
+  squirrels, 3 dogs, 2 cats, 15 birds, 16 butterflies, 13 bees.
+- *People:* the woodcutter, the gatherer, the gardener, the shopkeeper, the caller,
+  the parson, two of the town who stray and wave.
+
+**How it is kept, for whoever changes it.** A building, a person, a cat or the pond's
+water is one thing put down (its own row in Makers, named). A herd, the rabbits, the
+birds of the wood, the butterflies are each a **meadow given designs** (`the horses`:
+`horse*2, horse_grey`): how many, how far, and of what are its settings, and one more
+is added by hand. A garden, the green, what stands in and about the pond are each a
+**meadow that makes nothing itself** (count 0) to which every thing was added with
+"Add one thing by hand": so a garden is one maker, moved, copied and removed whole,
+and each bed in it is one thing. That is the nearest the editor has to a group (D3),
+and it is used as one here; it is called a meadow in Makers, which is the engine's
+word and not the right one.
+
+**What is the town's alone, and what is general.** General, for any world: the four
+words for what is alive without a body, `sheer` and `water`, `tends`, the six sets of
+moves, and every design in `town.txt` (written into another world by the same build
+script, or pasted into Kinds and meshes one at a time). The town's alone: the build
+script, and where everything stands. **Not reachable from the editor:** there is no
+button that writes `town.txt`'s designs into the world open (cast.txt has "Add the
+examples"; the town's are in the town); and the build script is run from a terminal.
+
+**Houses: what was done, and what a house engine would need.** The house a street
+builds is still one shape (a box, a gable, a door on one side, windows by the bay) in
+other sizes and colours: its generator is the identity prototype's, and to give it a
+second roof or a second floor is to change the facade planner, the inside, the
+collider and what saved worlds are made of. That was not done. What was done is the
+other way the engine already had: **a house as a design**, parts and meshes written
+as text, given to the same street maker (`of`). Four that differ in outline, not in
+paint: a low thatched cottage with a steep roof and an end chimney; a log cabin with
+a low roof, an outside chimney and a porch on posts; a tall house, stone below and
+timbered above, jettied, under a hipped roof; a farmhouse with a wing forward under
+its own gable. And the civic four. Their limits are a design's: they are not gone
+into (no door, no inside); what is walked into is one box about all of it (the walker
+stops at a porch's edge, not its posts); a `like` changes colours and adds parts but
+has no numbers ("two floors", "a porch: yes"). A house engine (amendment E2) would
+want: a plan of rooms or at least a footprint of more than one box; storeys; roof
+forms as a choice (gable, hip, lean, with the ridge either way); openings placed by
+rule on each face; porches, chimneys and wings as parts with their own numbers; an
+inside and doors that open; a collider that follows the parts; and all of it as a
+design's parameters, so that "cottage" and "tall house" are two settings of one thing.
+
+**Movement, as it stands; the optional part.** What the walker can do today, all of
+it from before this pass and none of it changed: walk, run, a jump that is higher held
+longer, a running jump, a long jump into a roll, a dash on the ground and in the air,
+a dodge, a quick step to either side, crouch, a hard landing and one rolled out of,
+swimming afloat, **an edge caught, hung from and climbed, a wall held to and slid
+down, and a jump off a wall** (`ledge_hang`, `climb`, `wall_grip`, `wall_jump`:
+`run.ps1 -Demo climb`). Not there: a wall caught again straight from a wall jump as a
+move of its own (it may already happen, since a wall is caught whenever a way is asked
+into one while falling: not tried), and a backward flip. **The obstacle course and
+the new moves were not begun.** The town came first as asked; what was left of the
+pass went to checking it. The honest next step is small: a course of plain blocks
+(kinds with their own solid) away from the town, a tour part that tries wall to wall
+on it, and then whichever move that shows to be missing, written in `moves.txt` and
+`poses.txt` as the others are.
+
+**Not done, and limits to know.**
+- While editing, what flutters, swims, hops and perches stands where it was put: a
+  bird and a butterfly on the ground, a fish on the pond's bed. They go about only in
+  Play. Nothing of them is saved with a game.
+- They have no bones: a wing beat is the whole thing made narrower and wider. A fish
+  keeps to its pond because its kind says how far it swims (4.5 m), not because it
+  knows where the water ends: put in a smaller pond it swims through the bank.
+- The woodcutter cuts nothing: no tree falls, nothing is gathered, his axe is a part
+  of him and not a thing held. The gatherer takes nothing. `tends` is going, turning
+  and a move; what the move does to the thing is behaviour (amendment 7g, M4).
+- The animals go by the sheep's poses at other sizes: a horse walks as a big sheep
+  walks, a rabbit does not hop, a squirrel does not climb. A dog and a cat stray and
+  do not go to anyone.
+- Pond water is one level sheet nine metres out, as big as its kind says. From far
+  off (where things are drawn together) it is not seen through. It casts no ripple
+  and nothing floats on it by the host's own rule (`floats` is the sea's): a pad
+  stands on a stem as long as the water is deep.
+- A design's building is not gone into.
+- Near a road a meadow makes nothing (4.6 to 13.5 m from it, where houses stand), so
+  a herd or butterflies by a lane must be added by hand to a garden's maker.
+- The standalone game was not built from the town (`export.ps1` builds from
+  `editor\world.json`): deferred, as asked.
+
+**Checks run** (2026-10-11): the host built; all host tests one at a time, 22 and 42,
+passed, `p42` new; `-Tour -Only town`, twice, no problems (a frame on the green 1.8
+ms, 882 draw calls, 2.3 million triangles; opened in half a second; written and
+opened again with the same fingerprint and the same count; the town's file, both of
+the person's worlds and `feel.cfg` unwritten); `-Tour -Only flock`, `cast`, `keeper`,
+no problems (`keeper` failed once, on the set `folk` having been given `chop`: that is
+why the woodcutter has a set of his own, and `folk` is as it was. Its run before that
+printed no result at all: host tests were being built beside it, which was my doing,
+and the build could not replace the host's program while it ran); `-Tour -Only ui`, once, after the checklist was written anew, no problems;
+`-Demo town -Check`, three times, the last on the code as committed, its 25 pictures
+looked at. **Not run:** the whole tour; `-Measure`, `-Weigh`; the built game.
+
+### The training ground, the children and the old tractor (2026-10-11)
+
+Asked for by the user after the town: "proceed with obstacle course and wall to wall
+check. add a basic parkour moveset to the character and build the course to showcase
+it. include it somewhere on the island where the demo town is. also add some children
+running around playing with bubbles and basic toys to the island. and a basic old
+rusty farm tractor parked somewhere covered in ivy and moss and critters."
+
+All of it is in `editor\town.json`, which was built again by `editor\town.ps1 -Over`
+(68 makers, 2049 things; the town as it was built before is in `editor\backups`, and
+in git). Nothing was tried by hand.
+
+**Wall to wall, checked first.** It worked as the moves were: nothing was written for
+it. Between two walls 2.6 m apart the walker, held to one (`wall_grip`), jumps off it
+toward the other (`wall_jump`: 1.5 m up, 2.4 m out), meets it while still rising, and
+is held to it at the top of the jump, 1.5 m higher than before. Held at 1.29, 2.78
+and 4.27 m; the fourth jump brings the top of a 7 m tower within reach of the hands,
+which catch it (`ledge_hang`), and it is climbed. What it needs of the person: the
+way asked toward the *other* wall when jump is pressed.
+
+| What | How | Checked by |
+|---|---|---|
+| **Something low gone over at a run** (`vault`) | `moves.txt`: `upon low`, `when ground running pressing`; up beside the edge in 0.13 s (`to above`), then 1.7 m over it in 0.22 s, flat, and out at 0.9 of that speed. `grasp.gd` feels for what is low on the ground (`find(..., low)`: an edge between 0.3 m and `ledge_low` above the feet, nothing at the chest, room beyond), and `motor.gd` asks it only of a body that is running and whose set has a move that begins `upon low`. `poses.txt` `vault/up` (the hands on the edge), `vault/over` | tour `course`: three rails 0.9 m high and 4 m apart gone over in 2.5 s from standing, never under 5 m/s between them |
+| **A step up a wall** (`wall_run`) | `moves.txt`: `asks jump`, `when air wall pressing aloft 1`; 1.25 m up the wall in 0.32 s, kept to it (`to wall`), and it lets an edge be caught or a jump off cut in. A jump's rise lets it cut in, and so does a hold to a wall (before `wall_jump`: into the wall goes up it, any other way pushes off). `poses.txt` `wall_run` | tour `course`: the 4.4 m wall, held to at 1.28 m by a jump alone and its edge not caught; then stepped up, the edge caught with feet at 2.68 m, climbed, stood on at 4.4 m |
+| **A backflip** | `moves.txt`: `asks jump`, `when ground crouch still`, `heads off`, `faces same`; 1.45 m up and 1.9 m back in 0.66 s. `poses.txt` `backflip/flight` says `tumble -1` | tour `course`: rose 1.45 m, went 2.07 m back, stands, faces as it did |
+| **Three words a move may say** | `when running` (faster than a walk), `when still` (no way asked), `when low` / `upon low` (`moveset.gd`, `motor.gd`) | as above; tour `moves` and `climb` as before |
+| **The training ground** | South of the pond: a floor levelled with the flatten tool and painted dirt; a maker "the training ground" holding seventeen things put down by hand, of ten kinds written in `town.txt` (`course_rail`, `course_box`, `course_pillar`, `course_pillar_tall`, `course_deck`, `course_wall`, `course_wall_high`, `course_tower`, `course_mat`, `course_flag`), each one block, so what is walked into is what is seen | tour `course`: every piece gone over, onto or up as it is meant to be (box 1.0, pillars 1.5 and 2.0, deck 2.0, wall 3.0, high wall 4.4, tower 7.0 m) |
+| **Children** | `town.txt`: `child` is `like villager` with `scale 0.62`, a body 1.05 m tall, the set of moves `child` (`moves.txt`: quicker off and to turn) and `runs`; `child_girl` (a dress, her hair in bunches); `child_at_play` and `girl_at_play` (`tends ball 16 cheer 4` and three more); `bubble_blower` (`idles blow`). Two moves and their poses: `blow`, `cheer`. Five children by "the playground", south-west of the green | tour `course`: five there, the fastest at 5.2 m/s, one seen blowing, two seen at a toy, each body 1.05 m |
+| **`runs`** | A word someone says: wherever it goes, it goes at a run (`folk.gd`) | as above |
+| **Bubbles, and `drifts`** | `drifts R H [V]`: a fifth way of being alive without a body (`wild.gd`): it rises from a hand's height over where it was made, drifts, is gone H metres up, and begins again. A `bubble` says it and `sheer`. Fourteen where the girl stands | tour `course`: 14 drifting, 12 shown at one moment, 7 of them higher a second later |
+| **Toys** | `ball`, `ball_blue`, `toywagon` (loose: they go where they are run into), `hobbyhorse`, `toyblocks`, `sandpit`, `seesaw`, `swing`, `pinwheel` | tour `course`: a ball walked into went more than half a metre |
+| **The old tractor** | `town.txt` `tractor`: about 130 lines; rust in two colours, flat tyres (limbs laid on their sides), a bonnet, a grille, an exhaust, a seat, a steering wheel; ivy as three stems and twenty-five clumps up one wheel and over the bonnet; moss; grass; a nest with eggs and a robin on the seat, a snail, a hedgehog. Three `solid box` lines. East of the farmyard. About it, a maker of its own with what lives there: `mouse` and `cricket` (`hops`), `ladybird` (`flutters`), `snail`, butterflies, bees, two birds in a tree, a rabbit | tour `course`: found under a ray as "the old tractor"; walked into, it stops the walker 0.97 m from its middle; 7 that hop, 9 that flutter and 2 that perch about it. Test `p42`: its three boxes |
+| **The designs understood** | 91 kinds and meshes in `town.txt` now | test `p42`, extended: a child says `runs`, `moves child`, its body; the blower `idles blow` and neither roams nor greets; a bubble `drifts` and `sheer` and is not solid; a ball is loose |
+
+**What changed for the walker everywhere, and is the user's to keep or not:**
+
+- At a run, a garden fence, a bench or a crate is gone over without being asked.
+- Held to a wall, jump with the way asked going into the wall is a step up it (once
+  until the ground); with no way asked or any other, it pushes off as before.
+- Crouched with no way asked, jump is a backflip. It was a long jump the way it faced.
+
+Each is taken away by deleting its name from `set walker` in `moves.txt`. `feel.cfg`
+was not changed and no number was added to it: the new moves' numbers are written
+out in `moves.txt`.
+
+**Not done:**
+
+- **A slide under something, a run along a wall, a swing from a bar.** Each needs
+  code the moves' words do not reach: a body that is lower while it slides (the
+  capsule is one height), a wall felt for to the side, something to hang from that
+  is not an edge.
+- The course's pieces are right for the numbers `feel.cfg` has now (a jump 1.3 m,
+  hands 2.15 m above the feet, a wall jump 2.4 m out). They are not made from them.
+- The pillars are jumped at a walk: at a run the jump overshoots them. Nothing
+  slows a run for a short jump.
+- A child at a toy stoops to it or cheers, and the toy is as it was. The children
+  knock the balls about only by running into them.
+- Bubbles rise where they were put whether or not the girl is blowing.
+- Children are a person's shape made smaller: the head is not bigger for the body.
+- The tractor's ivy does not move in the wind, its robin does not fly, and its
+  wheels are eight-sided. It cannot be driven.
+- A vault's first part (0.13 s up beside the edge) is slow across the ground: over
+  the whole of three rails the walker keeps 5 m/s or more only between them.
+- Nobody but the walker goes over, up or between anything.
+
+**Checks run** (2026-10-11): the host built; all host tests one at a time, 22 and 42,
+passed (`p42` extended); `-Tour -Only course` (new), run five times while it was
+being written (four of them finding faults in the part itself, not in the course)
+and twice on the final code: no problems; `-Tour -Only town`, `moves`,
+`climb`, `keeper`, once each on the final code: no problems; `-Tour -Only ui` eight
+times in all: three of them failed on a heading of the checklist that was too long
+(mine, and mended); of the other five, two clean and three not (see Known gaps); `-Demo course -Check` twice, its 40
+pictures looked at (the course, a vault, the step up the high wall, wall to wall, the
+backflip, the playground, the bubbles, the tractor from three sides). **Not run:** the
+whole tour; `-Measure`, `-Weigh`; the built game; `-Demo town -Check` on the town as
+built again.
+
+### Items, equipment and the game's own screens (2026-10-16, amendment 7bi, roadmap section 7)
+
+The user chose roadmap section 7 next (items, equipment and the game's own screens), after parking the characters. What was there: things that say `kept` (stage 6: a lantern, a hatchet; keys 1 to 9, R uses), goods as counts (7ah), and gear worn by characters in the Character Studio (7ba onward). Three systems that did not meet. This joins them; nothing of them is rewritten.
+
+**Items, each its own.** An item is a thing put down in the world that says `kept`: every fact about it is about its id, so two axes found are two axes, each in a saved game where it is. New kind word `gear ITEM` (host `shapes/kind.rs`, Godot `things.gd`): the design is that thing of gear.txt. Facts: `where` is now "kept", "held", **"equipped"** or where it was **dropped**; the world's `wields` (which equipped thing is the one in hand) and `off.ITEM` (one of the character's own gear lines taken off). `items.gd` is the one place they are put and read.
+
+**Gear found and equipped in the world.** Library > **Gear to find** (`editor/library/gear.txt`, 18 designs: katana, short sword, dagger, greatsword, spear, axe, war hammer, bow, grappler, round shield, hat, helmet, boots, gloves, cape, backpack, pouch, amulet): each lies on a scrap of cloth and is drawn as gear.txt makes it, laid flat, while editing and playing; the Library window pictures it so too (`design_made` now answers its `traits`). E picks it up (the act `take`); kept, keys 1 to 9 or the inventory put it on or take it in hand. On a walker that is a character of the Studio (`walks`, Studio > Walk as this), what is equipped is laid over its own gear lines (`animated.gd` `game_on`, `game_off`, `game_hand`, `regear`): drawn and put away as the Studio has it, at the places gear.txt says, with the fit kept for the model (`fits.txt`). A thing taken in hand puts the character's own away (spare). A shield goes on the left arm, drawn and put away with the one in hand; a grappler on the left arm, always (`items.gd` `OTHER_HAND`).
+
+**The game's own screens** (`gameui.gd`, a layer apart from the editor's windows, the same in Play and in a game made of the world):
+- **The display while playing**: the quest step and goods top right; what was found, numbered as keys 1 to 9 take it, the one in hand gold and what is worn green; what is in hand and whether it is drawn; "I inventory, Esc menu".
+- **Inventory (I, or Back on a controller)**: On you, In the pack, a row for each thing; chosen, what it is, where it goes, found how-manieth; Put on, Take in hand, Take off, Use, Drop, Close; goods under it. The game is held while it is open.
+- **Menu (Esc, or Start)**: the game held; Go on, Inventory, Journal, Controls, Save the game, Load the saved game, Back to editing (in a game: Leave the game).
+- Inside them, Godot's own ui_ actions: arrows or the D-pad, Enter or A, Esc or B.
+
+**What changed for the person:** Esc while playing is the menu, not back to editing (Tab still is; the bar says "Stop: back to editing (Tab)"). Start on a controller is the menu, no longer Play. Back on a controller is the inventory, no longer the controls card (H, and the menu's Controls, show it). The old bottom-left line of what is kept is shown by the new display instead (its words are still made, for scripts).
+
+**The swordsman can do what anyone does with things**: its set gained `wave reach stoop` (UAL's PickUp_Table and Interact clips, `look swordsman`); walked as, it could not pick anything up or open a door before.
+
+**Checked:**
+
+- `-Tour -Only inventory` (new): two axes, a helmet and a round shield put down from the library, the walker as the swordsman; each found and kept with its own id; the axe in hand by key 1 with the katana spare, the helmet on the head bone, the shield on the left forearm and not the one in hand; the inventory holding the game, an axe taken off and back; Esc shutting it, Esc opening the menu, saved from it; the other axe dropped 0.7 m before the walker and drawn there; changed and loaded: as saved; stopped: no facts, nothing given to the figure. No problems, no script errors.
+- `-Demo inventory -Check`: 8 beats of 8, four things kept, no script errors; its pictures looked at.
+- `-Tour -Only studio`, `-Only findings`: no problems. studioplay 180 of 180, chartest 151 of 151; studioaudit of the swordsman: wave, reach, stoop ready, each with a clip.
+- Host: `p43` (the library) passes with Gear to find in it (its designs are pictured by Godot, so the two-parts and height checks skip that collection); the whole suite single-threaded: 60 and 65 pass.
+- `-Only items` and `-Only library` fail as the committed code does (run from `git archive HEAD`): the walker picks up the hatchet before the lantern, and the library's click on the basketball hoop lands on another shelf. Not this pass's; recorded under Known gaps.
+
+Not used by hand; no real controller.
+
+### Character Studio: the fourth hand test answered (2026-10-16, amendment 7bh)
+
+**Every box seen.** A box not ticked was as dark as the window: the user never saw *Draws it by itself first* in the last test. Every unticked box and round choice in the editor is now drawn light (`section.gd` `boxes_seen`, into Godot's default theme at start; greyer while it cannot be used).
+
+**The yard's right stick turned the eye the wrong way** on both axes: it had copied the mouse's drag (the scene follows the hand) where the game's eye turns the way the stick is pushed. It now turns as the game's (`yard.gd`). Buttons tab: **Right stick: mirror left/right** and **mirror up/down**, for the game and the yard alike, kept with the buttons (`controls.txt` `mirror across`, `mirror updown`; `Controls.look`).
+
+**What is drawn and put away.** Every thing held in a hand was drawn and put away one at a time: the grappler put on became the one in hand, the katana went to the hip, and Draw and Sheathe then moved the grappler. Gear tab, a thing chosen: **Carried**: *Drawn and put away, one at a time* (as before), *Drawn and put away with the one in hand* (`together`: two blades, a sword and a shield), or *Always where it is (never drawn or put away)* (`stays`: the grappler on the left wrist; still carried, so a move may want it). *The one in hand* leaves those as they are. The Moves tab says beside *Draws it by itself first* what drawing and putting away act on ("draws and puts away: katana").
+
+**How a thing sits on a model, kept for every world.** Gear tab: **Keep for this model** keeps the chosen thing's nudge and turn at its place on the character's model in `fits.txt` in Draw3D's own folder (beside `controls.txt`); put on a character of that model in any world, it sits so; a place changed takes that place's fit; **Model's fit** puts it back after nudging.
+
+**Asked for later, not built** (`Draw3D_Character_Maker_Plan.md`, "Gear and clothes that look like things"): a weapon designer (blade length and breadth, guard, handle, two blades; a shield's shape and size), clothes that bend with the body (grown from the body's mesh, or a pack's modular clothes), fingers closed on a grip; faces and expressions remain Tier 2 there.
+
+**Checked:**
+
+- studioplay, 180 of 180 (9 new: a box not ticked drawn light; the stick pushed right looks right, and mirrored the other way, kept in controls.txt; the grappler on the left hand that stays, the katana in hand and put away at the hip with the grappler still on the hand; what Draw acts on said; the grappler carried with the katana; a fit kept and a copy given the katana again sitting as kept);
+- chartest, 151 of 151;
+- `-Tour -Only studio`: no problems, no script errors.
+
+Not used by hand.
+
+### Character Studio: the third hand test answered (2026-10-16, amendment 7bg)
+
+**Why the sword was not drawn by the cut.** The user's world (showcase-physics.json) keeps its own moves.txt, written before `draws_by`: the box *Draws by itself* was off, but the move beside it showed draw_blade, so it looked set. Their two profiles also each keep an old copy of the swordsman's set, and *Use* wrote that copy over the world's moves. And the Studio's Save writes into the world, which is on disk only after Ctrl+S: the world's file was last written at 11:17 that day. Changed:
+
+- **Draws it by itself first, with:** the move beside it greyed while the box is off.
+- **Why a move did not begin** said under the preview and in the editor's message line: "cut_a wants what it carries drawn (it is put away): tick Moves > Draws it by itself first, or play the move that draws it before" (`motor.gd` `why_not`, every when-word in plain words).
+- **Profiles:** one chosen in the list says how its buttons differ from yours, and how many of its moves differ from the world's, before it is used. *Use* takes its buttons only; *and its moves*, ticked, also writes its moves (it was always both).
+- **Save world** on the character's row: how many changes are not in the world's file, and a button that writes it (Ctrl+S).
+
+**The yard.** The pad, the sticks and the arrow keys no longer go from one of the Studio's buttons to the next (nothing keeps the focus when the yard opens; `studio.gd` `_input` keeps keys and the pad from the Studio's controls while it is open; the mouse clicks them as before). The right stick turns the eye round the character as in the game (`yard.gd` `LOOK`); the right mouse button still does.
+
+**Edit.** The phases are chips numbered in the phases' own colour (red where it strikes), the one chosen outlined; the chosen phase's heading larger, in the same colour. Done rebuilds the moves list, so the row no longer says it is edited; while it is open the row says *open in Edit, saved* or *changes not saved*. **Versions:** each Save keeps a version of the move, its text and the clips its phases are shown by (the first Save keeps *as it was* too), in `versions.txt`, kept with the world. *Versions (N)* beside Done: one chosen is gone back to as a change (Save keeps it, Discard takes it back); *Forget a version*.
+
+**Make, on the character's row.** *Make…* beside Copy shows the Make panel in place of the tabs (it is no longer a tab among Moves and Gear); pressed again, or another tab asked for, the tabs again. **Rename** beside Copy: a field, Enter renames the character (a yard dummy shown as it too). Each body slider has **↺** beside it (that line taken out); *Reset the whole body* (was *As the model is*).
+
+**The sword in the forearm.** A place in a hand is in the hand bone's own frame, and bones are not turned alike from model to model: the mannequin's hand has its y up the arm, UAL2's down to the fingers, so the katana pointed back into the forearm on UAL2's model. A place in a hand (or on a forearm) is now taken as the mannequin's hand has it and turned for another model by how its bone lies at rest, along the arm and with the body's ahead (`gearbook.gd` `hand_turn`, `along_arm`); the mannequin's own is not turned. Measured: on UAL2's model the blade points within 1° of where it points on the mannequin, standing and in the middle of cut_a (before, straight back). For what is still off on some model: Gear tab, the thing chosen while drawn, *Turn round*, *Roll 90°*, *Tip 90°* beside the turn numbers.
+
+**Checked:**
+
+- studioplay, 171 of 171 (20 new: the yard's focus, the pad's Down and the arrows, the right stick; Draws it by itself greyed and why cut_a did not begin; the phases' chips; versions kept, gone back to, forgotten; the row while open and after Done; Make on the row; a copy renamed; a slider's ↺; Save world said; a profile's differences);
+- chartest, 151 of 151 (1 new: the katana on UAL2's model within 1° of the mannequin's, standing and mid-cut);
+- `-Tour -Only studio`: no problems, no script errors.
+
+Not used by hand.
+
+### Making a character, tier 1: the Studio's Make tab (2026-10-16, amendment 7bf)
+
+Tier 1 of `Draw3D_Character_Maker_Plan.md`, with the models there are and no new assets. The Character Studio has a new tab, **Make** (`maketab.gd`), after Gear. Every choice is a line of the character in characters.txt, written as a document edit (Ctrl+Z, Ctrl+S keeps it with the world); a slider is seen on the figure as it is dragged and written 0.35 s after it stops, as one edit.
+
+**Start from.** The models there are: each character's model and each library file with a mesh skinned to its bones (the mannequin, Quaternius's two, Draw3D's basic and samurai figures). *Use this model* writes `model` and `rig`; *Copy with this model* makes a new character first.
+
+**Body.** `shape PART S` (charbook.gd): PART is `head`, `build` (chest and hips), `arms` (upper arms and forearms), `legs` (thighs and shins), a profile name or a bone of its own; several multiply. Height writes `size`. In `animated.gd` (`_find_shape`, `_apply_shape`) each bone named is made S times as big after the clips pose it, and what hangs from it is given its own size back, so a longer arm has an ordinary hand and a bigger head does not make a bigger neck. Longer legs raise the hips by what they gained and make every clip's stride as much longer; the treads and points follow the bones. *As the model is* takes all of it out.
+
+**Colours.** `colour SURFACE r g b`: a material by its name, a surface by its number, or `all`, tinted (`tint`); the gear and what it holds are not. The mannequin has one surface; Quaternius's models have M_Main and M_Joints.
+
+**Outfits.** `outfit NAME`, then gear lines: those are the outfit's (another word ends it). Gear lines before the first outfit are worn in every one; the first outfit is what it starts in. A figure wears `worn_gear()`; `wear_outfit(NAME)` takes the gear off and puts the outfit's on without remaking the figure (for a game too). In the tab: the outfits, *Next outfit* (on the figure only, while what plays goes on: a move, a combo, the yard), *New outfit*, *Copy this one*, Rename, *Starts in this*, *Remove it*. The Gear tab puts on into the outfit worn and says which things are in every outfit (`CharBook.entry_with_gear` writes the blocks back).
+
+**Checked:**
+
+- chartest, 148 of 148 (11 new: the words read and written back, the head 1.3 and the hand 1.0, the hips 0.14 m higher on legs 1.2 with the heels on the ground, the stride 1.2 times, a tint, an outfit put on and back, cut_a with feet above the ground, Quaternius's joints alone tinted);
+- studioplay, 152 of 153 (17 new, all passing; *Reset: no nudge written* failed, also with the committed code: Known gaps);
+- `-Tour -Only studio`: clean;
+- `-Tour -Only ui`: the Studio's window as before (least 723×760; the known failure, not wider);
+- `-Demo make -Check`: 6 beats, pictures looked at.
+
+Not used by hand. A body made bigger is bigger everywhere along the bone (a longer leg is a little thicker too): Godot scales a bone whole.
+
+### Character Studio: the second hand test answered, the yard and lock-on (2026-10-16, amendment 7be)
+
+**Drawn by the cut.** With the katana put away, cut_a played nothing (a cut wants it drawn). A set may say `draws_by MOVE`: a move or combo asked that wants it drawn, while it is put away, begins that move first and the one asked when it is over (`motor.gd` `_draw_first`, `_after_drawn`). The Moves tab's *Draws by itself, with* writes it; the swordsman has it in the project's moves.txt.
+
+**Edit.** **+ Before** puts a phase before the one chosen. Beside a move's button: what must be in the hand (`wields W`, a sort or a thing) and *locked on* (`locked`); a combo has the same under its moves (*Only with in hand*). A phase's *In hand*: draws, puts away, or `takes W` (another thing it carries drawn, the one there put away: `motor.wield`, `animated.gd` `_spare`). Saving a combo now keeps its button and `when` (only the `then` lines were kept before).
+
+**What plays.** The strip under the preview shows a clip's or a way's clip, a move's phases, and in the yard the move pressed. A list's tab shown again chooses again what was last chosen on it (`_last_of`, `_tab_shown`); Edit shows what is edited; while something else plays, the banner is dimmed and the status says "not the move edited". The edited move's row says *✎ editing*.
+
+**Clips** sorted by name whatever the capitals (they were case-sensitive), by library, by seconds, or by a column's title; the tab says where a clip's use is changed.
+
+**Lock-on** (`lockon.gd`). The button `lock`: Y or the middle click; a controller has none until given one. It locks on to the nearest body before the eye within 15 m (the group `lockable`: `body.gd`, a yard's targets). An orange mark is shown over it; the body faces it while going about (`intent.locked`, `face`); the eye comes round toward it. Press again, or go 22 m away, to let go. The Buttons tab's *Lock on only while the lock button is held* writes `lock held` in `controls.txt`.
+
+**The yard** (`yard.gd`, `yardbook.gd`, `yard.txt`). **Yard**, under the preview, steers the character with the game's buttons among the dummies of yard.txt (kept with the world, F10):
+
+- two posts thrown back when struck;
+- one that jumps every 2.5 s;
+- one that cuts every 3 s;
+- a target on a post.
+
+A dummy struck walks back to its place. Esc or Yard leaves. The editor's view ignores the keys meanwhile (`main.gd` `keys_taken`). A script leads it (`yard.led`, `lead`).
+
+**Cloth.** `sways` on a thing of gear.txt (the cape): it swings after the body from where it is worn (`sway.gd`), never into the body (`animated.gd` `_swing_gear`). Gear: *Cloth: swings after the body*.
+
+**Planned** (`Draw3D_Character_Maker_Plan.md`): making a character (tier 1 from what there is; tier 2, face, eyes, hair and expressions, needs the user's choice of assets), enemy types and reactions, creatures, real cloth.
+
+**Checked:**
+
+- studioplay, 137 of 137 (23 new); *Reset: no nudge written* failed once in five runs (Known gaps);
+- chartest, 135 of 135 (the sheathe checks changed for `draws_by`);
+- `-Tour -Only studio`: clean;
+- `-Tour -Only ui`: the Studio's window as before (723×760);
+- `-Demo yard -Check`: 5 beats, the post struck 3 times, pictures looked at.
+
+Not used by hand.
+
+### Character Studio: the user's hand test of 7ba answered (2026-10-16, amendment 7bd)
+
+**Live changes.** Goes and Turns did not show until Save. The cause: a clip used from the Clips tab stayed what Play played. Now a change of how it goes plays the move edited (`_play_edited`).
+
+**Edit.** A banner above the tabs, in sight on every tab, in the colour of editing (`_make_banner`). It shows EDITING MOVE and the name, typed over to rename (`rename_move`, `rename_combo`): sets, `then`, `lets`, `lands`, `like` and look rows follow, and Discard takes it back. It holds Save, Discard, Copy and Done, and says whether it is saved. The moves list is folded; the move edited is tinted.
+
+**Buttons.**
+
+- A mouse button is taken only on a box shown for it, and a click elsewhere cancels. The user's `run` became the left click by a stray click, and their `controls.txt` still says `keys run click`.
+- Right and middle clicks are said as such.
+- `label NAME WORDS` shows a button by a word of one's own, and a button of one's own can be renamed (`Controls.rename`, `call_it`).
+- The list is ordered: the character's moves' buttons, your own, always, then not used (folded).
+- The profile in use is shown and saved over (`profile NAME` in `controls.txt`); Save as new wants a name.
+
+**Gear.**
+
+- A gear line may say `spare`: carried, not drawn, at its stow place (`animated.gd` `_show_drawn`).
+- Put it on makes a held thing the one in hand and draws it; *The one in hand* chooses one.
+- What it wears is a list as tall as its rows. The things of gear.txt are shown in columns (an ItemList with `auto_height`).
+
+**Room.**
+
+- The preview keeps to its least height above the tabs.
+- The status is one line, and the banner is one row.
+- Side by side at first on a screen 1400 px or wider.
+
+**The freeze.** Not reproduced headless. Keys worked and the editor closed with code 0, so clicks were blocked, not hung. The log now says each tab shown, a button waited for, and the unsaved-changes dialog.
+
+**Checked:**
+
+- studioplay, 114 of 114 (19 new: each finding, as the user did it);
+- chartest, 134 of 134;
+- `-Tour -Only studio`: clean;
+- `-Tour -Only ui`: fails as before. The committed code fails at 723×783; now 723×760.
+
+Research: `Draw3D_Character_Studio_Research.md`, "Input mapping in other engines". Not used by hand.
+
+### Gear: a two-handed stance, both hands by IK (2026-10-16, amendment 7bc)
+
+The user's yes to A1b. A thing may say `two_hands_at PLACE`; drawn, it is put there before
+the body (new places guard, side_hold, shouldered, tool_hold, staff_hold), and both arms
+are brought by `TwoBoneIK3D` with poles: the holding hand to its grip, the other to its
+second grip (`animated.gd` `_arm_ik`). `free_hand` and put away as before; the Gear tab's
+box is *Held in both hands (IK)*, its list says "both hands, PLACE". The rifle's and
+shotgun's second grips brought nearer. **Checked:** chartest 134/134 (every two-handed
+thing on the mannequin and the swordsman's greatsword: both hands within 0.4 cm, 1.0 for
+the swordsman's other; elbows down; let go when put away; free_hand one hand); studioplay
+95/95; `-Tour -Only studio` clean, pictures 28–31 (the mannequin's spear and rifle held
+in both hands; the swordsman's arms too dark to judge). Not used by hand. **Not:** a
+stance clip, hands turned to the grip, the hold following a move's phases (A1c).
+
+### Gear: the other hand on a thing of two hands, by IK (2026-10-16, amendment 7bb)
+
+The user's yes to A1. A thing of `hands two` with a `second` grip, held in a hand place,
+gets a `TwoBoneIK3D` on the skeleton bringing the other arm's palm to a node at the grip,
+with a pole behind and below that shoulder (it does nothing without one), while it is
+drawn; `free_hand` on the gear line leaves it off, written by the Gear tab's *Other hand
+on its grip (IK)*. Its result is read by a modifier after it (`AfterIK`): Godot gives the
+clip's pose back outside the skeleton's update. **Found:** UAL 2's sword stance and the
+standing clips hold the hand at the side, so the greatsword's and the spear's second grips
+are ~0.9 m from the other shoulder against a 0.6 m arm: the hand comes as far as it
+reaches (A1b). **Checked:** chartest 127/127 (in reach: the palm 1.5 cm from the grip,
+the elbow down and out; out of reach: as far as the arm goes; off put away; free_hand);
+studioplay 95/95; `-Tour -Only studio` clean, pictures 28–29 (the left arm too small
+there to judge: not looked at by eye). Not used by hand.
+
+### Character Studio: gear and buttons; moves and combos on any button; a phase's numbers all in sight (2026-10-16, amendment 7ba)
+
+At the user's asking: a simple mapping of keys and controller buttons, a move or combo
+on any button, when wanted (crouched, in the air, running, with another held); a combo
+on one press; movesets and buttons as profiles for any project; a phase's numbers with
+no scrolling; a sword put away; and the weapons and equipment it leads to. A pasted
+brief asked for an audit first and larger pieces put forward for approval:
+`Draw3D_Gear_Actions_Controls_Plan.md` (the audit, what was built, stages G2 to G8,
+decisions A1 to A5).
+
+**Built:**
+- **Buttons** (`controls.gd`): the table is a default. The person's own ways (keyboard
+  and controller apart) and buttons of their own are read over it from `controls.txt` in
+  `%APPDATA%\Draw3D`, written at every change, the same for every project (a scripted
+  run has a folder of its own). New button `sheathe` (B; no controller button).
+- **Buttons tab** (`buttonstab.gd`, and Characters > Buttons): Keyboard and mouse /
+  Controller; Change… and Add another… take the next key, click or controller button
+  (Esc leaves it); Nothing; As Draw3D has it; a button that another shares is orange and
+  says which; Make a button; this character's moves and combos on the button chosen, in
+  the order tried, with Only when, held, Earlier, Later, Take it off, Plays by itself,
+  and Put on this button; Save as a profile and Use this profile.
+- **Moves**: `when` takes `holding BUTTON`, `drawn`, `sheathed`, `with ITEM_OR_SORT`
+  and `following` (cut_b and cut_c now follow only: the 7az rest-press gap is closed); a
+  phase `draws` or `sheathes`; a combo may say `asks`, `when` and `plays by itself`
+  and be in a set, begun by its button, each next move its button again in the window
+  or, by itself, when the window opens (motor `combo_on`).
+- **Profiles**: buttons and a set with every move and combo it needs (what they let in,
+  what they are `like`), in `%APPDATA%\Draw3D\profiles`; used, written into the world.
+- **Gear** (`gear.txt`, `gearbook.gd`): 21 places by humanoid bone and a spot in the
+  body's frame (hands in the hand's own frame); 34 things of 40 sorts made of simple
+  parts (the katana its model), with grip, second grip, points, worn, stows, pair, reach,
+  weight, size, colour, from, licence. A character's `gear ITEM [at PLACE] … [stowed
+  PLACE …]`; `animated.gd` attaches, moves what is carried between hand and stowed place
+  as `drawn` changes, and tells the motor what is carried. The swordsman carries the
+  katana so (draw_blade, sheathe_blade on B; cuts want `drawn`); `jet` and `hover`
+  begin only with a jetpack or hover shoes.
+- **Gear tab** (`geartab.gd`, replacing Holds): Where and Put away at by place name;
+  Nudge (cm) and Turn (°), seen at once, written after; Reset; Draw / put away; Take it
+  off; everything of gear.txt by sort with Put it on; a two-handed thing's other hand's
+  distance from its grip.
+- **Edit**: Look and Timing and movement side by side, the pose on one row, the words
+  under Details; + Phase / − Phase by the phases. Side by side keeps the preview to its
+  least width. Several lists no longer widen to their longest entry.
+
+**Checked:** chartest 119/119 (gear made and placed; put away at the left hip and drawn
+by the sheathe button; no cut put away; worn things and pairs; a jetpack's move only with
+one; combos on a button, pressed and by themselves; `holding`; the rest press; bindings
+kept apart, written and read back, in Godot's InputMap). studioplay 93/93 (the Buttons
+and Gear tabs by clicks, keys and buttons pushed into Godot's window; Edit's numbers in
+sight: 254 px wanted, 265 there). `-Tour -Only studio` clean with pictures 19 to 27 (the
+Edit tab beside the preview, the Buttons tab, the katana drawn and put away from three
+sides, a mannequin dressed). `-Tour -Only moves` clean. `-Demo studio -Check` 10/10.
+`-Tour -Only ui` fails as before (Known gaps).
+
+**Not run:** the whole tour. **Nobody has used any of it by hand; no real controller.**
+
+### Character Studio: what plays stays in sight; buttons by colour; how a move reaches a player's hands (2026-10-15, amendment 7az)
+
+**Asked** (after using the Studio): less scrolling between a parameter and Play;
+restrained colour cues; how a move becomes a character's in the game (can the
+swordsman's cuts be given to another character?); how keys and buttons map to moves, and
+how a combo is played in the game. A usability pass, no redesign, no combat framework.
+
+| What | Where | Checked by |
+|---|---|---|
+| Edit in two parts: pinned (what is edited, Save / Discard / Save as a copy / Done, a combo's moves and its play buttons, the phases, ◀ Phase / Phase ▶ / Play this phase / Play the whole move); scrolled (Asked with, phases added and removed, the combo's waits and Add, Look, Timing, Movement, More) | `studio.gd` `_phase_tab` (`edit_pinned`, `edit_params`) | `studioplay.gd` (scrolled to the bottom: Play the whole move where it was, pressed there by a pushed event; a number changed plays the same move, or phase) |
+| Side by side: preview left, tabs right, the window widened, and back | `set_side_by_side` (SplitContainer `vertical`) | `studioplay.gd` |
+| One-line edit state and phase heading (nothing below moves) | `_phase_tab` | `studioplay.gd` (its height before and after a change) |
+| Buttons coloured: play green, edit blue, save gold, undo/remove orange | `CUES`, `CUE_OF`, `_cue` | `studioplay.gd` (four buttons' sorts) |
+| Moves: Asked with column (orange when an earlier move with that button always wins, or nothing presses it), Earlier / Later in the set, The game's buttons | `asked_with`, `_covers`, `move_in_set`, `show_controls` | `studioplay.gd` (a cut in the mannequin's set: after dash, then first) |
+| Edit: Asked with for a move (its `asks` line) | `set_asks`, `_fill_asks` | `studioplay.gd` (cut_c made greet's, discarded; a `like` move refused "by name only") |
+| Edit, a combo: In the game, step by step, and what stops it | `combo_in_game` | `studioplay.gd` (three_cuts) |
+| The cuts pressed as a player presses them | `chartest.gd` `_presses`, `_pressing` | 8 checks and a note |
+
+**Found** (code read, then checked by `chartest.gd` pressing buttons through a body's
+intent, never by asking a move by name):
+- Moves are one library, and a set names any of them. A character has one set (`moves
+  SET`). A move is not tied to a rig, a model or a library. What it looks like is the
+  character's look (clips of its own libraries), and its strike works without a sword
+  (a point 0.8 m ahead).
+- A move is pressed by its `asks` button. Of the moves one button asks, the first in the
+  set's order that can begin does. Added after the walker's `dash`, the cuts never begin
+  from a press; put first, the dash button cuts on the ground and dashes in the air.
+- Combos are not read by the game. A chain is each phase's `lets`: the next move's button
+  pressed again while that phase lasts (0.12 s of buffer). Nothing advances by itself.
+- Pressed the moment the first cut ends, the second cut begins from rest (Known gaps).
+
+**Checks run** (2026-10-15):
+- `chartest.gd` 86/86.
+- `studioplay.gd` 73/73.
+- `-Tour -Only studio`: no problems, no script errors.
+- `-Tour -Only moves`: no script errors.
+- `-Demo studio -Check`: 8/8.
+- `-Tour -Only ui` fails as before: the Studio taller than the tour's window. Its least
+  size is now 703×734, against 691×760 before (Known gaps).
+
+No test wrote moves.txt or characters.txt.
+
+**Not run:** the whole tour. **Nobody has used any of it by hand.**
+
+**For the user to say** (amendment 7az):
+- a button of its own for attacks (every controller button is taken; which gives way);
+- remapping keys from the editor (`controls.txt` over `controls.gd` MAP, per project or
+  per world);
+- a move that only follows another (a `when` word);
+- a combo that plays by itself in the game.
+
+### Character Studio: Mixamo's clips taken in — FBX read, map mixamo, Import clips… (2026-10-15, amendment 7ay)
+
+**Asked**: the user will download animations from Mixamo later; could they drop them in a
+folder, or was an import needed? Both, now. Only import was built; animation work beyond
+it stays parked.
+
+- **FBX read** (`clips.gd`): Godot 4.7's `FBXDocument`, the same shape as glTF's reader;
+  glTF unchanged. Mixamo's `mixamorig:Hips` is read as `mixamorig_Hips`, its take
+  `mixamo.com` as `mixamo_com`, centimetres as metres (seen by script). A file whose one
+  clip is Mixamo's take names it by the file. A library's `file` ending in `/` is a
+  folder: every glTF and FBX file in it. `Clips.bone` finds `mixamorig:X` under a
+  numbered namespace too.
+- **`map mixamo`** (characters.txt): 22 names, `faces +z`, the upper arms' stance ±86° as
+  Quaternius's (both a T with level arms).
+- **Import clips…** (Studio, Clips): Godot's own file window; files or the whole folder
+  copied into `characters/NAME/` (a `.gitignore` of `*` and a `.gdignore`
+  in it; `.gitignore` also lists `characters/mixamo*/`); the library written as a
+  document edit (file, rig found from the bones, from, licence, tags); the chosen
+  character plays it after its own; the first clip chosen. Again under the same name adds
+  to that library. A world without `map mixamo` gets it from the project's file.
+- `fbxfixture.gd`: Mixamo-like ASCII FBX files made by script (two clips, Mixamo's names,
+  take and units, one bone turned where it stands).
+
+**Checked**: `chartest.gd` 76/76 (6 new: the folder as a library, the map, a numbered
+namespace, both clips carried to the mannequin within 1.1° and to a person within 4.0°,
+one file by itself); `studioplay.gd` 58/58 (7 new: copied and kept out of git, the
+library written, played by the swordsman, listed, Waving_Step's left arm level then
+raised 60° on the mannequin as in the file, Nod plays, imported again into the same
+library, a non-clip refused); `-Tour -Only studio` no problem, no script error;
+`-Tour -Only ui` fails on the Studio window not fitting a 720 px window (least 691×760), the same at commit 3066149 run from a scratch copy: from 7ax, not this pass (Known gaps). **Not checked**: a real Mixamo file (its bones, binary FBX,
+"With Skin"); the file window clicked; anything by hand.
+
+### Character Studio: the workflow — what can be changed first, one Edit, Save / Save as a copy / Discard, Where (2026-10-15, amendment 7ax)
+
+**Asked** (after the user tried 7aw by hand): dash-and-cut stayed on three cuts; no plain
+way back from a phase to the whole combo; tabs in the order of what is shown, not of the
+work; edit a move or a combo where it is listed, save it in place or as a copy; play part
+of a combo and all of it from where it is edited; make a move or a combo from nothing;
+scrub; and how keyframes, Mixamo and one library of moves for every character, creature
+and game stand.
+
+**Found**: a click on a combo's row made the Combos list anew while the Tree still told
+of the click; Godot gives no new rows then, so the code stopped before Play and three
+cuts went on. 7aw's check called the function, not a click, and passed.
+
+| What | Where | Checked by |
+|---|---|---|
+| A row clicked in any list acted on just after the click | `studio.gd` `_on_row` | `studioplay.gd` (rows clicked by events pushed into Godot's window; combos clicked back and forth while each plays) |
+| Tabs: Moves, Combos, Edit, Ways of moving; then Clips, Strikes and reactions, Holds, Body and bones | `studio.gd` `_init`, `_moves_tab`, `_ways_tab`, `show_tab` | `studioplay.gd` |
+| Moves: the set, a move of moves.txt added to it or taken out, Edit this move, New move | `add_to_set`, `take_from_set`, `new_move` | `studioplay.gd` (new move made, phase added, discarded) |
+| Combos: the list, Edit this combo, New combo | `_combo_tab`, `edit_combo`, `new_combo` | `studioplay.gd` |
+| Edit: what is edited and whether it is changed; Save, Discard changes, Save as a copy, Done (asked first when changed) | `save_edit`, `discard_edit`, `save_copy`, `done_edit`, `_before` in `_write` | `studioplay.gd` (combo changed, played whole, discarded; reordered and copied; a move copied beside itself, the original as it was) |
+| A combo's moves in order: chosen, Earlier/Later, Remove, its wait, Add at the end, Play the whole combo, Play this move alone | `choose_step`, `move_step`, `remove_step` | `studioplay.gd` |
+| A move's phases in a row; Add a phase after it, Remove this phase | `add_phase`, `remove_phase` | `studioplay.gd` |
+| A phase a move has from the move it is `like`, written into it whole when changed | `set_phase_word`, `_inherited_phase` | `studioplay.gd` (cut_b's cut changed; cut_a as it was) |
+| Choose a clip…: the character's clips in a window of their own, found by word, each played as chosen | `pick_a_clip` | not driven by a check |
+| Where: a slider and ◀ ▶ under the preview, for a clip, a phase, a move or a combo (a move played again to that moment) | `seek_to`, `step_by`, `_step_try` | `studioplay.gd` (a move halfway, then earlier, Play going on; a clip halfway) |
+| The timeline clicked: that phase in Edit; a combo playing opens as the combo | `edit_at` | not driven by a check |
+
+**Checks run** (2026-10-15): `studioplay.gd` 49/49; `chartest.gd` 70/70;
+`-Tour -Only studio` and `-Tour -Only moves`: no problems, no script errors (the first
+studio run stopped at a line choosing the old phase tab by number, which the tour and the
+demo now choose by name); `-Demo studio -Check` 8/8. No test wrote moves.txt or
+characters.txt. **Not run:** the whole tour. **Nobody has used any of it by hand.**
+
+**Answered, not built** (amendment 7ax): keyframes (a move is phases over clips; keys
+inside a phase are proposal item 10, parked); Mixamo (FBX read at runtime, a `map
+mixamo`, an Import clips… button: a pass of its own); one library (moves.txt is one, and
+every character and kind names its set; choosing a kind's set from a window, enemies
+choosing combos (7g), and whether Save also writes the project's moves.txt for the next
+game are open).
+
+### Character Studio: Play plays what is chosen; dash-and-cut; steadier panels; one brush agreed on (2026-10-15, amendment 7aw)
+
+**Asked** (after the user tried 7av by hand): once a combo had played, Play went on
+playing it whatever was chosen next (a clip, rise, another combo); dash-and-cut did not
+look right. Fix playback at its root first, then a bounded usability pass, then look
+into the Plant Generator and Objects disagreeing about what is painted, and propose a
+UI overhaul.
+
+**Cause and fix**:
+- The preview replayed what was *last tried*, and list rows stayed chosen while
+  something else played, so a click on them changed nothing.
+- Now one **target** (`studio.gd` `target`, `select_target`, `play_target`, `_halt`):
+  - Choosing anything in any list makes it what Play plays, and stops what played
+    before.
+  - Only its row is shown chosen.
+  - Replay, a change and a character switch play the target or nothing.
+  - What this character cannot play is said ("cannot play: …").
+- **dash-and-cut** was its own fault, not the playback bug: the swordsman never turned
+  back, and the Studio's opponent stood in the dash's path.
+  - `dash_slash` has a 180° `turn` phase.
+  - Someone to strike stands 0.7 m to the left of a move covering more than 2.5 m.
+  - The dash and the cut both strike.
+
+**Usability**:
+- **Status:** two fixed one-line status lines under the preview.
+- **Layout:** the preview and the tabs split by a draggable line.
+- **Timeline:** a click chooses a phase to change; the phase being changed is
+  outlined; hovering says its role.
+- **Change a phase:** a **See it at** scrubber; **Look / Timing / Movement / More** in
+  folding parts; the tabs' paragraphs shortened.
+- **Paint:**
+  - In Objects, a row clicked while painting moves the brush to it.
+  - In the Plant Generator, Paint shows and toggles its own brush; another plant puts it
+    down. A brush from Objects is named there.
+
+**Proposal**: `Draw3D_UI_Overhaul_Proposal.md`, nothing of it built beyond the above.
+
+**Checked by** (none of it by hand; nothing seen in motion by the user):
+- **test** `studioplay.gd` (new, headless, 31 checks): a real Studio driven through
+  - combo → combo, combo → clip, combo → move, combo → way, combo → phase;
+  - clip ↔ move; chosen then Play; pause/resume, stop, replay, loop;
+  - an interrupted move, a finished one-shot clip, a changed combo;
+  - a character switch while playing, a target this character lacks, a move needing a
+    wall;
+  - dash-and-cut alone and against someone;
+  - the phase scrubber.
+- **test** `chartest.gd` 70/70.
+- **tour** `-Only studio` (now also the phase scrubber and a picture of the sections),
+  `moves`, `brush`, `brushmix`, `grow`, `workflow`: no problems, no script errors.
+- **demo** `-Demo studio -Check`: 8 of 8.
+
+### Character Studio, reliable: playback, every move audited, phases, combos, Universal Animation Library 2 (2026-10-15, amendment 7av)
+
+**Asked**: the preview looped, some moves showed nothing, phase controls seemed to do
+nothing; make it reliable, plain and direct, then phases and combos on UAL 2.
+
+**Found and fixed** (amendment 7av has the detail):
+- Looping: "Round and round" was ticked by default and restarted every move tried. Now a
+  move plays once and stands where it ended; Loop is ticked by itself only for what goes
+  on. Under the preview: **Play** (Pause), **Replay**, **Stop** (back where it began),
+  **Loop**, the speed with its value. Choosing another character stops what was going.
+- Moves that never began in the Studio (thrust, long jump, backflip, dodge, on every
+  character): the Studio read a move's `when` words wrongly, so no run-up or crouch was
+  asked. Asking now lives in `trying.gd`, shared with the audit and the checks. A move
+  begun by a hard landing (roll, land) is tried by letting the body fall from 9 m.
+- Someone to strike stands aside until the move is asked, then before it, where it
+  begins (the run-up no longer runs into them).
+- The samurai's thrust had no recovery clip: `thrust_recover` written in
+  `samurai.poses.txt`, `samurai.glb` baked again (the other files came out the same).
+- Phase controls: a phase shown by its own-named clip now takes every look change (a row
+  is written for that clip first). New look word `backwards`.
+
+**Built**:
+- `studioaudit.gd` (headless): every character's every move (and combos named by
+  `AUDIT_COMBOS`) tried as the preview tries it: began or not, each phase's clip and
+  where it came from, distance, turn, how far over, whether struck. Results in
+  `characters/studioaudit.txt`. On a bare floor every move of every character is ready
+  except the six that need a wall, an edge or something low (vault, ledge_hang, climb,
+  wall_run, wall_grip, wall_jump), which show their clips only.
+- Movement: a **Ready to see** column (ready / a phase has no clip / no clips / clip not
+  found / clips only here, with why on hover); a missing phase says so in red with a clip
+  that might do; **Its clips only** plays a move's clips one after another, the body not
+  moved.
+- **Change a phase**, rebuilt: phase N of M and its part in the move (preparation, the
+  strike, recovery...), what it does in words; Previous/Next phase, Play this phase, Play
+  the whole move, Whole move clips only; "How it looks — the animation only" and "How the
+  body moves — for every character with this move" apart; sliders beside the numbers
+  (units shown, a Reset beside each, written a moment after a slider is let be); clip
+  begins/ends, The whole clip, Backwards, Lead with the other side, pose (part of the
+  body; tip, twist, lean; reset this part, reset all); lasts, goes forward, turns round,
+  strikes with; under **More**: blend in, strike reach, the clip slider's place, the lines
+  as written, Save as a new move, open the texts. Why a control does not apply is said
+  (a flight lasts as long as its leap).
+- The move's written path drawn on the floor from where it began (each phase, the one
+  being changed brighter, red where it strikes, an arrow the way it faces at the end, a
+  ring where someone to strike stands), and a white ball at the end of the phase being
+  changed, dragged to set how far it goes.
+- **Combos** tab: build from the set's moves (each asked so long after its window opens),
+  play, save (`combo NAME` in moves.txt, Ctrl+Z), open a saved one; each link says where
+  the one before lets the next in and for how long, or that it does not (with a button to
+  let it in), and what else holds it back (a rest, a run wanted). The timeline shows a
+  combo's moves side by side, windows in green. Combos `cut_thrust`, `dodge_counter`,
+  `three_cuts`, `dash_and_cut`.
+- Universal Animation Library 2, Standard (CC0; 10,257,419-byte zip from OpenGameArt; only
+  `UAL2_Standard.glb` and `License.txt` kept in `characters/quaternius2`): library
+  `ual2` (43 clips; marks where each cut is fastest, measured by `ual2look.gd`), map
+  `ual2` (Unreal's mannequin's names, a T facing +z), character `swordsman` (the
+  mannequin with the katana), set `swordsman`, moves `cut_a`, `cut_b`, `cut_c` (each
+  lets the next in, the dash button again in a game) and `dash_slash`, look `swordsman`.
+
+**Checked by script, none of it by the person's input**: `chartest.gd` 70 of 70 (new:
+thrust, backflip, long jump, dodge, roll and two combos as the preview asks them, each
+phase with a clip of its own; a part played backwards; combos read; UAL 2 read, mapped,
+carried to the mannequin within 5.8° a limb and to a person within 7.6° (a person has no
+shoulders), its dash cut in place, the three cuts one after another each fastest in its
+cut phase). `-Tour -Only studio`: once stays put, Loop restarts, Pause holds, Stop goes
+back, a switch stops, a backflip on Quaternius's model turns over 176°, readiness, a
+wall run shown as clips, a phase shown by its own clip changed backwards and undone, the
+combo cut_thrust, one saved and undone, the swordsman's three cuts (pictured).
+
+**Not seen in motion by anyone.** Pictures in `editor\godot\tour\studio-*.png`.
+
+### Character Studio, authoring: a real body in the preview, a phase changed, a move turned and mirrored (2026-10-15)
+
+At the user's asking (the brief "Character Studio, Animation Quality and Action Authoring
+Improvements"); amendment 7au.
+
+**What was found first (the audit)**
+
+- **Choosing stand, walk or start did nothing.** The Movement tab's rows had no handler:
+  the preview only played clips by themselves, and "Try the move" switched clips by a
+  clock, without the motor: no distance, no turning, no fade from clip to clip, no
+  strike, no transition (start, stop, turn and land are seen by the shower from how the
+  motor's speed goes, so they could never show there).
+- **The ways of moving, the moves and the clips were in one list.** Stand, walk, start
+  are the motor's (or the shower's); slash, roll are moves (phases, timed); clips are
+  what shows either.
+- **Where the samurai's clips came from:** written by hand last pass (by me, 7at) as key
+  poses in degrees, `characters/samurai.poses.txt`, baked by `charmake.gd` into
+  `characters/samurai.glb`; no motion capture, no artist. That is why they look stiff;
+  they are kept, and Quaternius's `Sword_Attack` (CC0) is the better source for a cut.
+- **Working and kept:** clip search and tags, the views, audition (play, loop, speed,
+  scrub), use a clip for a row, copy a character or a look, walk as, the holds and the
+  strikes text.
+
+**What changed**
+
+- **The preview is a body of its own** (`studio.gd`): the game's `body.gd`, motor,
+  moves and numbers, in the preview's own world on a floor marked in metres (the start
+  lines brighter), asked as a player asks. A row of the Movement tab is done when
+  clicked (stand, walk, run, start, stop, turn left or right, rise/fall/land, crouch,
+  sneak, skid); a move is done when clicked, after whatever lets it begin (a run first
+  for a thrust; a jump for what wants the air), asked until it begins, watched until
+  the body goes back to its plain ways, round again if "Round and round". The eye
+  follows it, from the side until moved by hand.
+- **Someone to strike** (under the preview): the mannequin with the set `folk_struck`,
+  so far before it and so far aside; struck, they are thrown back.
+- **What it shows while trying:** the path of what strikes (the blade, else the right
+  hand) for the last second and a half, red while it strikes, and how far round it
+  strikes; a timeline of the move's phases as timed (red where it strikes, the selected
+  one blue, a line where it is now); a line: the move and phase, the clip shown, speed,
+  how far it has gone forward and aside, how far round, how many struck, what they do.
+- **Change a phase** (a tab of its own; click a phase under a move). How it looks (the
+  look, characters.txt): the clip chosen, the part of it (seconds, or "begin/end where
+  the slider is" from the Clips tab), the other way about (mirror), the fade into it, a
+  pose laid over it (a place of the body by a creator's name, Chest, Right wrist (a
+  blade's angle)…, tipped, twisted, leant, in degrees). What the body does (the move,
+  moves.txt): how long it lasts (the clip's part played in that time, its rate said), how
+  far it goes forward, how far round it turns, what strikes and how far round it. Every
+  change is a document edit (Ctrl+Z); it says which look and which move it writes and
+  who else has them. **Save as a new move**: the move written again under a new name
+  with its look rows, put in the character's set in its place; the one it came from stays.
+- **New words**: a phase `spins DEG` (the body turns round as the phase goes; what comes
+  after goes that way round); a look row `mirror` (the clip retargeted the other way
+  about) and `bend BONE x y z` (that place of the body turned so much more, in the
+  body's frame, over the clip, faded in and out with it; parents before children). A
+  phase that `strikes` now strikes each thing once a phase (it was once a move), so a
+  cut and then a thrust both reach whoever is there.
+- **An example as data**: `move dash_cut` in the set `samurai` (asked by name only):
+  gather, a dash of 3.2 m that strikes, a half turn, a thrust back that strikes, a
+  recovery; its look rows in `look samurai` (one of them a hips `bend`).
+- Bugs found and mended on the way: a list made again from the texts chose its row again
+  and so began what was tried again; a move asked for once at the moment the body was
+  put down did not begin (now asked until it begins, rests cleared at a restart).
+
+**Checked**
+
+- `chartest.gd` (headless, no window): **47 of 47**, 11 of them new: a phase that spins
+  180 (86° half way through the cut, 180° after, the figure turned with it); a clip
+  mirrored (each hand and foot where the other side's was, 0.000 m); a chest bend of 30°
+  (30.0° about the upright, hips 0.00°, the hand carried 0.29 m); a phase's lines
+  written (changed, added, taken out); a look row with part, mirror and two bends
+  written and read back the same; worn with it, the cut shown by `Sword_Attack~m`;
+  `dash_cut`: phases in order, striking only in the dash and the thrust, 3.51 m past,
+  turned 180°, 0.77 m back.
+- `-Tour -Only studio`: **problems []**, no script error: setting off tried (start then
+  walk shown, 2.69 m); slash tried with someone before it (windup, cut, recover; they
+  were struck and thrown back; the blade's path drawn); the cut changed in the tab
+  (spins 180, goes 1.5 m: written into moves.txt, tried: turned 180°, went 3.92 m), undone
+  by Ctrl+Z; the cut's look changed (clip, mirror, a wrist bend: written, the mirrored
+  clip made), undone; and everything the part checked before.
+- Neighbours and the demo: see the line under "Demos" and Known gaps for their results
+  this pass.
+- **Not seen by anyone in motion.** Pictures only (the tour's): the samurai trying the
+  cut with the timeline under it, and the tab. Whether the bends, the mirrored cut and
+  dash_cut look good is for the eye.
+
+**The RPG Characters pack** (the user's Drive link): the folder is public and is
+Quaternius's own (quaternius.com/packs/rpgcharacters.html links it), "RPG Characters -
+Nov 2020": six characters (Cleric, Monk, Ranger, Rogue, Warrior, Wizard) as .gltf (2.4 to
+3.1 MB), FBX, Blend, OBJ, a "Humanoid Rig Versions" folder (Blend, FBX), textures; License.txt
+says CC0 1.0. The user said yes to downloading the six .gltf; **Google Drive answered
+"Quota exceeded" for every file** (too many downloads of a public file; it can last a
+day). Nothing was kept. What is needed: the user's own "Download all" in a browser
+(signed in), then the folder put at `editor\godot\characters\rpg`; a library, a map
+and characters are then about an hour (its clips are said to be per character; whether
+the Warrior has sword clips is unseen).
+
+**Research** (`Draw3D_Character_Studio_Research.md`, "Combat sources"): Quaternius UAL 2
+(CC0, Standard 10.3 MB free: melee and armed combos split into hits and recoveries,
+parkour) is the best next source at the least cost; Mixamo (free, sword packs; files may
+not be given away loose but may ship inside a game; an Adobe account, so the user's
+download); MoCap Online's free sword sample (terms unread); CMU-derived libraries (no
+weapons). No CC0 katana motion capture was found.
+
+### Character Studio, first tier: characters with bones of their own, clips from glTF libraries, a samurai set (2026-10-15)
+
+Amendment 7at. On branch `m2-stable-terrain`, over d624ad2. The user's brief: a reusable
+character-authoring workflow (body and rig, animation, movement and action sets,
+equipment, reactions, effects, behaviour), built on Godot's native systems and proven
+free assets where they fit, researched first, then a small runnable end-to-end prototype
+before anything wider; the motor governs movement and animation follows it; the user's
+mouse and controller left alone by every automated run. Research, sources and licences:
+`Draw3D_Character_Studio_Research.md`.
+
+**What already existed and was kept**: the motor and moves as text (`moves.txt`), poses
+as text for a person's 17 bones (`poses.txt`), the figure (`figure.gd`: places on the
+body, holding, reaching), acts, the host keeping texts with the world. Nothing of it was
+rewritten. What there was not: a skeleton from a file, a clip, blending, retargeting, a
+character as content, anything held as equipment, a hit window, a reaction to a blow.
+
+**Built**
+
+- **Assets made by script, as glTF** (`charmake.gd`, headless, writes
+  `editor\godot\characters\`): `basic.glb`, every pose of `poses.txt` plus the
+  transitions of `characters/locomotion.poses.txt` (start, stop, turn left and right,
+  struck) baked into 61 clips on a person's bones; `samurai.glb`, 10 clips from
+  `characters/samurai.poses.txt` (stance, walk, run, draw, cut, thrust); `mannequin.glb`,
+  a character on another skeleton (22 bones named as Godot's humanoid profile, 1.82 m,
+  longer in the leg) with a skinned mesh; `katana.glb`. The pose language is so also a
+  way to author clips. The person's bones are checked against the host's `BONES`.
+- **`clips.gd`**: glTF files read at runtime by Godot's `GLTFDocument` (models and clip
+  libraries, whoever made them), and clips retargeted from one skeleton to another by
+  Godot's humanoid names: each mapped bone turned as far from how it stands, in the whole
+  body's frame; hips' height scaled; `stance` and `faces +z` for sets built otherwise.
+- **`characters.txt`** (a world text, F10; `charbook.gd`): `library` (file, rig, from,
+  licence, tags, per clip a stride, tags and marks), `map` (profile name → bone, `same`,
+  `stance`, `faces`), `character` (model, rig, size, clips, moves, looks, kind, points,
+  holds, walks), `look` (which clip shows each thing the motor says, `like` another, at
+  what speed, fade, time). Written: libraries basic and samurai, maps person and
+  humanoid, characters mannequin and samurai, looks human and samurai.
+- **`animated.gd`**, a figure shown by clips: extends `figure.gd` (so acts, carrying and
+  a hand reaching work as before), wears a character, and drives Godot's
+  `AnimationTree` as a mixer only (stand/walk/run blended by speed; two slots
+  cross-fading anything else). A clip is chosen as a pose is (move/phase/side, move,
+  plain way); a move's clip is seeked to the phase's progress, a walk's by distance (one
+  stride of the clip's for so many metres, scaled to the body), anything else by time.
+  It tells itself when the body sets off, stops, turns where it stands, or lands, and
+  shows the look's clip for each. Feet are let down onto the ground on the plain ways;
+  a move's clip says how high the body is. Holds things at a bone (BoneAttachment3D),
+  with places on them (`blade`). The places a figure has (hands, treads, carry, head)
+  are found from the map.
+- **Moves**: two words. A phase `strikes PLACE R` (whatever is within R m of a place on
+  the body or on what it holds is struck once in the move: loose things knocked away as
+  hard as `push` over their weight, someone with a body told); a move `upon struck`
+  (begins when someone else's move strikes the body, facing them). `strike.gd`.
+  The **samurai set**: walk 2.4, run 7.0; `slash` (dash button: windup, cut that
+  strikes with the blade, recover that lets another cut or a thrust follow), `thrust`
+  (dash at a run: a 2.2 m lunge that strikes), `draw` (greet), `struck`, and anyone's
+  long jump (that lands in a roll), jump, dodge, quick steps. `set folk_struck` for a
+  sparring partner.
+- **The Character Studio** (Characters > Character Studio, `studio.gd`): a preview of
+  its own (own world, floor marked in metres, eye dragged round, wheel, Front, Side,
+  Back, Above); tabs in the order a character is made: **Body and bones** (model, bones,
+  the map against Godot's humanoid names, what is not named, the retargeting rules),
+  **Clips** (searched by name or word, filtered by tag; library, source, licence,
+  stride, marks; Play, Round and round, Speed, a scrubber), **Movement** (its set,
+  chosen from a list and written in; the look: what the motor says → the clip, with
+  "Show it with the clip chosen" and "Copy the look"; its moves and phases with their
+  timing and clip; "Try the move" plays them phase by phase as timed), **Holds**,
+  **Strikes, reactions, the rest** (when each move strikes, its phase and the clip's
+  marks beside it; what begins upon being struck; buttons to the hub, Sounds, F1).
+  "Walk as this" (a `walks` line, a document edit), "Make a copy", "Open the text",
+  "Read again". Every change is a document edit: Ctrl+Z, kept with Ctrl+S.
+- **The walker wears a character**: `player.gd` `become`/`wear_walker`; the host-made
+  figure is kept to go back to; a character changed while walked as is worn again.
+- **Opening a world reads its texts at once** (`main.gd` `open_world` settles them):
+  Play pressed straight after opening is played by the world's characters and moves.
+- **The user's mouse and controller left alone** (standing rule, this day):
+  `Controls.automated` for a tour, `-Demo -Check`, a measurement, a world written by
+  script: the pointer is never captured, no real controller is heard even with the
+  window in front, and the window asks not to take focus. Scripts lead bodies by their
+  intent and their own events.
+- **The game on its own**: `export.ps1` copies `characters\*.glb` beside it.
+  `characters\.gdignore` keeps Godot's importer off the glTF files (they are read as
+  they are).
+
+**Checked** (automated; nothing here was played by hand)
+
+- **`chartest.gd`, headless** (no window, no input device; a floor in a world of its own;
+  the real motor, moves, poses and characters): 25 of 25. basic.glb read (61 clips, 17
+  bones); mannequin.glb 22 bones by the profile's names; charmake's person the host's
+  (`real.rs`); clips carried to the mannequin pointing every limb the same way (worst
+  3.4°, a spine where the counts differ); the samurai worn (22 bones, 71 clips, places,
+  the katana and its blade); walking shown by samurai_walk, strides agreeing with the
+  distance walked (3.04 strides of 1.52 m for 4.64 m), the lowest foot 0.002 m from
+  the ground; stop, turn in place and setting off each shown; a long jump shown by
+  long_jump_windup, long_jump_flight, roll as the motor did each, the clip in front
+  always the one for what the motor did, 17.4 m carried; a cut striking a post only in
+  slash/cut (the blade's path logged: from behind the head at 2.2 m over and down to
+  1.3 m ahead), the post knocked 4.3 m; someone else struck, shown by `struck`, thrown
+  0.57 m back; characters.txt written another way and read again.
+- **`-Tour -Only studio`** (new), problems [], no script error: Characters on the bar has
+  the Studio; the samurai made (22 bones, 71 clips, nothing wrong); 71 rows, "slash"
+  found 3, tag parkour 4; scrubbed half way, the right upper arm turned 68°; played;
+  CC0 shown; a move tried; a look's row shown by another clip and undone; copied and
+  undone; walked as: the samurai's set, the walk shown, a cut struck a post twice and
+  knocked it 3.1 m, the long jump shown flying then rolling; written with the world, a
+  new world walked as Draw3D's own, the world opened again and walked as the samurai.
+- **`-Demo studio -Check`**: 8 of 8 beats, no script error; walked as; the post struck;
+  the sparring partner struck once. Pictures looked at.
+- **Parts beside it**: moves, cast, climb, world: problems [], no script error;
+  course (the training ground's moves): problems [], no script error.
+- **Compile checks**: every changed script, headless.
+- **The built game** (`export.ps1 -Check`): passed by its own measure (stage3 13 of 13 beats, saved, continued, no host left running); `characters` is among the texts the game's world carries, and the four glTF files are beside it. Both runs ended with Windows crash codes on quitting (-1073740940, heap corruption; -1073741819, access violation) after their work was done: not looked into, and not known whether new (7as did not read the exit codes).
+- **Not run**: the whole tour, host tests (no host code changed), the other demos.
+
+**Then, the same day, with the user's yes: Quaternius's library brought in**
+
+- **Downloaded** `universal_animation_librarystandard.zip` from OpenGameArt
+  (opengameart.org/content/universal-animation-library), 14,541,205 bytes as the server
+  said beforehand; CC0 1.0 (its License.txt). Kept: its Godot glTF
+  (`characters/quaternius/AnimationLibrary_Godot_Standard.glb`, 6.7 MB: 46 clips, the
+  45 of the Standard version and a T-pose, on a 53-bone Rigify rig, with Quaternius's
+  own model) and `License.txt`. The Unity and Unreal copies and the zip were not kept.
+- **Its rig, as read**: `DEF-` bones under a `root`, fingers and toes, made in a T,
+  facing +z (its left at +x). Bone names keep their dots in this file.
+- **`characters.txt`**: `library ual` (from and licence; 28 clips described with tags,
+  strides and a mark on the cut), `map ual` (`faces +z`, the upper arms turned down by
+  `stance`, 22 bones named), two characters: `quaternius` (its own model) and
+  `mannequin_ual` (the mannequin playing its clips, beside `mannequin` playing
+  Draw3D's), and `look ual`: idle, jog for walking and sprint for running (the walker
+  walks at 4.4 m/s and runs at 8.5), crouch, jump, land, roll, struck, swim, pick up, and
+  the samurai's cut as three parts of Sword_Attack.
+- **Strides measured by script** (a planted foot's slide, and how far a foot goes): walk
+  1.2 m, crouched 1.3 m; the jog and the sprint read short (time in the air is left
+  out), set at 2.6 m and 3.0 m by estimate, to be tuned by eye.
+- **What it took in the engine**: a look line may say `part FROM TO` (seconds of a
+  clip), so one clip shows a move's phases (the cut is 0.35 to 0.55 s of Sword_Attack,
+  where the hand goes fastest); a map's `stance` is a turn in the body's frame (what a
+  T-pose correction is), and a bone no clip moves keeps how it stands to its parent; a
+  model whose map faces +z is turned half round when worn. The Studio's Front and Back
+  were the wrong way round (everyone faces -z), and are put right; it opens on the face.
+- **Checked** (headless `chartest.gd`, 36 of 36, with no window): the file read (46
+  clips, 53 bones); 22 bones mapped; its clips carried to the mannequin and to a person
+  keeping every limb's direction within 4.7 degrees, turned half round, the upper arm
+  hanging (-0.93 down) when it idles; its own model worn with its mesh; walking shown by
+  the jog; a long jump by Jump_Start, Jump_Loop, then Roll; with the samurai's moves the
+  hand's quickest (a smooth swing, 40 m/s at its peak, as the 0.2 s of the clip's cut is
+  played in the move's 0.14 s) inside the move's cut phase. **`-Tour -Only studio`**
+  (grown): both new characters made from their files with nothing wrong and pictured in
+  the Studio; walked as Quaternius's model, the jog and the jump seen and pictured;
+  problems [], no script error. **`-Demo studio -Check`**: 8 of 8, no script error.
+- **Looked at in pictures only**: the model jogging in the village and in the air with its
+  arms out. Nobody has seen it move.
+
+**Not seen by anyone in motion.** The pictures show the mannequin standing, walking,
+cutting and in the long jump; whether the clips look good, the blends are smooth and
+the cut reads as a cut is for a person to say. The samurai's clips are Draw3D's own
+pose-language keys, not motion capture.
+
+**Not done, and why** (in Known gaps): no external library brought in (a download needs
+the user's yes: proposed); no layering (the upper body of one clip over another's
+legs); no IK on the clip-shown figure but the edge holds (feet on slopes, the second
+hand on the hilt); a character is not given to the folk from content (only the walker,
+and bodies made by a script); `over` poses (carrying) are not laid over clips; marks do
+not sound or set facts; the Studio does not edit a move's numbers (F1 and F10 do).
+
+### Sound, first tier: sounds written as recipes, things that sound by their lines, a weather's sound (2026-10-15)
+
+Amendment 7as. On branch `m2-stable-terrain`, over 961f24a (Signals finished, 7ar). The
+user's direction: after Signals, the next major engine capability, breadth before
+polish. The engine had no sound at all; roadmap §4's audio was unstarted.
+
+**Built** (the details and decisions in amendment 7as)
+
+- **`sounds.txt`**, a world text (F10), read by `soundbook.gd`: a sound is parts (tones
+  of four waves, swept; hiss in a band), each begun, lasting, as loud, dying away or
+  held, coming and going; a whole may go round (`loop`). Sixteen written.
+- **`sound.gd`**: each made when first wanted (22 050 Hz; all sixteen in about 0.45 s;
+  the longest 0.13 s) and kept until the text is read again; heard once where it is (16
+  voices), round and round where a thing stands, or all about (the weather).
+- **Things' words** (host `kind.rs`, `things.gd`): `sounds NAME` (once as its `when`
+  comes to hold), `hums NAME [R]` (while it holds, R m off), `knocks NAME [S]` (at a
+  strike of S m/s or more, louder and higher the harder: loose things by contact,
+  `loose.gd` `_knocked`; others by the room that tells strikes, `_struck`). Said of a
+  design or of one thing, refused with their form when said wrongly.
+- **A weather's sound**: `weather.txt` `sound NAME [N]` (breeze, overcast and snow the
+  wind; rain; storm), in and out over three seconds.
+- **Window > Sounds** (`soundview.gd`): the sounds, Listen, Stop, Open the text (F10 at
+  the line), Pick one that sounds it, who says each, what is wrong, How loud and Quiet
+  (this machine's, kept with the editor's settings).
+- **The Signals window** knows what `sounds` and `hums` do by a `when`, and counts only
+  the things with a row.
+- **Library**: group Sound, **sound post**; eight lab designs given sounds (42 designs).
+  **The lab**: a birds post (`when not dark`) by the start, a stream post by the goal;
+  rebuilt (152 things, 41 designs).
+- **Quiet tours**: the master is muted for a tour; everything is made and played.
+- **Mended on the way**: `colliders.gd` gave a body freed as the world stopped a typed
+  name before asking whether it was there (`SCRIPT ERROR: Trying to assign invalid
+  previously freed instance`, seen in the `.err` logs of the `mech` and `own` parts,
+  which passed; not new: the same lines in f998b62).
+
+**Checked** (automated)
+
+- **Host tests, all, one at a time**: 60 unit (new: the three words said rightly and
+  refused, own over a design's, `no hums`, a design's wrong line said), 65 protocol
+  (new **p65**: a design that hums, one thing's own sound lines refused when wrong,
+  read in `signals`, kept through writing and opening, taken back to its design's; p43
+  grown by the library's new group).
+- **The sixteen recipes made headless**: no problem said; lengths as written; levels
+  looked at (click and birds made louder after).
+- **`showcase.ps1 -Which physics -Over`**: 152 things, 41 designs, written the same.
+- **`-Tour -Only sound`** (new), problems [], no script error: Window > Sounds listed 16
+  and nothing wrong; chime listened to (playing, 1.2 s); a sound written into the text
+  listed and made 0.3 s as written; a line with a word not understood said once; put
+  back, nothing wrong. In a new world from the Library: a lamp (`when ring`), a sound
+  post (`hums stream 10`), a post that `sounds nothing-here`, a ball and a crate raised
+  2.5 m; the lamp's design's "sounds click" shown in the Inspector; the Sounds window
+  said "nothing-here" is not written; the Signals window said the lamp "is lit while it
+  holds; is heard ('click') as it comes to hold". Played: the post's stream humming,
+  reach 10 m; the ball knocked twice, the crate once; `ring` put: one click; the rain
+  coming in (heard, 0.53 of full after 2 s) and gone with clear weather; 66 m off, the
+  stream not kept; stopped, nothing humming. Saved, a new world, opened: the same
+  lines, the same counts.
+- **`-Demo sound -Check`**: 7 of 7 beats, no script error; 16 written, nothing wrong;
+  F10 opened at the bell; the birds and stream posts humming; at the batcher 3 clicks,
+  1 creak, 3 chimes, two belts humming; the pad thumped twice; rain and storm heard.
+  Pictures looked at.
+- **Parts beside it**: problems [] and no script error (the .err logs read too): signals, mech, physics, own, loose. **weather**: first one problem, not new: its storm check wanted the lean and sway as written (0.75, 0.36) and got them times the air's strength 2.5 (1.875, 0.9) that weather.txt has said since f3d71b0. The user said the 2.5 is meant; the check now expects them times the strength, and the part passes, no script error.
+- **The built game** (`export.ps1 -Check`): passed (delivery, saved, left, continued, no host left running); the game's world carries sounds with the other texts. Exit codes not read this time
+- **Not run**: the whole tour, `-Measure`, `-Weigh`, the other demos; `library` (fails as
+  before).
+
+**Not heard by anyone yet.** Every check is that a sound is made, played where and when
+it should be, and how loud; whether the sounds are good is for a person to say.
+
+### Signals finished to a first version: several joints a thing, what waits kept in a saved game (2026-10-15)
+
+Amendment 7ar. On branch `m2-stable-terrain`, over f998b62. The user's brief: finish
+Signals to a solid first version, then move on to the next major capability; keep
+`feels` apart from `hits`; review 7am's six decisions; build several joints a thing and
+timers kept through a saved game if still outstanding (both were); keep dragged joint
+anchors and axes deferred; mend blockers only, record the rest.
+
+**Tried by hand by the user** (2026-10-15, reported, not by script): the batcher's
+counting, lamps, gate, delay and reset, in that order; the strength tester's ball, its
+rebound answering how hard it struck. Nothing reported wrong. These are the first
+hand trials of 7am and 7an; the rest of them is checked by script only.
+
+**7am's six decisions**: 1, 2, 4, 5 and 6 stand as built (the user had settled 1 and the
+joint-dragging deferral); 3 is changed: what waits is now kept in a saved game. The
+table is in amendment 7ar.
+
+**Built**
+
+- **Several joints a thing**: `joins` said more than once, a line each, of a design or
+  of one thing (`kind.rs`: no longer said once; one thing's own `joins` lines replace
+  its design's all together, `no joins` takes them all). `things.gd` reads a list;
+  `loose.gd` makes a joint of the physics for each (keyed "thing/N"), its other thing
+  found by the name that line says; Colliders draws every one; the Signals window
+  reads the one with a motor.
+- **Inspector > Physics**: **joint N of M** chooses which joint the rows show; **+
+  another joint** adds a hinge about its middle, to the world, to be told where and to
+  what. Changing one makes a thing's joints its own, all of them; **not joined** takes
+  the one shown away; **as its design** puts its design's back.
+- **What waits, kept in a saved game**: saving puts the world's fact `waits` (how long
+  each condition has held; how far each timer is to its next tick, by its thing);
+  loading puts both back (`state.waits`/`waited`, `loose.saving`/`loaded`, `_ticked` for
+  timers not near yet).
+- **Library > Mechanisms**: bridge plank, bridge post (41 designs in the physics lab).
+- **The lab's bridge** at (-20, -18): five planks hinged one to the next by name, the last
+  also to the world at its east end, a crate dropped on it. `showcase-physics.json`
+  rebuilt (150 things put down, 40 designs).
+- **`-Demo signals`**: 10 beats (new: "Held at both ends", "Kept in a saved game").
+  Tour part **`bridge`** (new). Unit test and p61 grown.
+
+**Checked** (automated)
+
+- **Host tests, all, one at a time**: 59 unit (grown: several `joins` of a design kept,
+  one thing's own replacing the design's together, `no joins`, two by name read),
+  64 protocol (p61 grown: two joints of one thing kept and read, one by name; a design
+  of two; written and opened, the same).
+- **`showcase.ps1 -Which physics -Over`**: 150 things put down, 40 designs; opened and
+  written again, the same file.
+- **`-Tour -Only bridge`** (new), problems [], no script error: two posts, five planks
+  and a crate put down from the Library in a new world, raised level, the planks named
+  in Makers; in the Inspector each plank joined to the one before it (the joint's
+  "to" list), the last given **+ another joint** (the chooser then "joint 2 of 2"),
+  about z, at 0.5 0.04 0: its own lines "joins hinge -0.5 0.04 0 z to bridge plank 4;
+  joins hinge 0.5 0.04 0 z"; six joints drawn. Played 4 s: six joints, none wrong, the
+  planks sank 0.14 m at most under the crate, the east end did not drop, the crate on
+  the bridge. Joint 2 of 2 chosen and **not joined**: one line left; played: five
+  joints, the east end fell 0.83 m (it hangs). Ctrl+Z: both lines back. Saved, a new
+  world, opened: the same lines; played: six joints, sank 0.15, held. Then a timer post
+  (`when blow`) and a reset post (`when blow for 4; clears blow`) told their lines in
+  the Inspector; played, `blow` put; 2.5 s on the game saved (waited 2, held 2.52 s,
+  next tick in 0.52 s); 1 s on (waited 3, held 3.52); loaded: waited 2, held 2.52,
+  0.52 to the tick, as saved; the next tick came 0.48 s after loading and `blow` was
+  taken back 1.48 s after (4 s less the 2.52 waited). The saved game's file removed.
+- **The lab's own bridge**, in the same tour part: the lab opened and played as the demo
+  plays it, a minute, the walker brought beside it half way: five planks, six joints,
+  0.77 to 0.96 m up throughout (the crate in the middle). It was first put on the
+  pinball table's slope (the land there 2 m higher at one end), where it came apart
+  as the world began; moved to level ground at (-20, -18), and the tour now checks it.
+- **Parts beside it**, problems [] and no script error: mech (joints, one a thing, in
+  a new world, saved and opened), signals (the batcher and the strength tester, as in
+  7an), own, physics.
+- **`-Demo signals -Check`**: 10 of 10 beats, nothing wrong; the batcher's two rounds
+  as before (gate +1.0 s, reset +6.02 s); strikes 4.5 and 9.6; the lab's bridge: six
+  joints, planks 0.77 to 0.96 m up, the crate on it; the saved game: the reset post had
+  waited 2.02 s when saved and again when loaded, and took `blow` back 1.98 s after.
+- **The built game** (`export.ps1 -Check`): passed (delivery, saved, left, continued, no host left
+  running). Both runs closed with a Windows fault code after every check had passed
+  (0xC0000005, 0xC0000374), as recorded since 7al: not new, not explained (Known gaps).
+  The built game was not given the lab this time.
+- **Not run**: the whole tour, `-Measure`, `-Weigh`, the other demos; `library` (fails as
+  before, Known gaps); `kinds` (nothing it reads was changed).
+
+**Looked at** (by me, in pictures): the Inspector on the last plank, "joint 2 of 2" and
+its rows; the bridge played, sagging a little under the crate between its posts.
+
+**Recorded for later, not mended**: in amendment 7ar ("Recorded for later").
+
+### A field that fills an outline (2026-10-15)
+
+Amendment 7aq (built, decided, limits, checks). On branch `m2-stable-terrain`. Not
+committed. The next step of the order the user set the same day.
+
+**Built**: the **Field** maker (`land.rs` `Field`): a line read as an outline, closed
+back to its first place, filled with patches of its designs in rows along its first
+side (`along`, `across` 0 = the design's size; `turn`, `margin`, `gaps`,
+`keep_off`, `seed`); colour variation and hand changes as a wood's; each patch named
+by row and place along it from the outline's first place, so an outline changed keeps
+them. Editor: **Plants > Add a field** (click corners, Enter; wheat grown first when
+there is no crop; the outline a line named "field outline", not a road); World outline:
+how the field is laid out, what it is made of, colour variation.
+
+**Checked** (automated): p64; host suite 59 unit, 64 protocol; tours `field` (new),
+makers, ui, workflow, findings, build; `-Demo field -Check` 4 of 4. Looked at in
+pictures. **Not tried by hand.**
+
+### Plants walked through, bamboo and stranger forms, painted by the thousand (2026-10-15)
+
+Amendment 7ap (what was found, built, decided, its limits and checks, in full). On
+branch `m2-stable-terrain`. Not committed. Asked for by the user after their first
+look at 7ao, with their working defaults of the same day.
+
+**Found and mended**
+
+- **The Plant Generator showed trees**: the editor's host (`editor\host\target\release`)
+  had not been built since before the plants, and the Generator fell back to the one
+  family it had. `run.ps1` now builds an out-of-date host first (and warns when an
+  open editor holds it); the Generator says when its host lacks a family.
+
+**Built**
+
+- **Gone through, not walked into**: a kind's `solid wade x y z w h d M` (a box; M how
+  much slower, 0 to 0.9), written by the Generator for what grows low and thick at a
+  body's height (wheat about a third slower, maize about two thirds; a lawn and
+  strawberries not at all); trunks, stems and bamboo canes stay solid beside it. Godot:
+  an area a cell (`solid.gd` `WADE`, `thick_at`); the motor slows every body in it
+  (`motor.gd` `wading`).
+- **Bending as the walker passes**: what gives to the wind is bent away from the walker,
+  the four others nearest and the walker's last few places, rising again after
+  (`world_view.gd` `treads`). Only while playing.
+- **Bamboo** (a family: clump, grove, row; canes green, golden, black, pale; six
+  presets); **trees** (`swell`, foliage `tufts`, blossom colours; baobab, dragon tree,
+  Joshua tree, acacia, cherry blossom, twisted); **flowers** (forms trumpet, drooping,
+  rose, thistle; lily, bluebell, rose, peony, thistle). The showcase gained a bamboo
+  garden, a rose bed, stranger trees on dry ground with thistles, bluebells in the
+  wood: 1940 things.
+- **Drawn lighter from farther off**: the host writes three lighter ways after every
+  mesh that gives to the wind and has 1500 triangles or more (`Mesh::lighter`, `LODS`
+  in its bytes): small pieces left out, the rest drawn bigger by as much, big pieces
+  always kept. Godot uses them as levels of detail. On a painted field of about 3000
+  things: 28.5 to 3.5 million triangles from above, 43.5 to 5.8 million at its edge.
+
+**Checked** (automated): host suite 59 unit, 63 protocol (p55, p63 widened; new unit
+tests for walking through and lighter ways). Tours `acres` (new), `nature` (walker
+slower in wheat, slower in maize), `plants` (now every tree preset too), and grow, ui,
+showcase, designs, makers, brushmix, workflow, town, physics: all pass. `-Demo nature
+-Check` 7 of 7. **Not run**: the whole tour, the built game.
+
+**Looked at** (pictures, by me): every new preset; the bamboo garden and stranger trees;
+the walker in wheat and maize; the field whole and lighter from three places. **Not
+tried by hand, not seen moving by the user.**
+
+### Plants grown from numbers, and colour varied as one system (2026-10-15)
+
+Amendment 7ao (what was built, the decisions, the limits, the checks, in full). On
+branch `m2-stable-terrain`. Not committed.
+
+**Built**
+
+- **Six families in the tree's generator** (`shapes/grown.rs` table, grown in
+  `shapes/grown/plants.rs`): grass (tuft, fountain, reeds, seeding; one tuft or a
+  patch), flower (daisy, tulip, spike, globe, sunflower, poppy), fern (spreading,
+  shuttlecock, tree fern, bracken; fiddleheads), crop (wheat, maize, cabbage, lavender
+  in rows; `ripe` from young and green to ripe), berry bush (rounded, upright, arching
+  canes, low mat; berries as bunches, strings, blackberries, hips, singly; unripe and
+  flowering), fruiting plant (strawberry, tomato on a stake, pumpkin vine, grape vine on
+  wires, fruit shrub). 34 presets. Each design is a kind like a grown tree: placed,
+  painted, grouped, in the library, grown again with all of it following, refused over a
+  mesh shaped by hand.
+- **Fruit colours in the style** (`fruits`, `fruit1..8`).
+- **One colour variation** (`shapes/vary.rs`): by role (foliage, bloom, fruit, wood,
+  walls, roof, stone, own, all), so many of the things, hue, light, toward, among the
+  style's colours in place of the design's own; on a design (`vary` lines, written by
+  the generator and the person's once changed), a group (`|` in its line), a maker
+  (`vary`) and one thing (`palettes`, by key); drawn by the thing's own seed, in steps.
+- **Host**: `colours`, `vary`; `generate` returns the family's variation and a mix.
+- **Editor**: the Generator's family buttons, "colours vary" (`varybox.gd`), "show a mix",
+  "Set it on", "Another mix"; Plants > Plant Generator; World outline: a maker's Colour
+  variation, one thing's colours; Objects: a group's colours.
+- **Showcase** `editor\showcase-nature.json` (`editor\showcase.ps1 -Which nature`,
+  `host\examples\nature.rs`): 32 designs, 4 groups, 1702 things.
+
+**Checked** (automated): the whole host suite twice (58 unit, 63 protocol; new
+`p63`, `vary` and `grown` tests). `-Tour -Only plants` (new; 3 of 3 after its waits
+were mended), `-Only nature` (new), `-Demo nature -Check` 5 of 5. Beside it: ui, grow,
+workflow, brushmix, makers, designs, showcase pass. **library fails**, and fails the same
+with the committed scripts and host: see Known gaps. **Not run**: the whole tour, the
+town, the built game.
+
+**Looked at** (pictures, by me): every preset of every family in the Generator's booth
+(two rounds of corrections: ribbons made two-sided, bushes given leaves, a sunflower's
+leaves, foxglove and lupin bells, lavender, maize, cabbages, grape vine); every mix; the
+showcase from eight places; the meadow before and after its group's colours were said
+otherwise. **Not seen moving by anyone. Not tried by hand.**
+
+### Signals, continued: how hard a thing was struck, and a row that leads to its rule (2026-10-14)
+
+Amendment 7an. On branch `m2-stable-terrain`, over f9fac22. The user's brief carried on the
+open signals work: thresholds, timers, resets **and impact strength** joined to the world's
+numbers and `when`; a Signals view whose entries lead to the object **or rule**; a
+substantial mechanism made in the editor; editing, play, save and open, undo, copying,
+references, generated things, overrides and export verified. Most of it was 7am's (above:
+conditions, `clears`, `ticks`, the window, the batcher), and was not built again. What was
+missing was built:
+
+**Built**
+
+- **`feels NAME [S]`**: each strike at S m/s or more (0.5) puts the world's NAME to how
+  hard it came, to a tenth (`loose.gd` `_struck`: one room feels for `hits` and `feels`).
+  A word of the host's (`kind.rs`: a trait, said once, one thing may say it of itself;
+  refused with its form: `feels`, `feels 3`, `feels blow fast`, `feels blow -1`), of the
+  host's `signals`, of the Signals window ("how hard it was last struck, m/s"; a count
+  asked of it is not said to be out of reach) and of the Inspector's signals line.
+- **A text's row leads to its line**: in the Signals window a row of a text (sequences,
+  talks, reactions, quests, acts) has **Open the text**, which opens F10 on that text at
+  that line, chosen and scrolled to the middle. The texts' window had left the view at
+  the top when opened at a line (the caret moved, the view was not laid out yet): it now
+  scrolls once laid out (also for Who can do what).
+- **Library > Sensors and signals: strength pad** (`feels blow 1`; 39 designs).
+- **The strength tester** in the lab (`physics.rs`, at 14, -18; `showcase-physics.json`
+  rebuilt, 142 things put down, 38 designs brought in): the pad; three lamps of their own
+  lines `when blow 3`, `6`, `9`; a reset post `when blow for 4; clears blow`; a ball sent
+  into it as the world runs, and a rubber ball to kick (E).
+- **`-Demo signals`**: 8 beats (new: "How hard, as a number", a ball sent in at 5 and at 10
+  m/s). Tour part `signals` grown; unit test and p62 grown.
+
+**Found and mended on the way**: the texts' window opened at a line showed the top (above);
+the Signals window first said the pad's lamps could never light (it read `feels` as a
+writer that only holds); the `physics` tour part took the strength tester's ball for one
+of its ramps' (its pick narrowed to the lab's west).
+
+**Checked** (automated)
+
+- **Host tests, all, one at a time**: 53 unit (grown: `feels` said rightly and refused,
+  of one thing and of a design), 62 protocol (p62 grown: a drum's own `hits ring 1.2;
+  feels blow` read as wiring, kept through writing and opening; `feels 3` and `feels blow
+  fast` refused of one thing).
+- **`showcase.ps1 -Which physics -Over`**: 142 things put down, 38 designs; opened and
+  written again, the same file (the one before kept in `editor\backups`).
+- **`-Tour -Only signals`**: problems [], no script error. As in 7am (17 things, the
+  Inspector, the window, mistyped, undo, copy, wiring, the joint picked, two rounds,
+  saved, opened, two rounds again, the controller), and new: a strength pad, three lamps,
+  a reset post and a ball from the Library in the new world; the lamps and the reset told
+  their lines in the Inspector; the pad's signals line "writes blow (feels)"; `blow`
+  written by 2 and gone by by 4, nothing wrong. A sequence written that says `needs fact
+  batch 3`: its row in `batch`'s readers, line 63; the button "Open the text"; F10 opened
+  on sequences, that line chosen and in view; Ctrl+Z: the text as it was, the row gone.
+  Played: a ball sent at the pad at 5 m/s, felt 4.2, the lamp of 3 alone lit; at 10 m/s,
+  felt 9.2, all three; each taken back 3.9 s after (lamps out). Saved, opened: the reset's
+  and a lamp's lines there; struck again: the same numbers.
+- **`-Demo signals -Check`**: 8 of 8 beats, nothing wrong; the batcher's two rounds as in
+  7am (gate +1.00 s, reset +6.02 s); strikes on the lab: 5 m/s felt 4.5 (lamp 3), 10 m/s
+  felt 9.6 (3, 6, 9). Pictures looked at.
+- **Parts beside it**, problems [] and no script error: physics (after its pick was
+  narrowed; before, "the ramps [5.7, 0.0, 4.88]", the third the strength tester's ball),
+  mech, own, loose, hub (texts opened at a line), ui.
+- **`kinds`**: 3 of 3 passed (since f9fac22 the controller behind the window is not
+  heard; before it, 2 of 5). Tracked, not called mended: three runs are few.
+- **The built game** (`export.ps1 -Check`): passed (delivery, saved, left, continued, no
+  host left running). A copy given the lab, `-- --demo signals --check`: 6 of 8 beats (the
+  two of the editor's windows are not in the game), the same rounds and strikes as the
+  editor (4.5 and 9.6). Its exit code was not read this time.
+- **Not run**: the whole tour, `-Measure`, `-Weigh`, the other demos; `library` (fails as
+  before, Known gaps).
+
+**Looked at** (by me, in pictures): the texts' window opened from a Signals row, the line
+chosen in the middle; the lab's pad with its three lamps lit after the hard strike.
+
+### Signals you can reason with: conditions, timers, resets, the wiring in a window, joints picked in the view (2026-10-14)
+
+Amendment 7am. On branch `m2-stable-terrain`, over 5b079b5. At the user's asking:
+expressive, inspectable signals for reusable gameplay and mechanisms, by extending the
+world's numbers and `when` rather than a separate logic system; a machine made with the
+editor's own tools that can be inspected, edited, saved, opened and run again.
+
+**Built**
+
+- **Conditions**: `when [not] NAME [OP] [N] [for S]` (`kind.rs` `when_said`; `state.gd`
+  `cond`, `holds`): `when ring` as before; `when ring 3` (at least 3); `>= <= > < =`;
+  `not`; `for S` (once it has held S seconds of the world running). A fact not there is
+  0. One reader for every `when` (doors, lamps, kicks, turns, glides, fans, belts, motors);
+  texts' conditions take the same (`fact ring 3`).
+- **Timers and resets**: `clears NAME…` (takes facts back while its `when` holds) and
+  `ticks NAME S` (one more every S seconds while it holds) (`loose.gd` `_timers`); the
+  world's own running time (`state.now`), 0 each time it runs.
+- **Checked by the host**, of a design and of one thing (refused with the form);
+  `clears`, `ticks` are words one thing may say of itself.
+- **The host's `signals`** (read, also while running): every thing put down, and each
+  design a maker makes, that writes or goes by a fact; every joint by name.
+- **Window > Signals** (Ctrl+K, `signalview.gd`): facts with their writers and readers,
+  values and what holds while playing, what is wrong (nothing writes it, and "did you
+  mean"; a count never reached; goes by it and does nothing; `by` without a speed;
+  `clears` without `when`; a joint to nothing), the wiring drawn in the view, a row's
+  thing picked.
+- **Inspector**: "signals: …" and **Signals…**; a joint's **pick…** (its other thing,
+  clicked in the view) and **click on it…** (where it holds).
+- **Library > Sensors and signals**: swinging gate, timer post, reset post (38 designs).
+- **The batcher** in the lab (`host\examples\physics.rs`, rebuilt
+  `editor\showcase-physics.json`, at 20, -15; 135 things put down, 37 designs brought in):
+  belts `when batch < 3`, a chime `hits batch 2.5`, lamps `when batch 1/2/3`, a gate
+  `when batch 3 for 1`, a timer `ticks waited 1` `when batch 3`, a reset `when waited 6;
+  clears batch waited`: rounds of three, again and again.
+- **`-Demo signals`** (7 beats, the newest), tour part **`signals`**, host test **p62**,
+  a unit test.
+
+**Found and mended on the way**: a belt started again by a fact moved nothing that had
+come to rest on it (what is asleep is now woken when a belt starts); the batcher counted
+past three with the chime's design (a bounce counted again, parcels already falling: its
+own `hits batch 2.5`, slower belts); in the tour's world the counted parcels piled at the
+tray's open side and the next came to rest on them uncounted (its own faster `carries`);
+the batcher first shared `ring` with the bell machine (its own name now); the window's
+rows were cut off by an empty column; texts' prose was read as facts.
+
+**Checked** (automated)
+
+- **Host tests, all, one at a time**: 53 unit (new: conditions, timers and resets said
+  rightly, refused, laid over a design), 62 protocol (new p62: a design's conditions and
+  a wrong line said with its number; one thing's refused five ways; the wiring read:
+  what writes, what goes by it, its own over its design's, where it stands; a maker given
+  a design that says them listed once with its count; read while running; written and
+  opened, the same).
+- **`editor\showcase.ps1 -Which physics`**: 135 things put down, 37 designs; opened and
+  written again, the same file.
+- **`-Tour -Only signals`** (new): problems [], no script error. In a new world: seventeen
+  things from the Library, turned to 0, parcels raised, five named in Makers. In the
+  Inspector each one's lines; `when batch 3 soon` refused (its lines as they were); the
+  gate's signals line "goes by batch 3 for 1". Signals window: `batch` written by 2 and
+  gone by by 7, `waited` 2 and 1, nothing wrong; a lamp told `when bacth 2`: one problem,
+  "nothing writes 'bacth' … did you mean 'batch'?", put right: none; a parcel told `when
+  batch`: "does nothing by it", Ctrl+Z: its lines "" and nothing wrong; a lamp copied:
+  the copy `when batch 3` and 8 readers, undone: 7; the wiring drawn (14 lines); the gate
+  picked from the window. A link made a hinge of its own, **pick…** and a click on itself
+  (refused, as it was), a click on the block ("…to anchor block"), **click on it…** and a
+  click on its ball (`joins hinge 0.05 0.2 0.12 x to anchor block`). Played: 1, 2, 3 at
+  1.88, 2.88, 3.88 s; three lamps lit; the belts 0 m/s ten steps after; the gate open
+  1.00 s after the third, seen standing open; the window while playing: `= 3`, the gate's
+  condition "holds", nothing wrong; reset 6.00 s after the third: lamps 0, the gate shut,
+  the belts 1.2 m/s again; round two the same (gate 1.00 s, reset 6.00 s). Saved, a new
+  world, opened: the lines there; played again: the same to the hundredth of a second.
+- **`-Demo signals -Check`**: 7 of 7 beats; on the lab: `batch` 2 writers and 7 readers,
+  nothing wrong, 14 lines drawn; played: 1, 2, 3 at 1.82, 2.82, 3.82 s, the belts
+  stopped, the gate open at +1.00 s, reset at +6.02 s, lamps 3 then 0, belts again; the
+  second round the same (+1.00, +6.02). Pictures looked at.
+- **Parts beside it**, problems [] and no script error: signals (again), ui (the new
+  window), mech, own, physics, recreate, puzzle, loose, door, saves (the delivery gate's
+  `when delivered`), talk (`fact` conditions), style (lamps `when dark`), land (the
+  Inspector), hands. **`library` fails, and failed the same with the code of 5b079b5**
+  (run from `git archive`): its check of the shelves pinned five and the library has had
+  "Village people" (7ag) and "Physics lab" (7aj) since; mended (the shelves by name), and
+  then its next check fails, again as the committed code does: "a design clicked in the
+  library was not brought into the world" (chosen_by_click false). Not chased (Known gaps).
+- **`kinds`, compared** (the brief asked whether the new code changes it): ten runs
+  alternating this code and the code of 5b079b5 on one host: each passed 2 of 5 and
+  failed 3 of 5, in the same two ways ("petted counted 2"; "a loose thing … not pushed").
+  Instrumented, the cause of "counted 2" was found: an Xbox One controller on this machine
+  sent Y ("act") to the unfocused window (Known gaps). The instrumentation was taken out.
+- **The built game** (`editor\export.ps1 -Check`): its own check passed (a delivery made,
+  saved, left, continued; no host left running). A copy given the physics lab as its
+  world, run with `-- --demo signals --check`: 5 of 7 beats (the two of the editor's
+  windows are not in the game, as intended); two rounds, the same numbers as in the
+  editor (1, 2, 3 at 1.82, 2.82, 3.82 s; gate +1.00 s; reset +6.02 s; lamps 3 then 0; the
+  belts stopped and running again). **Both runs of the check and the demo's run ended with
+  a Windows fault code** (0xC0000374 for the check's two, 0xC0000005 for the demo's) after
+  everything was done; a build of the code of 5b079b5 ends the same (0xC0000374 for its
+  check, 0xC0000005 after `--demo mech --check`): not new, not explained (Known gaps).
+- **Not run**: the whole tour, `-Measure`, `-Weigh`, the other demos.
+
+**A controller behind the window** (the user's decision, asked after the `kinds` finding):
+a controller is heard only while the editor's or the game's window is in front. Behind
+it, every controller binding of the actions (`controls.gd` `hear_pads`) answers only a
+script's pretend controller (device 99, `Controls.SCRIPTED`, which the tour's simulated
+presses now say they come from); what a controller held is let go; and a controller's raw
+events from any other device are dropped at the top of `main.gd` `_input` (what reads
+them raw: talk, puzzles). The window's focus says which (`focus_entered`/`exited`).
+Checked: `-Tour -Only signals` now also checks it directly (behind: a real Y is not "act",
+the script's is; in front: a real Y is), problems []; `kinds` 5 of 5 (2 of 5 before);
+talk and puzzle (they drive the pretend controller), signals, ui: problems [];
+`export.ps1 -Check` passed as before. Not tried with the controller by hand.
+
+**Looked at** (by me, in pictures): the Signals window on the lab with `batch` open and
+the wiring drawn over the machine; the mistyped lamp's problem and the Inspector's
+signals line; the window while playing (`= 3`, which conditions hold); the Inspector's
+joint chosen by two clicks; the batcher at the first round (lamps lit, gate open), after
+the reset (dark, shut) and at the second. **Not tried by hand.**
+
+### Mechanisms: things joined, fans and belts, strikes counted, speeds by a number (2026-10-14)
+
+Amendment 7al. On branch `m2-stable-terrain`, over 802f121. At the user's asking:
+reusable physical mechanisms and interactions (joints between placed bodies, continuous
+forces, impact events and numbers that drive other things), in an order chosen from the
+architecture, with a construction made by the editor's own tools.
+
+**Built**
+
+- **Signals first**: `hits NAME [S]` (each strike at S m/s or more adds one to the
+  world's NAME) and `by NAME [MOST]` (a motor, `turns`, `glides`, `blows`, `carries`
+  go at their speed times the world's NAME). `when` also gates the new ones.
+- **Forces**: `blows X Y Z S REACH [W]` (a room ahead of a thing in which what is loose
+  gains S m/s each second: a fan, an updraft), `carries X Y Z S` (a fixed body whose
+  top carries what stands on it: a belt).
+- **Joints** (`kind.rs` `joint_said`, `joins_to`; `things.gd` `joint`; `loose.gd`):
+  `joins hinge X Y Z AXIS | slider AXIS | spring X Y Z K | weld`, `limits LO HI`,
+  `motor S`, `to NAME`. A design's joint is to the world; one thing put down may name
+  another put down by hand (its own lines). The host checks the name (`param`), says
+  which thing it is (new read `joints`), lists what is near (`physics` `near`), and
+  renaming rewrites what named it in the same edit.
+- **The Inspector's Physics part**: **joined** (the sort, to the world or to a thing near
+  it, the axis, where it holds, a motor, a stiffness; its own in blue) and **its design
+  also says** for words without a row.
+- **Colliders drawn**: rooms that blow magenta, joints white (where each holds, its axis,
+  a line to what it holds to), editing and playing.
+- **Library > Physics lab > Mechanisms** (35 designs): conveyor belt, parcel, chime tray,
+  fan, updraft pad, paddle wheel, wheel stand, swinging link, light crate, sliding gate,
+  weight on a spring.
+- **The lab's bell machine** (`host\examples\physics.rs`, rebuilt
+  `editor\showcase-physics.json`, 120 things put down): parcels on a belt drop into a
+  chime; a paddle wheel `by ring 4`; a gate, a fan and a lamp `when ring`; two crates
+  welded by name; a chain of two links hinged by name; a weight on a spring; an updraft.
+- **`-Demo mech`** (7 beats, the newest); tour part **`mech`**; host test **p61** and a
+  unit test.
+
+**Found and mended on the way**: a fan's `apply_central_force` moved nothing (the speed is
+added each step now); a hinge motor with a very large torque let its wheel fall off its pin
+(lowered); the chime counted one parcel of three (the next landed on the first; the tray
+now carries what lands off its side); `hits 3` was taken (a fact's name begins with a
+letter); the Inspector wrote `0.0` for `0`. In the tour, the first places chosen were
+on the playground's own houses and rocks: a wheel rested on a rock and two crates on a
+wall's edge (found by asking the physics what each touched); the machine was moved to its
+clear lawn.
+
+**Checked** (automated)
+
+- **Host tests, all, one at a time**: 52 unit (new: joints, forces and numbers said rightly,
+  refused, laid over a design), 61 protocol (new p61: near; refused wrongly said, to
+  nothing, to itself, to a maker; said and kept; the thing made says it; `joints` says
+  which; renamed and followed, undone together; copied; written and opened; what it named
+  taken away, the joint to nothing and why; a design's joint to the world. p43 knows
+  Mechanisms).
+- **Worlds written before are written the same**: `showcase-village.json`, `town.json` and
+  the 7ak `showcase-physics.json` opened and written by this host: byte for byte but for
+  the start place, which the check left out.
+- **`editor\showcase.ps1 -Which physics`**: 120 things put down, 34 designs brought in;
+  opened and written again, the same file.
+- **`-Tour -Only mech`** (new): problems [], no script error. In a new world: thirteen
+  things from the Library, their yaw set to 0 (the Inspector's number), raised, two named
+  in Makers. In the Inspector: the lower link's design's joint shown ("a hinge about its
+  x, to the world"), then a hinge of its own chosen, to 'upper link', held at 0 1.2 0
+  ("joins hinge 0 1.2 0 x to upper link"); the back crate welded to 'front crate'; the
+  wheel `by ring 4`, the gate and the fan `when ring` (the fan's "its design also says:
+  blows 0 0 -1 8 5 1.4"), the upper link `pushed 0 0 -3`; `joins hinge 0 1 0 q` and
+  `joins weld to nobody here` refused, its lines as they were; the upper link renamed
+  'top link' and the lower's line following. Drawn: 6 joints, a room that blows. Played
+  (600 ticks): the chime rang 2 (tick 97); the wheel 0 before, 0.79 rad/s (45°/s) after one
+  ring, 1.57 after two; the gate still before, 1.7 m open after; the welded crates blown
+  7.3 m, 0.01 m from as far apart as they were; the lower link's top within 0.06 m of the
+  upper's ball, swung 0.43 m; the weight sank 0.61 m. Saved, a new world, opened: the own
+  lines there; played again: 2 rings, 0.79 and 1.57 rad/s, 1.7 m, 8.6 m and 0.00, 0.01 m,
+  0.59 m.
+- **`-Demo mech -Check`**: 7 of 7 beats; on the lab: 3 rings, the wheel 0, then 1.57, then
+  2.36 rad/s (135°/s), the gate 1.7 m open, the crates 8.3 m on and 0.70 m apart as they
+  were placed, the light ball 3.8 m up over the updraft, the weight hanging 1.9 m up.
+  Pictures looked at.
+- **Parts beside it**:
+  problems [] and no script error: own, physics, puzzle, loose (frame 9.2 ms, as the
+  code of 802f121 gives, 9.3), hands, ui (the new checklist), land (the Inspector), mech
+  again. **`recreate` failed three times, then mended**: its check that a lower gravity
+  makes a fall slower timed the fall by the clock, in a tour drawn as fast as it can be;
+  the heights it measured were the same to the centimetre as the code of 802f121 gives,
+  whose clock happened to say 2.1 s for a fall the physics makes 1.0 s. It now counts the
+  physics' own steps: 0.65 s at 9.8, 1.02 s at gravity 4 (the sums say 0.64 and 1.0), and
+  passes. **`kinds` fails** on petting the new kind of sheep ("began": false), three times
+  of three here; **the code of 802f121 fails the same way once in three** (run from
+  `git archive`, with the same host): intermittent before this, not chased (recorded under
+  Known gaps).
+- **The built game** (`editor\export.ps1 -Check`): its own check passed (a delivery made,
+  saved, left, continued; no host left running). Then a copy of the build given the
+  physics lab as its `world.json`, run with `-- --demo mech --check`: seven beats, 3 rings,
+  the wheel 0, 1.57, 2.36 rad/s, the gate 1.7 m open, the crates 0.70 m apart, the light
+  ball 3.4 m up; the Inspector's beats show nothing there (the game has no editor, as
+  intended). Pictures looked at.
+- **Not run**: the whole tour, `-Measure`, `-Weigh`, the other demos.
+
+**Looked at** (by me, in pictures): the Inspector's joined part for the lower link (its own
+in blue, 'to upper link (0.0 m)', at 0 1.2 0) and for the wheel ('by ring 4' its own, its
+design's motorised hinge); the chain under its frame with white crosses at each hinge; the
+fan's magenta room; played, the belt empty and the chime holding a parcel, the wheel
+turning, the gate open, the crates blown past the chain together, the weight under its
+frame. **Not tried by hand.**
+
+### Physics made authorable, second tier: one thing's own, colliders drawn, sensors (2026-10-14)
+
+Amendment 7ak. On branch `m2-stable-terrain`, over 918c342. At the user's asking: per-thing
+physics through the Inspector, colliders seen while editing, and what composing physics
+from reusable pieces needs, with the next of it built.
+
+**Built**
+
+- **One thing's own physics** (`kind.rs` `OWN`, `own_said`, `own_over`; `land.rs` Placed
+  `own`; `shapes.rs` `owned`): its own lines in the kind's words (fifteen of them, and
+  `no WORD`), one parameter of what put it down, laid over its design's by the host;
+  refused with the reason when wrong. Also a collider of its own (`solid`).
+- **The host's `physics`** (of a node, or of a thing by id, also while running): design's
+  lines and collider, own lines, the two laid over each other, and shapes that fit round it.
+- **Inspector > Physics of this one** (`inspect.gd`, first for a thing put down): weight,
+  bounce, grip, damping or kicks beside the design's, its own in blue, **design's** to take
+  back; its own lines as text; its collider, a ball/box/post round it or none, sized there;
+  show colliders.
+- **Colliders drawn** (`colliders.gd`; View > Colliders; Inspector; Physics window): lines
+  coloured by what each is, editing (from content) and playing (from the bodies, moving).
+- **Physics window**: **Keep for this one only** (only what is other than its design);
+  **Show colliders**; filled as it opens.
+- **Sensors and what goes by them**: `senses NAME W H D [group N] [counts]`; `when NAME`
+  now gates kicks, turns and glides. Library > Physics lab > **Sensors and signals**: a goal
+  frame and a signal lamp (24 designs).
+- **The lab** (`host\examples\physics.rs`, rebuilt): four balls of one design with their
+  own physics, and a goal that lights a lamp and starts a spinner told `when goal`.
+- **`-Demo own`** (7 beats); tour part **`own`**; host tests **p60** and a unit test.
+
+**Found and mended on the way**: Godot draws a shape's faces as well as its edges
+(colliders covered everything: edges only now); still colliders drawn through walls
+cluttered the view (not drawn through now, and nearer); the Inspector's rows went out of
+line where a button was hidden; the Physics part was below the fold (now first); the
+physics tour waited for the Physics window by frames, which in a tour pass faster than
+the window looks (now by the clock); a tuned body was kept with all four numbers (now only
+those other than its design's).
+
+**Checked** (automated)
+
+- **Host tests, all, one at a time**: 51 unit (new: own lines read, refused, laid over a
+  design), 60 protocol (new p60: said, refused, kept, made of one thing alone, the design
+  changed under it, copied, written and opened, taken back, a rock, not a maker's; p43 knows
+  Sensors and signals).
+- **Worlds written before are written the same**: `showcase-village.json` and `town.json`
+  opened and written by this host, byte for byte; a copy of `my tile world.json` is
+  written otherwise (a tile's `beside` filled out), and the committed host writes it the
+  same way, so not by this change.
+- **`editor\showcase.ps1 -Which physics`**: 101 things put down, 23 designs brought in;
+  opened and written again, the same file.
+- **`-Tour -Only own`** (new): problems [], no script error. In the Inspector: the design's
+  four lines shown; bounce 0.95 set (blue, design's offered); 'roams 3' refused; a box
+  chosen (`solid box 0 0.22 0 0.45 0.44 0.43`), w 0.4; colliders drawn (picked 1, loose 7,
+  senses 1); the spinner's own lines 'when goal'; Ctrl+D and a click: the copy says
+  'bounce 0.95'. Played: the plain ball came up 0.65 m, its bouncier twin 1.68; the ball on
+  the gentle ramp rolled 3.3 m, the boxed one moved 0.75 m and lay still (a BoxShape3D);
+  the goal counted at tick 28, the spinner had not turned before and turned 2.4 rad after;
+  the lamp lit. Grip 0.15 tuned in the Physics window and kept for one: 'grip 0.15' when
+  stopped. Saved, a new world, opened: the own lines there; played again: 0.68 and 1.64 m,
+  2.6 m rolled, 0.74 m and still, the goal at tick 29, spun 2.4.
+- **`-Demo own -Check`**: 7 of 7 beats; pictures looked at (twice: the camera was not on
+  the station and the colliders were filled; mended).
+- **Parts beside it, problems [] and no script error**: physics (after its wait), puzzle,
+  recreate, loose, hands, ui, land (the Inspector), kinds.
+- **Not run**: the whole tour, `-Measure`, `-Weigh`, the built game, the other demos.
+
+**Looked at** (by me, in pictures): the Inspector's Physics part for a ball (own bounce in
+blue beside the design's grey) and for the spinner; the boxed ball's cyan box among the
+others' green rings; the goal's blue room, the spinner, the steep ramp's yellow outline;
+played, the colliders on the bodies; scored, the lamp lit and the spinner turned; the
+Physics window keeping for one. **Not tried by hand.**
+
+### General-purpose physics, authorable; a lab; falling blocks (2026-10-14)
+
+Amendment 7aj. On branch `m2-stable-terrain`, over cfb6297. At the user's asking: reusable,
+user-authorable physics and collision, proved by moving-ball experiments and a playable 3D
+falling-blocks game assembled from Draw3D's own authoring; and the standing rule that
+whatever a demo shows the user can create, configure, arrange, inspect, recreate, modify,
+save and reuse (7aj's table says how, and what is not yet so).
+
+**Built**
+
+- **Physics as a kind's lines** (`kind.rs`, `things.gd`, `loose.gd`): `bounce`, `grip`,
+  `damp`, `pushed`, `fast`, `group`/`misses`, `pinned` (a hinge), and of fixed things
+  `kicks`, `turns`, `glides`; `solid ball R [x y z]`. Loose bodies made about the middle of
+  their shapes (`loose.frame(key)` is the thing's own frame).
+- **The world's numbers** (`physics.txt`, `physbook.gd`): gravity, speed, ticks, lost.
+- **`raise`** for anything put down (`land.rs` Placed; World outline and Inspector).
+- **The act `kick`** (`sends`) and **`play`** (`plays`).
+- **The Physics window** (F2, `physview.gd`): gravity and speed now and kept; held and
+  stepped; the bodies near; one chosen, ringed and its way drawn, tuned live, written into
+  its kind when the world stops; bounce heights measured.
+- **Library > Physics lab** (`editor\library\physics.txt`, 22 designs) and **the physics
+  lab** world (`host\examples\physics.rs`, `editor\showcase.ps1 -Which physics`,
+  `editor\showcase-physics.json`).
+- **Puzzles** (`puzzles.txt`, `puzzlebook.gd`, `puzzle.gd`): blocks3d, blocks2d, columns;
+  keys and controller (`puzzle_*` in `controls.gd`), shown for the scheme in use; cleared
+  blocks burst off as physics; best score a fact.
+- **`-Demo physics`** (10 beats); tour parts **`physics`**, **`puzzle`**, **`recreate`**.
+
+**Found and mended on the way**: a body held three metres up turned about its foot (bodies
+are now about their shapes' middle); "A step on" did nothing (the physics is held or let go
+in `_physics_process`, before it is stepped, not in `_process`); a puzzle's key pressed and
+let go between two frames was missed, and Godot's "just pressed" missed some presses (a
+press is now seen frame to frame by the puzzle itself); the block's kind was cached across
+games (asked of the host each game); the puzzle's eye stood among the frame's posts (the
+posts are lower, the eye frames the whole well from a set angle); the Physics window shut
+on Start again (the windows for playing that were open open again); the document cannot
+be changed while the world runs, so "Write into its kind" waits until it stops; the
+controls card grew past the window with the puzzle's keys (they are on it while a puzzle
+is played, one line otherwise).
+
+**Decisions made here, the user's to overrule** (7aj in full): physics per kind (with
+`like`); a loose thing that says a physical word is let go when the world runs; the kind is
+written when the world stops; speed is Godot's time scale; a puzzle's blocks are drawn from
+a kind; `raise` belongs to everything put down.
+
+**Not done** (7aj's gaps): per-thing physics; colliders drawn while editing; joints between
+bodies, limits, motors; steady forces and wind on bodies; raycasts and overlap triggers a
+person can use; turning and gliding by facts; speeds kept in a save; a capsule; Newton's
+cradle exactly; the puzzle beyond the falling-block family; a gamepad button for Physics
+and the journal.
+
+**Checked** (automated)
+
+- **Host tests, all, one at a time**: 50 unit (a new one: a kind's physics words and a
+  ball collider, and what is wrong in them said), 59 protocol (p43 knows the Physics lab
+  and its four groups; all 22 designs understood).
+- **Worlds written before are written the same**: `showcase-village.json` and `town.json`
+  as committed, and a copy of `my tile world.json`, opened and written by the host as
+  committed and by this one: byte for byte the same (the copy deleted after).
+- **`editor\showcase.ps1 -Which physics`** (by `cargo run --example physics`): 92 things
+  put down, 21 library designs brought in, three kinds of the world's own; opened and
+  written again, the same file.
+- **`-Tour -Only physics`** (new, in play, on a copy of the lab): problems [], no script
+  error. 26 loose bodies and 64 fixed. Dropped 2.7 m: the bouncy ball (0.92) came up 2.03
+  m, rubber (0.6) 0.89 m, iron (0.1) 0.03 m, all landing at 0.72 s. The ramp balls went
+  5.7 and 4.9 m on. The last pendulum of the cradle moved 0.42 m (the middle ones 0.47 m:
+  not a clean Newton's cradle). The gliding platform carried its ball 3.8 m. The pen kept
+  its six balls (none past 3.8 m of the middle, the wall at 4.0). The red ball went through
+  the red gate (to z -6.5), the green one was stopped (-3.7). Bumpers and kickers kicked 5
+  times. The Physics window: 90 listed; the ball held up chosen and its bounce set to 0.95
+  now; came up again 79, 80, 81, 82, 83 % of each fall; gravity 1.6: the iron ball fell in
+  1.8 s (0.72 at 9.8); held: nothing moved in 60 ticks, the walker still stepped; a step
+  on: 0.044 m at 2.63 m/s; gravity and speed kept in physics.txt; speed 0.5 is the time
+  scale; its bounce written into the kind `ball-high` when the world stopped. A bouncy ball
+  kicked by the walker (E): moved 1.08 m, told.
+- **`-Tour -Only puzzle`** (new): problems [], no script error. Three puzzles read; E at the
+  frame: its eye, the walker held, the HUD; moved by Left and twice by the D-pad (left on
+  the screen from the eye's side), spun, dropped and fixed; a level filled but for one
+  cell, a block dropped in: cleared, 111 points, 25 blocks burst off as bodies, what was
+  over fell; the eye a quarter round: left is another way; held: it did not fall; shown
+  for a controller (D-pad, Back); over (nowhere to come in), the best 1234 kept as a fact,
+  P again; Esc left, the walker's eye back. The rules changed in puzzles.txt (4 by 10 by 4)
+  and the block's kind (with the world stopped): the next game is so (blocks 0.6 wide).
+  A frame of the world's own `plays blocks2d`: 10 by 20 by 1, a row cleared. One
+  `plays columns`: three reds in a row cleared, the blue over them fell.
+- **`-Tour -Only recreate`** (new): problems [], no script error. A new world; a steep ramp,
+  a rubber ball and a bouncy wall from the Library (Place one, a click); the ball raised
+  1.5 m (World outline's setting); `my-ball like ball-rubber`, bounce 0.95, applied in
+  Object text, put down and raised 2 m. Played: the ball started 1.74 m up on the ramp
+  and went 3.5 m; my ball fell 2.0 m and came up 1.63 m. Changed (bounce 0.2 in Object
+  text, gravity 4 in physics.txt): it came up 0.08 m and landed at 1.01 s (0.60 before).
+  Saved as a file, another world made, the file opened (the text there 34 ms after): the
+  same, 0.08 m and 0.98 s.
+- **`-Demo physics -Check`**: 10 of 10 beats; pictures looked at (the demo's words were
+  cut off at the left: mended, and run again). **`-Demo work -Check`**: 8 of 8.
+- **Parts beside it, problems [] and no script error**: loose, hands (both after the
+  comparisons there were made in the thing's own frame: `loose.frame`, since a body is now
+  about its shapes' middle), written, ui (after it left out the three windows that open
+  only while playing: Playtest has failed it so since 7ag, the part not having been run
+  since; their own parts open them), cast, work, talk (after the cook's greeting it looks
+  for was made the morning's).
+- **`acts`: the same one problem as before** (the card of controls wider than three
+  quarters of the window, `card_fits` [true, false]). With the puzzle's keys on the card
+  it was also taller than the window ([false, false]): they are on it only while a puzzle
+  is played now.
+- **Not run**: the whole tour, `-Measure`, `-Weigh`, the built game, the other demos.
+
+**Looked at** (by me, in pictures): the lab from the start; three balls let fall with the
+Physics window, its ring and its line; the pen, the table, the cradle and the platform;
+the falling blocks (the eye was among the frame's tall posts, the HUD over the board and
+the walker in the way: the posts are low now, the eye frames the whole well, the HUD is at
+the right, the walker is not drawn while playing); a level cleared and its blocks flying
+off; the flat game; the columns. **Not tried by hand.**
+
+### The village answers: reactions, talks with answers, markers and a journal (2026-10-14)
+
+Amendment 7ai. On branch `m2-stable-terrain`, over 37e788d. At the user's asking
+("reactions and dialogue and all related to the village milestone"), before the next
+milestone (general-purpose physics).
+
+**Built**
+
+- **Reactions** (`reactions.txt`, `reactbook.gd`, laid over work by `work.gd`; 7g M4c,
+  first tier): what someone does when something comes about, of everyone, people, or
+  someone by name or kind; `when`, `while`, `urgent`, `again`; the steps of a sequence,
+  and new ones: `face WHO`, `move MOVE`, `go walker`, `go indoors`. The most pressing
+  that holds begins once the act in hand has ended; their work waits and goes on from the
+  step it was on. Looked at for everyone with a body, not only those with work.
+- **Conditions** (`cond.gd`): `near WHO R`, `quest NAME STAGE`, `walker ...`, `weather`
+  of several names.
+- **Talks** (`talks.txt`, `talkbook.gd`, `talk.gd`): points, what is said (by
+  condition), answers with `if`, `to`, `takes QUEST`, `gives`, `pays`, `put`, `clear`;
+  a panel at the bottom; the walker and they stand while it is held; answers by 1 to 9,
+  Up/Down and E, a click, or a controller's D-pad and A; Esc or B leaves; an answer that
+  cannot be given greyed with why. With no talk written, talking is as in 7ah.
+- **Markers** (`quests.gd`): "!" over whoever asks a quest that can be taken now; "▼"
+  over where the step the walker is on is done (`at THING` under a step).
+- **The journal** (J, or Journal in the bar; `journal.gd`): quests with their steps, and
+  what was said.
+- **In the village**: the cook's talk (the quest asked, yes or not now, where to buy
+  bread, coins; by the hour good morning, afternoon or evening), the baker's, the
+  shopkeeper's (an apple given once); everyone with hands shelters from rain; the baker
+  greets the walker (by what the stall has) and the smith otherwise; the shopkeeper comes
+  to the walker who waits at her counter with an apple.
+- **`-Demo talk`** (8 beats) and **`-Tour -Only talk`**. The checklist rewritten.
+
+**Found and mended on the way**: the controller's line under the answers did not change
+to the controller's buttons (the talk took the button before the controls heard which was
+used); a notice lay over the talk panel and under the act prompt (moved above both);
+Playtest's log showed the last 80 lines and the work part's baking line had scrolled out
+of it with talks and reactions written too (it shows 200).
+
+**Decisions made here, the user's to overrule** (7ai in full): a quest is taken by an
+answer where a talk is written (replaces 7ah's decision 3 there); a reaction is of whom by
+its own `of` line, not a kind's word; work interrupted begins its step again; a talk holds
+the walker still until Esc or B; a talk's conditions are the walker's, a reaction's its
+own one's.
+
+**Not done** (7ai): profiles (M4d); a window for writing talks and reactions; talks
+begun by someone else, or between the folk; voices, portraits, words over heads; the
+economy deepened.
+
+**Checked** (automated)
+
+- **`-Tour -Only talk`** (new, in play, on a copy of the showcase): problems [], no script
+  error. Reactions (5) and talks (3) read with no problems. The cook's talk held (the
+  walker and the cook stand: W held 40 ticks moved the walker 0.0 m; the cook "talking");
+  three answers, "Where do I find bread?" not shown before the quest is taken; the quest
+  asked; "Not now": still new, no coins, the ! still over her; yes: "(You are given 4
+  coins.)", step 1, the ! gone and a ▼ over the stall; talked to again: "Still to do: buy
+  two loaves ...", and "Where do I find bread?" shown. The shopkeeper: "Here, an apple for
+  you. (you have no apples)" greyed, chosen: "Not now: you have no apples", the talk still
+  open; the D-pad moved the choice, the line under the answers said the controller's
+  buttons, B left. The journal: the quest, "→ Buy two loaves", and "The walker: Yes, I will
+  bring two loaves." The baker greeted the walker (turned to them, facing 1.0) and the
+  smith otherwise (a wave, "Morning, smith!", no move missing). Rain: the gardener went
+  from the orchard into the cottage in 13 s, 9 sheltering in all, his row "sheltering from
+  the rain, while ..."; clear again: "stopped sheltering", his row "picking apples" again.
+  The shopkeeper, 21.6 m off in the square, came to the walker at her counter with an
+  apple (1.8 m), said so, finished. The showcase file not written.
+- **`-Tour -Only work`**, the cook's quest now taken by an answer: problems [] (after
+  Playtest's log was made to show 200 lines; at 80, "made 4 loaves" had scrolled out).
+- **`-Demo talk -Check`**: 8 of 8 beats; pictures looked at.
+- **Parts beside it, problems [] and no script error**: villagers, village, keeper, cast,
+  errand, hands, town, flock.
+- **Not run**: the whole tour, `-Measure`, `-Weigh`, the built game, `-Demo work` (its
+  cook's beat now answers the talk; not run again), host tests (no host change in this
+  slice).
+
+**Looked at** (by me, in pictures): the talk panel over the hall with the ! over the cook;
+the greyed answer and its why (a notice that lay over the panel was moved above it); the
+journal; the gardener sheltering in the cottage; Playtest's rows "sheltering from the
+rain"; the shopkeeper come to the counter (a notice under the prompt, moved above it).
+**Not tried by hand.**
+
+### The village at work: goods, a day's work as sequences, and one quest (2026-10-14)
+
+Amendment 7ah. On branch `m2-stable-terrain`. At the user's asking ("the village at
+work", recommended by 7ag): one complete gameplay loop through the real editor and
+runtime, on reusable behaviour, with a real resource loop and one quest, and Playtest
+showing it. No combat; no construction pass.
+
+**Built**
+
+- **Goods** (`goods.txt`, `goodsbook.gd`, `goods.gd`): bread, apples, flour, coins, each a
+  count kept as a fact (`has.NAME`) about whatever holds it: a thing (`stock NAME N
+  [MOST]`, seen on it with `shows`), one of the folk, or the walker. Carried goods are
+  seen in the hands of whoever has them, and they hold themselves so.
+- **Acts that move goods** (`acts.txt`: `makes`, `uses`, `gains`, `hands`, `for walker`,
+  `for folk`, `talks`); offered only while they can be done; why not said at the prompt
+  ("Buy a loaf (2 coins) at the market stall? You have no coins."). Eleven new acts
+  (talk, bake, take_bread, take_flour, add_flour, stock_bread, buy_bread, pick_apple,
+  stock_apples, sell_apple, leave_bread).
+- **Conditions** (`cond.gd`, 7g M4a first tier): hour, has, room, there, reach, fact,
+  weather, not; each says why it does not hold.
+- **Sequences** (`sequences.txt`, `seqbook.gd`, `work.gd`, 7g M4b first tier): do ACT at
+  THING [in PLACE], go, wait, say, check, put/clear; needs ... else; rests. A day's line
+  `goes HOUR do NAME`. A step that cannot be done is said, rested on and tried again.
+- **Quests** (`quests.txt`, `questbook.gd`, `quests.gd`): taken on by talking (E); steps
+  done by conditions; hints; what fails it; given and reward. A fact `quest.NAME`. Shown
+  under what the walker has; told as each step is done.
+- **Playtest**: each one's work and what they carry; a goods panel; the quests; goods,
+  work and quests in what happened (also printed as `told:` lines in the run log).
+- **Library: Village work** (Rural and island): bread oven, flour sacks, market stall,
+  shop counter, long table; apple trees hold four apples; the Village people talk.
+- **The village at work** (`host\examples\village.rs`, `editor\showcase-village.json`
+  rebuilt, 990 things): the oven in the baker's back room, flour in the barn, the stall in
+  the square, the counter in the shop, the long table in the hall; the baker's and the
+  gardener's days are work; the cook in the hall asks "Bread for the hall's supper".
+- **`-Demo work`** (8 beats) and **`-Tour -Only work`**.
+
+**Found and mended on the way**: the folk chose what to work at with the walker's
+"offered now" test, which also asks for a clear line to the spot, so from inside another
+house nothing was ever chosen (now `acts.not_now`, which leaves where they stand to the
+way); someone standing on the spot before a stall kept others from it (only what is built
+is in the way of a place now); the baker stood for ever against the hall terrace's edge on
+his way to the barn: ways were made up lips of 0.4 m and the folk could step up nothing
+(they now step up 0.3 m, `body.gd` STEP_UP, and ways are made up no more, `nav.gd`; at
+0.2 m the gardener was shut in the garden by its floor's edge); the baker standing by his
+stall took the walker's E from the loaf (what the walker looks toward, and a thing before someone
+passing, now come first among what is in reach); time did not pass in the demo
+(`clock.let_run`); a notice was drawn over the quest line (it goes above it now).
+
+**Decisions made here, the user's to overrule** (7ah in full): goods are counts, not
+things; prices are in the acts; talking takes a quest on at once; the walker's goods are
+the world's facts; work is not kept across a save; the folk step up 0.3 m and the walker
+does not.
+
+**Not done** (7ah): reactions and profiles (7g M4c, M4d); a window for writing sequences
+and quests; dialogue choices, quest markers, a journal; goods put down anywhere, apples
+taken off the tree's mesh, anything that grows back or is eaten; folk paid or trading
+among themselves; branches beyond `needs ... else`; work kept in a save.
+
+**Recommended next** (7ah): reactions and dialogue (7g M4c, with answers: accept, decline,
+ask), or the economy deepened; the first is closer to what a game needs next.
+
+**Checked** (automated)
+
+- **Host tests, all, one at a time**: 49 unit, 59 protocol, all pass. `p43` knows the new
+  group Village work (no problems in its five designs). Three trait words added to the
+  host's kinds (`stock`, `shows`, `speaks`).
+- **`-Tour -Only work`** (new, in play, on a copy of the showcase): problems [], no script
+  error. What is written read with no problems (4 goods, 3 sequences, 1 quest, the acts).
+  The stores found by name, in their places (oven 2 flour, stall 4 loaves, counter 12
+  coins, sacks 4 flour, 10 apple trees). The cook talked to by E: the quest taken, 4
+  coins, the step shown. The stall emptied: "Buy a loaf (2 coins) at the market stall?
+  The market stall has no loaves.", and the quest's hint. The baker, in 55 s: bakes (1
+  flour used, 4 loaves made), takes them out, carries them out of the house (seen
+  carrying), lays them on the stall (4), says so; through the house's doors, shut behind
+  him. The gardener: three apples picked, set out at the shop. Two loaves bought (stall
+  2 loaves and 4 coins, walker 0 coins, carrying), the third refused ("You have no
+  coins"). Left on the long table: the quest done, 3 coins paid, the cook's words after.
+  An apple picked and sold (counter 11 coins). Playtest by P: the baker's work in his
+  row, the goods panel, the quest done, goods in what happened, its hour the clock's.
+  The hour moved on: the baker goes home. No flour: "First, fetching flour", a sack taken
+  from the barn and put in; none in the barn either: "cannot be fetching flour: the
+  flour sacks has no sacks of flour". Started again: coins, quest and stall undone;
+  taken again and failed at seven, shown. The showcase file not written.
+- **`-Demo work -Check`**: 8 of 8 beats; the baker's three lines (bake, take, lay out),
+  the quest done, Playtest's hour the clock's. Pictures looked at.
+- **`editor\showcase.ps1 -Which village -Over`**: built, opened, written again the same
+  file; 990 things (the backup it kept of my own last build deleted).
+- **Parts run after the last change, problems [] and no script error**: work, village,
+  villagers, keeper, hands, errand, cast, town, flock. `village` walks the doors with
+  the people held still now: the baker goes through his inner door to the oven at nine
+  and opened it under the walker's nose (the doors were right; the test was not ready for
+  a village at work). `cast` measures the cat the act has: with two cats side by side,
+  the one looked at is offered now, and it was the other by the time the key was pressed
+  (the stroke itself was right). `flock` failed once in three runs ("a sheep come at did
+  not run, or was caught with room to run": nearest 3.4 m) and passed the other two; not
+  explained, written down as found.
+- **`acts`: the same one problem as before this change** (the card of controls wider
+  than three quarters of the window, `card_fits` [true, false]); everything else held.
+- **Not run**: the whole tour, `-Measure`, `-Weigh`, the built game (the new texts go
+  into a world written for it by the same way as the acts; not seen there).
+
+**Looked at** (by me, in pictures): the baker at his oven with the loaves on its ledge;
+the stall in the square with its awning; the walker buying with the quest line and what
+they have at the bottom left; the long table in the hall with the quest done; Playtest
+with its goods and quests; the empty stall and why. **Not tried by hand.**
+
+### A living village, first tier: people through doors, a pen that keeps, and Playtest (2026-10-14)
+
+Amendment 7ag. On branch `m2-stable-terrain`. At the user's asking: move on from
+construction to the next engine systems, choosing the next milestone from what is
+actually there. Chosen: runtime playtesting and navigation through structures, with the
+first tier of routines they serve, all in the village (7af's 1 and 2, and 3's start).
+The user's construction direction (a Tiny Glade-like tool-led workflow) is postponed by
+their decision and written down in `Draw3D_Modular_Construction_Feedback_and_Next_Systems.md`
+(the brief named that file; it was not in the repository, so it was written from the
+brief).
+
+**Built**
+
+- **Doors and gates as ways** (`nav.gd` `door`, `route`): each door or gate that opens
+  by hand is a navigation link across it on a layer of its own; `route(from, to, opens)`
+  asks for the ground, or the ground and the doors, and says which doors the way goes
+  through.
+- **People open doors on their way and shut them behind** (`folk.gd` `_doors`), by the
+  same acts the walker uses (`open`, `shut`); a door found open is left open. Who can is
+  whoever could do the act `open` (a hand, `reach` in their set): people, not animals.
+  So **a shut pen keeps its animals**, and a gate left open lets them out.
+- **Places by name** (host: a structure's `place` in `nodes`, its middle cell, the
+  ground's height there, its cells' corners; `things.gd`: `goes HOUR at PLACE`, `goes
+  HOUR at home`). Where each is (`place_of`), and what happened (`events`, `told`).
+- **The Playtest window** (`playtest.gd`, P while playing, the bar's Playtest): time as
+  it runs / ten times / an hour a second, hours to jump to; everyone with what they are
+  doing, where they are and where they are to be; Watch them, Back to the walker, Go to
+  them; doors that are ways and how many are shut; Check the ways to every place; what
+  happened; Start again and Start again here.
+- **Someone made indoors stands on the floor** (`body.put` `top`, `solid.under` from a
+  height): bodies were dropped onto the highest surface under them, a roof indoors.
+- **Library: Village people** (`editor\library\people.txt`): someone of the village,
+  the baker, the smith, the shopkeeper, the gardener, a boy, a girl.
+- **The village lived in** (`host\examples\village.rs`, `editor\showcase-village.json`
+  rebuilt): "the square" a structure of its own (13); the baker, the smith, the
+  shopkeeper and a neighbour each a kind of the world `like` the library's, with a day
+  of `goes HOUR at PLACE` lines; the gardener, two children and someone else; the pot
+  plant moved off the shop's doorstep (found by the shopkeeper not getting in).
+- **`-Demo villagers`** (6 beats) and **`-Tour -Only villagers`**; the `village` part
+  counts 13 structures.
+
+**Found and mended on the way**: everyone put down inside a roofed house stood on its
+roof (the drop above); the shopkeeper could not open the shop's door because the pot
+plant stood where she would stand; someone whose way turned back along the wall after a
+door (the smith, out the front and round to the barn) never counted as past it and left
+it open: they now shut it once they have crossed and stepped away; what is told of a
+door is told when it actually opens or shuts; a doorstep no longer counts as two places.
+
+**Decisions made here, the user's to overrule** (7ag in full): who opens doors is what a
+body can do (no new word); people shut what they opened and leave what they found open;
+a place is a structure at its middle cell; a day belongs to a kind, not to one placed
+person; the log is not kept.
+
+**Not done** (7ag): interactions and resources; 7g's conditions, sequences, reactions;
+dialogue and quests; sitting, carrying, stairs; avoidance beyond stepping aside; herding;
+recording and playing back a playtest; the log saved.
+
+**Recommended next** (7ag): **"the village at work"**: interactions, resources and one
+quest, on 7g's M4a (conditions) and M4b (sequences), in the village.
+
+**Checked** (automated)
+
+- **Host tests, all, one at a time**: 49 unit, 59 protocol, all pass. `p59` now asks
+  for a structure's `place` (its first cell nearest the middle, four corners a cell);
+  `p43` lists the new collection, Village people (no problems in it).
+- **`-Tour -Only villagers`** (new, in play, on a copy of the showcase): problems [],
+  no script error. 13 structures, each a place; four people with days; 12 bodies, 13
+  doors and gates made ways; the people can open doors, the four animals cannot. The
+  smith through his house's door and the barn's gate, the shopkeeper through the
+  cottage's and the shop's, each opened and shut again (2 and 2), both there, every
+  door shut after. The pen: four animals with no way out while the gate is shut (14.6 m
+  short), a way out for each when it is open. Playtest opened with the key P, 12 rows,
+  the ways to 12 of 13 places (all six buildings only through their doors; the pond
+  not: its middle is water, 2.2 m short), the walker put beside someone, an hour a
+  second (2.0 hours in 120 steps). Start again: playing, the window open, the smith
+  back in his house, the log begun anew. Pictures looked at.
+- **`-Demo villagers -Check`**: 6 of 6 beats; the smith's door lines in order (opened,
+  out, shut behind him, the barn's gate opened, in, shut, there); 12 of 13 places
+  reached. Pictures looked at.
+- **`editor\showcase.ps1 -Which village -Over`**: built, opened, written again the
+  same file; 984 things.
+- **Parts run after the change, problems [] and no script error**: village (it walks
+  with the people about now), keeper, flock, hands, cast, town, errand.
+- **`acts`: one problem, not from this change**: the card of controls is wider than
+  three quarters of the window (`card_fits` [true, false]). Run again with this
+  change's one new line taken off the card, the same (and then, rightly, "playtest" not
+  on the card). Not explained; written down as found. Everything else in the part held.
+- **Not run**: the whole tour, `-Measure`, `-Weigh`, the built game.
+
+**Looked at** (by me, in pictures): the street at nine with the baker, the shopkeeper
+and a boy out in it; the smith in the barn, its gate shut behind him; the Playtest
+window with its list, its ways and its log; the pen with its gate open. **Not tried by
+hand.**
+
+### Modular construction brought to a stopping point: rooms, roofs, steps, ponds, a village (2026-10-14)
+
+Amendment 7af. On branch `m2-stable-terrain`. At the user's asking: finish L3 in one
+cohesive batch on the structure on cells there is, show it in a village, then stop
+construction and recommend the next engine systems. Breadth over polish.
+
+**Built** (all in the one maker `structure`, `shapes/land/build.rs`; the host's cell
+work in `tileops.rs`, `layout.rs` unchanged)
+
+- **Walls inside** (`walls`; host `build_wall`): a side between two of its cells walled
+  (rooms, pens), the same wall from either cell; a gate in one is a door (a building) or
+  a gate; the wall taken away takes its door.
+- **Buildings** (`as: building`): the house generator's own facades along the outer
+  sides (windows by bays, a door in the middle where a gate is said), corner posts,
+  walls inside as the house's wall with a doorway and a door; its walls stand at its
+  floor, a stone footing below where the ground falls away.
+- **Roofs** (`roof`: tiles, slate, moss, thatch): the house's roof over each rectangle of
+  its cells, ridge the longer way, on level eaves; for a building or a stone wall.
+- **Steps and ramps** (`steps`): down from any floor more than 0.22 m over what is
+  beside it where no wall stands between, as wide as the way; walked up as a slope.
+- **Ponds** (`as: pond`): a stone kerb, a bed, water at one level seen through and known
+  as water (`sheer`, `water R H`, as the town's pond).
+- **Shared sides**: where two structures' cells meet, the side is built once, by the
+  more of a building (`rank`); a gate either says there is that one's gate or door.
+- **Garden soil** as a floor. The maker is called **Structure on cells**.
+- **Editor**: Build lists a house, a fence, a hedge, a path or square and a pond, each
+  made as it says from the first click (`begin_adding(gen, with)`: the first of 7ae's
+  held findings, begun for these tools); Walls inside; gates and doors. World outline,
+  Its cells: Walls inside…, roof, steps, building and pond, soil, walls inside and
+  shared sides said.
+- **The village** (`editor\showcase-village.json`; `editor\showcase.ps1 -Which village`,
+  `host\examples\village.rs`): one layout of 16 by 13 cells; a street and a square, a
+  hall of two rooms on a raised terrace with steps, the baker's house of two rooms and
+  its walled yard sharing a side, three more houses (one an L), a stone barn, a pen of
+  two paddocks with animals, a hedged garden with flowers, a pond, an orchard, library
+  props and furniture; 12 structures, 976 things; written, opened, written the same.
+- **`-Demo village`** (6 beats) and **`-Tour -Only village`** (new).
+
+**Mended on the way**: a building on uneven ground had its walls, and so its doorways,
+standing at the lowest ground under them: on the village's terrace the lintel came
+below head height over the floor and the walker could not get in at an open door. The
+walls now stand at the floor (decision 3 of 7af). Also restored: the heading of 7b in
+the amendment, lost when 7ae was put in before it (commit 6413b34).
+
+**Decisions made here, the user's to overrule** (7af in full): a building's sides are
+the house's facades and its roof the house's; a shared side is built by rank, then by
+which was first; walls stand at the floor; steps appear by themselves; a roof per
+rectangle; a pond is raised, not dug.
+
+**Not done** (7af): storeys and stairs inside; one roof over an L; doors and windows
+placed by hand; pieces as library designs; paths along a line; ponds in the land. A
+structure added from Build is named "structure N". Construction stops here.
+
+**Recommended next** (7af, none begun): runtime playtesting; navigation through
+structures; NPC and animal behaviour (7g); interactions, inventory and resources;
+dialogue and quests; movement and animation; combat and abilities last; together as a
+first-tier milestone "a living village".
+
+**Checked** (automated)
+
+- **Host tests, all, one at a time**: 49 unit, 59 protocol, all pass. New: cells under
+  roofs in rectangles, `rank`, pond water seen through, steps a slope, the rim's new
+  marks written and read back, no faces fight in the new pieces (kerb, steps, water,
+  footing, the corners); `p59` (a house of four cells: 8 facades, 4 corners, a roof,
+  boards; a wall inside said from either cell, undone; refused on the rim; a door in it
+  and one out; the wall taken away takes its door; a yard beside it sharing 2 sides,
+  built by the house, its gate a door of the house; a pond of 2 cells: 6 kerbs, 4
+  corners, 2 water, 2 bed; a path over a raised half: steps, then a ramp, then none).
+- **`-Tour -Only village`** (new, real clicks and play): problems [], no script error.
+  12 structures, the yard leaving 3 sides to the house, the hall 2 rooms 3 doors; up the
+  terrace steps (risen 0.99 m); five doors (hall, hall inside, baker's, baker's inside,
+  to the yard): each stops the walker shut, is opened with the act, and is walked
+  through to 0.26-0.30 m of the room's middle. With the mouse: Build > A house, two
+  cells, Walls inside by a click, the roof made thatch, Build > A pond; all undone
+  (7 steps); the showcase file untouched. Pictures looked at.
+- **`-Demo village -Check`**: 6 of 6 beats; up 0.99 m by the steps, the door opened,
+  0.20 m short of the hall's room. Its pictures looked at.
+- **`editor\showcase.ps1 -Which village`**: built, opened, written again the same file.
+- **Parts run after the change, problems [] and no script error**: build (its check of
+  a floor alone counted the new steps and picked "built as" by place; both mended in
+  the tour), seams, makers, workflow, findings, ui, tiles, editing.
+- **Not run**: the whole tour (one run started by mistake and stopped: not a result),
+  `-Measure`, `-Weigh`, the built game. Worlds with 7ad's structures are made again
+  (code version 2): not compared before and after.
+
+**Looked at** (by me, in pictures): the village from above and along its street; the
+hall on its terrace with four flights of steps; the baker's yard against the house; the
+garden, the pond (water seen through), the pen and barn; inside the hall, the doorway
+between its rooms. **Not tried by hand.**
+
+### After the hand test of L3's first tier: a gate kept when a wall is made higher (2026-10-14)
+
+Amendment 7ad (its "Tried by hand") and 7ae. On branch `m2-stable-terrain`. The user tried
+the structure on cells by hand: it works adequately, and the roadmap goes on. They met one
+fault and asked for two things of the editor to be kept for later.
+
+**Mended**: *made higher, the gate seemed to go.* The host kept the gate at any height or
+sort (now checked in `p58`). The height's field showed 0 for "as usual" (1.2 m for a
+wall), so **+** set 0.1 m, which the host raises to 0.3 m: the wall fell to knee height
+and the gate's leaf with it. The field now shows the height it stands at (the host's list
+of makers says `high` and `usual` for a structure) and steps from there; **As usual**
+beside it when it has a height of its own (`makers.gd`, `build.rs` `height_of`).
+
+**Held, not begun** (7ae, each taken up when its part of the editor is next worked on, no
+milestone of its own): a tool's settings shown and set before its first click or stroke;
+numbers dragged left and right in `num.gd`, written as now for exactness.
+
+**Checked**: host tests, one at a time: 47 unit and `p58` (a gate kept made 2.5 m high and
+made a fence). `-Tour -Only build`: problems [], no script error; a real click on **+**
+made 1.2 m 1.3 m with the gate kept, **As usual** back to 0. Checklist line added under
+"What it is built as". **Not run**: other tour parts, the demo (neither touches the height).
+
+### Adaptive modular construction, first tier: a structure on cells (2026-10-14)
+
+Amendment 7ad. On branch `m2-stable-terrain`. At the user's word: "Proceed to adaptive
+modular construction" (L3 of 7o, with 7q; named as the next milestone at the end of 7ab
+and 7ac). The first tier of the system 7o asked for: a structure is one maker whose
+arrangement is cells, a maker that reads a layout.
+
+**Built**
+
+- **Sides of cells as places** (`layout.rs`): `edge` (a side of a cell, its two ends,
+  the cell on its left), `rim` (every side of some cells with none of them across it,
+  and how far the rim turns at each), `side_near` (the side a place is nearest). The
+  structure and the host ask here and keep no arithmetic of cells.
+- **The maker `structure`** (`shapes/land/build.rs`, listed under Buildings as "Wall,
+  fence or hedge on cells"). Told cells (`on`, as a wood is told tiles), it builds round
+  their rim, as it is told (`as`): a stone wall with a pier at every joint, a fence with
+  a post at every joint, a hedge with a corner where it turns, or nothing; gates in the
+  sides said (`gates`), a gap between piers of their own and a leaf that swings
+  (`leaf`); a floor on every cell (`floor`: paving, gravel, boards), level, stepping on
+  a slope; a height (`height`) and a seed. Every piece is named by its cell and side, so
+  what is done by hand to one is kept as for any maker (`KEEPS_BY_HAND`). Each stands on
+  its own cell's ground: the land or a raised tile (`Ground::height`).
+- **Built again to suit, after every edit** (`tileops::settle_makers`): the host tells
+  a structure its cells (`over`) and their rim (`rim`) in its own frame; cells added or
+  taken away, a layout moved, a tile put in, and it is made again in the same edit.
+- **New leaves**: `drystone`, `fence`, `hedge`, `pier`, `gate`, `paving`, each with its
+  mesh, its solid and its sort ("stone wall", "fence post", "hedge corner", "gravel"…);
+  a gate opens and shuts by its latch from either side, as a door does.
+- **Host commands**: `grow_on` tells a structure its cells (as it tells a wood its
+  tiles); `build_gate` opens or closes a gate in the side nearest a place, or one said
+  by its cell and word. The makers' list says of a structure what it is built as, its
+  floor, gates, sides and cells (`structure`).
+- **In the editor**: Build > "A wall, fence or hedge round cells" (a click on a cell, then
+  more; again to take one away; Esc), "A path, yard or terrace", "Open or close gates in
+  the structure chosen" (a click near a side), "Grid layout". World outline, a structure
+  chosen: **Its cells** (Choose cells…, Open or close gates…, Round all tiles of…, built
+  as, height, floor, gates swing, the gates said) and its seed. No "Move the whole
+  maker" for it: it stands where its cells are.
+- **`-Demo build`**: a wall grown cell by cell, two gates, the same cells as paving, a
+  fence and a hedge, a gravel path and a garden (a hedge round hex cells with a meadow
+  told the same cells), and the walker along the path and in at a gate.
+
+**Mended on the way** (met by this tier's tour, older than it): a row of a toolbar list
+that gives the pointer a "click where" tool (Build > "Put down a house…", and the new
+wall) put the thing down at once under the list: the list is put away while its row is
+handled, and the release went on to the world as the click that says where. The row
+now keeps its release (`desk.gd`). Older tours chose such rows by script and never met it.
+
+**Decisions made here, the user's to overrule** (7ad has them in full): one maker for
+walls, fences, hedges and floors; the rim is what is built round, holes included, no
+inner walls yet; piers at every joint of a wall or fence, a hedge's corners only where
+it turns; a gate kept by its side's words and waiting when the side is not on the rim;
+`as` for what it is built as (`of` is the designs a maker is given); the structure
+follows its cells, not its node.
+
+**Not done** (owed, in 7ad's order): walls inside (rooms, pens); roofs over cells;
+steps and ramps between floors and raised tiles; ponds (they need water with a level of
+its own); pieces as designs of the library; pieces chosen by their neighbours; paths
+along a line. A side shared with another structure's cells gets a wall from each. The
+stone wall's look is code, not a style's. A gate's leaf is hung for a person's height
+whatever the wall's.
+
+**Checked** (automated)
+
+- **Build**: the host, release. Every changed script compiled headless.
+- **Host tests, all, one at a time**: 47 unit, 58 protocol, all pass. New: `layout`'s
+  rim (a side is as long as a side, half way between two middles, its cell on its left,
+  said by a place near it; a rim is closed, turns a whole turn, leaves out shared
+  sides, is the same whatever the order of its cells; hexes zigzag), `build`'s pieces
+  (no two faces of different colours in one plane, a gate opens and nothing else does,
+  a rim written and read back), and `p58`: an L of three cells walled on hilly land (8
+  pieces, 8 piers, each on the ground about it), a gate by a place near a side (9
+  pieces, 10 piers, 1 gate), the same side from outside closes it, opened by its words,
+  refused between two cells; one piece taken away and a cell added (the gate's side
+  inside now, 9 pieces, the one taken still away), undone; paving on 3 cells; built as
+  nothing, only the floor; a hedge round hex cells with a corner at every turn.
+- **`-Tour -Only build`** (new, real clicks): problems [], no script error. Build >
+  the row, a click asked for (not placed at once: the fault above, found here); a click
+  on a cell walls it in; two more make an L of 8 sides; one clicked again goes, and
+  back; Esc. Gates: from Build, a click near a side makes a gate between piers; a click
+  between two cells makes none. In play: a shut gate stops the walker 2.85 m short, the
+  wall 3.05 m short; with gates as gaps it walks through to 0.11 m. In World outline:
+  paving on 3 cells, a fence (9 pieces, 10 posts), a hedge (9 pieces, 6 corners), only
+  a floor, Ctrl+Z back to the hedge. Pictures looked at.
+- **Parts run after the change, problems [] and no script error**: workflow, findings,
+  makers, ui, tiles, seams (a wood told tiles by clicks, the path the structure's cells
+  share), editing, chosen.
+- **`-Demo build -Check`**: 5 of 5 beats. Seen: a wall grown to 14 pieces and 14
+  piers; two gates (16 pieces, 18 piers); paving on 9 cells; a gravel path of 4 cells; a
+  hedge round 5 hex cells (19 pieces, 18 corners, a gate); the walker reached 4 of 4
+  places along the path and in at the gate. Its 7 pictures looked at.
+- **Not run**: the whole tour (one run meant for a part named `ontiles`, which is no
+  part, fell into it and was stopped at its timeout: not a result); `-Measure`,
+  `-Weigh`; the built game. Saved worlds were not compared before and after: no
+  existing maker's output changed (a new maker and new leaves only).
+
+**Looked at** (pictures of the tour and the demo, by me): stone walls with piers and
+coping round an L and round a larger yard; a gate of boards between piers; a fence with
+posts and pales round paving; a hedge with a corner where it turns; a floor alone; a
+hex hedge garden with a meadow inside; the walker standing in the paved yard. **Not
+tried by hand.**
+
+### After the workflow pass: one tool at a time, Erase for everything, a layout dragged, a street seen, animals found (2026-10-14)
+
+Amendment 7ac. On branch `m2-stable-terrain`. At the user's asking: further findings
+from using the editor, addressed where feasible, grouped, and classified as fixed and
+seen working, traced and left with the cause written down, or carried to a named
+milestone. Shared defects and broken workflows first.
+
+**Fixed, and seen working in the editor** (`-Tour -Only findings`: real clicks, drags,
+the wheel and keys; pictures looked at)
+
+- **One tool in hand at a time** (`main.take_up`): a land tool chosen while a brush was
+  in hand left the brush working (the left button asks the brush first). Every tool
+  that takes the left button now calls `take_up` first, and every other is put away:
+  brushes, the eraser, placing and moving (`marks`), the land's tools, putting tiles
+  down, a mesh's corners, putting one down, tiles said with the mouse, a layout being
+  moved. Select puts all away.
+- **The wheel over a window is the window's** (`main.over_panel`): a list scrolled to its
+  end, or a window with nothing to scroll, let the wheel through to the view, which came
+  nearer. Only the wheel over the world moves the view now.
+- **Erase is the one place to take things away** (`erase.gd`, in five parts that fold):
+  what is erased (painted, placed one by one, terrain tiles; only one of them); the
+  eraser brush; **all at once** in the whole world or in one layout's cells, said with
+  counts before anything goes and gone only on "Erase them"; **what is selected**
+  (Delete the one thing; the whole maker, asked twice and said what goes); where the
+  rest is removed. Host `erase` takes `everywhere`, `layout`, `tiles`; `erasable` says
+  tiles and takes a `layout`. One edit each, undone with Ctrl+Z; nothing leaves Objects,
+  Tiles or the library; a group's things go whether or not the group is still there.
+- **A layout dragged into place** (`grid.gd`): a yellow ring with four arrows at the
+  middle of the layout chosen in the Layout window. Dragged, its cells are drawn where
+  they would be; let go, it is there (one edit, its things and tiles with their cells).
+  Or "Move with the pointer" and a click; Esc leaves it where it was. Its middle's x and
+  z are also numbers in the window.
+- **Windows that keep still** (`section.gd`): parts under headings that fold, with
+  Expand all and Collapse all, kept for as long as the editor runs; words said again and
+  again given room for so many lines whether they have them or not, the rest in the
+  tooltip. Terrain is in parts (Tool, Its numbers, What it does, Under the pointer, More,
+  the last folded at first); Erase is in parts and scrolls within its window; the Layout
+  window was made shorter so that every button of it is on a 720-pixel screen.
+- **Build > street, seen** (`marks.gd`, `makers.gd`): two faults. Drawing a road: the
+  land is made again under it, which the host goes on with after it answers, so the
+  answer had no road in it yet; the editor stopped there with a script error and the
+  street was never added (the road stood, with no houses). Now what follows a line is
+  added when the line is made. And a road with a street along it already: a second
+  street was added along it and stood exactly on the first one's lots, nothing new to
+  see. Now a new road is drawn for it, and it is said why. Every maker added says what it
+  made: so many things, or that it made nothing here and why that may be.
+- **Horses and cows found** (`editor/library/animals.txt`): they existed, complete, only
+  as the island town's own designs (`town.txt`), so no other world had them and the
+  library did not list them. A library collection, **Farm animals**: horse, grey horse,
+  cow, brown cow, goat, the same texts, with their moves (`moves.txt`) as before.
+  Objects > "Animals: horses, cows, goats" and Characters > "Farm animals" open the
+  Asset Library on it; "Place one…" and a click put one down, which roams and grazes.
+
+**Traced and left, the cause written down: cliffs and ledges** (amendment 7ac, part 2).
+Looked at from four sides. The land is one height a metre; a cliff's face is made by
+moving the corner at its foot level until it is under its top. At the cliff's ends a
+corner is moved one way and not the other: thin upright slivers, seen edge-on from some
+sides and not from others. The face is shaded from heights either side and coloured a
+colour a corner, so its light and colour run from the top to the foot across it. A
+proper face needs corners of its own: the first of the basic modelling tools (7f, 7q),
+not a patch to the land's mesh that would change every cliff of every saved world.
+
+**Carried to named milestones**: basic modelling tools (cliffs and ledges as faces of
+their own, then walls, shelves, terraces); asset generation (dogs, rabbits, squirrels
+still the town's only, sheep and cats the probe's; pigs, chickens, ducks and deer exist
+nowhere); folding parts for the Tree Generator, Objects, the Inspector and the Library
+when each is next worked on.
+
+**Decisions made here, the user's to overrule**
+
+- A second street is never put on a road that has one: a new road is drawn instead.
+  (A second street along the same road, offset, would be a setting of its own.)
+- The eraser's "all at once" asks first in the window (the counts, then "Erase them"),
+  not in a dialog.
+- The animals are a collection of their own (Farm animals) rather than a group of the
+  rural one.
+- The Layout window's ring is shown only while that window is open, for the layout
+  chosen in it: so that it never takes a click meant for something else.
+
+**Checked** (automated)
+
+- **Build**: the host, release. Every changed script compiled headless.
+- **Host tests, all, one at a time**: 43 unit, 57 protocol, all pass. New `p57`: a
+  layout with three tiles, rocks painted in and out of it, a barrel by hand in it;
+  `erasable` for the whole world and for the layout; wrong questions said; the layout
+  cleared of its rocks, its barrel and its tiles in one edit, the rocks outside
+  standing, one undo bringing all back; the whole world cleared of what was painted and
+  nothing else; dabs within a layout taking only the tile under them; the library's
+  Animals listed, a grey horse brought in with the horse it is like, and put down.
+  `p43` now expects the third collection. `p56`'s message is as it was.
+- **`-Tour -Only findings`** (new, real mouse and keys): problems [], no script error.
+  One tool: a brush, then a land tool (the brush put away, and a drag raises the land),
+  the eraser (the land tool put away), placing (the eraser put away), a brush (placing
+  put away), Select (all put away). The wheel over the Terrain window, the Erase window
+  and the toolbar leaves the view; over the world it comes nearer. Erase: its five
+  parts, tiles counted, tiles ticked and said, "Erase them" waiting, the layout's 42
+  tiles said first and nothing gone, then gone, said after, one Ctrl+Z bringing them
+  back; "Nothing is selected" said. A layout: its ring shown, held and drawn moved, put
+  where let go, its tiles with it, the numbers saying it, undone; followed from the
+  window's button and left by Esc. A street: Build on a road with a street draws a new
+  road, said; two clicks and Enter; a street of its own along it, 8 houses, said. The
+  Terrain window: Collapse all, Expand all, one part folded alone; the part under the
+  words in the same place for raise, smooth and with the pointer moved. Animals: under
+  Objects, the library on Farm animals, a horse put down where clicked.
+- **Parts run after the change, problems []**: workflow, layout, tiles, land, makers,
+  handles, ui, brush, designs, library, editing, surface, raised. Of these, `layout`
+  (the Layout window had grown taller than the tour's window: made shorter), `ui` (the
+  Terrain window in parts was 660 px with 653 to stand in: room for its words trimmed and
+  More folded at first) and `library` (a third shelf) failed first and were mended;
+  `workflow` failed "undone" in the Environment and so did the code as committed:
+  `editor/godot/weather.txt` says `air strength 2.5` since f3d71b0, and the tour took 1;
+  its check now takes the strength as it was before.
+- **`-Demo findings -Check`**: 4 of 4 beats, no script error. Seen: 42 tiles in 'the
+  valley', 0 after "Erase them", 42 again after Ctrl+Z; the layout moved 16 m with its
+  42 tiles; "Added the line 'line' (a road on the land), and 'street' along it: it made 8
+  things"; the library's Animals: horse, horse_grey, cow, cow_brown, goat.
+- **Not run**: the whole tour; parts not listed; the showcase builders; the built game.
+  Saved worlds were not compared before and after: no maker's output changed (the host
+  gained options to a command, and a library file).
+
+**Looked at** (pictures of `-Tour -Only findings` and `-Demo findings`, by me): the
+Erase window saying what a clearing would take before it does; a layout's tiles gone
+and back; the layout's ring, and the cells drawn where a dragged layout would go; the
+second street along its own road; farm animals standing on the grass; cliffs from four
+sides (above). **Not tried by hand.**
+
+### The editor's workflow: a toolbar, an eraser, plain names (2026-10-13)
+
+Amendment 7ab. On branch `m2-stable-terrain`. At the user's asking after their hand
+test of the tree generator and the living environment: one coherent pass on how the
+editor is found and used, the general erase they found missing, proportionate
+follow-ups on the generator and on older trees, the weather controls the living demo
+did not show, and a small tuning of the wind. Group painting, replace and a brush
+clearing its own layer, confirmed by hand, were not reopened.
+
+**Built: where things are**
+
+- **A toolbar down the left side** while editing (`desk.gd`; pictures drawn in code,
+  `icon.gd`): Select, Move, Paint, Erase, Terrain, Objects, Plants, Build, Sky. Select,
+  Move and Erase are tools taken up at once; Paint, Terrain, Objects, Plants and Build
+  open a short list beside the button; Sky opens the Environment window. The one in use
+  is lit (`tool_now`), and windows keep off the toolbar.
+- **The bar**: World (the file), **Edit** (undo, redo, what is done to what is picked),
+  **View** (what is shown; this machine's settings), Characters, Window. The
+  Environment and Things menus are gone: everything in them is under the activity a
+  person would look for it under (Draw3D_UI_Inventory.md 13r has every move).
+- **The row under the bar**: first the tool in hand on a plate (SELECT, MOVE, PAINT,
+  ERASE, TERRAIN, PLACE, BUILD, PLANT, EDIT SHAPE, BUSY); then what is picked; then six
+  frequent buttons (Move, Duplicate, Delete, Edit shape, Inspect, Deselect; Tree
+  Generator for a tree made there) and **More** for the rest. One line, one height:
+  what is said gives way to the buttons and is whole in its tooltip.
+- **Plain names**: Tree Generator; World outline (makers); Objects in this world
+  (designs); Asset Library; Terrain; Grid layout; Terrain tiles; Object text and meshes
+  (kinds); Quick place and nudge; Edit shape; Delete; Deselect; Make a copy of my own;
+  Save as an object. Sentences that named a window or menu name the new one. The
+  user's terms inside the windows (maker, arrangement, thing, sort, design) and every
+  host command, file and script name are as they were.
+- **Scripts that choose by name go on working**: `desk.pick(heading, begins)` finds an
+  entry wherever it now is (`desk.where`).
+
+**Built: erasing**
+
+- Traced first: the host could clear "what any brush painted", but only with a design
+  or a group named; a removed group could not be named; the editor never asked. A
+  missing capability as much as a hidden one.
+- Host **`erase`** (dabs, radius; `painted` on unless said; `placed` off unless said;
+  `only` one design): what is under the eraser goes, whatever painted it, whether its
+  group is there or not; one edit a stroke; a painted maker left with nothing goes.
+  Never a design, a group, a library asset, what a wood, meadow or street made, a
+  house, a tile, the land, or what is of a frozen maker. Host **`erasable`**: how many
+  of each.
+- **Erase** on the toolbar takes the eraser up with its window (`erase.gd`): what it
+  takes in one sentence and in counts, *which* (any object, or one), its width, and
+  three buttons to where what it never takes is removed instead.
+
+**Built: the Tree Generator's follow-ups**
+
+- **The corner limit, traced**: `mesh.rs` 20000 (any mesh of the document: kept as
+  text, read again whenever it is built, shown as dots when shaped by hand) and
+  `grown.rs` 19000 (a grown tree, a little under, so it can be added to by hand). A
+  safeguard, not raised. The host now says how many corners a tree came to and the most;
+  numbers that are too much are said as that, with the numbers that multiply and what
+  to lower; the window says NOT SHOWN, greys Save, and says HEAVY from seven tenths.
+- **Pictures** say what they are under each: preset, saved tree, library tree,
+  reference only. A reference says it cannot be reproduced, and that the nearest preset
+  is a starting point and not a copy.
+- **Older trees and the wind**: the cause is a world's own older copies of library
+  trees without the `gives` line (`showcase-tiles.json` has eight, 275 things). Host
+  **`gives`**: lists them, and with `fix` gives each the library's line, one edit, no
+  mesh touched, nothing grown again. The Environment window says how many and offers
+  "Let them move in the wind". Objects: **moves in the wind** for an object of a
+  person's own.
+- Kept: Tree Generator 2, its recipes, presets and the question before a tree shaped
+  by hand is grown again. Recorded, not built: a stylised-foliage form family (layered
+  crowns, umbrellas, plate-like foliage), 7ab.
+
+**Built: the environment**
+
+- **Why the living demo had no weather controls**: it had them, as the last entries
+  of the Environment menu, below the window's edge in a list that had to be scrolled;
+  while playing only "the next weather" was there. Now **Sky** opens the
+  **Environment** window (`env.gd`): time of day, weather, wind (None to Three times,
+  and a number), style, and older trees; editing and playing (from the play row's
+  Environment button).
+- **Wind tuned**, not every number alike: clear weather sways a little more (5 and
+  10 cm where it was 4 and 7); grass, flowers and bushes are laid over by a part of
+  their own height as a wave goes over (`rustle`: 9 hundredths in clear weather, a
+  fifth at most); and the storm's first gust: found to be the sway's rounds worked out
+  as time divided by a beat that changes while one weather turns into another, so
+  that everything thrashed for a few seconds. The rounds are counted on frame by frame
+  now (`weather.gd` `_rounds`, the shader's `sway_at`, `gust_at`, `flutter_at`). The
+  storm comes on in 16 s (was 5), leans 0.75 m (0.9), gusts 0.6 every 4.5 s (0.7,
+  3.5). None at 0 and the strength are as they were.
+
+**Decisions made here, the user's to overrule**
+
+- A toolbar plus short lists, not a docked side panel: the floating windows stay.
+- Window titles say the plain name with the earlier word in brackets where the text
+  inside still uses it; no sentence inside a window was rewritten wholesale.
+- The eraser takes painted things by default and things placed one by one only when
+  ticked; it never takes what a maker made (Delete does that one at a time and keeps
+  it away).
+- Older trees are given the library's line only when asked, never silently.
+- A world's own weather text is kept with it: the new wind numbers reach a world
+  through `weather.txt` when the editor gives it the file (at start; and a world with
+  no weather text of its own). Read from the code, not tried: a world opened from the
+  menu that has its own copy keeps its numbers until `weather.txt` is saved.
+
+**Checked** (automated)
+
+- **Build**: the host, release. Every changed script compiled headless.
+- **Host tests, all, one at a time**: 43 unit, 56 protocol, all pass. New `p56`: a
+  group painted, the group removed and its own brush refused; the eraser's wrong
+  questions said; only bushes over half; any object over half (both brushes'
+  layers), the rock put down by hand there, a wood's trees, every design kept; with
+  `placed` the one under it goes and the far one stays; makers left empty go; three
+  undos bring all back; an older spruce-layered found, given its line with every
+  other line kept, `fix` refused when there is none; one kind's line off and on; a
+  tree too heavy refused with "'levels' 2", a light one's corners and most said.
+- **`-Tour -Only workflow`** (new, real clicks): problems []. The toolbar: nine
+  buttons in the window, under the bar, windows off it, Select lit, a list beside its
+  button and put away by it, where ten entries are found. One thing: picked by a
+  click; the row: SELECT, six plain buttons, More with the rest, one line; More >
+  Look at it; Move from the toolbar (MOVE lit), moved by the next click, Undo; Move
+  with nothing picked says what to do. The Tree Generator first under Plants, its
+  caption, every picture's word, a reference not claimed, weight said, too much said
+  with Save greyed, a pine saved with its wind. A group and rocks painted from the
+  Paint list; the group removed in Objects by a click, its things standing; Erase:
+  ERASE lit, scope and counts said, only bushes by a drag, any object by a drag, what
+  is unrelated as it was (the barrels, a wood's trees, every object, the saved tree's
+  numbers), with "placed one by one" ticked the one under it gone, Esc, three Ctrl+Z.
+  Sky: sunset, rain, wind none by clicks, Ctrl+Z; older trees said and given their
+  wind by a click; playing: F1, Environment on the bar, storm by a click. A 900 by
+  520 window: every tool in it, the bar's buttons on it.
+- **Parts run singly after the change, problems []**: ui, firstwalk, alone, editing,
+  chosen, makers, keeping, region, designs, library, layout, tiles, brush, brushmix,
+  grow, living, weather (it prints `tour: weather … problems []`), handles, roof,
+  kinds, meshes, land, growth, surface, raised, showcase, cast. Of these, ui, living,
+  grow, region, designs and handles failed first on the tour's own checks of the old
+  names and places (Things, Window > Colours, "Groups", "was not grown", the
+  Environment menu, a window now over the roof pointed at) and the tour was brought
+  up to date; living also measured its pictures with the new window over them (put
+  away now before it measures). One fault of the editor was found and mended: the
+  notice after "Let them move in the wind" counted the host's answer, which comes
+  later, and said 0.
+- **`-Demo workflow -Check`**: 6 of 6 beats, no script error. Seen: every entry found
+  under the activity looked for; MOVE and PAINT lit and said; the barrel moved and
+  undone; a reference said as one; 103240 corners refused with what to lower; a birch
+  saved (3808 triangles); 70 by the group's stroke and 61 rocks beside, all 131
+  standing after the group was removed; 14 of 14 bushes erased and nothing else; 75
+  by "any" (13 my-birch, 62 rock), placed things 2 as before, the birch's numbers
+  kept; one stroke undone to 117 again; 8 older trees given their wind. Of what is
+  drawn, in a quarter of a second, clear weather: 0.0055 moved before the older trees
+  were given their wind and 0.0195 after; near the grass 0.0 with no wind and 0.0994
+  in clear weather; a storm 1, 6, 12 and 18 s in: 0.024, 0.032, 0.078, 0.061 (it
+  builds over about 12 s; the beat no longer races).
+- **Not run**: the whole tour; `style` (its known failure, not of this pass), `town`,
+  `course`, `flick`, `seams`, `raisedwalk`, `soak`, `acts`, `hands`, `climb`; the
+  showcase builders; the built game. Saved worlds were not compared before and after:
+  no maker's output changed (new commands, a field said of each design, words in
+  messages, and a comment line in meshes grown from now on).
+
+**Looked at** (pictures of `-Tour -Only workflow` and `-Demo workflow`, by me): the
+toolbar and a list beside it; one thing picked with the row on one line and More
+open; the Tree Generator with "reference only" and with NOT SHOWN; the Paint list
+offering the group; the group removed and its things standing; the Erase window and
+what one sort and then any took; the Environment window; grass near the eye in two
+pictures a third of a second apart (blades moved, none stretched); a storm coming
+on. **Not seen moving by anyone**: the wind was measured between pictures, not
+watched. **Not tried by hand.**
+
+### Tree generator 2, and the living environment (2026-10-13)
+
+Amendment 7aa. On branch `m2-stable-terrain`. Not committed. After the user's
+decisions of the same day (tile blend kept; a brush's own layer; groups with the
+world; wind and style for grown trees; trees first).
+
+**Built: the generator**
+
+- **Four forms that are four ways of growing** (`shapes/grown.rs`, version 2):
+  *spreading* (a trunk whose limbs fork all round, and fork again), *upright*
+  (one stem to the top, boughs in rings or going round, branches to the two sides
+  of a bough: a spray), *weeping* (spreading, with strands hanging from the
+  branches), *palm* (a bare stem and fronds, each a rib bent by its weight with
+  leaflets to both sides). A bough is as long as takes its tip to the crown's
+  outline (round, egg, cone, column, umbrella), found by going along it.
+- **31 numbers under seven headings**: Form; Trunk (height, thickness, taper,
+  lean, bend); Boughs (where they start, how many, in rings, where on the trunk,
+  angle, curve, reach, thickness, levels, forks, fork angle, how unlike);
+  Crown (width, outline); Foliage (clumps, needles, leaves, none; size, how many,
+  how far back from the tip, how far astray); Colour (bark: the style's or one of
+  four of its own; two of the style's leaf colours and how mixed; how light);
+  Seed.
+- **Eight presets**: oak, birch, pine, spruce, cypress, willow, palm, bare tree.
+  A preset is numbers to begin from, nothing more; its name is kept in the recipe
+  of what was grown from it.
+- **A recipe is one line of the design's own text** (`grown tree version=2
+  preset=oak made=… form=0 height=9 …`): the family, the generator's version,
+  the preset, every number, and a word for the mesh as it was grown. So it goes
+  wherever the design goes: written and opened, a copy, the library, another
+  world. A design the first generator grew is still known (its numbers were kept
+  beside it): what the two generators share is read, the rest is a preset's, and
+  it says which generator grew it.
+- **Shaped by hand is known, and not grown over**: the mesh's word is other than
+  the recipe's. `generate` refuses to grow such a design again unless told that
+  what was done by hand is to go (`by_hand: discard`); the recipe is kept
+  either way. Grown again, every line of the kind that is not the generator's is
+  kept (what it is called, how it was stretched, a part added).
+- **Colours are the style's by name** (`colour leaf1 0.86`, `colour bark`), so
+  what was grown turns with the world's style. A bark chosen as its own stays.
+- **It gives to the wind**: a kind says `gives LOW HIGH [POWER] [out R]`
+  (`kind.rs`; `top` for as high as it is built). A grown tree says it of
+  itself; the library's trees, shrubs, grass, flowers and reeds say it now.
+- **`generators`** also says the presets, the library's grown designs this
+  world has not (`shelf`), and the trees that were not grown, each with the
+  preset nearest it (`references`). **`grown`** says of one design whether it
+  was grown and from what.
+
+**Built: Grow, and the ways back into it**
+
+- **Pictures across the top** of what there is to begin from: presets (white),
+  designs of this world that were grown (green), of the library (blue), and trees
+  that were not grown (grey). A grey one has no numbers and none are claimed: the
+  preset nearest it is loaded, said as that, and its picture put beside what is
+  made.
+- **From a tree in the world**: picked, the row under the bar offers "Its numbers
+  (Grow)". **From Designs**: "Its numbers… (Grow)".
+- **"As a new design"** keeps what is shown beside the design it was begun from.
+- **Asked before a design shaped by hand is grown again**: keep it as it is, make
+  this a new design, or grow it again.
+- **"in the wind"**: the picture moves as the weather shown moves it.
+
+**Built: the air**
+
+- **One wind, over every weather** (`weather.txt`, entry `air`): `strength`
+  (every weather's wind so many times as strong: 0 none at all) and `least` (a
+  breath in every weather, also one that says no wind). Environment > "Wind:",
+  five steps from none to three times. It is written with the world's weathers:
+  undone like an edit. Nothing else sets the wind.
+- **Gusts go over the land together** (two beats, not one), and **what gives most
+  trembles besides** (leaves, the tips of grass): in what the world is drawn with
+  (`world_view.gd`).
+- **Water is rippled**: the sea and what is seen through (a pond), the way the
+  wind blows, more with more wind, a little with none. Nothing is moved: it is lit
+  as if it were not flat.
+- **Sunset and sunrise to look at**: Environment > "Shown at: sunrise / noon /
+  sunset / night" (by the style's own day); Game > "To noon", "To sunset". A world
+  with no style has a warm low sun too, as the styles had.
+- **A menu longer than the window is scrolled**: the Environment menu had grown
+  past the window's edge, where its last entries could not be clicked.
+
+**Decisions made here, the user's to overrule**
+
+- The recipe is the kind's own line, not an asset beside it: it then goes with
+  every copy, and nothing else needed to learn of it.
+- An edit by hand is not carried onto a tree grown again (its corners are other
+  corners): the safest thing is to ask, and to offer a new design.
+- The wind's strength is written in the weather text (the world's, and
+  `weather.txt` when a person sets it in the editor), not a new place.
+- Clear weather sways more than it did (7 cm at a tree's top, where it was 3).
+
+**Limits**
+
+- A grown tree's mesh is one mesh: its boughs do not swing as bones. They move
+  by how much each corner gives.
+- A spruce is about 3000 triangles, a tall one 4300: heavy for a large wood.
+- A world that brought library plants in before today has its own older copies,
+  which do not give to the wind until brought in again over the world's.
+- The sea's ripples are in how it is lit only: no waves, nothing floats on them.
+- The sunset's sky is one colour all round the horizon.
+- A copy of a grown design made in Designs keeps the recipe; one whose text is
+  retyped without the `grown` line is no longer known as grown.
+
+**Checked** (automated)
+
+- `shapes::grown::tests` (3): numbers in bounds; every preset grows, within
+  its height and triangle bounds; a cypress a column, an oak broad, a spruce
+  widest low, a pine widest high; a recipe one line, an earlier one read.
+- Host `p55` rewritten: presets and references said; forms measured from the
+  mesh as drawn, and each giving to the wind; a design made, placed, painted, in a
+  group; grown again with its other lines kept; shaped by hand, refused, grown
+  under another name, grown again when told, undone; an earlier generator's
+  refused until told; saved to the library and brought into another world with
+  its numbers, a copy grown by itself; written and opened.
+- **The whole host suite once**: 43 unit, 55 protocol, all pass.
+- `-Tour -Only grow`: problems [] (real clicks: a preset and a tree not grown
+  clicked in the pictures; a tree clicked in the world and its numbers back; from
+  Designs; each answer to the question; undone to the world as it was).
+- `-Tour -Only living` (new): problems [] (wind none from the menu by mouse and
+  what is drawn standing still: 0.0003 of the picture other in 0.7 s against
+  0.014 in clear weather; twice; over a storm; Ctrl+Z; a breath in a weather with
+  no wind; while playing; noon and sunset: the sun 0.05 to 0.4 up and warmer, the
+  land darker and redder; the water 0.48 other with no wind; what gives).
+- Run singly, problems []: ui, weather, designs, library, brush, brushmix,
+  editing, chosen, handles, makers.
+- **`-Tour -Only style`: one problem, not of this pass**: "time did not pass by
+  itself to a dusk with lamps" (7.6 hours of the world in 9 to 10.5 s, where 7.6 s
+  is wanted). The code as last committed fails it the same way on this machine
+  (run from `git archive`). Not looked into further.
+- `-Demo living -Check`: 7 of 7; `-Demo grow` 3 of 3; `-Demo mix` 4 of 4.
+
+**Looked at** (pictures of `-Demo living`, by me): every form in two rows; Grow
+with its pictures; a tree picked and the row under the bar; the question; the
+water; sunset; autumn. The forms are told apart at a glance; the pine and the
+spruce were corrected after the first look (crowns too small, too sparse).
+**Not seen moving by anyone**: the wind and the water were measured between two
+pictures, not watched. **Not run**: the whole tour, the town, the other
+showcases, the built game. **Not tried by hand.**
+
+**Next**: rocks and boulders as the second family (one table entry and one
+function; the same window, recipe, and question); then bushes and ferns.
+
+### After the hand test of the brush and the tiles: what was wrong, and mended (2026-10-13)
+
+The user tried the brush and the tiles by hand and sent five things (amendment 7y
+has each with what it was). On branch `m2-stable-terrain`. Not committed.
+
+**Found, and mended**
+
+- **Paint left a rim round a tile, and a gap beside one.** Three causes, none of
+  them the brush for designs (measured: what a stroke of a design puts down is as
+  thick 25 cm from a tile's side as in its middle).
+  (a) Two grounds turned into each other over three tenths of a cell to either
+  side of their side: 2.4 m of a cell of 8. A tile painted sand showed sand in
+  its middle 3 m and its neighbours' ground all round. It is a tenth now (0.8 m,
+  never more than 1 m), along a line that still wanders about 0.7 m, and worked
+  out by every tile about a place alike, as before.
+  (b) Paint "on what is seen" left the land alone under every tile, the sample
+  under a tile's side with it. The land is coloured from sample to sample, a metre
+  apart, and a tile at the rim of what was laid turns into the land's colour at its
+  side: so paint stopped a metre short of every tile, and a strip of the old ground
+  ran along it. The samples under a tile's edge that have open land beside them are
+  painted now; farther under a tile, and under a side two tiles share, nothing is.
+  (c) The bed of the sea is not painted; the first sample under the water was left
+  with it, so paint faded out a metre short of the water's edge. That one sample is
+  painted now, where dry land is beside it.
+- **A tile refused, and nothing to be done about it.** Why a tile does not join was
+  said in a notice of one line, wider than the window, cut off at both ends, gone
+  in eight seconds; and "put it down anyway" was a word of the host's that no
+  button said. Now: a notice goes on as many lines as it needs and is never wider
+  than the window (every notice, not this one alone); the row under the bar says
+  "NOT PUT DOWN in column c, row r" with a button **"Put it down anyway"** beside
+  it; the Tiles window has the same above its pictures, with why, "Show the cell"
+  and "Never mind". It goes away by itself once the tile would join there (asked
+  of the host again whenever the world is edited), when another tile is chosen, or
+  when putting down ends.
+- **Replacing a tile was not said.** The row under the bar now says what a click
+  would do in the cell under the pointer: an empty cell; "a click REPLACES the tile
+  'NAME'"; that tile already; or not put down, and why. "Replace with the one
+  chosen" names the tile and says why it cannot be pressed when it cannot.
+- **The grid and the tiles were two windows that did not know each other.** Tiles
+  has "Grid (snapped to)": a list of the world's layouts (choosing one snaps to
+  it; "none" places freely) and "Layout… (Ctrl+G)". Layout has "Put tiles in it…
+  (Ctrl+T)" beside "Snap to this layout".
+- **What is worked on.** The row under the bar says "Works on:" for every state
+  that edits: the land (also under tiles), or what is seen; cells of a layout; one
+  tile with what is on it; this one thing only, not its maker and not its design;
+  the whole maker; the maker a brush adds to; what a brush clears or replaces.
+  It is said first. Longer than the window, the row ends in "…" and the whole of
+  it is said when the pointer rests on it (it was cut off with nothing to show for
+  it). It stays one line: made to go on two, the bar grew and every window under
+  it moved, which the tour of shaping by hand caught.
+- **A tile lowered where it lies on the land.** It did nothing and said nothing
+  (and in the host it was an edit that changed nothing, with a step of undo). Now
+  nothing is done, there is no step of undo, and it says the tile's ground does
+  not go below the land and that the land's tool 'lower' lowers the land under it.
+- **Found on the way, in a world of any size:** the host answers a change of a
+  tile's height before it has made everything again, and says how high only at the
+  end. The editor read the height from the first answer: a tile just raised was
+  said to "lie on the land again", and a second Page Up, pressed before the first
+  had ended, went on from the height before it (one press of four was lost, now
+  and then). Both mended: what was asked is what is said, and it is known at once.
+  The brush's strokes say what they did at the end in the same case.
+- **Designs: what is said of a design is scrolled.** With the brush in hand it was
+  longer than the window, and what was under its end could not be reached.
+- `demo.bat` had been spoiled by an earlier pass of mine (its last line was the
+  word "brush" where "pause" stood): put back as it was committed.
+
+**Checked**: host tests `p53` (paint to a tile's side and to the shore; a tile on
+the land not lowered) and the unit tests of the land; `-Tour -Only tiles` with six
+new checks (said where it can be read; said in the window; gone when it would join;
+refused again; put down anyway from under the bar; undone); `surface`, `seams`,
+`raised` (three times running), `raisedwalk`, `layout`, `makers`, `designs`:
+problems []. Pictures looked at: a tile painted sand, the land painted beside a
+tile, a notice on two lines.
+
+### Paint with a group, and replace: the brush finished (2026-10-13)
+
+Amendment 7y, second half. On branch `m2-stable-terrain`. Not committed.
+
+**Built**
+
+- **A group of designs** (`groups.rs`): several designs under a name, each with
+  its share of the mix, how big its things are made (from, to) and whether each is
+  turned its own way. Kept with the world as one line of a text of its document,
+  written with it and undone like anything else. Commands `groups` and `group`
+  (made, given a design, changed, renamed, taken out).
+- **Painted with a group**: `stroke` with `group`. At each place under the brush
+  one of its designs, whichever the place falls to by their shares; sized as the
+  group says for it (and by the brush's sizes besides). On the land or on a raised
+  tile's ground, like any stroke. What is left is one maker, "painted NAME".
+- **What a brush painted is a layer**: the things of the makers painted with that
+  design, or with that group. A stroke adds to its own layer and keeps clear of
+  what that layer has there; **clear** takes from its own layer and from no
+  other (the rocks of a mix are not cleared by the rock brush, nor the other way).
+- **Replace**: `stroke` with `how` "replace" and `with`. What was painted with
+  one design under the brush, and is still of that design, becomes another: each
+  where it stands (where it was moved to, if it was moved), turned as it is, as big
+  beside its design as it was, and from then on of the layer of what it is. Left
+  alone: one given a design of its own by hand; one under water, unless the new
+  design floats; everything not painted with that design. A design with bones is
+  refused. One step of undo.
+- **In the editor**: Designs lists groups first. A design has "Replace it…" (what
+  it becomes is chosen beside the brush's settings) and "Add to a group…" (begins
+  'mix', or adds to the group last worked on). A group has its designs in rows
+  (share, size from and to, turned, remove), a list to add another, "Paint with
+  it…", "Clear it…", "Another group", "Remove the group".
+- **Kept**: `-Tour -Only brushmix` (real clicks and drags); `-Demo mix` (4 beats).
+
+**Decided to build it** (the user's to overrule): a layer is what a brush
+painted, not what a thing now is; a group is the world's, not the library's;
+changing a group changes the next stroke and nothing that stands; a group taken
+out leaves what it painted.
+
+**Checked**: host `p54` and `groups::tests`; `p52` still passes (its wording
+of one error brought up to date). `-Tour -Only brushmix`: problems [] (a group
+begun from a design by a click, two designs and their numbers given in the
+window, a stroke of it dragged from a raised tile onto the next: 70 things, 37
+rocks, 19 bushes, 14 flowers, 38 on the raised ground; rocks beside it; 27 of 50
+replaced with trees by a drag, each where a rock stood; one tree clicked and
+deleted; the group's brush dragged over all three and only its own cleared; all
+undone and the world drawn as it was). `-Tour -Only brush`, `designs`: problems
+[]. `-Demo mix -Check`: 4 of 4, pictures looked at.
+
+### Asset generators, first tier: a tree grown from numbers (2026-10-13)
+
+Amendment 7z. On branch `m2-stable-terrain`. Not committed.
+
+**Built**
+
+- **Families of things grown from numbers** (`shapes/grown.rs`): a family is a
+  name, its numbers (least, most, step, the usual, a sentence; words for one that
+  chooses), and what it makes of them. One family so far, **tree**: form
+  (broadleaf, conifer, bare), height, trunk, lean, crown, where the boughs begin,
+  how many boughs, lumps of leaves, which leaf colour, how light, seed.
+- **`generators`** says the families and the designs of this world that were
+  grown; **`generate`** with no name gives back what the numbers make, to be looked
+  at, and changes nothing; with a name it makes a design: a mesh of the document, a
+  kind whose one part is that mesh (solid as its trunk), and the numbers kept
+  beside them. A grown design is grown again under its name and every thing of it
+  in the world follows where it stands; a kind that was not grown is never written
+  over. One edit.
+- **Because it is an ordinary kind**, nothing else had to learn of it: it is in
+  Designs under 'Yours', is placed, painted with, put in a group, given to a wood,
+  kept in the library, and its mesh taken hold of in the view.
+- **In the editor**: Things > "Grow a design". The numbers in rows, what they make
+  shown at once (a drag turns it), "Make it a design" / "Grow 'NAME' again",
+  "Another like it" (a seed), "Place one…", "Paint with it…", "Show it in
+  Designs"; a list of the designs grown before, to change one.
+- **Kept**: `-Tour -Only grow`; `-Demo grow` (3 beats).
+
+**The way on to other families** (amendment 7z has it): a family is an entry of
+one table, its numbers and one function. Next, in the order that costs least:
+rocks and boulders (one lump, roughness, flatness); bushes and ferns (the tree's
+lumps without a trunk); then what needs more than a mesh (a fence along a line,
+a house) which is a maker's work and not this.
+
+**Checked**: `shapes::grown::tests`; host `p55` (looked at without an edit; made
+a design; placed, painted, in a group; grown again and every one of it followed where
+it stood; undone and redone; a kind not grown refused; written and opened).
+`-Tour -Only grow`: problems [] (numbers set in the window, made a design by a
+click, one placed by a click on the world, eight painted by a drag, grown again at
+14 m with all nine following, all undone). `-Demo grow -Check`: 3 of 3, pictures
+looked at. **The whole host suite once** (a release build apart from the one the
+user's editor holds, `cargo test --release --target-dir target-w -- --test-threads=1`): 41 and 55, all pass. **Not run**: the
+whole tour, the town, the other showcases, the built game. **Not tried by hand.**
+
+### Paint with one design, first tier (2026-10-13)
+
+Amendment 7x has what it is and why it is built so; this is what was built and how
+it was checked. On branch `m2-stable-terrain`, not committed.
+
+**Built**
+
+- **A maker of what was painted** (`shapes/land.rs` `Painted`, generator
+  "painted", title "Painted things"). It finds no places of its own: every thing of
+  it was put down by a stroke, and is kept by name in its `added`, which is what a
+  wood's "one more by hand" already was. So nothing new was needed for one thing of
+  it to be picked, moved, turned, sized, given another design or taken away
+  (`KEEPS_BY_HAND`), and it is written, opened and undone as any maker is. Its
+  things stand on what is stood on there (`Ground::rest`, the one question of
+  height): the land, or a raised tile's ground, and they follow it.
+- **The command `stroke`** (`lib.rs`): `design`, `dabs`, `radius`,
+  `spacing`, `turn` (none: every way), `size` (one number or two), `how`
+  ("add", "clear"), `node`, `all`. One edit a stroke.
+  - *Add*: the places are those of a three-cornered lattice of the world,
+    `spacing` apart, each a little off its own place
+    (`land::stroke_places`), that are under the brush; a place nearer than 0.6 of
+    the spacing to what was painted with that design already is left out, so a
+    stroke over another is not twice as thick. Of a design with several of its
+    sort and none said, each is whichever of them. Under water nothing is put
+    down, but what floats. They go to the maker painted with that design before
+    (its `of`), or the one said, or a new one called "painted NAME"; a maker
+    holds 4000, and a stroke puts down 3000 at most (it says so, and how many it
+    would have been).
+  - *Clear*: what was painted with that design (`all`: with any) under the brush
+    is taken away, by where each stands now; a maker left with nothing is removed.
+  - A stroke that would do nothing (no room, all under water, nothing to clear) is
+    refused with the reason and is no step of undo.
+- **In the editor** (`marks.gd`, tool "strew"; `designs.gd`): Designs > a
+  design > **"Paint with it…"** and **"Clear it…"**, beside "Place one…". While the
+  brush is in hand the Designs window shows its settings: brush (m wide), apart
+  (m), size from and to, "each turned its own way", "Put it away". `[` and `]`
+  change the width; Esc ends it. The brush is drawn as a ring on what is seen, with
+  the stroke so far; the row under the bar says what is being painted with.
+- **Demo**: `editor\run.ps1 -Demo brush` (3 beats).
+
+**Checked** (what was run)
+
+- **host**: the whole suite once (a generator registered; `KEEPS_BY_HAND`
+  widened): **39 unit and 52 protocol tests, all passing**. New: `p52` (asked
+  wrongly; a stroke of rocks: how many, where, how far apart, on the ground, which
+  of their sort, turned, sized; the same stroke again refused; one that goes on
+  from it added to the same maker; undo and redo; one moved and one taken away by
+  itself; another design another maker; cleared, by where a moved one stands;
+  painted there again; a maker emptied is removed, and back when undone; nothing
+  under water; on a tile raised 2 m and down with it; written and opened; the
+  maker moved and all with it).
+- **tour**: `-Tour -Only brush` (new; passes): with the mouse, on a copy of the
+  tile showcase: the brush taken up from Designs and set, a stroke dragged from a
+  raised tile onto the one beside it (42 rocks: 22 on the raised ground, 20 beside
+  it, each on its ground), the same stroke again adding nothing and no undo step,
+  Esc, one rock clicked and deleted, "Clear it…" dragged over half, every step
+  undone and the view's fingerprint what it was. `-Only designs`, `-Only
+  makers`, `-Only raised` pass (see "Found on the way").
+- **`-Demo brush -Check`**: 3 beats of 3; the three pictures looked at.
+- **Not checked**: a kind of the world's own painted with (the tests used rock,
+  tree and bush); what floats painted on water; a painted maker turned; thousands
+  of things in one maker, for speed; the Library window; the town and the other
+  showcases; the whole tour. Not tried by hand.
+
+**Found on the way**
+
+- `-Tour -Only designs` failed after the first build of this: the brush's
+  settings, always shown, made the Designs window so long that "Make it mine" was
+  under the bottom of the screen and the tour's click on it missed. That is what a
+  person at a small screen would have met. The two buttons now sit beside "Place
+  one…", and the settings are shown only while the brush is in hand.
+- Clearing went by where a thing was first put, so one moved by hand since stayed
+  when the brush went over it (`p52` found it). It goes by where it stands now.
+- A reply's `things` is the session's count of things in the world: the stroke's
+  own count is `holds`.
+
+### Tile elevation, validated (2026-10-13)
+
+Asked for by the user before paint with one design: the four cases the first tier
+left unchecked. **No defect was found in tile elevation.** Nothing of the host or
+the editor was changed for it; a tour part and a host test were added.
+
+- **Walked, in play** (`-Tour -Only raisedwalk`, new; passes; a square tile raised
+  2 m and a hex raised 1.5 m in a copy of the tile showcase, each turned once, one
+  tile beside each as high):
+  - *What is solid is what is drawn and said.* At 576 places over each tile and
+    those about it, the first solid thing straight down is the ground the host says
+    is stood on there, or a thing standing on it; nowhere under it (no hole). The
+    ground drawn is met from above at the same height at every place too.
+  - *Sides.* A face is met from each lower side, at the side; none from the side as
+    high. For the hex, all six; for both, after a turn.
+  - *The walker* stands on the raised ground (6 cm over what the host says, which
+    is how far a tile's ground is over the land), walks about it without going
+    under it or off it, walks over to the tile as high with no drop at the seam,
+    walks off a lower side and comes down on the ground beside, and walking back is
+    stopped by the side.
+  - *Seen, and not a defect:* walking back at the 2 m side of the square, the
+    walker **caught the edge with its hands** (`ledge_hang`): a raised tile's edge
+    is an edge to it, as a cliff's is, so a tile can be climbed onto by the moves
+    it has. Not asked for; said so that it is known.
+  - *A mistake of the check, not of the tile:* put down in the very middle of a
+    tile the walker stood 1.1 m up. A thing of the tile's own stands there.
+- **A wood on raised tiles** (`p51`, new): the trees of a wood told a layout
+  stand as far over a raised tile's ground as they stood over the land (2 m
+  higher, the same trees in the same places); a wood told after the tile was
+  raised likewise; undone, on the land.
+- **Hex tiles** (`p51`, and the tour above): what is stood on is higher over the
+  whole six-sided cell and nowhere else (tried toward each side and each corner);
+  it is told of six neighbours; its things and a rock put on it rise with it; with
+  one beside it as high and the tile turned it is told so for the right side.
+- **What a change costs** (measured in the tile showcase: 67 tiles, 71 makers): a
+  tile raised, raised further, or changed places with another is answered by the
+  host in 20 to 35 ms and drawn within about 110 ms. No sign of a problem at that
+  size. **Not measured:** a world of hundreds of tiles or thousands of trees. Every
+  maker that stands things on the ground is planned again at each change of a
+  tile's height or place, so that cost grows with the number of makers; it is
+  under Known gaps and is the first thing to time if a large world feels slow.
+- **Still as before:** no ramp or step; no tile below the land; one water level; a
+  level top is not built. These are the tier's edges, not defects.
+
+### Tile elevation, first tier — one question of height (2026-10-13)
+
+Amendment 7w has what a tile's height is and why; this is what was built and how it
+was checked. On branch `m2-stable-terrain`, not committed.
+
+**Built**
+
+- **A tile's own height** (`raise`, a parameter of the tile put down; host
+  `tile_raise`: `to` or `by`, one tile or `nodes`, one edit). 0 to 40 m, whole
+  centimetres, never below the land. Given to a tile only when it is first raised:
+  a world with no raised tile is written as it was.
+- **Its ground lifted, with sides** (`shapes/land.rs` `turf`): the land's surface
+  under the cell, `raise` higher; a face of earth down to a lower neighbour, none to
+  one as high, down into the land where there is no tile (`steps`, told by
+  `tileops::settle`).
+- **One question of height** (`Shape::top`, `Raised`, the document's text
+  `tiles.raised` written by `tileops::settle_raised`): asked by `Ground::height`
+  (every maker: 28 places) and `heights_at` (cells, guides). The land's tools, a
+  tile's own ground and the land's mesh ask the land alone, as before. The host's
+  `ground` answers both (`heights`, `tops`) and a tile's `raise`.
+- **A solid**: a raised tile's ground is `mesh` to the walker; one on the land is
+  none, as before.
+- **In the editor**: Tiles > "Above the land (m)", "On the land", "Those beside it
+  as high"; Page Up / Page Down with a tile picked; a click that puts down or drags
+  meets a tile's ground where it is seen (`main.gd` `stood_on`); Keys; checklist
+  part 9; inventory 13n.
+- **Demo**: `editor\run.ps1 -Demo raised` (3 beats).
+
+**Checked by**
+
+- **test** (host): `p50` (new): a tile raised 2 m; the land's height unchanged and
+  what is stood on 2 m higher; its own things and a rock put down by hand 2 m
+  higher, its neighbour's not; a cell's middle; `steps`; its ground a solid and the
+  other eleven not; the land sculpted under it and undone; a neighbour raised and
+  lowered past 0; below the land refused; written and opened; moved (its height goes
+  with it, the rock comes down) and undone; on the land again and `tiles.raised`
+  gone from the file; undone. Two unit tests (new): a raised tile's sides by what is
+  beside it, and `top` against `height`. The whole host suite was run once after
+  it, since every maker's height changed hands: 39 unit tests and 50 protocol tests,
+  all passing.
+- **tour**: `-Tour -Only raised` (new; passes): the same by clicks and keys in a
+  copy of the tile showcase, and that the ground is drawn 2 m up, met by a click
+  there, a rock put down by a click lands within 0.4 m of the place clicked and on
+  the tile, and with 8 steps undone the view's fingerprint is what it was.
+  `-Only tiles`, `-Only surface`, `-Only editing` pass. Pictures looked at (a
+  tile raised; a terrace of five).
+- **`-Demo raised -Check`**: 3 beats of 3, a picture looked at.
+- **Not checked** then, and checked since (see "Tile elevation, validated" above):
+  walking onto a raised tile in play; a wood told tiles (`on`) on a raised tile;
+  hex tiles raised. **Still not checked:** the town and the other showcases opened;
+  the whole tour. Not tried by hand.
+
+**Found on the way**
+
+- Page Up pressed four times a few frames apart raised the tile three times in the
+  tour: a press that arrives while the edit before it is still being made is
+  refused, and says so. As for `[` and `]` on a tile. Under Known gaps.
+
+### Convenience pass — one thing looked at and shown alone; sorts left out of the view (2026-10-13)
+
+Asked for as a short, bounded pass. Looked at first: focusing and isolating, the
+land's brush preview, visibility of what grows and of props, one small transform or
+interface gain. Ranked by cost, reuse and risk; the first three below were built
+together because they are one filter in `world_view.gd`. On branch
+`m2-stable-terrain`, not committed.
+
+**Built** (the editor's side only: no host change, no change to a world or its file)
+
+- **Look at what is picked** (Home; "Look at it" under the bar): the view goes to
+  the one thing picked, as near as shows the whole of it; with a maker chosen, to
+  the maker, as before.
+- **One thing shown alone** (/; "Show it alone"): only it is drawn, with the land,
+  and the view goes to it. A thing of several drawn parts (a house: 21) is shown
+  with all of them: its maker's members within its frame. Shift+/: every thing
+  drawn with the same content (the same design). What is not drawn is not met by a
+  click either. / again, Esc with no tool in use, or "Show everything" brings all
+  of it back; while anything is left out the row under the bar begins NOT ALL IS
+  SHOWN and has that button. Play shows everything; opening or making a world does.
+- **Sorts left out** (Window > Shown in the view): what grows; other things. The
+  land and tiles' grounds are never left out.
+- How: `world_view.gd` `shows` (asked in `_put` and `pick`), `show_alone`,
+  `show_kinds`, `show_all`, `find`, `alone_box`; `main.gd` `look_at_picked`,
+  `show_alone`, `show_all`, `show_sort`; `desk.gd` the buttons and the list.
+  Content left out is still named by its cells, so it is kept and comes back at once.
+
+**Checked by** tour: `-Tour -Only alone` (new; passes, twice), `-Only editing`
+(passes), `-Only ui` (failed once on "the walker's numbers: put_back", the
+intermittent failure already under Known gaps; passed when run again). The four
+scripts compile. No host test was run: the host was not changed. The whole tour was
+not run. Not tried by hand.
+
+**Looked at and not built**
+
+- The land's brush preview: it is already drawn on the land and on tiles, with a
+  falloff, readouts and a tint for a whole tile. What it lacks is under Known gaps
+  (hidden by what stands in front of it): hiding what grows now gets round that.
+- A transform gain (turning by a number, snapping a turn): the inspector and `[ ]`
+  cover it; nothing cheap stood out beside "look at it".
+- Fading or ghosting the rest in place of leaving it out, and showing a maker's
+  things alone: both need more than this pass (a second material; owner asked of
+  the host).
+
+### Paint on what is seen — a tile's own surface; corners and rims; tiles in no cell (2026-10-12)
+
+The user answered the questions of the fourth look and set five things to do
+(amendment 7v has them in full, with what was found). On branch `m2-stable-terrain`.
+
+**Built**
+
+- **Paint says what it paints on, and starts on what is seen.** The land's panel,
+  paint: a row "paints on": *what I see: a tile, or the land*, or *the land, under
+  any tile*. The blue line, the line under the pointer and a tint over the whole
+  tile that would be painted say which, before a stroke is put down; after it, which
+  tiles it painted. To the host: `sculpt` with `on`: `seen` or `land` (nothing said:
+  the land, as every script before). One stroke on what is seen paints the tiles the
+  middle of the brush was put down on, and the land only where no tile lies.
+- **A tile's own surface.** A tile put down has `surface`: a ground, or nothing
+  (what its text says). Kept with that tile's node: not in the land, not in its
+  text. Its neighbours blend toward it; a wood on "tiles of sand" follows it; saved
+  as a tile of one's own it is that ground. `tile_paint` for a node (any ground).
+  Worlds written before are unchanged until one of their tiles is painted.
+- **Corners.** A ground's colour is one mix over every cell about a place, the same
+  whichever tile is asked: no notch where three or four grounds meet. A square is
+  told what is across each corner (`beside`, four more words).
+- **Rims.** Toward a cell with no tile a ground turns wholly into the land at its
+  side, and into the land as it is coloured there (height, steepness, paint), not
+  plain grass.
+- **Tiles in no cell.** A tile is in a cell when it stands in the middle of it, as
+  big as it and of its form; otherwise in none. A layout made smaller or another
+  size takes no tile away and stands none on another (it did, on the second change:
+  reproduced by the test). Such tiles are listed in Tiles with the reason for each,
+  given the nearest empty cell or dragged to one, or removed by hand; nothing is put
+  down on one unless `stack` is said.
+- **Kept**: `editor\run.ps1 -Tour -Only surface` (set `FLICK_WORLD` to look at a copy
+  of another world); a demo, `-Demo paintseen`; the checklist written anew.
+
+**Found on the way**
+
+- Painting a tile of a world saved earlier was refused ("no parameter 'surface'"):
+  such a tile has no such parameter. Found by the tour on a copy of a saved world,
+  not by the host's tests, whose tiles are new. Mended: the parameter is added when
+  a tile is first painted.
+- The rim first turned into the colour of sand: the ground was not told how high it
+  stands (what it is told of where it is does not reach its mesh). Seen in a
+  picture, as a pale strip along the rim. It is told now.
+- The 8 tiles of the user's world that are in no cell: 6 stand exactly in the
+  middle of a cell another tile has. They were not left lying; they were carried
+  there by a second change of the layout. That is stopped. They themselves are as
+  they were, for the user to deal with.
+
+**Checked**
+
+- **Host tests** (`cargo test --release -- --test-threads=1`): 37 and 49, all pass.
+  New: `tiles_about_a_corner_are_one_colour_where_they_meet` (squares and hexes);
+  `p49_paint_goes_on_the_tile_that_is_seen_and_a_tile_with_no_cell_is_kept`.
+- **`-Tour -Only surface`**: problems []. On the showcase and on a copy of the
+  user's tile world (its MD5 the same before and after). Pictures looked at: the
+  tile painted sand, rock, grass; the land at the rim; the rim itself with no edge;
+  the Tiles window on a tile in no cell.
+- **`-Tour -Only flick`**: problems []. Showcase: 0 dots at seven cases of eight, 1
+  at the eighth; the user's world, on a copy: 0 from 12 m (2 on the hex side), 1 to
+  15 from 45 m, on the shoreline; no land between grounds.
+- **`-Tour -Only seams`, `tiles`, `ui`**: problems []. (Two checks of those tours
+  were brought up to date: a square's `beside` has eight words; seams looks at
+  paint told to go on the land.)
+- **`-Demo paintseen -Check`**: 3 beats of 3, a picture looked at.
+- **Not run**: the whole tour, the other demos, the built game. **Not tried by hand.**
+
+### The user's fourth look at tiles — flicker as the eye moves; paint on tiles traced; one way to paint written down (2026-10-12)
+
+The user tried the pass below by hand: tile edges still flickered when the camera
+moved, on level tiles as well as shaped land. They asked for that to be found from the
+rendering itself, for painting on raised tiles to be traced, and for the unified way
+of painting and creating, and an audit of the editor's workflow beside other engines,
+to be written down (amendments 7r to 7u). Their own tile world was used to look, with
+their leave, always on a copy: the file is as it was (its MD5 the same before and
+after).
+
+**Found before anything was changed.** A new part of the tour, `-Tour -Only flick`,
+moves the eye a very little each frame over tiles, with everything but the land and
+the tiles' grounds left out, and counts every dot that is one colour, another for one
+frame and the first again. On a copy of the user's world: hundreds of such dots in
+short lines along the sides of tiles (386 about a side, 523 about a corner, 285 on
+shaped land, from 12 m), and none anywhere else on the ground.
+
+- **The cause: two sheets in one place.** Since "the land under tiles" each tile's
+  ground went 2 cm past its side onto its neighbour's, so that no crack would be left.
+  The two lie in the same triangles of the land at the same height, and which is drawn
+  at a dot goes by the last digit of their depths, which changes as the eye moves. It
+  was to be unseen because the two are one colour at their side. Near a corner where
+  three or four grounds meet they are not. **Shown by taking it away:** the same eye
+  and frames, 16, 16 and 6 dots, all on the line of the sea.
+- **And a thin dark line round tiles with no neighbour, from far off:** the rim that
+  goes down into the land, lit as a wall, drawn nearer the eye the farther off it is
+  (as all of a tile's ground is) until it came out in front of the land.
+- **Painting on a tile** changes the land under it: `turf` works out a tile's colour
+  from the tile's definition, its neighbours and the place, and never reads the land's
+  surface. By the design of 7o and 7p; the editor says so with stripes and words; the
+  person still has no way to paint what they see.
+- **In the user's world, tiles standing on one another:** five cells of the hex layout
+  hold two or three tiles, two more tiles stand outside it. The showcase it began as
+  has none; its hex layout has since been changed (5 by 5 of 8 m to 4 by 7 of 7 m).
+
+**Built.**
+
+- **No ground goes past its side.** Each is cut off at it, through the same triangles
+  of the land: the two have the same corners there and are one sheet (`land.rs`
+  `turf`; `TURF_LAP` is gone). A corner is told the same height whichever tile asks
+  (`turf_land`: a whole millimetre of the world, not of the tile).
+- **A tile's rim is lit as the ground it hangs from**, and wound so that its front is
+  seen from outside.
+- **The tour's part `flick` is kept**, on a copy of the tile showcase (or of the world
+  `FLICK_WORLD` names): it fails on more than 40 such dots in a case, and on any dot of
+  the land seen between tiles' grounds.
+- **A host test**: two tiles side by side on raised land, at different heights, have
+  the same corners along their side and neither goes past it.
+- **Written down, not built**: 7r (this, and the mend designed for the colour near a
+  corner), 7s (what paint paints on; a tile's own surface), 7t (one way to paint and
+  create, with what stands today and an order), 7u (Godot, Unity and Unreal looked up;
+  what to take and leave; the interface's requirements), and more of 7q (vegetation
+  cleared, stood again, and standing as its surface asks).
+
+**Checked by** (2026-10-12; narrowly).
+
+- **`-Tour -Only flick`** on a copy of the user's world, before: the numbers above
+  (and 790, 1169, 688 with smoothing off). After: 0, 0, 0 from 12 m and 12, 2, 15
+  from 45 m (all on the island's shore against the sea), 0 to 4 on the tile showcase; **no dot of
+  the land between grounds**, on level and shaped land, from above and from low. No
+  problem, no script error. Pictures looked at: the pink marks along sides before, none
+  after; the dark lines round far hexes before, none after.
+- **The host's tests**, all of them (the host changed): 36 and 48, none failed.
+- **Beside it**: `-Tour -Only seams` (no frame off in any stroke, no problem) and
+  `-Tour -Only tiles` (no problem), and `-Tour -Only ui` for the checklist (no problem); the pictures of tiles on raised land and of the
+  hexes looked at.
+- **Not run**: the whole tour; the demos; the built game (it has no tiles).
+
+**Not done, or not as good as it should be.**
+
+- **The colour near a corner of three or four grounds** is still wrong along a side
+  for up to 2.4 m, and a tile at the rim does not everywhere turn wholly into the land:
+  both stand still and are plain to see. One mend for both is designed in 7r.
+- **Tiles in one cell** in the user's world are as they were: not reproduced, not
+  mended, nothing of the world changed.
+- **Nothing of 7s to 7u is built.** The four notes the brief named were not on this
+  machine: 7t is written from the brief's own words and is to be read against them.
+- **The interface's requirements** (the wheel over a panel, what is picked when the
+  tool changes, panels that jump) are recorded, not traced or mended.
+- Not tried by hand.
+
+### After "the land under tiles" — what still flickered; the stripes; construction tools written down (2026-10-12)
+
+The user tried the pass below by hand: seams better, but tile edges could still
+flicker or be distorted while editing, most when raised land was flattened; and the
+stripes of a tool on a tile hid too much. They asked for those two, and for the
+direction of construction tools and generators to be written down (amendment "7p,
+continued" and 7q).
+
+**Found before anything was changed.** The tour's part `seams` was given a step that
+looks at what is drawn in every frame of a stroke (the pass before looked a few times
+a second and saw nothing): a hump where four patches of the land meet, with tiles on
+it, and wide brushes dragged over it and back with the mouse. About one stroke in two
+had a frame in which a tile's ground was 0.2 to 1.1 m off the land under it. Two
+causes, both in what the view draws while a mesh is awaited:
+
+- **A ground standing as it stood was drawn where its tile is now.** A tile is kept
+  at the height of the land under its middle, so a stroke moves it at every step: the
+  old ground, at the new height, until the new ground arrived. Flattening a hump moves
+  that middle most. (This came in with the pass below, which made a ground stand
+  instead of vanish.)
+- **A cell of the view changed by itself.** A tile lying across the line between two
+  32 m cells had the land under one half of it changed a frame before the other.
+
+**Built.**
+
+- **What stands as it stood stands where it stood** (`world_view.gd`, `stood_at`),
+  and a ray meets it there (`pick`).
+- **Every cell a stroke touches changes in one frame** (`unsure`, `gated`,
+  `_all_here`; a frame of cells is looked through before any of it is put down). More
+  than 16 cells awaited at once is the land made again, and each cell then changes as
+  its own arrives, as it did.
+- **The stripes of a tool on a tile are thin, a metre apart and fainter**, with soft
+  edges: about a quarter of the brush covered where it was half. The outline, and the
+  plain tint on bare land, are as they were.
+- **The tour's step is kept** (`-Tour -Only seams`, "dragged across where four patches
+  of the land meet"): five strokes, every frame, 81 places.
+- **Written down, not built: construction tools and generators** (amendment 7q): the
+  user's direction, what stands today against it, ten dependencies in order, and the
+  rules for whatever is built of it. See also "Next".
+
+**Checked by** (2026-10-12; narrowly). No host code changed: the host the editor runs
+is the one of the pass below, and nothing is owed.
+
+- **`-Tour -Only seams`**: before, three runs, each with one to five strokes that had
+  a frame off (0.19 to 1.14 m). After both changes, four runs (two of them on the
+  code as kept): **no frame off in any stroke**, five strokes a run (about 200
+  changes of what is drawn in a run), and every other step of the part as it was (no problem, no script error). Pictures looked at: the
+  tool on a tile with the new stripes; flatten, raise and lower held over the hump.
+- **Beside it**: `-Tour -Only tiles` (twice), `region`, `ui` (twice): no problem, no
+  script error. **`-Tour -Only land`: a fault of this pass found and mended.** With
+  every cell held back until the last (the first form of the second change) it
+  failed in 3 runs of 7, each time the same: "a node's knobs and the road's line did
+  not do what they should … taken_away: false" (the line had 5 places, not 4, four
+  seconds after one was taken away); on the committed view, 4 runs of 4 passed. That
+  step makes the whole land again, and its last sixteen cells were being drawn in
+  one frame. With the holding back kept to strokes (`apart`): **5 runs of 5, no
+  problem**. Why a long frame undid that step was not found; see "Known gaps".
+- **`-Demo ontiles -Check`**: 4 beats of 4.
+- **Not run**: the host's tests (no host code changed); the whole tour; the built
+  game.
+
+**Not done, or not as good as it should be.**
+
+- What stands on a tile goes to its new height at once while the ground waits a frame
+  or two: a thing can be seen a step off the ground for that long.
+- A stroke under many tiles lags as before; waiting for every cell makes it no
+  quicker.
+- Nothing of 7q is built. Not tried by hand.
+
+### The land under tiles, and woods on tiles (2026-10-12)
+
+The user looked at the pass below and asked for the next increment: the land's tools
+seen over tiles and the two surfaces told apart; the tearing that remained understood
+before anything was done to it; makers made useful with tiles; and the way to a
+tile's own height kept open (amendment 7p has their words, and what was decided).
+
+**Found before anything was changed** (a tour part written to make it happen: the
+brush held with the mouse where tiles meet, pictures while it is held, and what is
+drawn measured).
+
+- **The brush was hidden by a tile**: it was drawn by the land's paint alone, and a
+  tile's ground lies over the land.
+- **The tearing was four things, none of them a tile's ground being off the land**
+  (it is on it to the millimetre): a slit seen through a steep hillside, which is the
+  land's own mesh under a face (a triangle facing into the hill, and not drawn from
+  outside), and what smoothing "repaired" only by removing the steepness; a tile's
+  rim standing out along a side two tiles share; the land's colour in specks through
+  a ground on a face; and, while a brush is dragged, the land and each ground swapped
+  in frame by frame as they arrived, with a ground not drawn at all meanwhile.
+  Amendment 7p has the table.
+- **Tried and taken out again**: cutting a leaning square of the land's mesh the
+  other way. It mends triangles turned over as seen from above, and the slit was not
+  one of those (a host test with rays showed 22 places seen through on a spike with
+  no such triangle): drawing both sides mends every case and changes no mesh.
+
+**Built.**
+
+- **A tool for the land is drawn on a tile's ground too, in stripes**, and plain on
+  the land (`world_view.gd`: a tile's ground has its own material, `skin`; `tool_says`
+  tells both). **The panel says what the tools work on** ("Works on: the land…"), and
+  with the pointer on a tile, which tile and what the tool chosen does there. The
+  host's `ground` answers which tile lies over a place. `terrain.gd` keeps the target
+  (`target`, only the land today), and every command is made in one place by it.
+- **The land and a tile's ground are drawn from both sides**; a tile's ground **a
+  little nearer the eye than it is**; a rim **only where no tile is beside it**, each
+  tile lapping 2 cm onto its neighbour; corners of a ground with the same place and
+  another height kept apart (`shapes/land.rs`, `turf`); and **a tile's ground stands
+  as it stood while it is made again, a cell's land and grounds all changing in one
+  frame** (`world_view.gd`, `STANDS`). A ground whose mesh has not arrived is no
+  longer a grey slab.
+- **A wood or a meadow told which tiles to make its things on** (`on`, the host's
+  `grow_on`; `over`, which the host works out after every edit: `tileops::settle`,
+  `standing`, `Target`): chosen tiles, every tile of a layout, or its tiles of one
+  ground or one name. `count` is then how many **on each tile**, a place where nothing
+  can stand tried again on the tile; `uneven` makes one tile's share unlike the
+  next's; `clear` keeps off what the tile has standing. It follows its tiles through
+  every edit. In **Makers > Where it makes its things**: **Choose tiles…**, **All
+  tiles of…**, **Not on tiles**, and the two numbers. A maker told no tiles makes
+  what it made.
+- **Where each tile stands is worked out in one place** (`tileops::standing`), which
+  the land's tools and the makers on tiles ask: the beginning of the record a tile's
+  height is to be said in.
+- **A demo**, `editor\run.ps1 -Demo ontiles` (4 beats; `-Demo` alone is now this one),
+  and **a tour part**, `-Tour -Only seams`. The checklist is written anew (6 parts).
+
+**Checked by** (2026-10-12; narrowly, by the rule above). The editor was closed:
+built in place, **`editor\host\target\release\engine-host.exe` is the host of this
+pass**.
+
+- **Host**: all 35 unit tests (one new: a rim only where no tile is beside it) and
+  all 48 protocol tests, one at a time. New: *p47*, a stroke dragged under 12 tiles
+  (24 steps staged, each before the last is asked for, then kept): every ground the
+  cells name is 6 cm over the land at every sample, to 5 mm. *p48*, a wood told its
+  tiles: every tile of a layout and no empty cell; as many on each as asked with
+  nothing uneven, from none to twice with all of it; one ground; cells said by
+  themselves, one more added moving nothing, one taken away; clear of the tile's
+  things by what is asked; a tile moved and the wood there; the wood moved and
+  turned and its trees where they were; undone and done again; a meadow; written and
+  opened the same; told none, about its own place again; and what is refused.
+- **`-Tour -Only seams`**, no problem and no script error on its last run (two runs
+  before it failed on the new steps alone, both the script's: a button's words not
+  drawn again, and a tile clicked that lay under the Makers window). It measures
+  what is drawn at 625 places: a ground against the land under it is off by 0.000 m
+  as made, at each of 16 looks while the brush is held, let go, raised 12 m, smoothed,
+  restored, lowered to 3 m under the water, smoothed, restored again; undone, the
+  land's heights are what they were and every tile is there. And the tool on the
+  tile, what the panel says for raise and for paint and off the tiles, and the wood
+  told its tiles by the mouse. **Pictures looked at**: the tool on a tile; the brush
+  held; the spike from three sides and from close (the slit that was there is gone);
+  into the water; the wood on two tiles, on every tile uneven, on one ground.
+- **Beside it**: `-Tour -Only tiles`, `region`, `ui`, `layout`: no problem, no script
+  error. `-Tour -Only land`: no problem on two runs; **on the run before those one
+  problem, not explained**: "the land was bare, or not met, or the tool not shown on
+  it, while it was dragged over (as_it_is): frames 29, stood_for 2, unmet 1,
+  through 1", the pointer at (721.9, 372.5), on the corner where four patches of
+  land meet. One frame in which none of five rays met the land. What stands for a
+  patch while it is made again was changed in this pass (it now holds for tiles'
+  grounds too), so it may be this pass's; the same code path for land alone is as
+  it was, and two patches swapped in different frames could always leave a crack
+  between them for a frame. If it comes again: `-Tour -Only land`, three times.
+- **`-Demo ontiles -Check`**: 4 beats of 4, pictures looked at.
+- **Existing worlds**: every showcase built again into a scratch file: the tile
+  showcase is byte for byte `editor\showcase-tiles.json`; the layout, urban and rural
+  ones are their files but for the four new parameters on their woods and meadows
+  (compared as data). None was written. `feel.cfg`, `world.json`, `my world.json` and
+  the showcases untouched (the tour checks their sums; git shows no change).
+- **Not run**: the whole tour; the other tour parts; the built game.
+
+**Not done, or not as good as it should be.**
+
+- **A tile has no height, no form and no water**; paint is not put on a tile.
+- **A brush held under many tiles lags**: every tile is made again at every step of a
+  stroke (about 70 owners a step on the showcase), and the view now waits for all of
+  a cell's grounds before it shows the step. It is whole when it shows; it shows
+  later than on bare land.
+- **Where four tiles of different ground meet, the colours show a short straight
+  edge** at the corner. As it was: a tile knows its sides, not its corners.
+- **Things on ground shaped steeply stand 15 to 30 cm off it**, as before.
+- **A tool's outline is still hidden by what stands in front of it** (a tree, a hut).
+- **Tiles are chosen one click each**; no region is a thing of its own; a maker on
+  tiles stands its things on the land under the tile (6 cm under its ground), as a
+  tile's own things stand.
+- **A wood told to cover tiles keeps a small number when told none again.**
+- **The Inspector shows `on` and `over` as raw text.** `over` is the host's to write.
+- The land is drawn from both sides now: seen from under it, it is there (it was
+  seen through). Not looked at in play.
+- Not tried by hand.
+
+### After L2 — tiles on land that is shaped; what a tile is to become (2026-10-12)
+
+The user tried L1 and L2 by hand and asked for a closeout pass: "focused, low-risk
+fixes that materially improve the existing tile workflow", no "new terrain system,
+water system, or major editor feature", and the roadmap to keep the direction:
+"distinguish underlying terrain from tile elevation and tile surfaces". What they
+found: woods spread across hex layouts; "terrain sculpting and painting currently
+operate beneath tile surfaces; tiles can stretch or break when the terrain is raised
+or lowered, and surface painting may be hidden".
+
+**Found, by reading the code and by measuring, before anything was changed.**
+
+- **Tiles breaking on shaped land was a fault, and a small one to mend.** A tile's
+  ground was drawn through rings of corners about its own middle, each at the land's
+  exact height there. The land itself is drawn as two triangles to every square
+  metre. Between samples the two are not the same surface, and where the land was
+  raised by hand they differ by a good deal. Measured (a tile of 8 m, over ground
+  raised with the brush): on hills as they are made the ground was 5.5 to 6.6 cm over
+  the land everywhere (as meant: 6); raised 1 m, 0.8 to 12 cm; **raised 4 m, the land
+  came through at 552 of 4200 places looked at, by up to 15 cm, and the ground stood
+  up to 32 cm off it elsewhere**; lowered 3 m, through at 196, by up to 14 cm.
+- **Woods and meadows over a layout work as they do anywhere, and know nothing of
+  tiles** (tried in the host: a hex layout of 25 tiles, a wood at its middle). Their
+  things stand on the land, inside whatever cells the reach covers. `count` is places
+  tried: with a reach of 12 m, asked 3, 6, 12, 40, 200 made 2, 3, 8, 26, 150 (the
+  outer third thins); painted over one hex, asked 1, 3, 8 made 2, 4, 9 (each square
+  takes its share by chance). So a few things cannot be asked for exactly by number.
+  Not a fault and not changed: either rule changed would move every tree of every
+  world. Said in amendment 7o, continued.
+- **Paint under a tile is hidden, and still counts.** Rock painted on the land under
+  tiles took 4 of a meadow's 72 things away there and none of a tile's own 9. That is
+  what "a skin on the land" means today; what it should mean is the direction below.
+
+**Built.**
+
+- **A tile's ground is drawn through the land's own triangles** (`shapes/land.rs`:
+  `turf_block`, `turf_land`, `turf`). The tile is told the land's samples over its
+  cell (a metre apart, to the millimetre, with which way the ground faces at each as
+  the land's mesh has it, and which corners lean under a cliff). Each of the land's
+  triangles is cut in four and cut off at the outline of the cell, square or
+  six-sided, however the tile is turned. So the ground is 6 cm over the land at every
+  place, lit as the land is, on hills, on ground raised or lowered by metres, and
+  across a cliff's face. Its colour, the blend toward neighbours, its paths and its
+  rim are as they were. `tiles::lattice` and `tiles::rim` are gone with their test.
+- **Nothing of a world's file changes**: what a tile is told of the land is worked out
+  when it is made and is not kept. The generator's version is as it was, so tiles
+  that are there are simply made again when a world is opened.
+- **The tour's part on tiles now shapes the land under the showcase** (on its copy):
+  8 dabs of raise under the valley's middle, a cliff under the homestead, every tile
+  still there and joining, four pictures.
+
+**The direction, written down** (amendment 7o, continued; a line in the master's
+change log): the underlying terrain, a tile's elevation and a tile's surface as three
+things kept apart; to come on them raised groups and platforms, landforms, water and
+shorelines, transitions between neighbours, decoration aimed at tiles or regions;
+what in the code leaves a way to them; and six risks to decide before elevation is
+begun, the first being that everything that stands on the ground asks the land alone
+how high it is.
+
+**Checked by** (2026-10-12; narrowly, by the rule above). The user's editor was open
+(a host on 47800): everything was built into `editor\host\target-w` and run on port
+47860. **`editor\host\target\release\engine-host.exe` is the host of before this
+pass: `cargo build --release` in `editor\host`, with the editor closed, is owed
+before the mended ground is seen in the editor.** The scripts are as they were but
+for the tour.
+
+- **Build**: host and examples (in `target-w`); `tour.gd` compiles headless.
+- **Tests of what changed**: two new unit tests in `land.rs`. *A tile's ground lies
+  on the land as it is drawn*: on hills, raised 4 m, lowered 3 m and across a cliff;
+  squares on and off the land's samples and turned 30 degrees, hexes turned 0 and
+  60; at every place looked at it is 6 cm over the land's own mesh to within 4 mm,
+  it covers its cell and no more (to a thousandth; under a cliff, where the land's
+  own mesh folds over itself, up to a twentieth more), and its rim goes all the way
+  round. *Told nothing of the land* (a tile's picture) it is level and whole. The
+  same measure run on the code of before is the numbers above.
+- **The way of working, end to end**: `-Tour -Only tiles`, no problem and no script
+  error on its last run (two runs before it failed on the new step alone, both my
+  script: a second stroke sent while the first was still being made, then an answer's
+  `error: null` read as an error). **Pictures looked at**: 03, 09, 15 to 18. The
+  valley from above is as it was (a meadow tile shows no edge on plain land, grounds
+  run together, paths join); the hill raised under tiles carries its tiles and their
+  path with nothing coming through; the cliff's face is covered.
+- **The parts beside it**: all 34 unit tests and all 46 protocol tests, one at a
+  time (p19, p20, p22 are the land by hand; p46 is tiles). `-Tour -Only layout`: no
+  problem, no script error. `-Tour -Only ui` (the checklist has a ninth part): no
+  problem, no script error. `-Demo tiles -Check`: 6 beats of 6.
+- **Existing worlds**: the tile showcase built again into a scratch file is byte for
+  byte `editor\showcase-tiles.json`. `feel.cfg`, `world.json` and `my world.json`
+  were not touched (the tour checks their sums, and git shows no change).
+- **Not run**: the whole tour; the other tour parts; the measurements; the built
+  game.
+
+**Not done, or not as good as it should be.**
+
+- **A tile still has no height of its own**, and no water. This pass made it lie on
+  the land properly; it did not give it elevation. See the direction.
+- **Paint on the land under a tile is hidden by the tile, and still decides what a
+  wood or a meadow grows there.** Whether paint under the pointer should go to the
+  tile's surface instead is the user's to say; nothing tells a person today that the
+  brush is working under a tile.
+- **Things do not stand exactly on the land as it is drawn where it was shaped
+  steeply**: a thing stands at the land's exact height at its place, the land is
+  drawn in triangles a metre across, and between samples the two differ (by the same
+  15 to 30 cm on ground raised 4 m). True of every maker's things and of things put
+  down by hand, on a tile or off it, since M2; now seen because the tile's ground no
+  longer hides or shows it. Not changed here: it moves every thing in every world a
+  little.
+- **A thing of a tile that stands across a cliff put under it is cut by the cliff**
+  (the showcase's hut, in picture 18). A tile's things stand where its text says.
+- **A wood's or a meadow's number is "about"**, and neither knows of tiles or cells
+  (above).
+- **A tile kept frozen from before this pass** keeps a ground made the old way until
+  it is thawed. None is known to exist.
+- **Every tile is made again at every stroke on the land** (8 ms for 25 tiles).
+- Not tried by hand.
+
+### L2 — Terrain tiles: pieces of land for a layout's cells (2026-10-12)
+
+The user's brief: "the first practical tile-set system, building on the completed
+spatial-layout milestone", "a working, editable end-to-end example over a broad or
+elaborate framework". It names two things to keep apart: **flexible grid cells** (the
+L1 layouts, "used to organize ordinary objects. Multiple objects can occupy a cell")
+and **authored terrain tiles** ("reusable pieces of a landscape that can be placed
+into neighboring grid cells … not merely an overlay or a cell containing an ordinary
+object … select and manipulate the tile as a unit, then edit its contents when
+needed"). Called **L2** here (amendment 7o).
+
+**What was found, read from the code before anything was changed.** A maker (W1) is
+already "one thing that makes several, selected as one, with each thing it made still
+picked, moved, turned, given another design and taken away by itself, the maker
+keeping what was done by hand" (W1b, W1c, D2). That is exactly what the brief asks of
+a tile. So a tile put down is **a maker whose arrangement is authored instead of
+scattered**: it needed one new generator and no new way of selecting, moving, undoing
+or saving. The library (7n) already keeps text in files apart from any world and
+brings it into a world as the world's own copy: a tile set is the same, in a folder
+beside it. L1's `layout.rs` already answers where a cell is and what is beside it:
+it needed only to say which way each side of a cell faces.
+
+**Built.**
+
+- **`editor/host/src/tiles.rs` (new): what a tile and a set are, as text.** A tile
+  has a name, the set it is of, the cell size it was made for, its **ground** (grass,
+  forest, rock, sand, dirt, snow, or a colour), a word for what each **side** meets a
+  neighbour with (one for all sides, or four, or six), **paths** (a strip of other
+  ground from one side to the middle to another), and the **things** on it (each a
+  design as the one list of designs says it, a place in metres from the middle, a
+  turn, a size). A set has a name, a cell size and **rules**: `joins A B`, a side that
+  says A may meet one that says B; the same word always may. **The rules are lines of
+  the set's file, not code.** The files are `editor\library\tiles\*.txt` (what Draw3D
+  comes with, never written) and `tiles\mine\NAME.txt` (what a person saved, with any
+  design the library does not have, and what a save wrote over kept in `earlier`).
+- **`shapes/land.rs`: the maker `tile`, and its ground.** A tile put down is a node
+  of the document at the middle of its cell, turned as it was turned. It makes its
+  ground (one thing, `turf`) and each thing its text says, about its own place. Its
+  text is an asset of the document (`tile.NAME`, with the set's rules as
+  `tileset.NAME`), written there with every design it needs when the tile is first
+  put down: so **a world opens the same on a machine with no tile sets**, a world's
+  tile is that world's to change, and a tile changed makes every one of it again.
+  What is done by hand to one of its things is kept as for any maker (moved and
+  turned by a record, taken away by one, another design or size by `each`, one more
+  by `added`).
+- **The ground is a skin on the land.** It has the land's own height at every corner
+  (a ring lattice out to the outline of its cell, square or six-sided, asked of
+  `layout.rs`), 6 cm above it, with a rim turned down. Its colour is the tile's
+  ground; **grass is the land's own grass** (the same noise by the land's seed), so a
+  meadow tile on plain land shows no edge. Tiles side by side have the same corners
+  along the side they share (a unit test).
+- **Neighbours blend.** After **every** edit, whatever it was, each tile is told what
+  ground the tile beside each of its sides has (`tileops::settle`, part of the same
+  edit and undone with it). Where the neighbour's ground is of another sort, a
+  tile's ground turns into it over the outer 2.4 m, half way at the side itself,
+  along an uneven line; the neighbour does the same from its side with the same
+  noise, so the two are one ground with no seam. Toward a side with no tile beside
+  it, the ground turns into the land's own grass. Moved, turned, replaced, taken out
+  or undone by any command, a tile's neighbours are right again, and only the tiles
+  whose neighbours changed are made again.
+- **Sides join, or do not.** Which side of a tile faces which neighbour is asked of
+  `layout.rs` (`side_facing`: by the tile's turn against the layout's). A tile put
+  down is turned by the host the first way that joins what is beside it (so a piece
+  of path is not turned by hand); where no turn joins it is refused and nothing is
+  changed, unless `anyway`, and then it says which sides do not join.
+- **Host commands** (`tileops.rs`): `tilesets` (the sets and their tiles, whether
+  this world has each, how many are put down); `tile_made` (a tile as one mesh, for
+  its picture); `tile_fit` (each turn, and why not); `tile_put` (one cell or many as
+  one edit; in place of the tile there; `skip` leaves empty the cells where it would
+  not join); `tile_move` (to another cell; onto a tile, the two change places);
+  `tile_turn`; `tile_save` (a tile as it stands, with what was done by hand, written
+  to one's own tiles); `tile_def` (its text, read or written); `tiles` (every tile
+  put down, its cell, its turn, and how each side meets its neighbour). Taking a tile
+  out is `remove`, as for any maker. `cell` and `layouts` say the tile in a cell and
+  how many a layout has.
+- **`editor/godot/tileview.gd` (new): the Tiles window** (Things > Tiles,
+  **Ctrl+T**): the set, a picture of every tile (in the form of the layout tiles go
+  into), what the one chosen is; **Put it down…** (a click on a cell, a drag across
+  several, the cell under the pointer red where it would not join), **[ turn / turn
+  ]**, **Fill the empty cells**, **New square / hex grid for tiles**; and of **the
+  tile picked** in the view: where it is, what is beside each side, what does not
+  join, **Turn it**, **Replace with the one chosen**, **Put down more of it**,
+  **Remove the tile**, **Save as a tile of my own**.
+- **In the view** (`main.gd`): **a click on a tile's ground picks the whole tile** (a
+  frame about its cell, everything on it marked); `[` `]` turn it in its cell; a
+  right drag, Shift + right click and the pad move it from cell to cell; Delete takes
+  it out; Ctrl+D puts down more of it. **A click on a thing on a tile picks that
+  thing alone**, and everything the editor does to a thing it does to that one. A
+  thing put down or moved on a tile stands where it is put (a tile is ground, not a
+  slot).
+- **Flexible cells, as the brief asks** (small changes to L1): **more than one thing
+  to a cell is now the way a layout begins** (the first thing in a cell goes to its
+  middle; the next stands where it is put; unticked, one to a cell as before).
+  **Resizing with "go with their cells" keeps each thing in its own cell**: in a
+  smaller cell it is as far from the middle in proportion (before, it kept its
+  distance in metres and could land in the next cell). **What has no cell any more**
+  (fewer columns or rows) **stays where it stands and is named** in a message;
+  nothing is put in another cell unasked. Tiles go with their cells too, and are as
+  big as the cell.
+- **The set Draw3D comes with** (`library\tiles\terrain.txt`, 13 tiles for 8 m
+  cells): meadow, woodland, pine wood, rocky ground, snowy meadow, snowy pines, sand,
+  a homestead (a hut, a well, a fire, fences), and a path across a meadow as
+  straight, bend and end for squares and straight and bend for hexes. The eight with
+  one word for every side go in squares and hexes alike (everything on them stands
+  within the circle both cells share). Their things are the library's designs and
+  the code's own.
+- **The tile showcase: `editor\showcase-tiles.json`**, built by
+  `editor\showcase.ps1 -Which tiles` (`host/examples/tiles.rs`, 92 commands, under a
+  second): "the valley", squares of 8 m, 7 by 6 (woods north-west, snow north-east
+  with rock between it and the meadows, sand south-east, a path in from the west past
+  a homestead that turns north to end at a standing stone) and "the hex country",
+  hexes of 8 m, 5 by 5, of the same tiles with a path across. 67 tiles of 12 sorts,
+  977 things on them. Then, as by hand: on the homestead a well moved, a flower taken
+  away and a scarecrow added; a woodland tile turned; a picnic table put down by
+  itself on a meadow tile. The path's pieces are turned by the host. The builder
+  asserts every side of every tile joins, and that the file opens and writes again
+  byte for byte. The rural, urban and layout showcases are as they were.
+
+**Decided.**
+
+- **A tile is a maker, not a new kind of object.** So selection, moving, turning,
+  per-thing edits, undo, saving and the Makers window all apply, and L3's buildings
+  (a maker whose arrangement is cells) have the pattern to follow.
+- **Which cell a tile is in is where it stands**, as for everything in a layout (L1):
+  nothing is stored in the layout. A layout taken out leaves its tiles standing as
+  pieces of land by themselves.
+- **A world never refers to the tile files**, as it never refers to the library.
+- **A tile's ground is colour, not height.** The land under it is the land's. See
+  "Not done".
+
+**Checked by** (2026-10-12; narrowly, by the rule above).
+
+The user's editor was open throughout (a host on port 47800, with unsaved changes),
+so the host was built into `editor\host\target-w` and every run used it
+(`DRAW3D_HOST`) on port 47860. **`editor\host\target\release\engine-host.exe` was not
+rebuilt and is the host of before L2: `cargo build --release` in `editor\host` is
+owed before the editor is next started** (the new scripts ask it for commands it does
+not have).
+
+- **Build**: host and examples build (in `target-w`); every changed script compiles
+  headless.
+- **Tests of what changed**: `tiles.rs` unit tests, 5 of 5 (a tile is its text and
+  reads back; what is wrong in one is said and left out; a tile with a word for each
+  side is for one form; sides join by the same word or a set's rule; the ground of
+  neighbours meets corner for corner, squares and hexes). `layout.rs`, 6 of 6 (new:
+  something turned in a cell faces each neighbour with one side). Protocol test
+  **p46** (the set read, every tile understood, made of designs there are, and
+  pictured; refused with no layout, outside it, of the wrong form; put down with its
+  designs brought in; its ground and things on the land; a neighbour, and each told
+  the other's ground, the first's ground made again; a wood joining open ground by
+  the set's rule; a path piece's four turns, two that join, and the host choosing
+  one; its end turned to meet it; refused between meadows with nothing changed, put
+  down `anyway` and saying which sides do not join; undone; turned, everything as
+  far from the middle; one thing moved, one taken away, one given another design,
+  one added; moved to another cell as one with all of that; two changing places;
+  several cells one edit; written, opened, the same; saved as one's own, what Draw3D
+  comes with refused and its file untouched; taken out and its neighbours told,
+  undone; bigger cells with its tiles; fewer cells and the three left named;
+  renamed; the layout removed and the tiles standing; an ordinary thing kept in its
+  own cell when cells shrink, and named when its cell is gone; **a host started
+  again on another world** has the saved tile, puts it in a hex with six woodland
+  neighbours and is told six grounds).
+- **The way of working, end to end**: `-Tour -Only tiles`, no problems and no script
+  error on its last two runs, with real mouse and key events: Ctrl+T; every tile
+  pictured; a tile chosen by a click on its picture; not put down with no layout;
+  "New square grid for tiles"; a click and a drag across three cells; snow and wood
+  beside meadow, each told the other; a path laid, a cell marked red and a click on
+  it refused, an end turned by the host; Esc; a tile picked by its ground, turned by
+  `]`, moved by Shift + right click, a right drag and the pad, changed places with
+  another, undone; one thing on a tile picked, moved where put, turned 15 degrees,
+  deleted, undone; a barrel put on a tile where clicked; two things in one empty
+  cell, the first at its middle; a tile replaced from the window, deleted, undone;
+  saved as "tour-glade" (its file holding the barrel added by hand), pictured, and
+  filled into the empty cells with one cell left where it would not join; one undo;
+  written to a file of the tour's own, a new world with none, opened the same; cells
+  made 10 m with every tile; hexes, six neighbours, a hex path, a sixth turn; the
+  showcase opened on a copy, 67 tiles each joining. **Pictures 01 to 14 looked at**:
+  the ground of neighbours runs together, a meadow tile shows no edge on plain land,
+  the rim fades into the land, the paths join; a faint seam where grounds meet at a
+  corner (see "Not done").
+- **The parts beside it**: all 33 unit tests and all 46 protocol tests, one at a
+  time. Tour parts `layout` (changed: it now asks for one thing to a cell, and
+  checks that more than one is the default), `editing`, `chosen` and `ui`: each
+  ended with no problem and no script error. (`layout` first ran into the whole
+  tour and was stopped by its timeout: the new part's `--only` block had been put
+  between `layout`'s call and its `return`. Mended; run again, it passed.)
+- **Existing worlds**: copies of `my world.json`, `world.json`, `town.json` and the
+  rural, urban and layout showcases, each opened by the new host and written again,
+  are byte for byte the file they were, with no tile in them. The originals,
+  `feel.cfg` and `library\tiles\terrain.txt` have the checksums they had.
+- **Demos**: `-Demo tiles -Check`, 6 beats of 6; `-Demo layout -Check` (its second
+  beat reworded), 5 of 5.
+- **Not run**: the whole tour; the other tour parts; the measurements; the built
+  game. The pictures of the demo were not looked at one by one.
+
+**Not done, or not as good as it should be.**
+
+- **Not tried by hand.**
+- **A tile's ground is a skin: it has no height of its own.** A tile cannot be a
+  knoll, a hollow, a cliff or a shore; water is not a ground. The land under a tile
+  is shaped with the land's tools as before, and the tile follows it. Ground with
+  height needs the land to know of tiles (so that what is put down by hand on a tile,
+  and the walker, stand on it): not begun.
+- **The blend is of colour, along sides.** Where three or four different grounds meet
+  at a corner a faint straight seam can show, because a tile knows the tiles it
+  shares a side with and not the ones across a corner. Nothing grows or thins by the
+  neighbour (a wood does not send saplings into a meadow). (On steep or rough land the
+  land could show through the skin: mended in the pass after L2, above.)
+- **The rules are "may these two sides meet".** There is no choosing of a tile from
+  what its neighbours are (an edge piece, a corner piece), no weights, no filling of
+  a region by rules, no layers. A tile is refused or put down; nothing is suggested
+  but its turn.
+- **A new tile is made by changing one that exists** and saving it under another
+  name; its ground can be said then (`tile_save` takes `ground`) but the window does
+  not offer it, nor what its sides say, nor paths. A tile's text can be written
+  (`tile_def`) but no window shows it.
+- **Tiles are for one cell.** Nothing spans two. **Several cells are not selected,
+  moved or turned together** (recorded as a layout capability to come, amendment 7o).
+- **A tile made for 8 m in a cell of another size** keeps the size of its things and
+  moves them in proportion: in a much smaller cell they crowd.
+- **The Inspector shows a tile's raw settings** (`tile`, `size`, `form`, `beside`,
+  `layout`) as numbers and words to set; `beside` and `layout` are kept by the host
+  and should not be changed there. Makers shows the tile as a maker ("Terrain
+  tile") with no settings of its own.
+- **Pictures are taken each time the window is first opened**, and again when the
+  layout's form changes.
+- The game on its own was not built again with a world that has tiles.
+
+### L1 — Spatial layout: square and hex cells to build on (2026-10-12)
+
+The user's brief: the first, lightweight stage of "a second construction approach:
+structured spatial layouts that can eventually support tile-based worlds, grid-based or
+hex-based gameplay, and intelligent modular construction", in three milestones (1
+spatial layout, 2 tile sets and placement rules, 3 intelligent modular construction);
+"establish the useful foundation for the later stages without building speculative
+infrastructure". Called **L1** here; the next two are L2 and L3 (amendment 7o).
+
+**What was found, read from the code before anything was changed.** Placing, moving,
+turning, duplicating and taking away one thing all go through a few functions of
+`main.gd` (`put`, `move_picked`, `nudge`, `spin`) and one of `marks.gd` (`_finish`),
+each of which says a place in the world to the host. The document already has a
+keyed store that is written with the world and undone like any edit (`prefabs`: the
+walker's kind, the texts, a maker's painted area). So a layout needed no new kind of
+thing in the world and no second way of placing: it is a few lines in that store, a
+module that answers "which cell", and one function the placing functions ask.
+
+**Built.**
+
+- **`editor/host/src/layout.rs` (new): the one place cells are worked out.** A
+  `Layout` has a form (square or hex), a size (from the middle of a cell to the middle
+  of the one beside it, in metres, the same meaning in both forms), a place, a turn,
+  and so many cells across and deep (1 to 60). It answers: the cell a place of the
+  world is in; a cell's middle and corners; the cells beside it; how many steps two
+  cells are apart; the sides of every cell, each once (the guides); the heading that
+  faces a neighbour. A cell is `[column, row]` in both forms. **Hexes are hexagons:**
+  pointy-top, odd rows half a cell along, worked in the axial numbers of the hexagonal
+  lattice with cube rounding; rows are size x 0.866 apart, every one of six neighbours
+  exactly one size away, six corners. Nothing in it is a square grid drawn otherwise.
+- **The layouts of a world are one text of its document** (`layouts`, a line each:
+  `hex size 5 at 30 0 turned 0 cells 7 7 called the camp`): written with the world,
+  opened with it, undone and redone, and left alone by a host that does not know it.
+  A world may have several.
+- **Host commands** (`lib.rs`): `layouts` (each with how many things stand in it);
+  `layout` (made with `new`, changed, renamed, removed: one edit; with `carry` the
+  things standing by themselves in its cells go to where their cells then are, in the
+  same edit); `cell` (by place or by column and row: inside or not, middle and
+  corners on the land, neighbours, what stands there, axial numbers for a hex);
+  `layout_cells` (the cells taken, and how far each thing is from its cell's
+  middle); `layout_guides`. `place` takes an optional `yaw`. All but `layout` may
+  be asked from beside the editor.
+- **What stands in a cell is an ordinary thing of the world.** Nothing is stored
+  "in" a layout: the layout says which cell a thing stands in, from where it stands.
+  So a thing in a cell is picked, moved, turned, duplicated, shaped, inspected, given
+  another design and taken away exactly as before, and a layout taken out leaves
+  everything standing. What counts as standing in a cell is a thing put down by
+  itself (a `placed` thing, a house on a lot): not a tree of a wood.
+- **`editor/godot/grid.gd` (new): guides, the cell under the pointer, snapping.**
+  The sides of every layout's cells are drawn on the land (white for the one snapped
+  to, grey for the others), hidden by what stands on them and gone while playing.
+  While a layout is snapped to, the cell under the pointer is outlined in the colour
+  of "what is about to be put down" with a cross at its middle, and red when what is
+  about to be done would be refused. `snap(place)` brings a place to its cell's
+  middle; `put`, `move_picked` (so a right drag, Shift + right click, "Move this
+  one"), the pad (one press, one cell), a pending duplicate, and keys 1 to 9 all ask
+  it. `[` and `]` turn a thing in the layout a quarter (squares) or a sixth (hexes).
+  One thing to a cell unless "More than one thing to a cell" is ticked. **Outside the
+  layout's area, or with none snapped to, every one of those does what it did.**
+- **`editor/godot/layoutview.gd` (new): the Layout window** (Things > Layout,
+  **Ctrl+G**): New square grid, New hex grid (where the view looks, snapped to at
+  once); the list of this world's layouts; for the one chosen its name, form, cell
+  size, across, deep, turn; "Things in its cells go with their cells"; Snap to this
+  layout / Stop snapping; Move it to where the view looks; Look at it; Remove; Show
+  the guides; More than one thing to a cell; and what is under the pointer. The row
+  under the bar says which layout is snapped to, with **Stop snapping** and
+  **Layout (Ctrl+G)** beside it.
+- **Which layout is snapped to is how a person works, not what they made**: kept on
+  this machine by the world's file (`user://editor.cfg`), so a world opens snapped to
+  what it was left snapped to, and switching it is not an edit.
+- **The layout showcase: `editor\showcase-layout.json`**, built by
+  `editor\showcase.ps1 -Which layout` (`host/examples/layouts.rs`, 180 commands,
+  under a second): "the courtyard", squares of 4 m, 9 by 7 (a fountain, a flagstone
+  path in each of the four cells beside it, benches facing it, lamps at the corners,
+  a hedge with a gap, beds in rows); "the camp", hexes of 5 m, 7 by 7 (a fire, six
+  standing stones in its six neighbours, huts two steps out, trees three steps out);
+  and a wood between, made by its maker, that no layout touches. 61 things in 61
+  cells, 51 cells left empty to build in. The builder asks the host for every cell.
+  The rural and urban showcases are as they were.
+
+**Checked by** (2026-10-12; narrowly, by the rule above):
+
+- **Build**: host and examples build; every changed script compiles headless.
+- **Tests of what changed**: `layout.rs` unit tests, 5 of 5 (a cell's middle and
+  everywhere near it is in that cell, both forms, turned and not, outside the area
+  too; every neighbour one size away and mutual; a hex regular, sharing each side
+  with one neighbour, rows 0.866 apart, steps by the short way; the guides draw each
+  side once, Euler's count for hexes; written and read back). Protocol test **p45**
+  (made, named apart, refused when wrong; cells asked by place and by number; things
+  put in cells; moved; guides add nothing to the world; another size and another form
+  with its things, undone as one; not carried when not asked; written, opened, the
+  same; removed, things left).
+- **The way of working, end to end**: `-Tour -Only layout`, no problems and no script
+  error, with real mouse and key events: Ctrl+G; New square grid by a click; guides
+  and the cell under the pointer; a click off a cell's middle puts a tree at the
+  middle; the same cell refused and red; a click outside lands where it was clicked;
+  Shift + right click, a right drag and the pad move by cells and not onto a taken
+  cell; `]` a quarter turn, and 15 degrees for the thing outside; Delete and Ctrl+Z;
+  made hexes and 2.5 m with both things still at middles; six neighbours each 2 m
+  away; `[` a sixth; a second layout and the first grey; Stop snapping on the bar,
+  then a click inside lands where clicked; undone and redone; saved to a file of the
+  tour's own, a new world with none, opened the same and snapped to as left; no
+  guides in play; removed with its things left; the showcase opened on a copy with
+  both layouts and every design understood. Pictures 01 to 07 looked at.
+- **The parts beside it**: all 45 host protocol tests, one at a time; the tour parts
+  `editing`, `chosen`, `library` and `ui` (see "Regression" below for how each ended).
+- **Demo**: `-Demo layout -Check`, 5 beats of 5, pictures looked at.
+- **Not run**: the whole tour; the other tour parts; the measurements; the built game.
+
+**Regression, as run** (2026-10-12, each part by itself on port 47860):
+`editing`, `chosen` and `library` ended with no problem and no script error. `ui`
+failed once, on "a_press_elsewhere_puts_it_away" and nothing else: the part pressed
+at a fixed place (640, 500) to put the World list away, and the World list now
+reaches that place, because it lists up to four worlds had open before and the
+person's own list (`user://editor.cfg`, written 2026-10-11 21:30, before this work)
+has five. The World menu was not changed by L1. The check now presses below the
+list however long it is; run again, `ui` ended with no problem (that run also opens,
+folds, moves and resizes the new Layout window with every other, and reads the new
+checklist). It was not run against the code before L1 to see it fail there too.
+
+**Not done, or not as good as it should be.**
+
+- **Not tried by hand.** How the guides read on steep or rough land is not known:
+  they are straight lines between cell corners at the land's height, 14 cm over it,
+  and on a slope steeper than a cell is wide a line will cut under the ground.
+- **A layout is flat in plan.** Cells have no height of their own, no levels, and
+  nothing is placed on a cell's side or corner (walls, fences along an edge).
+- **One thing to a cell is by the thing's place, not its size**: a thing wider than
+  a cell covers its neighbours and they still count as empty.
+- **Only things standing by themselves count** as in a cell. A wood's tree dragged
+  inside a snapped layout goes to a cell's middle but is not "what stands there".
+- **No handles in the view**: a layout is moved, turned and sized by numbers and by
+  "Move it to where the view looks", not dragged.
+- **Hexes stand on a point only**; flat-top is the same layout turned 30 degrees,
+  by the number.
+- **Made hexes from squares, a layout keeps columns and rows**, so its outline and
+  every thing's place change. It is one edit and one undo.
+- **The rectangle is the only outline**: no hexagon-shaped or painted layout area.
+- **The demo's words overlap the Layout window** in a window as small as the scripts'.
+- The game on its own was not built again with a world that has layouts; a layout
+  is nothing a game reads, and the document keeps it.
+
+### The library: designs kept apart from any world, and two worlds built of them (2026-10-11)
+
+The user's brief: "a practical, visual asset library that supports creating, browsing,
+customizing, saving, and reusing assets across worlds", seeded with "a small but
+varied collection for both our existing rural/island setting and a contrasting urban
+neighborhood", with two showcase worlds, the existing worlds untouched, and the whole
+path validated: "extend it rather than building a parallel system".
+
+**What was found, read from the code before anything was changed.** A design already
+was text: a kind of a world's document (M1), its parts lines or meshes (M3), listed in
+one list (D1), placed, given to makers, and one thing of it changed alone (D2). The
+town's designs were already kept as a text file (`godot\town.txt`) and written into a
+world by a builder. What there was not: a design anywhere but inside a world; a
+picture of one; a way to change one without typing its text; a copy that shares
+nothing with its original. So the library is the same text in a folder, and the rest
+is what reaches it.
+
+**Built.**
+
+| What | How it works |
+|---|---|
+| The library | A folder, `editor\library` (the host's `library.rs`; `--library DIR`): a file for each collection Draw3D comes with (`rural.txt`, `urban.txt`, and `parts.txt` for shapes they share), read and never written; and `mine\NAME.txt`, one file for each design a person saved, holding everything it is made of. A file is blocks: `collection`, `asset NAME` (what it is called, its group, a line about it), and `kind` and `mesh` exactly as a world keeps them. It does not depend on any world, and is read afresh each time it is asked for. |
+| Asked of the host | `library` (every asset: collection, group, what it needs, what is wrong in it, and whether this world has a design of that name: no, same, or differs; and the kinds only this world has); `design_made` (what a library asset, a kind of this world or one of the code's things is made of, for a picture; nothing is put in the world); `library_take` (brought into this world with what it needs, one edit; `as`: under another name, a copy made of meshes of its own; `over`: in place of this world's); `library_save` (a kind of this world written to `mine`, with each kind it is like and every mesh; what Draw3D comes with is refused, one's own is written over only when said, and what was there is kept in `mine\earlier`); `library_remove` (one's own, moved to `earlier`). |
+| A copy that shares nothing | `kind` with `copy`, and `library_take` with `as`: the same text under another name, each mesh its lines name written again as `NAME-MESH`. (`as` on `kind` still writes one that is LIKE another and follows it.) |
+| Customizing without typing | `kind_tune`: one colour of a design made another (`colour`, `to`): a colour of its own is said anew; one of the style's, or one written out, becomes a colour of the design's own, named in the parts that were of it. `scale` (its whole size) and the new kind line `stretch X Y Z` (as wide, as high, as deep; its footprint follows; refused of what has bones). Each is one edit, undone as one, and every thing of the design follows. `kind` now also says a kind's `colours`, `scale` and `stretch`. |
+| The Library window | Things > Library, or Ctrl+L (`library.gd`): a grid with a picture of every design, taken in a small view of its own a few at a time and kept until the design or the world's style is other; a shelf (Everything, each collection, My library, In this world), a group, and a name to find by. Of the one chosen: its picture, what it is, where it stands between the library and this world; **Place one…** (brought in first if need be), **Bring into this world**, **Give it to** the maker selected, **Make a copy of my own**; and when this world has it, **CUSTOMIZE** (a swatch for each colour, whole size, wider, taller, deeper, Shape it in the view, Change its text) and **SAVE … TO MY LIBRARY** (name, what it is called, group); **Replace this world's with the library's** where the two differ; **Remove from my library…**, which asks. |
+| Three things kept apart, in words | The library's design (a file, never changed by working in a world), this world's design (changed here, EVERY thing of it following), and one thing (Makers > This one, built in D2). The window says which is being changed before it is, and that the library's is not. |
+| The rural and island collection | 49 designs in seven groups: ten trees that are ten outlines (a broad oak, a slender birch, a tall pine, a layered spruce, a weeping willow, a column poplar, an apple tree, an island palm, a dead tree, a lollipop tree for a cartoon world); shrubs, a hedge, a topiary, tall grass, sunflowers, tulips, lavender, toadstools, reeds; a boulder, a cairn, a standing stone, a rock arch, an outcrop, driftwood; a red barn, a windmill, a lighthouse, a shed, a round stone hut, a beach hut, a roofed well; rail and picket fences, a drystone wall, a rose arch, flagstones, a boardwalk, a footbridge; a raised bed, a scarecrow, a wheelbarrow, beehives; a picnic table, a deck chair, a campfire, a clothesline, an upturned boat. What grows is in the style's colours and turns with it. |
+| The urban neighbourhood collection | 53 designs in six groups: an apartment block, a brick walk-up, a row house, a modern house, a suburban house, a corner café, a club, a kiosk; a street lamp, a traffic light, bins, a dumpster, a bus stop, a bench, a hydrant, a post box, bollards, a bike rack, a street sign, a planter, a parked car; road, crossing and junction pieces, pavement and its corner, plaza paving, parking bays, a manhole; a lawn, a path, a street tree, a planting bed, a fountain, swings, a slide, a seesaw, a sandpit, a climbing frame; a half court, a hoop and a ball that rolls; a café table, a sofa, an armchair, a coffee table, a bed, a bookshelf, a floor lamp, a table and chairs, a television, a house plant. Its colours are its own. |
+| A style `city` | In `godot\styles.txt`: concrete, brick and slate for what is built, a mown green, no pines. Colours and what a wood is made of only. |
+| Two showcase worlds | `editor\showcase.ps1` -> `host\examples\showcase.rs`, which says the host's own commands (the builder's hand is now shared with the town's: `examples\common\hand.rs`). **`editor\showcase-rural.json`**: the island town opened (its file read, not written) and library designs added: a windmill on the highest open ground, a farm with a barn, beds, hives, a wall and an orchard behind a picket fence, a lighthouse on the farthest headland, a beach with three huts (two of them copies customized there), a wood and a meadow that are MAKERS given library designs, a stone circle, a camp, willows and reeds by the pond. 77 makers, 2295 things. **`editor\showcase-urban.json`**: level ground, an avenue and a cross street laid of road pieces with pavements and kerbs, eight buildings along the avenue and four houses on the cross street, a club and parking, street furniture, a park with lawns, a fountain and a maker's trees, a playground, a basketball court, and furniture set out as three rooms with no walls. 13 makers, 346 things, 66 designs, a start on the avenue. |
+| Scripts work on a copy | `run.ps1` gives a tour or a demo a copy of the library made anew, so what a script saves and removes is never the person's shelf. |
+
+**Decided.** The library is files, not a database, and holds the same text a world
+does: nothing is converted on the way in or out, and a design can be read, compared
+and mended by hand. A world never refers to the library: bringing in copies the text,
+so a world opens the same on a machine with no library, and what Draw3D comes with can
+be improved later without changing any world. What a person saves holds all it needs
+in one file, so it can be given to someone else. Nothing of Draw3D's is ever written.
+
+**Checked.** Host, release build, one at a time: 22 unit and 44 protocol tests pass.
+New: **p43** (two collections; every one of the 102 designs with a name, a group and a
+line about it, nothing not understood, none under a name the code has, each pictured
+with something in the picture; of the trees, seven or more different outlines; one
+brought in with the mesh it needs, placed, and said to be the same as the library's;
+one like another comes with the other, and undone neither is there; changed here it
+"differs" and the library's file is not written; the library's is then brought in
+only under another name or over this one; a copy's roof dragged does not move the
+original's), **p44** (a copy customized by a colour, a style's colour made its own,
+its size and its proportions, each undone and redone; two put down, one made its own
+alone and painted, the other and the design as they were; saved, not over what Draw3D
+comes with and not over one's own unasked; the file holds its mesh; changed after
+saving, the file is not, until saved again, which keeps the one before; **a host
+started again on another world** has what was saved and nothing of the world it was
+made in; brought in there, placed, and given to a wood; taken out, kept in
+`earlier`, and the world that had it has it; the world it was made in opens as
+written). `editor\town.json` built again by the refactored builder is byte for byte
+the file there was. Tour, with the mouse and the keys: `-Only library` (new) and
+`-Only showcase` (new: both worlds on copies, counted, looked at, the urban one
+walked 15 m along its avenue and stopped by the café's wall, a design customized and
+the library saying "differs", written and opened the same) passed, each on its last
+run after every change; `-Only ui`, `designs`, `kinds`, `keeping` and `town` passed
+once each after every change. The demo `library -Check`: 6 beats of 6. `my
+world.json`, `world.json`, `town.json`, `feel.cfg` and the project's library files
+are byte for byte what they were after the tour parts that could reach them.
+**Not run:** the whole tour; the other tour parts; the core's tests (the core was
+not changed). **Not tried by hand**; the pictures were looked at, and nobody has yet
+judged a design by walking round it.
+
+**Not done.**
+
+- **No materials.** A design is shapes and colours. Nothing says metal, glass that
+  is seen through (but for `sheer`, all or nothing for a whole kind), something that
+  glows: the club's sign and a street lamp do not light. Customize changes colour,
+  size and proportion only.
+- **Customize is three things.** Parts are not added, moved or taken out but in the
+  design's text; only a part that is a mesh is dragged in the view. A kind LIKE
+  another (the armchair) can change the other's own colours but not colours the
+  other's parts take from the style.
+- **Buildings are walked round, not into**, as the town's are: no doors, no rooms.
+  The furniture stands on a paved square for that reason.
+- **Road and pavement pieces are laid by hand, flat**: nothing lays them along a
+  line or fits them to a slope, and the urban world's ground was made level first.
+- **Nothing moves**: swings hang still, a car does not drive, a traffic light does
+  not change, a windmill's sails do not turn.
+- **A style reaches only what is written in its colours**: the rural plants turn
+  with it, most urban designs do not. `city` changes no light and no air.
+- **A saved design that keeps a mesh's name can meet a world whose mesh of that
+  name differs**: the world's is kept and it is said, not mended. A copy (`as`)
+  has meshes of its own and cannot.
+- **No groups** (several designs kept and placed as one: a café with its tables),
+  no painting designs onto the land, no variation of one design by a number.
+- **Pictures are taken each time the window is first opened** (about two seconds
+  for all of them here); none is kept on disk.
+- The demo's words overlap the Library window in a window as small as the scripts'.
+- Not tried by hand.
+
+
+## Known gaps
+
+- **Items, 7bi**: not used by hand; no real controller. What is worn is seen only on a walker that is a character of the Studio (the figure the host makes has no bones for gear.txt's places; the inventory says so). Only the walker keeps things; nobody else equips anything. No weight, slots or limit to the pack; no item's own numbers (sharpness, wear) and nothing used up. A dropped thing lies flat where it fell, not by physics. Things carried in both hands (the parcel) are not items. The world goes on while the menu is open except the walker, the folk and the clock (`ed.held`): what is loose still falls. The editor's bar is still over the game while it is played in the editor. The menu's Load and Save use the one slot. A shield's and a grappler's places are by their sort in `items.gd`, not said by gear.txt.
+- **`-Tour -Only items` and `-Only library` fail with the code as committed** (checked 2026-10-16 from `git archive HEAD`): items picks up the hatchet first (the lantern's checks then stop on a script error, so it prints no problems: read the error count); library's click on the basketball hoop finds no cell (the shelves chosen by number were not moved when Village people and the Physics lab came).
+
+- **The fourth hand test, 7bh**: not used by hand; no real controller (the stick was pushed into Godot as events). A fit is kept by the model's file, the thing and the place: a model moved to another folder has none. Two things drawn together in the same hand are not stopped. The editor's own theme is changed for unticked boxes only; a box a window draws for itself keeps its own.
+
+- **The third hand test, 7bg**: not used by hand; no real controller (the pad and the stick were pushed into Godot as events). The user's own world still has no `draws_by` and its cut_a edits were never written to its file: the box and Save world are theirs to use. A version keeps the move and its own look rows, not a look it is `like`, nor the combos that name it; a move renamed keeps its versions under the old name. The hand correction assumes a model's arm hangs from the bone above the hand and that clips are carried across by the maps as they are now; it was measured on UAL2's model only.
+
+- **The yard and lock-on, 7be**: not used by hand; no real controller (a controller's lock button is unset until given one). Locked on, the body faces them while walking and is shown by its walk clip, so a sidestep looks like walking sideways (no strafe clips are mapped). The eye in the game turns toward them at a fixed rate; it is not a fight camera. The yard's dummies use the mannequin and the swordsman as they are; the one that cuts back is not aimed at anyone. `takes` was checked on the motor and the figure, not played as a combo with two weapons carried. The cape swings about its top only (one weight); it does not bend.
+- **Making a character, 7bf**: not used by hand. A bone made bigger is bigger all round (a longer leg is a little thicker). Next outfit is for the preview: a game has `wear_outfit` but no word or button to ask for it yet.
+- **Mended 2026-10-16: studioplay's *Reset: no nudge written*** (failed in 3 of 4 runs on 2026-10-16, once with the committed code; once in five runs of 7be). The cause, proved by printing the state at the write and at Reset in four runs: the cause first guessed (the figure made again `drawn`, nothing telling it otherwise) was only half of it. When the nudge was written, `_write_nudge` made the figure again by `st.refresh()`. That plays again what was playing, here the try of `sheathe_blade`, on the new body, after which the motor was set put away. `sheathe_blade` wants it drawn (`when ground drawn`), so the set's `draws_by draw_blade` drew it first and sheathed it again. Reset came either while it was drawn (motor and figure `drawn`: Reset wrote `off`, the check failed, runs 2 and 3) or after it was put away again (passed, runs 1 and 4). The 0.35 s write timer runs on the clock and the check counts frames, which is why it varied. Mended in geartab.gd `_write_nudge`: a try that was playing is stopped before the figure is made again (not played again), and the figure's gear is put where the motor says (`_show_drawn`). The check is unchanged. studioplay 153 of 153 in five runs in a row. What a person would have seen before, untried by hand: a nudge where it is put away, written, drew the katana and put it away again.
+
+- **The Studio stopped taking clicks on the Buttons tab** (the user, 2026-10-16, by hand). Keys still worked, and the editor closed with code 0. It was not reproduced headless.
+  - Seen in that session: `run` became the left click while a key was waited for; that can no longer happen.
+  - Not seen: what else could block every click (an exclusive dialog behind the window, the pointer taken).
+  - The run log now says each tab shown, a button waited for, and the unsaved-changes dialog; read it after the next freeze.
+- **The user's `%APPDATA%\Draw3D\controls.txt` says `keys run click`**, which was made by mistake: the left click is `run` in every project until they change it back (Buttons, run, As Draw3D has it). It was left as their file.
+
+- **`-Tour -Only ui` fails on the Character Studio's window** (seen 2026-10-15 in the 7ay pass): "in_the_room, resizes did not hold", its least size 691×760 in the tour's 720 px window. Run from a scratch copy of commit 3066149 (7ax) it fails the same, with the same numbers, so it came with 7ax, not 7ay. Not looked into further.
+- **Gear and buttons, 7ba**: not used by hand; no real controller. Hand places are in the hand bone's own frame, set for the mannequin: on Quaternius's own model or a Mixamo rig a held thing will be turned wrong until a grip correction per map (G2). The things are rough shapes. A two-handed thing is held before the body with both hands by IK (7bc); the thing stays at its hold place whatever move is played (a greatsword's cut moves the body, not the sword), and only the hands' places are set, not how they are turned. The swordsman stands in its sword stance with the katana put away (one `stand` per look; A5). In the 1280×720 tour window, stacked, the tabs get little room: Side by side shows the whole Edit tab there. `gear.txt` is the world's; profiles carry buttons and moves, not gear (A4). Once in this pass's studioplay runs (one of about eight), "its second move chosen and a phase of it made longer" reported nothing changed, and passed in the runs after (not explained; perhaps timing).
+- **Character Studio, 7az**: not used by hand; no real controller. Pressed the moment the swordsman's first cut ends (within its 0.05 s rest), the second cut began from rest: closed in 7ba (`following`). The Studio's least size measured headless is 703×734 (691×760 before); `-Tour -Only ui` still fails on it (723×783 in the tour's editor). The colours are on the buttons named in `CUE_OF` only. Side by side widens the window to 1240 px where there is room and does not remember the choice.
+- **Mixamo's clips, 7ay**: checked only on FBX files written by script. Not seen: a real Mixamo file (its bones' rest, whether its arms are level as `map mixamo`'s stance assumes; `chartest.gd` measures that once a library with rig mixamo is on the disk), the binary FBX form, a file "With Skin", the FileDialog clicked through. A clip downloaded without In Place moves the hips forward and would walk the body out of itself. Ctrl+Z takes the library back but leaves the copied files in `characters/NAME/`.
+- **Character Studio, 7ax**: not used by hand. The clip picker, the unsaved-changes question, and the timeline's click opening Edit were not driven by a check. Saved moves are the world's, not the project's moves.txt that a new world or the next game starts from (a decision, amendment 7ax). A phase or a move cannot be renamed in the Studio (its text, F10). Where plays a move again from its beginning for each moment shown: smooth for a move, slower to drag on a long combo.
+- **Character Studio and painting, 7aw**: not tried by hand. The Studio's new layout was seen only in the tour's pictures (a 1280×720 window), not resized by hand; the timeline's click and hover were not driven by the mouse in a check (the functions they call were). The brush following a row in Objects, and the Plant Generator putting its brush down, were checked by reading and by the paint tours passing, not by a check of their own. The pendulum (and other pinned or loose physics designs) is still offered for painting (proposal item 5). No whole-move scrubber (the phase's and the clip's are).
+- **Character Studio, 7av**: not seen in motion by the person. The six moves that need a
+  wall, an edge or something low are shown as clips only in the Studio (proposal 5). How
+  the katana sits in UAL 2's hand, and whether the swordsman's cuts read well, is for the
+  eye. The drag handle sets only "goes forward"; turning is by its slider. A combo is not
+  yet asked in the game by itself (a player gets the same windows by pressing again;
+  proposal 4).
+
+Things use has shown that are not fixed.
+
+- **The Character Studio's authoring pass (7au), what it does not do yet**: no keyframe
+  editing of a clip (a pose is changed only by `bend` over it, the same for the whole
+  phase, not keyed in time); no IK (feet planted on a turn, the second hand on the hilt);
+  no layering; the preview has no wall, edge or water, so moves that begin on them are
+  only tried in the world; a phase a move has from the one it is `like` cannot be changed
+  in the tab (it says so); "Save as a new move" changes the set every character with it
+  shares; the opponent is always the mannequin. The RPG pack was not downloaded (Drive's
+  quota).
+- **The Character Studio, first tier (7at), what it does not do yet**: of Quaternius's
+  library only the free Standard 45 clips (UAL 2's parkour and combat not brought in);
+  its jog and sprint strides are estimates; the walker's walk is shown by its jog, since
+  the walker walks at 4.4 m/s (a slower set would show Walk_Loop); the samurai's clips are pose-language keys, not motion capture, and
+  nobody has seen them move; no layering (one clip's upper body over another's legs:
+  the sword held in guard while running, carrying over a clip); `over` poses (carry)
+  are not laid over a clip-shown figure, and something carried is left on the figure
+  the host made when the walker becomes a character; no IK on a clip-shown figure but
+  the edge holds (feet on slopes and steps, the left hand on the hilt); the folk are
+  not given a character by content (only the walker, and bodies a script makes); a
+  clip's marks are shown but neither sound nor put facts; a blow does no damage and is
+  the same from every side; the Studio does not change a move's numbers or a clip's
+  keys (F1, F10, and the pose files with charmake.gd do).
+- **The built game exits with a crash code** (7at, `export.ps1 -Check`): -1073740940 on
+  the first run, -1073741819 on the second, each after the game had done all it was
+  asked and was quitting. Not explained; not known whether it predates 7at.
+- **Godot's glTF reader renames** (found 7at): `.` becomes `_` in bone and clip names;
+  a second scene from one reading renames every node (`Hips_2`); a track that holds a
+  bone at its rest is dropped. Draw3D works with each (see the research record); a map
+  written with a person's dotted names still finds their bones.
+
+- **`-Tour -Only library` fails** "a design clicked in the library was not brought into
+  the world and put down by a click" (chosen_by_click false, then everything after it),
+  2026-10-15, with the scripts and host of this pass and the same with both as committed
+  (`git archive HEAD`, built apart). Not looked into further; not of 7ao.
+- **A field seen from nearly straight above shows mostly ground** between its upright
+  stalks (7aq); at a slant it reads as a field. A field's edge is stepped (each patch
+  is a rectangle), it does not keep clear of houses by itself, and the line tool does
+  not draw the closing side while its outline is clicked.
+- **A field drawn lighter is a little paler seen from far above** than drawn whole
+  (7ap; `-Tour -Only acres`, pictures `acres-above-*`).
+- **Only designs grown in the Generator are waded** (7ap): a meadow maker's own flowers
+  and the library's plants have no `wade` line. A thing's wade box is one box about it.
+- **Bending follows the walker and the four others nearest** (7ap): a herd in a field
+  bends it only where those are.
+- **A role a design does not use still makes its draws differ** (7ao): grass painted
+  with a group whose variation says `bloom` is a few more meshes than it needs.
+- **Heavy plants near to** (7ao, measured 7ap): a blueberry about 10,000 triangles,
+  bamboo 7,000 to 13,000, lavender and wheat patches 8,000 to 10,000. From farther off
+  they are drawn lighter (7ap); near to they are whole.
+
+- **Reported by the user after playing the village and physics milestones (2026-10-14)**,
+  recorded as reported, causes not assumed; not to be taken up inside the physics
+  milestones. The village's quests and goods worked in that playthrough, and the
+  falling-blocks prototype showed useful mechanics: keep both as they are unless one of
+  these leads there.
+  - *Village character pose*: a character sometimes stays in a holding pose after the demo,
+    or after the thing is no longer held. To look at: how a held pose is cleared
+    (`things.gd` `_laid`, `work.gd`, `folk.gd`), and whether a demo's ending or a change
+    of state leaves it.
+  - *Stairs while carrying*: someone holding (or seeming to hold) something sometimes cannot
+    walk up stairs, though jumping onto them works. To look at: whether carrying changes the
+    motor's step-up or the body's shape.
+  - *Crowds in the village*: people block one another; one standing still can keep another
+    from passing, the turning aside not being enough. To explore: yielding by context, a
+    gentle nudge, each keeping to where they are going.
+  - *Walking into a ball*: it is sometimes sent flying as if struck very hard. To look at:
+    the speed at contact, its weight, the push's impulse (`motor.gd` `_push`) and the
+    collision's response.
+  - *Falling blocks*: some turns change a piece's shape unexpectedly. Deferred: the game is
+    not to be redesigned inside the physics milestones.
+- **`-Tour -Only kinds` fails now and then** (looked into 2026-10-14, 7am). Three ways seen:
+  petting the hopper "began": false (7al's runs; not seen since); **"petted" counted 2**;
+  and **"a loose thing of a new kind was not pushed"** (the drum moved 0.0 or 1.3 m in 12 s).
+  Ten runs alternating the code of 7am and of 5b079b5 (`git archive`, the same host): each
+  passed 2 of 5 and failed 3 of 5 (new: counted 2 twice, drum once; old: counted 2 once,
+  drum twice); so the new code does not change how often, nor how. **The cause of "counted
+  2" was found**: an Xbox One controller is attached to this machine (XInput 0), and in 3 of
+  5 instrumented runs it sent Joypad Button 3 (Y, which is "act") to the editor while its
+  window was not in front; the walker began a pet of its own (a call from `main.gd`
+  `_unhandled_input`, not from the tour), and the tour's press made a second. Idle for 20 s
+  it sent nothing; whether it is pressed, or sends presses of itself, is not known. Not yet
+  shown to cause "drum not pushed" or "began false" (a stick or a Y at the wrong moment
+  would). **For the user to decide**: a controller's input heard while the window is not in
+  front (as now), or not; and/or scripted runs not hearing devices. Meanwhile any
+  intermittent tour failure with acts or movement is suspect while the controller is in.
+  **Decided by the user and built the same day**: a controller is heard only while the
+  window is in front (below, "A controller behind the window"); `kinds` then passed 5 of 5.
+
+- **The built game ends with a Windows fault code after it has done everything**
+  (seen 2026-10-14, 7am): 0xC0000374 for both runs of `export.ps1 -Check` (which passes),
+  0xC0000005 after `--demo signals --check`; a build of the code of 5b079b5 the same
+  (0xC0000374; 0xC0000005 after `--demo mech --check`). Not new; not explained. To look at:
+  what the game frees as it quits (the host it stops, the physics, the windows).
+- **`-Tour -Only library` fails** (seen 2026-10-14; the code of 5b079b5 the same): "a
+  design clicked in the library was not brought into the world" (its click on a picture
+  chooses nothing). Its shelf check, stale since 7ag and 7aj, was mended in 7am. Not chased.
+- **From sound (2026-10-15, 7as)**: nobody has listened yet. No recorded sound, music,
+  voices or footsteps; acts do not sound; no echo, occlusion or Doppler; 16 voices; nothing
+  over 60 m from the eye is listened for; a hiss loop may be heard to go round; an 8 s
+  loop holds the first frame it is wanted about 0.1 s; a fixed body of its own knocks only
+  if it counts or feels strikes too. The lab's many rubber balls knock often (27 in a few
+  seconds in the demo): if that is too much, a higher `knocks … S` on the design.
+- **From signals (2026-10-14, 7am)**: not tried by hand. One condition a thing (no and/or:
+  two things in a row); what a `for` or a `ticks` has waited was not kept in a saved game
+  (kept since 7ar; a timer far off when saved keeps it only until the world stops);
+  signals run only near the walker, where things have bodies; a strike's strength is
+  the last one's speed only (7an: `feels`; not the hardest, not what struck, not force); a joint's axis is x, y or z, its anchor clicked or typed (no handles); the Signals
+  window does not edit (its rows lead to the Inspector, or for a text to F10 at the line, 7an), nor show facts about one thing (a door's `open`) or a quest's;
+  a slider's motor brakes when its `when` stops holding (the swinging gate goes back); a
+  tray counts strikes physically (where what it counted goes matters). Since 7ar: a
+  joint's limits are typed in its lines; two alike joints of one thing are told apart
+  only by their number; two things that say the very same `when … for S` share one
+  wait; joints do not break. The batcher and the strength tester were tried by hand by
+  the user (2026-10-15); the rest of signals by script only.
+- **From the pass after the workflow pass (2026-10-14)**: not tried by hand.
+  `editor/godot/weather.txt` says `air strength 2.5` (committed in f3d71b0): every
+  world given that file has its wind at two and a half times what each weather says;
+  if that was not meant, the Environment window's "As written" puts it back to 1.
+  The user said (2026-10-15) the 2.5 is meant; `-Tour -Only weather`, whose storm check
+  wanted the lean and sway as written, now wants them times the air's strength (as
+  `weather.gd` makes them) and passes again.
+  Cliffs and ledges: slivers at their ends and faces shaded as slopes, traced and
+  carried to the basic modelling tools (7ac). The Tree Generator, Objects, the
+  Inspector and the Library are not yet in folding parts. Dogs, rabbits and squirrels
+  are still the town's own. A demo's caption board can cover a window it shows.
+
+- **From the workflow pass (2026-10-13)**: not tried by hand. Windows placed against
+  the left edge now start right of the toolbar and so reach 60 px further over the
+  view (the `handles` part had to put the shaping window where it starts before
+  pointing at a roof). A window is still placed before what it holds is laid out
+  and can stay where it was first put (seen with Edit shape; not new). While playing,
+  the play row's Environment button needs the pointer freed first (F1), as every
+  button of that row does. A world file that has its own weather text keeps its
+  older wind numbers when opened from the menu (read from the code, not tried). The
+  in-window words maker, arrangement, thing, sort and design are as they were, for
+  the user's review. Inventory sections 8.1 to 8.12 describe the windows under their
+  earlier titles (13r maps them).
+
+- **From tree generator 2 (2026-10-13)**: `-Tour -Only style` fails "time did not
+  pass by itself to a dusk with lamps" (7.6 hours in 9 to 10.5 s), and so does the
+  code as last committed: not of this pass, not explained. A grown conifer is
+  3000 to 4300 triangles. Worlds made before today have library plants that do not
+  give to the wind until brought in again. Still open from the pass before: the
+  whole tour's problems (below).
+- **From the pass of 2026-10-13 after the hand test**: **the whole tour, run twice,
+  had problems that its parts run singly did not** (11 the first time, 27 the
+  second, when the tour's window was minimized and the pointer in use on the
+  machine: most of those are checks of the mouse failing together). Run singly
+  afterwards with no problem: ui, editing, handles, chosen, makers, designs, tiles,
+  layout, surface, seams, raised, raisedwalk, brush, brushmix, grow. In both whole
+  runs and not explained: the play card of the controls ("card_fits"), and two
+  checks of the row under the bar that pass in their own parts. The whole tour
+  wants running once more with the machine left alone. The edge of paint on the land is still in steps of a metre
+  (the land is coloured from sample to sample): visual, left for later. A tile
+  painted another ground keeps its own things (a woodland painted sand keeps its
+  trees): asked before, still open. A grown tree does not give to the wind (a mesh
+  of the document has no such thing; the code's own trees have). A grown design's
+  mesh shaped by hand is written over when it is grown again, and nothing warns.
+  A group is the world's: it is not in the library. Replace takes one design to
+  one design: not to a group, and not within what a group painted. The preview in
+  Grow asks the host at every change of a number (a few milliseconds a tree; not
+  measured for anything bigger). Pressing Page Up again while the host is still
+  making a world again after the last press may be refused as busy.
+
+- **From paint with one design's first tier, of 2026-10-13**: the brush is reached
+  from the Designs window only: not from the Library (a design of the library must
+  be in the world first), and not from a thing picked ("paint with this"). One
+  maker for each design takes every stroke of it, wherever on the land it was
+  painted: its middle, and the box that moves it, is where its first stroke began.
+  Makers says of such a maker "N added by hand" and offers "Take out the N added by
+  hand", which is all of it: true, and not the words for it. Clear takes only what
+  was painted with the design chosen; nothing takes away by a brush what a wood
+  made or what was put down one by one. No "replace". Things stand upright:
+  nothing leans to the slope. Nothing is kept clear of what another maker made, a
+  road, a house or a tile's own things: a stroke puts a rock in a doorway. What is
+  painted on a tile does not go with the tile when the tile is moved (it is the
+  painted maker's, and stays where it was painted, at the height of what is then
+  there). A layout's snapping is nothing to the brush. A maker holds 4000 and all
+  of its things are one text that is read whole at every stroke: not timed. The
+  ring of the brush is drawn on what is stood on, as the maker's area brush is.
+- **From tile elevation's first tier, of 2026-10-13**: a raised tile's ground is the
+  land lifted, not level (on a slope a "platform" slopes); a side is a face only: no
+  ramp, bank or step, and the walker cannot get up one; no tile below the land; the
+  sea is still one level, so nothing floats or is wet by a tile's height; every
+  maker that stands things on the ground is planned again when any tile's height or
+  place changes (not timed on a big world); a second press of Page Up while the
+  first is being made is refused (it says so); the cell's outline and a tile's
+  marks in the view were not checked against a raised tile's top; the land's panel
+  does not say a tile over the pointer is raised, and its brush is drawn on the
+  tile's ground while the land it works on is `raise` lower; a tile's ground
+  still turns into the land's colour at an open rim, though it now stands above
+  it; a frozen tile is not raised (it says so); things that face a slope, or lean,
+  still do not (7q); walking on it and a wood on it are unchecked (above).
+- **From the convenience pass, of 2026-10-13**: a thing shown alone has with it
+  anything else of its maker that stands within its frame (a tree was shown with
+  one neighbour, 2 things and not 1); marks of the rest of an arrangement and
+  makers' handles are still drawn; who walks about and wildlife are not left out
+  (they are not drawn while editing in most worlds; not checked in the town);
+  leaving out lays every cell again (not timed on the town or a showcase); "every
+  one like it" goes by content, so two sizes of one design are two; nothing fades,
+  it is drawn or not; what is left out is not kept between starts. Playing counts
+  as an edit in the host's count (seen in the new tour part; as before this pass).
+- **From "After 'the land under tiles'", of 2026-10-12**: what stands on a tile is
+  a step off its ground for a frame or two of a stroke; a stroke under many tiles
+  lags as before; nothing of amendment 7q is built; not tried by hand. Of `-Tour -Only land`: the problem of the pass before ("unmet 1, through 1", once in three runs) was not seen in 12 runs of this pass; and a step of it (a place of the road's line taken away) failed 3 times in 7 while this pass held back every cell of the land made again until the last had arrived, and 0 in 5 once that was kept to strokes: the cause is known to be one long frame at the end of the land being made again, and why that undoes the step is not. If it is seen again: `-Tour -Only land`, five times, and look at what `exchange` does with a command in flight when a frame is long.
+- **From "The land under tiles, and woods on tiles", of 2026-10-12** (see its "Not
+  done"): a tile has no height, form or water, and paint is not put on a tile; a
+  brush held under many tiles lags (every tile made again at every step); a short
+  straight edge of colour where four tiles of different ground meet; things on
+  steep ground 15 to 30 cm off it; a tool's outline hidden by what stands in front
+  of it; tiles chosen one click each, and no region that is a thing; one problem
+  of `-Tour -Only land` seen once in three runs and not explained; not tried by
+  hand.
+- **From the pass after L2, of 2026-10-12** (see its "Not done"): a tile has no
+  height of its own and no water; paint on the land under a tile is hidden by the
+  tile and still decides what woods and meadows grow there, and nothing says the
+  brush is under a tile; things stand at the land's exact height, which on ground
+  shaped steeply is 15 to 30 cm off the land as it is drawn (every maker, since M2);
+  a wood's or a meadow's `count` is places tried, so a few things cannot be asked
+  for exactly, and neither knows of tiles or cells; every tile is made again at
+  every stroke on the land; `editor\host\target\release\engine-host.exe` not
+  built again; not tried by hand.
+- **From L2, terrain tiles, of 2026-10-12** (see its "Not done"): a tile's ground is
+  colour on the land and has no height of its own; neighbours blend along sides, and
+  a faint seam can show where three or four grounds meet at a corner; the rules say
+  only whether two sides may meet; a new tile is made by changing one that exists;
+  several cells are not selected or turned together; the Inspector shows a
+  tile's raw settings; not tried by hand.
+- **From L1, spatial layout, of 2026-10-12** (see its "Not done"): guides are straight
+  between cell corners and may cut under steep land; a cell is taken by a thing's
+  place, not its size; nothing stands on a cell's side or corner; a layout has no
+  handles in the view; not tried by hand.
+- **From the library of 2026-10-11** (see its "Not done"): no materials, so nothing
+  glows or is glass; a design is customized by colour, size and proportion only;
+  buildings are not entered; road pieces are laid flat by hand; nothing of the urban
+  collection moves; a style reaches only designs written in its colours.
+- **From the training ground of 2026-10-11** (see its "Not done"): a slide, a run
+  along a wall and a swing are not written; a child stoops to a toy and does nothing
+  with it; bubbles come whether or not the girl is blowing; the tractor's ivy does
+  not move and its robin does not fly; the course's pieces are right only for the
+  numbers `feel.cfg` has now.
+- **`-Tour -Only ui`, five runs on the training ground's code and its final
+  checklist (2026-10-11): two clean, three not.** Twice "the walker's numbers:
+  a_step_more, a_step_less, put_back did not hold" (the failure recorded before).
+  Once "the window 'status': resizes did not hold ... (at (8.0, 554.0), (440.0,
+  166.0); least (440.0, 166.0))", which has not been recorded for that window
+  before. Nothing of the workspace was changed in this pass but three lines of the
+  controls card's text. Not explained; it is the same family as the entry below (a
+  scripted mouse and a window that may not be in front).
+- **A heading of the checklist that is longer than its window is wide makes the
+  window wider** (a heading does not wrap), and `-Tour -Only ui` then fails every
+  time on "where windows are kept: found_again, back_where_it_starts". Seen three
+  runs in three when this pass's checklist was first written with a heading of 105
+  characters; gone when its headings were shortened to under 40. The checklist is
+  as it should be now; that a heading cannot be long is not fixed.
+- **From the island town of 2026-10-11** (see its "Not done"): what is alive without a
+  body stands where it was put while editing; the woodcutter cuts nothing; animals go
+  by the sheep's poses; a design's building is not gone into; pond water is not seen
+  through from far off; the town's designs are written into a world only by the build
+  script; a garden is kept as a meadow that makes nothing, under that name.
+- **In the town, once or twice a run, Godot's navigation says "It's not expect to not
+  find the most reachable polygons"** (from `nav.gd` `path`, asked by `folk.gd`
+  `_steer`). Seen in both runs of `-Tour -Only town` (twice, then once after a way
+  was no longer asked where the ground had no walkable mesh yet), never in the
+  demo's runs or in `keeper`, `flock`, `cast`. Whoever asked gets no way and asks
+  again two seconds later; nobody was seen standing because of it. Not explained:
+  which body, and whether it stands somewhere the mesh has no face near (in the
+  pond, against a building).
+- **Stroking a cow, a horse, a goat or a dog was not tried**: they say `offers pet
+  back` (a dog `stroke`) as the sheep and the cat do, on the same bones made bigger
+  or smaller; whether the hand comes to a horse's back is not known.
+- **From the capability-exposure pass of 2026-10-11** (see its "Not done"): Save does
+  not ask before writing over the world's own file (what it had is kept instead);
+  backups are whole copies, twelve to a world, never cleared but by that count; the
+  bar does not wrap in a window under about 900 px; detach has no home in Makers;
+  "What needs a look" offers nothing to do; compositions, the game build and demos
+  are not reachable from the editor; a style is a text file's.
+- **`-Tour -Only ui`, five runs on the final code of the exposure pass
+  (2026-10-11): two clean, three not.** Twice "the walker's numbers: a_step_more
+  [, a_step_less], put_back did not hold" (the failure recorded before this pass).
+  Once "the bar: list_opens, greyed_cannot_be_pressed, list_opens_a_window did not
+  hold" together with "the window 'place': resizes, put_away, brought_back did not
+  hold": not seen before in the bar's part. Not explained; each is again a real
+  click or drag that did not arrive, and the runs before and after passed with
+  nothing changed. This pass changed the World heading's words (its width changes
+  when a world gains or loses unsaved changes, which moves the headings beside it by
+  the width of a star) and the lists of three menus. One failure that WAS this
+  pass's, found by the same part and put right: at 900 px wide the longer World
+  heading pushed "Keys" off the bar, which does not wrap.
+- **From the consolidated pass of 2026-10-11** (see its "Not done"): a painted area is
+  coarse squares, one maker's, drawn as an outline; a level is one band; a wood
+  painted names its places anew; a size is one number; a street given designs has no
+  houses; a style's lists are a file's; the conifers are code.
+- **`-Tour -Only ui` failed twice in ten runs on 2026-10-11**, each time somewhere
+  not seen before and not the same. Once: "the window 'land': put_away, brought_back
+  did not hold" together with "numbers of the world: a_step_more_is_one_edit,
+  left_without_enter_sets_nothing, enter_sets, done_again_from_the_bar did not hold".
+  Once, five runs later: "the window 'status': folds, unfolds, resizes did not hold".
+  The runs about each passed with nothing changed between. Not explained. Like the
+  entries below, each reads as a click that did not arrive at a window's own buttons
+  (the real pointer, which was not over the window at the end, or the window not in
+  front for a moment), and is not shown to be. This pass changed the bar's words and
+  the Window menu's list, not how a window folds or is put away.
+- **A tour part that stops at a script error still prints "problems []"**: that is how
+  `makers` was taken for passing from W1c to D1 while its last third did not run
+  (put right 2026-10-11). `run.ps1` prints the error's lines when there are any, and
+  they are to be read: a part has passed when it printed no `SCRIPT ERROR` **and** no
+  problem. The parts run on 2026-10-11 were read so. The others have not been looked
+  at for this.
+
+- **From D1** (see "D1", "Not done"): a design of your own made after a tree, grass or
+  a flower does not sway; it is one mesh, with nothing to set by a number (E1); a
+  street given designs has no houses; a meadow given designs names its things anew;
+  no groups, no painting, no one thing given another design; the Designs window shows
+  no pictures.
+- **From W1c** (see "W1c", "Not done"): a new seed of a wood, meadow or flock re-uses
+  the names of its things, so a change made by hand to one is then on another (said
+  when it happens; not prevented); a street made again with another pitch keeps the
+  same *lot* away, a little further along; one thing cannot be given another design
+  or numbers of its own, nor be made one more of its maker's (D2); several things are
+  not selected together; what floats only rests at a height.
+- **From W1b, still so:** what is shown about a maker with no reach is a square, not
+  its true outline; strokes are drawn for 4,000 things of a maker at most; whether the
+  user's press-and-drag for a wood failed, and why, is not known.
+- **Host tests in a debug build fail now and then on timing** (seen 2026-10-10: p13
+  "content_asked > 100" got 93, once in five runs; p24 once, passing three times alone
+  after). In a release build (`cargo test --release -- --test-threads=1`, the
+  command this file has always given) all pass, three runs of three. Not looked into
+  further: the debug host is slower, and those two count what has arrived by a moment.
+- **`-Tour -Only ui` failed again the same way after W1c** (2026-10-10: one run in two
+  with the window in sight; a third run had the window minimized by something else on
+  the machine and is not counted). It is now twice in five, in a part neither pass
+  changed. Still not explained, and worth a look of its own before it is trusted.
+- **`-Tour -Only ui` failed once in three runs on 2026-10-10** after W1b, in a part
+  W1b did not change: "the workspace, the walker's numbers: a_step_more, a_step_less,
+  put_back did not hold" (a click on the step button of "jump_height" in the Movement
+  numbers window changed nothing). The two runs after it passed, with nothing changed
+  between. Not explained. The tour uses the real pointer, and the machine was in use;
+  that is a guess and not shown. `feel.cfg` was byte for byte the same before and
+  after (the part writes to a file of its own).
+- **From W1** (see "W1 — a world built of makers", "Not done"): a reach is round and
+  only woods and meadow have one; every line the land is given is a road; what grows
+  does not know of a house put down alone; one land to a world.
+- **Fields of the document that this host does not know are dropped when a world is
+  opened** (the reader keeps what it has names for). Only the top level of a world's
+  file is carried through unknown. Nothing writes such fields today; it matters when
+  two versions of Draw3D share a file. To be put right with the first change of the
+  document's form.
+- **The checklist's window is as high as what scripts checked takes to say**: that
+  line (`auto` in `checklist.txt`) is above the part that scrolls, so a long one
+  keeps the window from being made low, and the workspace's part of the tour then
+  fails on "a window's place found again" (seen 2026-10-10, see W1, "Checked"). Kept
+  short for now; to be put right by scrolling it with the rest.
+- **Ground a long way from the view is not met by a ray** (the entry below, from
+  before): W1's placing tools ask the host and are exact; **the palette's click, and a
+  thing dragged with the right button, still go by the ground as drawn**, and from far
+  off put a thing some metres from the pointer (seen as 4 m at 185 m from the view).
+
+- **The user's world of 2026-10-09 was written over** (2026-10-10 14:07, by Ctrl+S in the
+  session a demo left, which had `editor\world.json` as its file; see "Follow-up").
+  Put right for what comes after; the file itself is gone but for an older export in
+  `build\Draw3D-game\world.json`.
+- **"Play as this" starts another of the kind beside the one picked**; a start that is a
+  thing in the world is W1's. **Tab in a text is a tab**, and plays nothing there.
+  **Growth is thickened for the whole land only** (`count`). See "Follow-up", "Not done".
+- **Why the user's walker did not go is known in kind and not in the instance**: once
+  the world is played she goes in every run made, and two ways of never getting as far
+  as playing were found and closed. If she stands still again with the bar for playing
+  shown (Stop at its left), that is a third thing, and the run's log
+  (`editor\godot\logs`) is what to look at.
+- **The workspace floats and does not dock**; two windows the size of the screen cover
+  one another; the card of controls is not a window; the inspector and the land's
+  tools do not scroll; a new world is one arrangement of three numbers; nothing knows
+  whether there are unsaved changes. See "UI foundation", "Not done".
+- **A warning from Godot's navigation in `-Tour -Only land`, twice a run** (seen
+  2026-10-10): `It's not expect to not find the most reachable polygons`, from
+  `nav.gd:98` (`path`) by `folk.gd:348` (`_steer`), while the walker climbs what was
+  shaped. The part reports no problem. **Not of the workspace:** the same two lines
+  come from the code as committed before it (`c59f036`, run twice from a copy, both
+  times). Not in the one earlier log of that part that was kept (11:35 the same day),
+  so it is newer than that or comes and goes; which, is not known. What it is likely
+  to be, not shown: someone asking for a way from where the land under them was just
+  made again and its part of the navigation mesh is not yet there. To be looked at
+  with the walker's and the land's failures, not before.
+- **In that same run of the committed code, once in two:** "the land was bare, or not
+  met, or the tool not shown on it, while it was dragged over (as_it_is): frames 29,
+  unshown 6, stood_for 2, step_ms 18.2". The failure already written under "After M2",
+  seen again, on code without the workspace; not seen in the land's part with it (twice
+  alone, twice in the whole tour).
+- **The host's protocol tests fail at random when run together** (plain `cargo test
+  --release`: one to eight of 27, another set each time, "busy: ... has been running"
+  or an answer still working): each starts a host and makes an island, and together
+  they outlast their exchanges. One at a time (`-- --test-threads=1`, the command this
+  file has always given) all pass. A test's fault, not the host's; left.
+- **The sway part's eye check fails some of the time** (found 2026-10-10 by the whole
+  tour; see "UI foundation", "Checked"): "off" under 0.1 where it is about 0.58, in 3 of
+  12 runs alone of the code before the workspace and 4 of 14 with it. In the stretch
+  where nothing is shown swinging she sometimes hardly gets going. Not explained; what
+  swings is not in question (those checks pass each time), only how far the eye lags
+  her in that stretch. To be looked at with the walker's failures.
+- **In a run of the kinds' part and then the roof's** (`-Tour -Only kinds+roof`, kept:
+  it is the pairing that showed the roof's part failing after the kinds'), once:
+  "pet the hopper" offered, and E did not begin it. Not in three runs of the kinds'
+  part after, nor in either whole tour. Not explained.
+- A mesh is taken hold of a corner or a face at a time, or every corner within a
+  reach by the same amount: no set chosen one by one, no edge, nothing that falls off,
+  nothing snapped to but the centimetre; a thing with bones is not held, nor a kind's
+  part that is not a mesh. See "M3, fourth part".
+- **A kind is not taken out once one of it was ever put down, though that one was
+  taken away** (found 2026-10-10, as it was before): Delete on a thing keeps its node
+  with the thing left out of it, and "something put down is of it" counts the node.
+  Ctrl+Z past the putting down is the only way now. To be put right with the list of
+  what was changed by hand, where such a node would be seen and taken out.
+- **One run of `-Tour -Only handles` (2026-10-10, of some fifteen) had the pointer
+  somewhere other than where the script had put it.** Exactly: the pointer put 260
+  pixels above the block found something under it where nothing is, and the corner
+  then dragged with Shift went `0.25 0.11 -0.03` (aside, as without Shift) where
+  every other run went `0 0.58 0`; everything after it in that run passed. Not seen
+  in the run before or in the eight after, nor in the three the same hour. **What it
+  may be:** the machine's own mouse moved over the window during that run (the
+  pointer's place is whatever mouse event came last, the script's or a hand's; the
+  land's part drags the same way and would be open to the same); not shown. Left by
+  the rule at the head; to be looked at when a part that drags fails again, or when
+  the scripts' pointer is told from a hand's.
+- A generated thing whose shape is a mesh keeps the mesh's size when what makes it
+  asks another, is still walked into as the generated shape, and only the parts of a
+  house can be written out. See "M3, third part".
+
+- What swings after a body swings into nothing: it is kept within so far of its place
+  and no more, is one weight to a bone, and is not kept with a saved game. See "What
+  swings after a body".
+
+- A mesh's corners and faces are named by number, and its numbers go by the order of
+  its lines: a line changed early can move what a later line means, a line written
+  by a drag among them. See "M3, second part".
+
+- The editor closed once under the user's hand (2026-10-09) and no cause is known: see
+  "After M2 — what grows, said and seen; the editor closing, looked into". What a run
+  says is kept from now on (`editor\godot\logs`, `runs.log`).
+- Godot's navigation says "It's not expect to not find the most reachable polygons" now
+  and then when someone asks a way while the land under them has just been changed
+  (`nav.gd` `path`): no way is given that step. Not looked into.
+- The land's panel is tall: at 1280 by 720 it reaches up over the palette.
+- A part that bends is shared by how near each corner is to each bone, and nothing
+  else: there is no painting of it by hand, a block has only its eight corners to bend
+  with, and where much turns (a skirt's top when she is right down) corners are drawn
+  in toward the joint. See "M3, first part".
+
+- The land is one height at each place, a sample a metre: no overhang, no cave, and
+  a face that is not square to the lattice is stepped, a metre a step. Shading at a
+  face's edge is smooth where it should break. See "M2 — The land by hand".
+- A stroke asks every generator on the land where its things stand again (about 12 ms
+  on the playground): it does not know which part of the land each stands on.
+- A stroke follows the pointer by where the pointer meets the ground as it is drawn,
+  and while a patch is made again that is the ground of the step before.
+- **Two whole tours (2026-10-09, evening, with what swings in them) each had one
+  problem the runs before did not. Not explained; left, by the rule on testing at the
+  head of this file.** Exactly: run 1, the part `growth` (what grows and what is done
+  to the land, by the mouse): the "clear" brush was not chosen by its click; the same
+  run had the sheep against a wall at 0.6 m (the entry below). The window had lost
+  the front once, from 51 s. Run 2: `growth` without a problem; the part `acts`: the
+  walker stood still when she was to come slowly to a sheep. The window had lost the
+  front twice, from 118 s. The screen was locked through both. Run alone afterwards,
+  each passed: `-Only growth` twice, `-Only acts`, `-Only flock+acts`; the parts
+  `sway`, `cast` and `meshes` passed in both whole runs. **What they may be:** now
+  and then, or by what ran before them, or by the window not being in front (both go
+  by the pointer or by time); none of the three is shown. **Whether they come of
+  what swings:** nothing joins them (it turns bones inside a figure and reads no
+  input; the "clear" brush is the land's panel; a walker standing still is the
+  motor's or the script's), and nothing rules it out. **Looked at again when:** the
+  land's panel or the acts are next worked on; another like them is seen; or a pass
+  is made for the whole tour with someone at the machine. The pass after (M3's third
+  part) did not run the whole tour and so says nothing of them either way.
+- Godot says at the end of some runs that things were still held when it closed
+  (`_free_rids`, `finalize`, `cleanup` in the log): in the kinds' part of the tour and
+  in whole tours, before this pass and in it. The run has ended by then and its code
+  is 0. Not looked into.
+- A clean whole tour is still not had (2026-10-09, four runs): see "The whole tour, and
+  what in it is not a thing gone wrong". What is left: the palette's check, which fails
+  about one run in two and is not explained; and any run whose window does not stay in
+  front, which the tour now says of itself. While a tour runs, nothing else should be
+  started on the machine, and the pointer left alone.
+- A sheep that has run and stopped against a wall stands there (it does not go round
+  what it runs into), and anyone slower than it shies at walks up to it: the tour meets
+  this in some whole runs (0.6 m) and says it as a known limit.
+- Two painted surfaces meet at an edge; a soft rim is soft only into the land's own. A
+  place keeps one surface. Blending two wants a weight for each surface at a place,
+  which is what the land's shader would be given (see "Next").
+- What grows is one yes or no at a place for trees, grass, flowers and bushes together.
+- Ground a long way from what the view looks at is nothing a ray meets as drawn: the
+  right button dragged from there takes hold of the water behind it. (The middle button
+  asks the host: `meets`.)
+- How the view turns (about the pointer or the middle) is not kept between sessions.
+- A text's file and the document are two: the file is read when it is saved and when
+  the editor starts, and replaces what the world has. Opening another world does not
+  write files, so until one is saved the world's texts and the files may differ.
+- A house stands at the height of the land at its middle: land raised under one by hand
+  comes through its floor, and nothing says so.
+
+- What can be held on to cannot be said by a thing, and is found only straight before
+  the body in the air. See "Walls and edges".
+
+- The hub shows where things are written and does not change them; what a thing the
+  code has says of itself (what it offers, its places, its set) is the host's code,
+  and the hub stops there. A thing of a kind the world defines says it in its kind's
+  text, which the kinds panel changes (M1). See "The hub", "M1 — Kinds as content".
+- A kind the world defines has only the rigs the code has (person, sheep, skiff), and
+  its shape is parts written as numbers, or meshes written as lines (M3, second part):
+  no handles. The things the code has are not kinds yet: a crate cannot be opened in
+  the panel, and a house's roof cannot be given a mesh (M3, third part).
+- A kind's `kind` command and the kinds panel are refused while a long edit is in
+  flight ("busy"); the panel's list stands still until it is done.
+
+- What was written by command (not in the editor's panel, which writes the file too)
+  is lost when its file is next saved. See "What is written, kept by the host", "M2".
+
+- Indoors the camera has little room: it is pulled in close behind the walker's head.
+  Rooms are lit only by the sky's light, and windows are not seen through.
+- A house stands at the height of the land at its middle; on a slope the land may come
+  through its floor. Not seen in the village as it is, not checked elsewhere.
+- Measurements taken before this slice (`-Measure`, `-Weigh`) are of houses without an
+  inside or a doorway; they have not been run again.
+- Changing a land parameter, or moving the road, remakes all 144 ground patches (a
+  stroke by hand does not: see M2).
+- `furnish` repeats the street's `pitch` and `setback` as its own parameters.
+- House walls meet in a 0.15 m notch at each corner; wall timbers run across window
+  openings.
+- Brief stutters now and then while orbiting in the editing view (user: not a priority).
+- While the tour walks, Godot sometimes stalls about half a second in its present step;
+  unexplained, seen only with the window not in front.
+- The meadow does not know of the yard: a rock lies inside it by the gate, and grass
+  grows through.
+- Saved games from before the errand was added, and from before the keeper was, say the
+  world was edited since.
+- Godot's baker now and then makes the same small polygon twice where something is low
+  enough to step onto (one rock in the playground: 6 edges). Nothing is joined across
+  those edges, so a way goes about that rock. The tour counts them (`flawed_edges`);
+  Godot's own warning of it is turned off in `project.godot`.
+- In the editing view the keeper stands as they were made, arms hanging: they are posed
+  only while the world runs.
+- Whether a game saved before stage 5 still loads without saying the world was edited
+  since has not been tried.
+- Saved games from before stage 6 will say the world was edited since: the lantern and
+  the hatchet were added to the playground.
+- The host's protocol tests fail now and then when run together, and pass one at a time
+  (see stage 6). They are 13 now, and all pass one at a time.
+- A sheep run at can be cornered. The tour used to come at one from the far side, so
+  that it ran in among the houses, and how near it was come to went by how the houses
+  stood and which sheep it was: anything from 0.6 m to 3.5 m in about thirty runs of
+  that part by itself, where 2.0 is wanted, and 0.6 in each of three whole tours. It
+  is not the roofs (run turn about against the host as it was before, the spread is
+  the same). Followed step by step, the sheep runs straight from the walker along a
+  house's wall, is come up with there, and at 0.6 m is held in a corner. The tour now
+  comes at it from the village's side, so that it runs into the open: 2.6 to 3.4 m in
+  twelve runs. The sheep is as it was: it does not go round what it runs into.
+- Once in those twelve runs a sheep was 0.19 m from where it stood, two steps after a
+  game was loaded (0.1 is allowed; it is 0.01 otherwise). Not looked into.
+- A style for a part of a world has nowhere to be said: a style is assets of the whole
+  document (see stage 7).
+- The file of styles is the editor's, and a world keeps a copy of the style it was
+  given: changed in the file while the world is not open, the world is not told.
+- The keeper's demo now and then ends with the keeper not home at night (see stage 7).
+- What is saved only when the game is saved (the walker, the clock, those who walk, what
+  is loose) is called for by name from `main.gd`, each its own two functions (see
+  stage 8).
+- Saved games from before stage 8 will say the world was edited since: the pen was added
+  to the playground.
+- Saved games from before stage 9 will say the world was edited since: the flock was
+  added to the playground, and then the boat.
+- A pose is written for one hand: stroking with the other (a line of `acts.txt`) leaves
+  that hand up to 7 cm short of the sheep, because the body turns its right shoulder to
+  it. Reaching is the arm's only (see stage 9, second part).
+- No controller has been plugged in since the controls were told from the table: see
+  stage 9, second part.
+- `folk.gd` keeps whatever has a body, a boat too; its name and many of its words
+  ("someone") are from when that was only the keeper.
+- A controller's LB and RB were crouch and run as well as LT and X; they are the quick
+  step now (see "A quick step to a side"). Not yet confirmed by the user.
+- Everything in the world is drawn by a shader of this project's since the weather
+  (it was Godot's standard material). It looks the same in the pictures compared; the
+  measurements were not run again with it.
+- The sea does not move: a swell is seen only in the boat (see stage 9, third part).
+- A door, a parcel, a lantern take about a second to be done with now, where they were
+  done at once: whoever does it goes to the place and does a move. Not yet played by
+  hand (see "Things with no body, done with as acts").
+- A loose thing has a body only while the cell it was made in has bodies (stage 8):
+  pushed or pulled far from there and left, it is drawn where it lies and offers
+  nothing until that cell is near again.
+- Saved games from before this say nothing new, and load; but a parcel that was
+  delivered and a door that was open are as they were, and nothing is seen to happen.
+- The world as it is made has no style, so stage 7 did not change its document. That a
+  game saved at the end of stage 6 loads without "edited since" was not tried: the two
+  saved games there are both said so before (`-Tour -Only saves`: both load, both say it).
+
+## Documents
+
+- The roadmap's order has not been edited since the review; the changes agreed in the
+  review are recorded only as the order above. Added to it 2026-10-08: cross-cutting
+  principle N (authored movement, action, interaction and presentation), six questions
+  under the Central Development Question, and a line in its change log. Added again
+  the same day: four more points under N (creatures take part in the interaction
+  model; collision told apart from intentional interaction; everything built as an
+  example can be made and changed by the user; keyboard and gamepad both first-class),
+  the "inspect, edit, duplicate, recombine" question, and a second line in the log.
+  Added 2026-10-09: a third line in the log, pointing to the amendment.
+- 2026-10-09, the reconciliation: `Draw3D_Audit_and_Next_Milestone_2026-10-09.md` (the
+  verified audit of what is built against the roadmap, and the choice of M1),
+  `Draw3D_Roadmap_Amendment_2026-10-09.md` (principle O, content as data; terrain and
+  geometry editing made concrete; six ways an edit survives regeneration; the editor's
+  workspaces; the order M1–M4; the master roadmap is unchanged and this amends it), and
+  `Draw3D_Milestone_M1_Brief.md` (M1: the acceptance checklist, the design, what was
+  built, the manual script, what is deferred). The independent model reviews
+  (`engine-architecture-review-*.md`, `3D_World_Building_Engine_Technical_Review_Pass_1.md`)
+  are not merged into any of them.
+- 2026-10-10, with W1: the master roadmap gained **principle P** (composable makers:
+  the thing made kept apart from what arranges it; specialised engines and reusable
+  compositions named as later milestones) and a line in its change log; the amendment
+  gained **7h** (how a world is composed, and what W1 fixed for the engines to come),
+  a corrected 7d, and W1 and W2 in its order. The master says what is intended; this
+  file says what is built.
+- 2026-10-11, with the consolidated pass: **`Draw3D_UI_Inventory.md`** (new, in the
+  project's root): every menu, window, part and control of the editor as it is, with
+  where it is, what it really does, what it changes and how far, what it duplicates
+  and what is unclear about it. It is a reference to rename and regroup from; nothing
+  was renamed for it. The master roadmap gained to **principle Q** (where a maker makes
+  its things; a structural maker holding houses and other things, replacement
+  explicit; a style that says what things are made of; one thing differing from its
+  maker's), the new **principle R** (one shared Variation System), maze and
+  obstacle-course generators under "Deliberately later", and a line in its change
+  log; the amendment gained **7j** (what was decided building this pass, what is kept
+  for later, and the milestones A1, D2 and S1 with what each still owes).
+- 2026-10-11, with the library: the amendment gained **7n** (the library: what it is, what building it decided, and the steps from here to styles that reach geometry, vegetation, architecture, materials, light and air); `Draw3D_UI_Inventory.md` gained **8.2b** (the Library window) and **13e**. The master roadmap was not edited: the library is the "save" and "reuse" of its principle Q, built as files.
+- 2026-10-12, with L1: the amendment gained **7o** (spatial layout: what a layout is, what L1 decided, and what L2, tile sets and placement rules, and L3, intelligent modular construction, are to build on and still need); the master roadmap gained one line in its change log pointing there; `Draw3D_UI_Inventory.md` gained **8.2c** (the Layout window), the two new buttons of the row under the bar, Ctrl+G, and **13f**.
+- 2026-10-14, with L3's first tier: the amendment gained **7ad** (a structure on cells: what it is, the decisions taken building it, what of 7o's L3 table it now stands at, what is owed after it), and 7o's table points there; `Draw3D_UI_Inventory.md` gained Build's new entries (2a), "Its cells" in World outline (8.1) and **13t**. The master roadmap was not edited.
+- 2026-10-14, construction brought to a stopping point: the amendment gained **7af** (what was built, decisions, where construction stops, the next engine systems recommended), 7o's table and 7ad's owed list point there, 7ae's first finding is marked begun, and 7b's lost heading was restored; `Draw3D_UI_Inventory.md` gained Build's new rows (2a), Its cells' new controls (8.1) and **13u**; the master roadmap's section 6 gained a change note and two items marked in progress.
+- 2026-10-14, a living village: the amendment gained **7ag** (why this milestone, what was built, five decisions, how it was checked, what is not done, the next milestone recommended), and pointers from 7af's "a living village" and 7g; `Draw3D_Modular_Construction_Feedback_and_Next_Systems.md` was written (the user's construction direction, postponed); `Draw3D_UI_Inventory.md` gained the Playtest window (**8.15**), the bar while playing's Environment and Playtest, and **13v**; the master roadmap's section 3 is marked first tier, ten items in progress, with a change note.
+- 2026-10-15, after the plants: the amendment gained **7ap** (the Generator's old host,
+  walking through what grows, bamboo and stranger forms, lighter ways from farther off);
+  `Draw3D_Modular_Construction_Feedback_and_Next_Systems.md` was rewritten as the record
+  to resume construction from (the intended experience, what exists and what remains,
+  dependencies and order, decisions made and open, acceptance criteria), and the master
+  roadmap's change notes point to it; "Now" in this file was reconciled against later
+  work, its old text kept at the end under "Earlier requests for review, as written";
+  `Draw3D_UI_Inventory.md` gained **13ze**. Then the field: the amendment gained **7aq**,
+  the inventory **13zf**.
+- The repository is under git since 2026-10-09 (`git log`: the baseline, then one
+  commit per checkpoint of M1). Generated output is ignored (`.gitignore`): Rust
+  targets, the Godot programs, the exported build, logs, run results, saves, pictures.
+
+## Earlier requests for review, as written
+
+Moved here unchanged from "Now" on 2026-10-15, when "Now" was reconciled against
+later work. What each asked is answered or placed in "Now"; this is the history.
+
+- **Waiting on the user: plants grown and colours varied** (the section of 2026-10-15
+  under Done that begins "Plants grown from numbers"; amendment 7ao). `editor\run.ps1
+  -Demo nature` (five steps), then `editor\run.ps1 -World editor\showcase-nature.json`:
+  Plants > Plant Generator, a family's presets, "show a mix"; a group's colours in
+  Objects; pick one plant, World outline, "Its colours". The checklist is written for
+  it. **To answer:** the seven decisions in 7ao (above all the first: a variation is a
+  role's, over the style's palette by name, never a colour per face); and which comes
+  next of growth over time and harvest for fields, a field that fills an outline, or the
+  weight of heavy plants for painting by thousands.
+- **Waiting on the user: signals, continued** (the section under Done that begins
+  "Signals, continued"; amendment 7an): `-Demo signals` (eight steps; the seventh new),
+  then the lab's strength tester at (14, -18): Tab, kick the red ball into the pad. **To
+  answer:** whether `feels` (a word of its own beside `hits`, the speed of the last
+  strike) is right. The checklist is written for it.
+- **Waiting on the user: signals** (the section of 2026-10-14 under Done that begins
+  "Signals you can reason with"; amendment 7am). `editor\run.ps1 -Demo signals` (seven
+  steps), then `editor\run.ps1 -World editor\showcase-physics.json`: the batcher at the
+  lab's east; Tab; Window > Signals (Ctrl+K). The checklist is written for it. **To
+  answer:** the six decisions in 7am (above all the first: a condition is said in `when`,
+  one a thing, with `clears` and `ticks` done while it holds; no expressions, no logic
+  objects); and what comes next of several joints a thing or what waits kept in a saved
+  game. (Decided the same day: a controller is not heard while the window is behind
+  others; built, see the end of the signals section under Done.)
+- **Waiting on the user: mechanisms** (the section of 2026-10-14 under Done that begins
+  "Mechanisms"; amendment 7al). `editor\run.ps1 -Demo mech` (seven steps), then
+  `editor\run.ps1 -World editor\showcase-physics.json`: the bell machine east of the goal;
+  Tab; pick the lower link or the wheel, F7, Physics of this one. The checklist is written
+  for it. **To answer:** the six decisions in 7al (above all the first: a joint to another
+  thing is a line of one of them, naming the other); and which comes next of thresholds
+  and timers on numbers, or joints picked and handled in the view.
+- **Waiting on the user: physics made authorable, second tier** (the section of 2026-10-14
+  under Done that begins "Physics made authorable"; amendment 7ak). `editor\run.ps1 -Demo
+  own` (seven steps), then `editor\run.ps1 -World editor\showcase-physics.json`: pick a
+  ball, F7, Physics of this one; View > Colliders; Tab, and the goal south of the start.
+  The checklist is written for it. **To answer:** the six decisions in 7ak (above all the
+  first: one thing's own physics as lines over its design's); and which comes next of
+  joints between bodies, fields, hits as facts.
+- **Waiting on the user: general-purpose physics** (the section of 2026-10-14 under Done
+  that begins "General-purpose physics"; amendment 7aj). `editor\run.ps1 -Demo physics` (ten
+  steps), then `editor\run.ps1 -World editor\showcase-physics.json`, Tab: F2 for Physics, E
+  at a ball to kick it, E at the frame north of the start to play falling blocks. The
+  checklist is written for it. **To answer:** the six decisions in 7aj; and which of its
+  gaps comes next (per-thing physics and colliders drawn while editing, or joints).
+- **Waiting on the user: the village answers** (the section of 2026-10-14 under Done
+  that begins "The village answers"; amendment 7ai). `editor\run.ps1 -Demo talk` (eight
+  steps), then `editor\run.ps1 -World editor\showcase-village.json`, Tab: E beside the
+  cook in the hall; J for the journal; N for rain. The checklist is written for it.
+  **To answer:** the five decisions in 7ai. (General-purpose physics, asked for after
+  it, was built: 7aj.)
+- **Waiting on the user: the village at work** (the section of 2026-10-14 under
+  Done that begins "The village at work"; amendment 7ah). `editor\run.ps1 -Demo work`
+  (eight steps, about four minutes), then `editor\run.ps1 -World
+  editor\showcase-village.json`, Tab: into the hall, E beside the cook; P for Playtest. The
+  checklist (bar: Checklist) is written for it. **To answer:** the six decisions in 7ah;
+  and whether the next milestone is reactions and dialogue (7g M4c, with answers) or the
+  economy deepened. The five decisions of 7ag below are still open.
+- **Waiting on the user: a living village, first tier** (the section of 2026-10-14
+  under Done that begins "A living village"; amendment 7ag). `editor\run.ps1 -Demo
+  villagers` (six steps), then `editor\run.ps1 -World editor\showcase-village.json`,
+  Tab, and P for the Playtest window; the checklist (bar: Checklist) is written for it.
+  **To answer:** the five decisions in 7ag. (Its question of the next milestone was
+  answered by the user: "the village at work" was built, 7ah.) Construction's tool-led direction is postponed by the user's decision
+  (`Draw3D_Modular_Construction_Feedback_and_Next_Systems.md`).
+- **Waiting on the user: trees that grow differently, and the air they stand in**
+  (the section of 2026-10-13 under Done that begins "Tree generator 2"; amendment
+  7aa). **Start the editor again** if it was open while this was built.
+  `editor\run.ps1 -Demo living` (seven steps, about two minutes), and checklist
+  parts 13 to 17. **Where it is:** Things > "Grow a design" (the pictures across
+  the top; the numbers under headings); a grown tree clicked in the world >
+  "Its numbers (Grow)" under the bar; Designs > "Its numbers… (Grow)";
+  Environment > scroll to "Wind:", and "Shown at: sunset"; while playing, Game >
+  "To sunset". **Decided by the user 2026-10-13 and followed:** the narrower tile
+  blend stays until it is shown wrong, and tiles are left alone; a brush clears
+  and replaces only its own layer; groups are the world's; grown trees give to
+  the wind and take the style's colours (built here); trees first, then rocks
+  and boulders, then bushes and ferns. **Wanted from you:** (1) are the eight
+  presets trees you would use, and which is weakest? (2) is the breath of wind
+  in clear weather right, or too much? (3) is the question asked before a tree
+  shaped by hand is grown again the right one? (4) a tree's bark chosen as
+  "pale" or "red-brown" does not turn with the style, its leaves do: right?
+  (5) rocks and boulders next, as said?
+
+- **Waiting on the user: the brush finished (group, replace), what the hand test
+  found, and a tree grown from numbers** (see the three sections of 2026-10-13
+  under Done that begin "After the hand test", "Paint with a group" and "Asset
+  generators"; amendments 7y and 7z). **The host is built: start the
+  editor again** (one left open from before this pass still runs the old host,
+  where none of the new commands is). While it was open its host's file was held,
+  and the checks here were run against a second build of the same source
+  (`editor\host\target-w`); the host itself was built at the end.
+  `editor\run.ps1 -Demo mix` and `-Demo grow` (a minute each), and
+  checklist parts 11 to 13. **Where it is:** Window > Designs (a group is at the
+  top of the list; "Replace it…" and "Add to a group…" beside "Paint with it…");
+  Things > "Grow a design"; Tiles (Ctrl+T) for the grid picker, "Put it down
+  anyway" and what a click would do. **Wanted from you:** (1) tiles now turn into
+  each other over about 0.8 m either side of a side, where it was 2.4 m: paint
+  covers a tile, and tiles look more like tiles. Right, or softer? (2) a brush
+  clears and replaces only its own layer (what was painted with that design, or
+  that group): right? (3) is a group kept with the world enough, or should it be
+  kept in the library for every world? (4) a grown tree does not give to the wind
+  as Draw3D's own trees do (a mesh does not keep that): does that matter yet?
+  (5) what is grown next: rocks, bushes and ferns, or more of trees first?
+- **Waiting on the user: paint with one design, first tier** (see the section of
+  that name under Done, and amendment 7x). The host is built: nothing is owed before
+  trying it. `editor\run.ps1 -Demo brush` shows it in a minute; checklist part 10
+  has what to try. **Where it is:** Window > Designs, choose a design, **"Paint with
+  it…"**, drag on the land or on tiles; the brush's settings are in the Designs
+  window while it is in hand; **"Clear it…"** beside it. **Wanted from you:** (1) is
+  one maker for each design ("painted rock", every stroke of rocks added to it)
+  what you want, or a maker for each stroke? (2) clearing takes only what was
+  painted with the design chosen: should it also take things put down one by one,
+  or a wood's? (3) nothing is painted under water except what floats: right? (4)
+  what comes next of 7t: a group to paint with, "replace", or where (chosen tiles,
+  an outline)?
+- **Validated 2026-10-13, ready to close on your word: tile elevation, first tier**
+  (see "Tile elevation, validated" under Done). Walking, hex tiles, a wood on
+  raised tiles and what a change costs were checked by script and by host tests; no
+  defect was found in it. The three decisions below still want your word.
+- **Waiting on the user: tile elevation, first tier** (see "Tile elevation, first
+  tier" under Done, and amendment 7w). The host is built: nothing is owed before
+  trying it. `editor\run.ps1 -Demo raised` shows it in a minute; checklist part 9
+  has what to try. **Where it is:** click a tile's ground, then Page Up / Page Down;
+  or Tiles (Ctrl+T) > "Above the land (m)". **Wanted from you**, three decisions
+  taken to build it: (1) a raised tile's ground is the land's surface lifted, so
+  tiles raised alike are one ground on any land, and is not a level top; (2) a side
+  is a straight face of earth; (3) tiles are raised one at a time, with "Those
+  beside it as high" as the only group. And the convenience pass before it
+  (provisionally accepted) is still untried by hand.
+- **Waiting on the user: paint on what is seen, and the tiles in no cell** (see
+  "Paint on what is seen" under Done, and amendment 7v). The host is built: nothing
+  is owed before trying it. `editor\run.ps1 -Demo paintseen` shows it in a minute;
+  the checklist in the editor has what to try. **In your tile world:** 8 tiles of
+  67 are in no cell (6 stand in a cell another tile has, 2 are outside the layout).
+  Nothing of your world was changed. Tiles (Ctrl+T) lists them at the top with the
+  reason for each: give each a cell, or remove it. Until then two grounds in one
+  place still flicker there. **Wanted from you:** (1) should paint on a tile also
+  clear the tile's own things when "what grows goes by the surface painted" is on
+  (a woodland painted sand keeps its trees today)? (2) should the paint tool offer
+  forest and snow for tiles (the land has no such surfaces)? (3) is tile elevation
+  next, or paint with one design?
+- **Answered by the user and built: the three questions of the fourth look**
+  (paint defaults to what is seen; a tile's surface before tile elevation; a tile
+  whose cell goes is kept and said). See amendment 7v.
+- **Seen by the user and answered by the pass above: what still flickered, and the
+  stripes** (see "After 'the land under tiles'" under Done, and amendment "7p,
+  continued"). The flicker while a stroke is dragged was mended there; the flicker
+  as the eye moves was another thing (7r).
+- **Built 2026-10-13: tile elevation's first tier** (one question of height;
+  amendment 7w). The two things that were wanted from the user before it (one at a
+  time or several as one; what a side is) were decided to build it and are asked
+  again above.
+- **Tried by the user, and answered in part by the pass above: the land under tiles, and woods on tiles** (see the section
+  of that name under Done, and amendment 7p). The host is built: nothing is owed
+  before trying it. `editor\run.ps1 -Demo ontiles` (or `-Demo` alone) shows it in
+  four steps; then `editor\run.ps1 -World editor\showcase-tiles.json`, saved under a
+  name of your own, and **Checklist** (written anew, six parts). **Where it is:**
+  **Environment > Shape and paint the land** (F8) for the tools over tiles;
+  **Makers** (Ctrl+M) > a wood or a meadow > **Where it makes its things** >
+  **Choose tiles…** or **All tiles of…**. **What most wants your judgement:**
+  whether anything still tears when land under tiles is raised or lowered (the
+  slit in a steep hillside, the strips along tiles' sides and the specks should all
+  be gone); whether the stripes and the panel's words make plain that the land
+  beneath is what is worked on; whether "how many on each tile", "uneven" and
+  "clear" are the right three numbers for sparse decoration; and, for what comes
+  next as you said (tiles with a height of their own): raised one at a time or
+  several as one, and what a side is where a neighbour is lower.
+- **Tried by the user, and answered by the pass above: tiles on shaped land** (see
+  "After L2 — tiles on land that is shaped" under Done). **First, with the editor
+  closed: `cargo build --release` in `editor\host`** (the host the editor runs is
+  the one of before this pass). Then `editor\run.ps1 -World
+  editor\showcase-tiles.json`, save it under a name of your own, and press
+  **Checklist**, part 9: raise and lower the land under tiles, put a cliff under
+  one, paint under one. **What most wants your judgement:** whether a tile's ground
+  now stays on the land as you shape it; whether paint under a tile should go to the
+  tile's surface (today it goes to the land and is hidden); and which of the things
+  to come you want first: raised groups and platforms, landforms, water and shores,
+  transitions between neighbours, or woods and meadows aimed at tiles (amendment 7o,
+  continued, which also lists six risks to decide before a tile is given height).
+  **Tried by hand by the user on 2026-10-12**: the ground was better and some
+  tearing remained; paint under a tile stays the land's; woods aimed at tiles first,
+  a tile's own height after.
+- **Waiting on the user: L2, terrain tiles** (see "L2 — Terrain tiles: pieces of land
+  for a layout's cells" under Done). **Start with
+  `editor\run.ps1 -World editor\showcase-tiles.json`** and press **Checklist**: eight
+  parts (the showcase, putting tiles down, a tile as one thing, what is on a tile by
+  itself, hexes, layouts as changed, what must still be as it was, what I would like
+  to hear). `editor\run.ps1 -Demo tiles` (or `-Demo` alone) shows it first, about a
+  minute and a half, on a copy of the tile sets. **Where it is:** **Things > Tiles**,
+  or **Ctrl+T**. **What most wants your judgement:** whether the ground of
+  neighbouring tiles runs together well enough, and whether the rim fading into the
+  land is right; whether refusing a tile that does not join is right, or it should
+  be put down and marked; whether two tiles changing places on a drag is what you
+  expect; and what L2 should do next of ground with height (a knoll, a shore),
+  rules that choose a tile, or making a new tile in the editor. **Tried by hand by
+  the user on 2026-10-12**; what they found is the pass above.
+- **Waiting on the user: L1, spatial layout** (see "L1 — Spatial layout: square and
+  hex cells to build on" under Done). **Start with
+  `editor\run.ps1 -World editor\showcase-layout.json`** and press **Checklist**: seven
+  parts (the showcase, things into cells, move and turn, a layout of your own,
+  switching it off, what must still be as it was, what I would like to hear).
+  `editor\run.ps1 -Demo layout` (or `-Demo` alone) shows it first, about a minute.
+  **Where it is:** **Things > Layout**, or **Ctrl+G**. **What most wants your
+  judgement:** whether the guides read well on the land; whether one thing to a cell
+  is the right default; whether "cell size" as middle-to-middle is clear for hexes;
+  and what you reach for first that it cannot do, which is what L2 (tiles) should
+  begin with. Nothing was tried by hand.
+- **Waiting on the user: the library and its two worlds** (see "The library: designs
+  kept apart from any world, and two worlds built of them" under Done). **Start with
+  `editor\run.ps1 -World editor\showcase-urban.json`** (or
+  `-World editor\showcase-rural.json`) and press **Checklist**: seven parts, in the
+  order a design goes (open a world, browse, place, copy and customize, one thing
+  only, save and reuse in another world, what must still be as it was).
+  `editor\run.ps1 -Demo library` (or `-Demo` alone) shows it first, about a minute
+  and a half, on a copy of the library. **Where it is:** **Things > Library**, or
+  **Ctrl+L**. **What most wants your judgement:** which designs do not read as what
+  they are; whether the two collections look like two places; whether a colour, a
+  size and a stretch are enough to begin making a design yours, and what is missed
+  first; whether "this world's design" against "the library's" is clear where it
+  matters (Customize, Save); and what comes next of materials, groups, pieces that
+  follow a line, or a style that reaches light and air. Nothing was tried by hand.
+- **Waiting on the user: the training ground, the children and the tractor** (see
+  "The training ground, the children and the old tractor" under Done). They are in
+  the town, which was built again: **`editor\run.ps1 -World editor\town.json`**, and
+  press **Checklist** (written anew: the course in the order it is run, what the three
+  new moves changed everywhere else, the children, the tractor, and how to change
+  each). `editor\run.ps1 -Demo course` (or `-Demo` alone) shows it first, a minute
+  and a half. Three things are the user's to say, because they change how the walker
+  has always behaved: at a run a fence or a bench is now gone over without being
+  asked; held to a wall, jump with the way asked going into it is now a step up the
+  wall and not a jump off; crouched with no way asked, jump is now a backflip and not
+  a long jump. Nothing was tried by hand.
+- **Waiting on the user: the island town** (see "The island town, and what lives in it"
+  under Done). A small town built on the island there has always been, as a world of
+  its own, `editor\town.json`: your worlds are not touched. **Start it with
+  `editor\run.ps1 -World editor\town.json`** (once: from then on it is the world the
+  editor starts on) and press **Checklist**: what to try is there, in six parts (open
+  it, walk it, the pond, the gardens and the people, change it, save and reopen).
+  `editor\run.ps1 -Demo town` (or `-Demo` alone) shows it first, about three minutes,
+  and leaves you in it with no file. **What there is:** Main Street with the houses a
+  street builds, the general store, the doctor's and the vet's about a green; Church
+  Lane with cottages, a cabin and a tall house, and the church at its head; Pond Lane,
+  Rose Cottage and its garden; a pond with lilies, reeds, fish, ducks, frogs and
+  dragonflies; a woodcutter who goes from tree to tree and chops; a gatherer, a
+  gardener, a shopkeeper, a parson, someone on their errands; horses, cows, goats,
+  sheep, dogs, cats, rabbits, squirrels, birds, butterflies and bees. **What most wants
+  your judgement:** whether the buildings and the animals read as what they are;
+  whether the woodcutter reads as someone at work when nothing is cut; whether a
+  garden kept as a maker with its things added by hand is how you would keep a
+  property; that a bird, a butterfly and a fish lie where they were put while editing
+  and go about only in Play; and what comes next (more movement and an obstacle
+  course, which was left for later; a game built to run by itself from the town; or
+  the town made more alive). **Not seen in motion by anyone:** every animal's gait
+  (they go by the sheep's poses at other sizes), the birds' flight, the fish. Stills
+  were looked at; your eye is the check.
+- **Waiting on the user: the capability-exposure pass** (see "Capability exposure, and
+  worlds kept safe" under Done). Start `editor\run.ps1` and press **Checklist**: it is
+  a tour of the engine by task (seven parts), with what is new marked NEW. **First,
+  once: World > Open a world, "my world.json"**: from then on that is the world the
+  editor starts on (it starts on the one last opened or saved; until one is, on
+  `editor\world.json` as before). **Where the new things are:** the **World** heading
+  itself says the file and has a \* for unsaved changes; **World > Open again**, **Open
+  an earlier save of this world…** (Save now keeps what it writes over, in `backups`
+  beside the file); **Makers**, with any maker selected, the part named for it (*How
+  the wood is laid out*, *How the street is built*, *The land's shape*, *This house:
+  its size and roof*…): its settings in words, **Lay it out another way**, **Freeze**;
+  **Makers > Its arrangement > Each change, one by one**; **Environment > Shown at:**
+  and **Weather:** by name, and **Open styles.txt**. `Draw3D_UI_Inventory.md` section
+  14 says what the engine can do and whether the editor reaches it, in five lists.
+  **What most wants your judgement:** whether a maker's settings are where you would
+  look and say what they do; whether backups beside the world are the protection you
+  wanted, or whether Save should also ask; and which of section 14's "not reachable"
+  you want next. **No demo was made for this pass**: it added no capability to show,
+  and the checklist is the guide.
+- **Waiting on the user: the consolidated pass after D1** (see "Where things grow, one
+  thing by itself, colours, an evergreen forest" under Done). Start `editor\run.ps1`
+  and press **Checklist** on the bar: what to try is there, in order, beginning with a
+  copy of your own world. `editor\run.ps1 -Demo region` (or `-Demo` alone) shows it
+  first, about a minute and a half. **Where the new things are:** **Makers**, with a
+  wood or a meadow selected, the part **"Where it makes its things"** (keep to its
+  level; Paint where…); **Makers**, with one thing picked, **"This one …"** (its
+  design, its size, Shape this one only…, Add another … to this arrangement…);
+  **Window > Colours**; **Environment > Style: evergreen**; and
+  `Draw3D_UI_Inventory.md` in the project's root. **What most wants your judgement:**
+  whether painting where a wood grows is the way of saying "here" that you meant;
+  whether the strip's first line (SHAPING ONE THING ONLY / SHAPING THE DESIGN, EVERY
+  thing of it) makes plain what is being edited; which of the colours read on your
+  world; whether the conifers read as conifers from where you look at a world; and
+  what the inventory shows wants another name or another place.
+- **Waiting on the user: D1, designs** (see "D1" under Done). Start `editor\run.ps1`
+  and press **Checklist** on the bar. `editor\run.ps1 -Demo designs` (or `-Demo`
+  alone) shows it first, about a minute and a half. **What is new to look at:**
+  **Things > Designs**, one list of what a thing can be, with "Place one", "Give it to
+  the maker selected" and "Make it mine"; and in **Makers**, for a wood, a meadow or a
+  street, the part **"What it is made of"**. **The words changed as you asked:** a
+  thing "belongs to the arrangement of N things made by the maker …"; "Remove the
+  entire maker and its generated contents" asks "ARE YOU SURE?". **What most wants
+  your judgement:** whether making one of Draw3D's "mine" as one mesh is how you would
+  expect to begin a design (the plant and house engines, E1 and E2, are what give a
+  design petals, a trunk or a roof to set by numbers); parts or percentages; and what
+  is next: groups (D3), painting (D4), or one thing changed by itself (D2).
+- **Waiting on the user: W1c, one thing by itself, apart from its maker** (see "W1c"
+  under Done). It answers what the user found trying W1b by hand. Start
+  `editor\run.ps1` and press **Checklist** on the bar (your own world first: it opens
+  as it was, but that a boat over water now floats). `editor\run.ps1 -Demo editing`
+  (or `-Demo` alone) shows it first, about a minute and a half. **What is different to
+  look at:** a thing picked says what it is and whose ("one rock, one of the 148 that
+  the maker 'meadow' (Meadow) makes"), and the others of that maker are marked in dim
+  blue. **Ctrl+D** no longer makes anything at once: a green frame follows the pointer,
+  a click puts the new one down, Esc gives it up. The Makers window is in **parts
+  that fold**, and with one thing picked the part for that thing comes first and the
+  maker's are folded under a line that says so. "Place it in the view" is now **"Move
+  the whole maker…"**. A boat put down on the water floats. **What most wants your
+  judgement:** whether "maker" and "belongs to" are the right words (or "arrangement",
+  "group"); whether another of a rock should stand by itself (as now) or be one more
+  of the same meadow; and whether the folded parts are where you would look.
+- **Waiting on the user: W1b, what is chosen, and one thing of a maker by itself**
+  (see "W1b" under Done). It answers what the user found trying W1 by hand. Start
+  `editor\run.ps1` and press **Checklist** on the bar: what to try is there, in order
+  (your own world first: it opens as it was). `editor\run.ps1 -Demo chosen` (or
+  `-Demo` alone) shows it first, about a minute and a half. **What is different to
+  look at:** a maker chosen (its row in Makers, or the inspector's list) is marked in
+  **blue** in the view: its reach or the square about what it made, the line it
+  follows, a stroke over each thing it made, and handles (a box that moves it, a ball
+  on its ring that sets its reach). One thing clicked in the view has a **yellow**
+  frame, its maker's row stays marked, and the bar, Makers and the inspector all say
+  "one house, one of the 18 the maker 'street' makes". **Delete** takes away that one
+  thing only; its maker counts it ("1 taken away by hand") and puts it back. Removing
+  a maker is now called "Remove the whole maker". **What most wants your judgement:**
+  whether blue and yellow are enough to tell the two apart; whether a click on a house
+  should choose the house at once (as now) or its street first; whether the woods'
+  press-and-drag works in your hands this time (it could not be made to fail here,
+  see "W1b", "What was found"); and the order of the design engines (amendment 7i).
+  each), or some only a path.
+- **Waiting on the user: the follow-up to the workspace** (see "Follow-up — walking as
+  someone, panels, what grows"). Start `editor\run.ps1` (not `-Demo`: that shows a
+  demo first and its world is the demo's) and press **Checklist**: 19 things, under Walk
+  as someone in a new world, The eye and the movement numbers, A clean start and panels,
+  What grows, A small mesh edit. Nothing of it has been tried by hand. **To be said to
+  the user first: their world file of 2026-10-09 was written over on 2026-10-10 14:07**
+  (that section says how, and what is left of it).
+- **Waiting on the user: the UI foundation, one workspace** (see "UI foundation — one
+  workspace, tools that can be found"). Start `editor\run.ps1` and press **Checklist**
+  in the bar at the top: what to try is a list inside the editor, to tick as you go
+  (22 things, under Workspace, Editing and playing, The world and shaping by hand, Save
+  and reopen). `editor\run.ps1 -Demo workspace` (or `-Demo` alone) shows it first,
+  about a minute and a half. **Where things are now:** the bar has World, Environment,
+  Things, Characters and Window (each a list of what there is, with its key), then
+  Undo, Redo, **Play**, Checklist and Keys; the line under it says what is picked and
+  what can be done with it. Every panel is a window: drag its bar, its corner, "-"
+  folds it, "x" puts it away, Window brings it back. **A new world: World > New
+  world** (Ctrl+N): a seed, a height of hills, a size; it replaces what is in the
+  editor after asking twice, touches no file, and has no file until you save it under
+  one. `editor\world.json` opens at the start as before; World > Open a world goes back
+  to it. **What most wants your judgement:** whether the headings are where you would
+  look; whether the windows start in sensible places on your screen; and whether the
+  one way of setting a number (a step, typing, a slider) is right everywhere, the
+  walker's numbers most of all.
+- **Waiting on the user: M3's fourth part, a mesh taken hold of in the view** (see "M3,
+  fourth part — a mesh taken hold of in the view"). `editor\run.ps1 -Demo handles` (or
+  `-Demo` alone), about a minute and a half. Then by hand, nothing to write first.
+  **A roof:** left click a roof of the village, **F7**, the button **"shape it by
+  hand: take hold of its corners"**. Its edges are drawn on it; under the pointer a
+  corner has a mark and a face its outline. **Left drag a corner**: it goes with the
+  pointer (hold **Shift** for up and down only); let go and the roof is made again.
+  One tile's corner is little, so: **the "reach" slider in the strip at the bottom, or
+  `]`**, to a metre or two, and drag again: every corner within that goes with it.
+  **Left drag a face**: out and in the way it looks; with **Ctrl**, pushed out on new
+  corners. **Ctrl+Z** takes back one drag. **"its text (F6)"** in the strip shows the
+  lines the drags wrote, at the end. Then F7, the list at the top, "village", "another
+  seed": the roof is as you left it. **Esc** puts the corners away. **A shape of your
+  own:** F6, "New mesh", "A kind of this mesh", "Put one down", a click on the land;
+  then F6, the mesh chosen in the list, **"Shape it in the view"**. Yours to say:
+  **whether dragging is the way in you wanted, and whether what a drag does is what
+  you expected it to do** (a corner goes in the plane the view faces: is that right,
+  or should it keep to the ground's directions?); whether the reach, which moves
+  everything in it by the same amount, is enough for a roof, or whether it should
+  fall off toward its edge; what you reached for that was not there (several corners
+  chosen one by one, an edge, a face of a tiled roof as a whole slope).
+- **Waiting on the user: M3's third part, a roof made yours** (see "M3, third part — a
+  generated thing's shape made the person's"). `editor\run.ps1 -Demo roof` (or
+  `-Demo` alone), about a minute. Then by hand, in the editor, nothing to write
+  first: **left click a roof** in the village; **F7** (the inspector) says who made it
+  and that its shape is as it was generated; the button **"edit its shape: write it
+  out as a mesh"** writes it out and opens it where meshes are (F6). Scroll to the end
+  of its text, add lines, **Apply**, F6 to look. Two that do something at once
+  (y is metres up from the ground the house stands on; the status line under the text
+  says how tall the mesh is): `colour roof2` and then `turn 8 0.7 5 0.7 8 0 9.5`, a
+  turret; or `colour stone` and `box 0 7 0 1 3 1`, a block through the ridge. A
+  face's number is said after its line, with which way it looks, for `push FACE 0.5`
+  or `colour roof3 on FACE`. Then **F7, the list at the top, "village", "another
+  seed"**: the houses are other houses and the roof is still yours. Ctrl+Z step by
+  step; Ctrl+Shift+S and Ctrl+O; **"the generated shape back"**. Yours to say:
+  **whether this is the way in you meant** (pick, a button, then text) until corners
+  can be taken hold of (M3's fourth part); whether a roof that keeps its size when its
+  house is made wider is what you expect, or whether it should be made to fit, or only
+  be said (it is said, in the inspector); what you tried to do to the roof that the
+  lines could not say.
+- **The eye that stopped following, looked into** (the user's report, 2026-10-09: "the
+  skirt appears to sway, but after activating the feature the camera seemed to stop
+  following the player"). **One cause found and put right; whether it is the one seen
+  is the user's to say.** `run.ps1 -Demo sway` ends on a cat: its last beat put the
+  eye on the cat to show its tail, and then handed the controls over **with the eye
+  still on the cat**. Walked off from there, the eye stays with the cat. Shown by a
+  run before the change (the demo's own report: the eye left on "someone else") and
+  after it (on "the walker"). Now that beat gives the eye back, and the hand-over
+  gives it back whatever a part left. **What was ruled out, from the code and by
+  measuring:** what swings turns bones inside the figure and nothing else; the eye
+  follows the walker's body, which no bone moves, and is stepped before the figure is.
+  The tour's sway part now measures how far the eye's middle is from the walker while
+  she sets off, stops, turns and crouches: 0.61 m at most with what swings shown, 0.57
+  with none (it comes after her by its easing either way). Nothing in the editor or
+  the game but the tour and the demos ever gives the eye to someone else. **If it was
+  not after the demo that it was seen:** two things that could look like it and are as
+  made: with F1 open the mouse is free to drag the numbers and does not turn the eye
+  (the eye still comes along); and the eye from behind never turns by itself to face
+  the way she goes. Then say where it was (after the demo, or after F6 and "Walk as
+  this", or with F1 open) and which eye (V), and `editor\godot\logs` has the run.
+  Found beside it and put right: a bone as good as at rest was still turned part-way
+  by a path two all-but-equal directions do not have, 28 errors to the log in a demo
+  run (they were in the last pass's logs and were not read then); none now.
+- **Waiting on the user: what swings after a body** (see "What swings after a body").
+  `editor\run.ps1 -Demo sway` (or `-Demo` alone), about a minute. It is the one thing
+  here that stills cannot show: **it wants your eye, in motion.** Then by hand, in a
+  new world (a world that has the examples already keeps them as they were written:
+  nothing in it swings until wren, cat and tabby are deleted and added again): F6,
+  "Add the examples", wren, "Walk as this", Tab. Walk, run, stop short, turn about,
+  crouch (C), jump, dash, roll; put a cat down and run from it. **F1 has one number,
+  "sway"**: at 0 nothing swings and she is as she was. Her numbers are five lines near
+  the top of her text (F6): `swings` (how many times a second), `damp` (how soon it
+  rests), `within` (how far it may go), `wind`; changed and applied, she has them at
+  once. Yours to say: **whether it reads as hair and a skirt moving, or as parts
+  wobbling**; whether it is too much or too little (one number each); whether her
+  skirt, which still goes with her legs and only a little after them, is what you
+  meant by a skirt that is not stiff, or whether you meant cloth (which this is not:
+  see what it leaves for later).
+- **Tried by the user, and the ground the rest stands on** (their word, 2026-10-09, with
+  the brief that began M3's second part): the land's tools and the view turned about
+  the pointer work; Wren (they write "Ren") and the two cats can be made, follow, and
+  are done with. "Satisfactory from my hands-on perspective": taken as said, for M2 and
+  the probe as wholes, and nothing in them is opened again without something seen. What
+  they did not say by name, and so is still only what the scripts checked: whether the
+  box under paint is what they expected of it; whether writing `bends` is a way they
+  would work. What they did say of her: **her parts are rigid and her skirt is stiff**,
+  which is what M3's second part and the pass after it are for.
+- **Waiting on the user: M3's second part, a mesh as an asset** (see "M3, second part —
+  a mesh as an asset"). `editor\run.ps1 -Demo meshes` (or `-Demo` alone), about a
+  minute and a half. Then by hand, in a new world (Ctrl+S writes yours, and a world
+  that has the examples already keeps them as they were written: the skirt there is
+  still a limb): **F6, "New mesh"**: a block with its top pushed up, its text on the
+  right, and beside the text what each line made and which way each face looks.
+  **"A kind of this mesh"**, **"Put one down"**, a click on the land. Then the mesh
+  chosen again in the list (the meshes are under the kinds, in blue) and a line added,
+  say `push 2 0.3 0.3` or `move face 2 by 0.2 0 0`, and **Apply**: the one put down
+  follows. Ctrl+Z takes it back. Ctrl+Shift+S, Ctrl+O: it is there as it was written.
+  **"Add the examples"**, wren, "Walk as this", then the mesh `skirt` chosen and its
+  line written otherwise (`0.270 -0.38` is how far out and how far down its hem is):
+  she wears it at once. Yours to say: **whether a shape written as lines is a way you
+  would work until corners can be taken hold of** (that is M3's fourth part); what you
+  tried to make that the seven words could not say; whether her skirt reads better
+  with sixteen sides and shaded round. It is still where the bones put it: it does
+  not swing.
+- **Waiting on the user, from before: what grows, and M3's first part.** (1) F8, paint: the box is
+  seen when it is off, the words under the tools say what the next stroke will do, a
+  line in green says what the stroke did to what grows, and the lines over the keys say
+  what is kept under the pointer. "clear" and "let grow" change what grows and nothing
+  else. Yours to say: **whether this is what the box was expected to do**, or what was
+  expected instead (it was not a fault in what it did: see "After M2 — what grows, said
+  and seen"); whether clear and let grow should be for one kind of thing and not all
+  four. (2) `editor\run.ps1 -Demo cast`, or F6, "Add the examples" in a new world
+  (a world that has the examples already keeps them as they were written: delete
+  wren, cat and tabby and add them again, or write `bends` into them): Wren's elbows
+  and knees bend, her skirt goes with her legs when she is down by a cat. Yours to say:
+  whether the skirt reads as a skirt when she crouches and runs; whether writing
+  `bends A B` on a part is a way you would work until corners can be moved by hand.
+  (3) **If the editor closes again:** `editor\godot\runs.log` and
+  `editor\godot\logs` now say how and what it said; tell me the time.
+- **Tried by the user, and answered above: the land worked on more easily, and the
+  probe** (their word, 2026-10-09: the tools are better laid out, the view turns about
+  the pointer and the box puts it back; Wren is made, the cats follow and are each
+  stroked). As it was written then: (see "After M2 — the land
+  worked on more easily", which ends with what to try by hand). The pass before it was
+  tried by them (2026-10-09: paint keeps to the water's edge, moving about feels
+  natural, the right button dragged moves the view, restore is useful). Two things
+  they asked of the last pass are answered there: a right click alone no longer moves
+  what is picked (Shift + right click does), and paint goes on refusing the bed of
+  the sea.
+- **Waiting on the user too: the probe** (see "The probe — someone else to walk as, and
+  two cats"): `editor\run.ps1 -Demo cast`, or by hand: F6, "Add the examples", choose
+  wren, "Walk as this"; put a cat and a tabby down from the palette; Tab.
+- **Tried by the user, and answered above: the land's tools made plain** (see "After M2 — the land's tools
+  made plain"). M2 was tried by hand after the land was made to stand (their word,
+  2026-10-09: shaping and the island's outline work, smoothing looks right, nothing
+  flickers, a world written and opened is as it was, and a game saved and loaded puts
+  the walker back). What they found confusing is what this answers, and what wants a
+  hand now: **restore** (it was erase) on something raised and painted; **paint dragged
+  from the grass out over the water**: the water should stay the colour it is;
+  **flatten begun on the grass and dragged out to sea**, with the line in the panel that
+  says how high the ground under the pointer is; the **sliders** and the - and +
+  beside them; and **the right button dragged** on the world, with a tool chosen and
+  with none, and begun on something picked. Yours to say: whether a right *click* with
+  something picked should still put it there at once (it does, as before; it is the one
+  thing left on the right button that a slip of the hand can do, and Ctrl+Z undoes it);
+  and whether paint should refuse the bed of the sea or only not show there.
+- **Tried by the user, and answered above: M2, the land by hand.** `editor\run.ps1 -Demo land` (or
+  `-Demo` alone), then the manual script in `Draw3D_Milestone_M2_Brief.md` ("Manual
+  verification"): a brush dragged over the land (F8), undone as one stroke; a cliff and
+  a ledge put down and climbed; the top painted; the woods made again and the hills
+  changed around it; a parameter asked about before it is set, the woods frozen and
+  thawed, the road's last place dragged to one side (F7); a move rewritten in the
+  editor and taken back with Ctrl+Z (F10); written to a file and opened. What wants a
+  judgement is at the end of that script, and the seven decisions taken while building
+  are at the end of the brief, each yours to change: above all **that what is written
+  is now undone by Ctrl+Z** (it was not, and you were asked whether that was right),
+  and **that Ctrl+Z over a text writes its file too**. M3 (editable meshes) is not
+  begun.
+- **Being tried by the user: M1, kinds as content**, with Ctrl+S and Ctrl+O for the
+  project and F5/F9 for the game (their word, 2026-10-09). `editor\run.ps1 -Demo kinds`,
+  then the manual script in `Draw3D_Milestone_M1_Brief.md` ("Manual
+  verification"): a kind written in the panel (F6), put down, changed and followed,
+  pushed, someone new stroked, inspected (F7), written to another file and opened
+  (Ctrl+Shift+S, Ctrl+O), asked for from beside the editor, in the built game. What
+  wants a judgement: **whether writing a kind as text in that panel is a way you would
+  work** before handles and a mesh editor exist (M3); whether the words are the right
+  words; what you tried to write that it could not say.
+  The first report from it (a kind surviving a load) is answered under "M1 — Kinds as
+  content": F5/F9 are the saved game, Ctrl+S/Ctrl+O the world; the words now say so, and
+  an undo after opening no longer empties the world. **Decided by the user: F9 stays as
+  it is**, loading what has happened without putting an edited world back.
+- **Waiting on the user, from before:** six demos, and the controls where each ends. The host is
+  built: nothing has to be done first. (The whole tour has been run again with the
+  screen on: it passes as it stood at the end of the hub, and passes with walls and
+  edges in it. See "The hub" and "Walls and edges".)
+  `editor\run.ps1 -Demo climb` (or `-Demo` alone): walls and edges. What wants a
+  hand, and is the reason this was taken up before the feel of the motor was heard:
+  **go at the yard's wall and jump** (it is past the road's end; the pen beside it has
+  the same walls): the hands catch the edge on the way up. Space climbs, C lets go,
+  S with Space pushes off. **Go at a house's wall and jump**: on the way down it is
+  held to, then slides; Space jumps off it. What is yours to say: whether a wall
+  should be caught **only while a way is asked into it** (it is so now: `pressing`,
+  one word in `moves.txt`, for both); whether climbing in 0.9 s is the pace; whether
+  crouch is the button to let go with; whether a wall jump of 1.5 m up and about 5 m
+  out is too much; and whether **anything solid** being climbable is what you want (a
+  stall, a well and a haystack can be got onto; a tree's trunk can be held to), or
+  whether a thing should be able to say it cannot be. How the hang, the climb and the
+  hold look in motion: written as numbers, looked at in stills.
+  `editor\run.ps1 -Demo hub`: the hub. Then **F4**, editing or
+  walking. What wants a judgement: whether this is the way you would look over who can
+  do what (a list to the left, what is said of the one chosen, and below it where it
+  is written, with a button that opens the file); **whether opening the file in the
+  machine's own text editor is enough of a way to where a thing is edited for now**,
+  or whether it should be changed there in the panel; and one rule that was not there
+  before and is yours to confirm: **whoever does an act needs the places on their body
+  the act uses** (a hand: so a sheep and a boat are not offered a crate to take hold
+  of, which until now nothing stopped). With the editor open, `editor\ask.ps1 hub` in
+  another terminal is the host asked by another program.
+  `editor\run.ps1 -Demo written`: what is written, kept by the
+  host. Nothing in it wants a hand; what wants a judgement: **that a file saved still
+  does what it did** (change `moves.txt` or `acts.txt` in a text editor while playing:
+  it is the next step's, and a line not understood is now said at the bottom of the
+  screen); that the built game has no such files beside it any more (they are in
+  `world.json`; one put beside the game is used in its place); and that what is
+  written is **not undone by Ctrl+Z** and is not put back when the world stops
+  running. Say if any of the three is wrong. (Since M2 the third is otherwise: what is
+  written is undone by Ctrl+Z. It is still not put back when the world stops.)
+  `editor\run.ps1 -Demo byhand`: a door, a parcel and a crate done
+  with by hand. What wants a hand: **whether E on a door is now too slow** (the walker
+  steps to the handle and reaches before it swings: about a second, where it was at
+  once); whether a crate taken hold of goes where it is wanted, forward, back and
+  round, and whether 35% of a walk and 70 degrees a second are the pace and the turn
+  (`pace`, `turns` under `act push` in `acts.txt`); whether putting a parcel down
+  with E when nothing else is near is what is expected of E; how the reaching, the
+  stooping and the bracing look in motion (they were written as numbers and looked at
+  in stills).
+  `editor\run.ps1 -Demo quickstep`: the quick step (Z and X; LB and RB on a
+  controller), beside the dodge. What wants a hand: whether 2.2 m in 0.16 s is the
+  step that is wanted, standing and at a run (the numbers are in F1 under
+  "Quick-step", the lines in `moves.txt`); and **the controller: LB and RB are the
+  quick step now. Crouch is LT only and run is X only** (they were also on LB and RB;
+  nothing else was free). Say if that is wrong: it is one table.
+  `editor\run.ps1 -Demo weather`: the weathers (N puts the next). What wants an eye:
+  the trees and the grass in the wind, in motion (pictures do not show it); whether
+  the rain and the snow read as rain and snow; how dark a storm is, and a storm at
+  night by the lamps; whether `weather.txt` is a way you would work.
+  Still owed from the second part of stage 9: rowing under the hand, with the keyboard
+  and with a controller; whether stroking a sheep reads as meant. No controller has
+  been plugged in yet: everything asked with one is checked against the table only.
+  Still owed from the first part: how the stroll and the bolt look in motion. From
+  stage 8: each of the three eyes (V). From stage 7: how the three styles look by day
+  and by night. From stage 6: the keys for things kept (1 to 9, Q, R) and how the chop
+  looks. From stage 1, whenever it suits: the character motor's feel
+  (`editor\run.ps1 -Demo stage1`).
+- **Being built:** nothing. M2 is built (see "M2 — The land by hand"), and M1 before it
+  (see "M1 — Kinds as content"). Stage 9 is
+  built, as far as its three tables below say. Stage 1 is built: wall grip and ledge
+  hang were its last (see "Walls and edges").
