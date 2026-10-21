@@ -5207,6 +5207,778 @@ The user asked (2026-10-17) for "an extensible library of visual styles and game
 
 **Checked:** host `style` tests 4 (2 new: the picture, what a style is, a part taken, wrong lines said; the project's styles.txt read whole with the eight); protocol p13, p41; `-Demo styles -Check` (4 beats: "industrial" finds 2; the town with no style and in the eight, every picture's mean colour apart from every other's by 0.045 at least; my_neon made from neon_noir, its glow turned up and its air taken from silent_reel, neon_noir not changed by a letter; styles.txt as it was after); `-Tour -Only ui` (the Styles window passes the windows' checks; only the Studio's known in_the_room/resizes fails; the Environment window's style row was made too wide by a button at first, and failed folds/resizes, so it has a row of its own); studioplay 226/226; chartest 192/192. Not used by hand.
 
+## 7dd. Leaves under trees, snow with depth, rooftops and streets (built 2026-10-21)
+
+**Why.** The user's message after 7dc: "autumn leaves should not appear everywhere. mostly around the trees and blowing around when you create the real depth. urban set should have ramp additions on the roof tops and boards across buildings and other parkour type addons and decor and power poles. complete the rest of the work not done as well. and add a button for me to cycle through seasons or weather somewhere in the corner". Their words, and what was done:
+- Leaves mostly around the trees, blowing around. **Built: fallen leaves drawn under the 64 trees nearest the eye (`trees` of the paint), the loose leaves under them and heaped toward the trunk; lifted along a strong wind and come down further on.**
+- Real depth. **Built: snow's caps (`drifts.gd`): a cap on whatever faces up of what is drawn, as deep as `air deep` says, rims rounded, pressed where printed; what is under a roof, a porch or a tree sheltered from snow, rain and dust, seen by an eye looking straight down.**
+- Ramps on roofs, boards across buildings, parkour pieces, decor, power poles. **Built: on flat town roofs a ramp, a rail, crates; planks from roof to roof (`across`); fire ladders up the backs; power lines drawn along streets (`powerline`: poles, wires, lamps, transformers).**
+- The rest of the work not done. **Built: a door where it is clicked (`line_gates` `sN@M`); platforms painted with a brush and joined where they meet; walls stacked with battlements taken off (`stands_on`, `topped`, `wall_top`); the dock's boat boarded and rowed (the boat with a body); designs of the library still, gently or freely in the wind (their own `gives`); a bar's neon lighting only what is near it; the Library and Styles windows fitting a small screen. Still owed: platforms blended at a shared edge with the land between (joined, not blended); the Character Studio's window on a small screen.**
+- A button in a corner for the seasons or the weather. **Built: `corner.gd`: the season and the weather, a click to the next, a right click back.**
+
+**How.** In the host: `build.rs` (the `powerline` sort and its poles and wires; `street_piece`: pole, wires, plank; rooftop ramp, rail, crates; the fire ladder; planks from `across`; `gap_between`, `share_of`; `stands_on`, `topped`, `bare_top`, `wall_top` and battlements; doors at `sN@M`; the dock's boat a body; neon's dim light), `tileops.rs` (`across`, `stands_on`, `topped`), `lib.rs` (`across` said), `shapes.rs` (the new pieces' styles). In Godot: `drifts.gd` and `corner.gd` (new), `lying.gd` (trees, leaves under them, blown), `world_view.gd` (trees, shelter, the `laid` hook), `weather.gd`/`weatherbook.gd` (`deep`), `env.gd` (Snow: how deep), `buildbar.gd` (Power line, Raise, a wall's top, the power line's height, wind for designs, the door where clicked), `makers.gd` (`paint_area` for platforms), `marks.gd`, `things.gd` (a light's `strength`), `icon.gd`, `library.gd`, `styleview.gd`, `main.gd`, `tour.gd` (the world clear within the room).
+
+**Checked:** see PROGRESS (7dd).
+
+**Owed.** Prints pressed into the cap's corners only (a metre apart on the land); leaves without depth of their own but the loose ones; melting from the sun's side; wires to houses; lamps on poles lit at night; planks between buildings other than flat-roofed town ones; a stacked wall's height not followed when the lower is made higher after; the lower wall's piers through the upper; the Character Studio's window on a small screen.
+
+## 7dc. Weather that lies, a town, platforms and windows by hand (built 2026-10-21)
+
+**Why.** The user's message after 7db, with a picture (a path beside a fence's gate and beside a wall's arch, not through them), and "work autonomously to complete these". Their words, and what was done:
+- Paths do not line up with gates and arches. **Mended: a path through a wall, a fence or a hedge says where along the side it crosses (`opened` `NAME@METRES`), the side is cut into pieces about that place, the way through stands where the path is.**
+- Gates and arches with a context menu for type and colour, and a door or a gate in an arch. **Built: beside a wall, fence or hedge, and over a gate or an arch clicked: arches round, pointed, low or flat (`arch_form`), open or with a gate, a studded door or a grille hung in them (`arch_fill`), their stone's colour; gates of boards, pickets, a farm gate, iron, two leaves (`gate_form`), any colour.**
+- A frame rate indicator in a corner, toggled. **Built: View > Frame rate, Ctrl+Shift+F, kept on this machine.**
+- The remaining work, the feedback notes and the transcript. **Built: raised platforms (notes section 6), paving painted as an area and one with what it overlaps (section 7), windows put by hand, joined side by side, window boxes for three or more, washing lines between two spaced upstairs, the door put where the foot of a wall is clicked (sections 2, 4 and the pasted tips), a house lifted off the ground (floating foundations), smoke from chimneys (sections 4, 8), the sun turned round (section 8), own pictures carried into an exported game (7db's owed). Still owed: merlons taken off by stacking, the boat boarded and rowed, a wind setting for library designs, terrain platforms painted with a brush (drawn round here), joined platforms blended at a shared edge.**
+- Rain and snow and falling leaves; what falls lying on roofs and the ground, with intensity and persistence. **Built: `lying.gd` and the paint's `snow_cover`, `wet`, `litter`, `dust`: snow white on what faces up, rain wet and in puddles, leaves on the ground; how fast it lies (`air settles`), how long it stays (`air keeps`), how much falls (`air falls N`); weathers drizzle, blizzard, hail, leaves.**
+- Footprints by what lives, the character too; leaves moved about in autumn. **Built: the walker and those with bodies press prints into what lies, a picture of the ground about the walker (`prints`), gone over `air prints` seconds; loose leaves about the eye kicked up as they go through.**
+- Anything falling from the sky, meatballs, frogs, boxes. **Built: what falls has a shape (streak, flake, leaf, petal, hail, ball, meatball, box, crate, frog, fish, or a design of the world), lies where it lands a while, and may leave something lying; Environment > What falls, and The thing picked.**
+- The Draw5 notes on weather and seasons. **Read (`MAP_WEATHER.md`, `PARTICLES.md`): deposits that build and are remembered, prints that press into them, an effect being any falling thing; taken over in that spirit.**
+- Dandelions in the ground mix. **Built: dandelions and dandelion clocks (Plant Generator presets), in Flowers' mix and in a new mix for Grass.**
+- An urban set: commercial, apartments, townhouses, lofts, bars with neon, urban decor and clutter. **Built: Build > Town (shop, apartments, townhouse, loft, bar, `URBAN`), their fronts (`front`: a shop's glass, awning and sign; a bar's dark front, awning, neon sign and blade sign; garage doors), sash, factory and modern windows, plant, vents, aerials and water towers on flat roofs; a kind trait `neon`; 21 designs of neon signs and street clutter and three Decorate sets.**
+- More stairs up steeps and across water. **Built: steps of wood with a rail, log steps, a ramp (`climb_form`); a boardwalk, a humped stone bridge, a wooden footbridge (`water_form`).**
+- Imperfection settings, not cookie cutter. **Built: `wear` (as new, a little worn, worn, falling apart) on houses, walls, fences, hedges, paths, yards and gardens: cracks, streaks, bricks and stones gone, coping broken, pales gone and broken, cobbles and flags gone and paths' edges ragged, panes broken and boarded, gates' boards split, arches' stones sunk, roof tiles gone and mossy.**
+
+**How.** In the host: `build.rs` (`drawn_rim` cut about crossings and `gap_at`; `gate`, `arch_rise`/`arch_height`; `urban_piece`: awning, signboard, neonsign, rooftop; `washline`; `weathered`; `own_windows`; `platform` sort, `platform_soft`; bridges and climb forms in `pathway`; stones on `polyfloor`), `land.rs` (`Raised` soft and raised as well as dug), `tileops.rs` (crossings measured; platforms raise the land), `real.rs` (window forms, broken panes, a roof's chimney and wear), `shapes.rs` (`WalledFacade` own windows, `Mesh::chimney`, `wear`, `smokes` trait), `kind.rs` (`neon`), `grown.rs` (dandelions). In Godot: `lying.gd` (new), `fps.gd` (new), `weather.gd`/`weatherbook.gd` (shapes, the air's falls, settles, keeps, prints, season, sun), `world_view.gd` (what lies, prints, neon), `env.gd` (the new rows), `buildbar.gd` (Town, Windows, Platform, Paving, gates, wear, fronts, climb and water forms, lift, world season), `makers.gd` (urban sorts and palettes, `paint_area`), `marks.gd`, `things.gd` (chimney smoke), `clock.gd` (sun turned), `icon.gd`; `editor/library/urban.txt`; `export.ps1`.
+
+**Checked:** see PROGRESS (7dc).
+
+**Owed.** Merlons taken off by stacking; the boat boarded and rowed; a wind setting for designs of the library; platforms painted with a brush, and blended where two meet; snow piling deeper (it is a colour, not a depth) and melting from the sun's side first; a print in fallen leaves is a gap in the drawn leaves, the loose ones only kicked by the walker and those with bodies; what falls drawn about the eye only; a door put exactly where the wall's foot is clicked (it is put in that wall's middle piece).
+
+## 7db. Context and the wild edges (built 2026-10-21)
+
+**Why.** The user's hand test of 7da, with two pictures (the strip over a house as wide as the window, its icons in one row; a porch wrapped round a house whose roofs cross at a corner), their list, two of their Tiny Glade notes on advanced tricks, and "work autonomously to complete these things and use your judgement for the smaller reversible things that need some direction". Their words, and what each came to:
+- The context bar can be huge: groups and submenus, like the preset colours, that fold out when needed. **Built: folds (`_fold`), the house's row ten buttons, a patch's sets, colours, season and look kept folded.**
+- Porch roof not lined up. **Mended: cut on the slant at corners, a hip or a valley.**
+- Paths still a line, not painted; dirt, rock, wood, cobblestone; walls with such options. **Built: a path dragged at its width; cobbles, flagstones, stepping stones as well as paving, gravel, earth, boards, each laid stone by stone; six more wall pictures.**
+- Paths through walls make arches, over ponds stepping stones, up hills stone stairs (their notes, sections 2 and 7). **Built.**
+- Their feedback on how the land is shaped (section 6, raised platforms). **Not in this pass: owed.**
+- Decorate paints the ground but not walls. **Built: along a wall it hangs lanterns, baskets, banners, shields, wreaths, flower boxes (section 2: a lantern on a wall is a wall lantern).**
+- Decor without wood, style or colours. **Built: benches and lamps of several styles, Colours by wood and paint.**
+- The garden with few flowers. **Built: its beds planted with any of fifteen.**
+- Never assume a usual colour means no options. **Built: a Colours fold beside every patch, by role, any colour (`vary ... even`).**
+- Rocks over plants poke through. **Built: plants keep clear of what rocks and decor lie on (`lying`).**
+- Trees with few options, not linked to the generator. **Built: the Trees brush grows the Tree Generator's sorts, each opened in it.**
+- Shadows choppy and shimmering. **Changed: atlas, splits, blending, filtering, bias; softness by blur, not by the sun's size.**
+- Waves on a shore, breaking on rocks. **Built: foam by depth in the sea's and a pond's water.**
+- No reeds. **Built: reeds and bulrushes standing in the water, in Waterside's mix (and the grown reeds there before).**
+- Birds disappear but their noise stays. **Mended: perched outside the crown; heard where they are.**
+- Stack buildings on a flat roof. **Built.** Ctrl to unsnap a wall's end: **there since 7cm.** Merlons taken off by stacking, floating foundations, wells of towers, window boxes or washing lines by windows' spacing: **not built (a well and a washing line are decor in the mix).**
+- A post-apocalyptic set: buildings, trees, decor, ravens, wolves. **Built: the wastes (designs, sets, a style, a palette); wolves from the creatures in Life's mix.**
+- Pumpkins should not sway; a wind setting for anything the wind moves. **Built: each grown plant moves as such a plant does; `wind` beside every patch of grown things.**
+- Sunsets like The Witcher 3 and Ghost of Tsushima. **Built: the golden hour in any style, and a richer default day.**
+- A shore brush for a deck or tied boats, later for travel. **Built: Water > Dock.**
+- Lily pads, shells, kelp, seaweed in Waterside. **Built.**
+- Seasonal variations of trees and foliage. **Built: per patch.**
+- Any selection updated by hand; own wall textures, own decor. **Built: any colour everywhere; pictures and models brought in from beside what they are for.**
+- Mix Life's items. **Built: sets put in and taken out of a mix; sorts as before.**
+
+**How.** In the host: `build.rs` (porch `cuts`, `pathway` laid by floor with `climbs`, `wet`, `jetty`; `archway`; `hung`; `mooredboat`; `beds`; `base`; eaves guarded), `land.rs` (`Ground::sunk`, `standing_on`, `rest` on a dug pond's water, `Stood::may_stand`, `wades`, `LYING`, `Clear::blocks_but_water`), `grown.rs` (`WIND`, `calmed`), `vary.rs` (`even`), `tileops.rs` (a pond's inside `water`; a stacked house left out of cutting), `lib.rs` (the structure says `hung`, `beds`, `dock`, `base`). In the editor: `buildbar.gd` (folds, Colours, seasons, wind, hanging, imports, gardens, sorts and sets), `marks.gd` (paths stroked; stacking), `makers.gd` (`roof_under`, `drawing_strokes`), `clock.gd` and `main.gd` (the golden hour, shadows), `world_view.gd` (foam; own pictures' folder), `wild.gd` and `sound.gd` (birds), `styles.txt` (`wastes`, the summer day), `library/decor.txt` (thirty designs), `sounds.txt` (`ravens`). Demo: `-Demo context`.
+
+**Owed.** Terrain shaped as raised platforms dragged up and down (their notes, section 6); paths painted as areas; windows and doors placed one by one, joined when side by side, and the window boxes and washing lines that come of it; merlons and floating foundations; the boat boarded and rowed; own pictures carried into an exported game; a wind setting for designs of the library.
+
+## 7da. Its details beside it (built 2026-10-21)
+
+**Why.** The user's hand test of 7cz, with a picture of a patch of Life beside its strip: "refer to the docs and proceed with these things ... try to complete the milestone of things and i can test them out after and we can tune and improve the tiny glade milestone after." Their words, and what each became:
+- The critter noise is too loud; a setting for its volume in the context bar. **Built: crickets quieter, the three nearest of one sound heard, a patch of Life quieter or louder beside it (`loud`).**
+- Some birds don't move. **Mended: with no tree near, a bird goes about on the ground.**
+- Fish swim out of the water. **Mended: the water says its outline; a fish keeps inside it.**
+- The pond still not a hole in the ground; it looks like a modern pool. **Built: dug into the land, no bank raised, stones and grass to the water (their notes, section 6: water painted into the ground, with rocks and plants round it).**
+- Every item of the menu bar with context options, texture and colour where they apply; fences and hedges lack them, among others. **Built: a panel beside a wall, a fence, a hedge, a path, a yard, a garden and a pond.**
+- Doors, windows and lights; balconies and wrap-around porches; stairs. **Built beside a house: windows, doors, lanterns (lit), porch and balconies, its stair.** The reminder of 7cz, windows, doors and stairs placed one by one by hand (their notes, sections 2 and 4: a window tool, a window low on a wall a door, windows that join), stays owed: it is a placement tool of its own.
+
+Their Tiny Glade notes read again for this: section 2 (a lantern on a wall a wall light, on the ground a post lantern), 4 (windows of different shapes, sills, plants and coverings; doors), 5 (colours of each part), 6 (ponds painted into the ground, rocks and vegetation round them), 7 (fences of their sorts), 8 (a lantern lights at once). What of it is built here is in the house's and the structure's own words, the way their looks were (7cm, 7cn): nothing is a second way of doing what was there.
+
+**How.**
+- Host `build.rs`: LOOKS gains `window_form`, `shutters`, `sill`, `door_form`, `door_colour`, `lamps`, `lamp_colour`, `fence_form`, `hedge_form`, `flower_colour`, `floor_colour`, `water_colour` (given to every piece and through a facade to its windows, doors and walls); params `porch`, `balcony` (PORCHES), `stair_form` (STAIR_FORMS), `stair_wood`, `stair_rail`, `dig` (DIG, DIG_SLOPE). Sites `porch#SIDE`, `balcony#SIDE_bK` of archetype `porch` (an outside corner run past, an inside one stopped short), `porch#SIDE_steps`; inside stairs by `inside_stair` (`steps` with wood and rail, `ladder`, `winder`). A dug pond: its level a hand under its edge, no bed slab, no bank pieces or mounds. Fence and hedge sorts; a floor's colour; a pond's water says its outline (`water R D 0 X Z...`).
+- `shapes.rs` `made_from`: tower, towerroof, parapet, polyroof, polyfloor, pathway, winder, porch, porchroof, ladder of `style.build`; bank and climber of build and wild. A porch's roof is `porch#SIDE_roof`, of archetype `porchroof`.
+- `real.rs`: `window`, `door`, `doorway` take the brief (`arc_band`, `arc_points`, `flat`); `doorway_lights` gives a wall with a doorway `lights ... when dark` (`shapes::traits`).
+- `land.rs`: `Shape::dug`, `dug_in`, `sunk` (in `top` and the ground's own mesh, not `height`, which the terrain tools read); `DUG`, `dug_asset`; a patch of ground is made from its part. `tileops::settle_dug`. `Meadow` param `loud`.
+- Godot: `buildbar.gd` `structure_chosen`, `_fill_structure`, `_house_details`, `_fill_house_detail`, `_choices`, `_tints`, LOUDS; `wild.gd` `_pool_at`, `_wet`, `_peck`; `things.gd` `water_outline`; `sound.gd` `ALIKE`, `loud_of`; `icon.gd` pictures for each; `library/decor.txt` lamp-post.
+
+**Checked:** Host: 77 unit tests and 87 protocol tests pass (new: p87 a pond dug and a house's porch, balcony and stair; a unit test of every window, door, fence, hedge and porch sort and the doorway's light; p02, p68 and p73 told that a doorway gives a light and a drawn pond is dug, p73's pond kept on the land with `dig 0` to keep testing the bank). `-Demo details -Check` 8/8: dug 0.79 m in its middle, deeper to 1.4 (1.29 measured), water 2e5a6a, no bank pieces; 8 birds, all 8 moved, 1297 fish samples none out of the water, the patch quieter at 0.75, birdsong 3 at once; windows arched, no shutters, plain sills, door glazed a24e38, lanterns both; 2 storeys, a porch round it (28 pieces with roofs), a balcony of 4 pieces along its front; a wound stair; pickets f2efe6, a hedge in flower f0a0c0; bricks, 1.45 m high, ferns; paving, 1.6 m wide; 2 lamp posts and 3 lights lit at 21:00. No script errors. Pictures looked at. Not used by hand.
+
+## 7cz. Decorated and alive (built 2026-10-21)
+
+**Why.** The user's hand test of 7cy: "everything so far recently is finally headed in the right direction", with findings and asks, and freedom for small additions that fit. Their words, and what each became:
+- The roofs view off is buggy, does not come back on. **Mended: a house of one storey stuck the button at its first step.**
+- The collision effect is still visible, and the player is too slowed by foliage. **Mended: plants lean off from their foot; held back by a third as much.**
+- A brush for ambient life: crickets, butterflies, moths, fireflies, frogs, birds, fish for ponds. **Built: Paint > Life, its sets, new small life; over a pond, life in it.**
+- A contextual decorator brush: vines or ivy on walls, paintings; on a floor, furniture inside (couches, chairs, beds, dressers), benches, crates and barrels outside; smart and customizable, palettes, sets or items swapped. **Built: Paint > Decorate (walls, a room's floor, the land), sets beside it; a painting and a rug in the home set. Items one at a time by hand, as before.**
+- Every thing painted or built has a decor option. **Built for houses (climbers, furniture) and patches (sets); walls, fences and hedges by the brush only.**
+- Flesh out the menu bar. **Built: Build.**
+- A preset or arrangement liked kept from the little context bar and recalled; in the global library, saying which projects use it. **Built: looks kept, `looks.json` in Draw3D's own folder, Library > Kept looks.**
+- The paint system for fields of crops, to be harvested in games one day. **Built: Paint > Crops. Harvest owed.**
+- Tools that do more by where they are used: the flower brush on the ground flowers, on a wall blooms; ivy, moss, vines. **Built: CLIMB_OF, `paint_pressed`.**
+- A system for windows, doors and stairs: not now, a reminder. **Owed, with what 7cy owed from their Tiny Glade notes (windows placed by a tool, doors near a wall's foot).**
+
+Their Tiny Glade notes (`Draw3D_Tiny_Glade_Personal_Feedback.md`) read again for this: vegetation that responds to structures and paths, decoration by context, and life that makes a place feel inhabited are what this answers; nothing of it is a second way of doing what is there (climbers are a house's, as its dressing is; decor and life are patches, as flowers are).
+
+**How.**
+- Host `build.rs`: params `climb` (words of CLIMBS: ivy, moss, vines, blooms), `climbed` (0.6), `climb_on` (sides, each `SIDE[:WORDS]`), `climb_colour`; sites `climb#SIDE_cJ` of archetype `climber` (made in build.rs: leaves as faces against the face, moss cushions, woody stems, flower clusters, giving a little to the wind) along every outside side not shared, not cut, not a gate, and clear of every way through (`ways`). The structure report says them. `kind.rs` trait `glows`.
+- `wild.gd`: what glows is drawn unlit. `world_view.gd` treads: a lean by height over the foot. `motor.gd` `WADES` 0.35. `main.gd` `_houses_open`.
+- `buildbar.gd`: brushes crops, decor, life (`bring`: library designs brought in); SORTS entries of no family are library designs (`_sort_design`, `_of_library`); SETS; CLIMB_OF and `paint_pressed` / `climb_motion` / `climb_release` (asked by `marks.gd` on a press of a bar brush); `_fill_climb`, `_fill_furnish`, `_pond_lively`; `keep_look`, `give_kept`, `kept_looks` (`Controls.home()/looks.json`). `desk.gd` `_build`. `library.gd` Kept looks.
+- `editor/library/decor.txt`; `sounds.txt` crickets.
+
+**Checked:** host tests 76 + 86 (new: climbers stand out from the face as high as told, moss low, blooms of their own colour; p86 a house climbed side by side, none over its door, going with it when moved; p43 knows the new collection); `-Demo decor -Check` 9 of 9 (roofs 1, 2, 0 and back on; blooms on s2 and ivy on s1, 12 climbers, the land not painted; moss on every side, 0.8, #8a9a3a, 26 climbers; a home of 6 things, then a store; a yard of 12, then a farmyard; 14 of life, then dusk; a pond given the lively set, 35 things; a field of 34 patches, maize put in; a look kept and given, red walls and a slate roof; through flowers held back 4%), pictures looked at (the ivy made thicker after the first). Not used by hand.
+
+## 7cy. Where a tower meets a house, and cattails' heads (built 2026-10-20)
+
+**Why.** The user's hand test of 7cx ("really good pass again"). Their findings, and what each became:
+- Two towers at a house stand with their round walls inside it. They want a choice: one open space where they connect, or as it is; and each shape remembered if they are taken apart. **Built: walled or open, beside it; nothing of a line is changed, so apart each is whole.**
+- Cattails have no palette; the ends could be bulbous or fuzzy and frilly, by some rule, a look that could go to other things. The most basic form, without much time. **Built: `plump`, `fuzz`, `head_tint` for every grass head, beside Waterside.**
+- A mix's sorts are presets; could each reach the plant generator's settings, by a small icon? Only if cheap. **Built: sliders per sort, opening the Plant Generator on the patch's design.**
+- Paths cut through foliage, but there are no sorts of path yet, and the yard does not work properly. **Not now, at the user's word.**
+- Their notes on playing Tiny Glade, to be kept and consulted for construction, terrain, vegetation and decoration. **Kept: `Draw3D_Tiny_Glade_Personal_Feedback.md`.** Read against what exists: much of sections 1, 3 and 5 is built (handles, a house's controls together, colours and materials beside it, Copy/Give as the bucket); owed and named there: roofs dragged to a curve, a material proportion slider, windows and doors placed by a tool with doors near a wall's foot, lanterns that know a wall from the ground, paths with sorts that become arches, steps on slopes and stepping stones in water, raised platforms painted, chimneys with smoke, time of day as a control.
+
+**How.**
+- Host `tileops::cut_by_houses`: each house says the others it meets (`meets`, by id). Of a higher and a lower one, where either says `open_into`, the higher one's cut where it is inside the lower carries `open` after its height. `build::cut_rim` reads it (`RimSide::cut_open`); built, each storey that begins under the lower's top is left out, a `wall` piece named `…_over` from that top to the storey's, and a pier between two open stretches begins over it.
+- Grass knobs `plump` (0.5 as before), `fuzz` (0), `head_tint` (0); `grown/plants.rs` `grass` scales plumes, cattails and husks by `plump`, swells a plump cattail, and stands frills (`fuzz` × 26 blades) out of each head.
+- `buildbar.gd`: `by_join_walled` / `by_join_open` beside a house that meets another (`open_into`, one change with `together_after`); `_fill_heads` beside Waterside; `by_<brush>_tune_<sort>` under the sorts, `ed.grow.open_design`.
+
+**Checked:** host tests 75 + 85; `-Demo meets -Check` 5 of 5 (walled 14 pieces, open 10 and 4 over, apart 12 and meeting none, back open with Ctrl+Z; heads plump 0.75, fuzz 0.5, rust; the Generator open on brush-cattails with the heads' numbers); `-Demo mixes -Check` 6 of 6. Not used by hand.
+
+## 7cx. Mixes, rocks and towers (built 2026-10-20)
+
+**Why.** The user's hand test of 7cw: "extremely pleased with the direction": more intuitive, customised on the fly, fewer menus; keep this for every system. Their findings, and what each became:
+- Bushes to work as the flowers do: sorts put in or taken out of a mix, not one sort for another. **Built, for flowers, bushes, waterside plants and rocks.**
+- Rocks are basic and round: shapes, textures and colours wanted, randomised, with palettes for where they are (desert, beach, forest). **Built: a rock generator.**
+- Something that paints the decorative things, such as cattails, that the engine can make but no brush has. **Built: a Waterside brush.**
+- The Look options (copy and give) shown for a house but not for flowers. **Built: Look for a patch, and Copy and Give beside a house.**
+- A tower dragged over a house does not attach; either merge them or drag one out of the other. **Built: a tower out of a house's corner, a tower let go at a house goes onto it, and it moves with it.**
+- Walls: fine as they are.
+- Later, at their word: balconies and wraparound porches pulled out of a house; a clutter system (hay bales by a barn, clicked and moved); a character or a sheep shown while building, with its controls over it, keeping where the game starts. **Not built.**
+
+**The rock generator** (host `shapes/grown/rocks.rs`, family `rock`, twenty knobs):
+- Each stone is an icosahedron split once, twice or three times (detail), its corners pressed onto planes it is broken along (facets: none from below), lumped by five long waves (rough), flat below, stretched to its height, width and depth, turned, leant, sunk.
+- **Forms:** a boulder with smaller ones at its foot (pieces); a slab; an outcrop of blocks, the middle ones tallest; stones lying about; a standing stone, or a ring of them.
+- **Colour:** `place` picks a colour, a colour for bands and a colour for moss (the style's rock, forest grey, beach pale, desert red, mountain blue-grey, volcanic black, chalk); `tint` is one of your own (rrggbb). Moss lies on faces that look up. Each face a little its own shade (speckle), darker toward its foot.
+- **Material:** `texture` (none, rough, cracked, grainy, smooth) writes `texture FILE S tinted` into the kind. Tinted is new (world_view.gd): the picture's lightness against its mean, over the colour it is laid on, so a red rock stays red and its stone shows. Without it, a picture laid over a design is coloured by the design's hue but has its own lightness, which made rocks near black.
+- **Edges:** sharp (each face flat: the mesh without `smooth`) or soft.
+- Presets: boulder, mossy boulder, slab, stones, beach pebbles, outcrop, desert red rock, lava rock, standing stone. Two grass presets were added for the water's edge: cattails and rushes.
+
+**Mixes and patches** (buildbar.gd):
+- `SORTS` says what may be in each brush's mix: its preset, family, words, picture and colour. Beside a patch, one button opens the sorts under the strip; each is lit when it is in. Put in, a sort is grown for that patch the first time, two shares of it; a rock takes the patch's place, colour, picture, edges and moss from the rocks already in it.
+- A **patch** is a maker of a brush: "painted rocks", "painted rocks 2"… Its designs have its suffix ("brush-boulder-2"), so changing one patch leaves the others. A new patch copies the chosen one's sorts and numbers, then paints. Clicking a patch makes it the one its brush paints. A patch's look (sorts, numbers, how thick) is copied and given to another of the same brush, one change.
+- Rocks beside them: their colour by place (chips) or any colour, their material (pictures), less or more moss, smaller, bigger, other shapes (each seed moved on), sharp or soft. Bushes and waterside plants: lower, taller. Changes over many designs are one change (`regrow_each`).
+- Look on the bar, for a patch: New patch, Copy, Give, with words. Copy and Give now also end the strip over a house.
+
+**A tower joined to a house:**
+- **Pulled out** (line.gd `corner_towers`): a small green tower stands out past each corner of a chosen house that turns out (not an L's inside corner). Pressed and dragged, a round tower is staged with its middle on the corner, as wide as twice the pointer's distance from it (2.4 to 9 m), square to the house's first side; a click alone makes one 3 m wide. Let go, it is kept, chosen, one step.
+- **Let go at a house** (makers.gd `tower_to_house`): a tower drawn or moved with its middle near a house's corner (within 1.6 times its half-width and a metre) or side goes onto it, corners preferred. Ctrl as it is let go holds it apart.
+- **Joined** (host tileops.rs `follow_towers`, after every edit with `follow_joins`): a tower whose middle is within its own width of a house's side is joined to it by its middle ("c HOUSE SIDE ALONG OUT X Z"). The house moved, turned or pushed, the tower goes where the same part of that side is, unless the tower was itself moved by the edit; then it is joined again where it stands, or not at all.
+- What of each is built where they meet is as 7cr had it: the house's wall inside the tower is left out; the tower's wall inside the house only as high as the house.
+- **Found on the way:** a drawing let go while the host was still building its last drag step was committed when that landed, after the editor had already asked for it, so it was not chosen or joined. `commit` now takes `wait: true` (the editor's let-go: marks.gd, line.gd), and then waits for it, up to 30 s. Without it, a commit is as it was (two protocol tests say so).
+
+**Checked:** host unit tests 74 (new `a_rock_is_coloured_by_where_it_is_found_and_has_a_picture_over_it`; every preset of every family grown, a slab low, a standing stone tall, an outcrop wide, cattails over rushes) and protocol 84 (new p84: a tower at a house's corner joined, moved with the house, back with Ctrl+Z, left where it is put by hand). `-Demo mixes -Check` 6 of 6: forest rocks of 5 sorts after two were put in, a second patch at place 3 while the first stays 1, cracked rock and moss 0.4 and a new seed, waterside of 3 sorts, bushes with brambles and blueberries in and shrubs out, two towers joined and one moved 4.1 m with a 4 m move. `inplace` 5 of 5, `onehouse` 6 of 6 (one Ctrl+Z a stroke still). Pictures looked at: rocks broken and mossy, desert red beside grey, towers at two corners. **Not run:** by hand; speed with many rocks.
+
+**Owed:**
+- A house dragged out of a tower; a tower snapping while it is dragged, not only when let go; the house's roof cut where a tower stands.
+- Balconies, wraparound porches; the clutter system; a character or a sheep shown in the world while building, its settings over it, its start kept.
+- Your own palettes kept on the strip; doors and windows placed by hand; furniture placed and locked along walls; the house's dressing bushes still round.
+
+## 7cw. Changed where it stands: roofs with no gap, roofs off, a house's parts and materials beside it, painted plants that are real and changed beside them (built 2026-10-20)
+
+**Why.** The user's hand test of 7cv: "very, very finally good in terms of the direction". Plop something down and adjust it at once, with buttons in context, is how it should work. Their findings, and what each became:
+- Two joined houses showed a strip of wall between their roofs (a screenshot). **Mended.**
+- Show and hide roofs, to see the layout inside and that the merge is right. **Built.**
+- Colours shown visually and changeable, less text; an icon on the roof for its material, likewise windows. **Built for walls, roof, trim and timbers and the two materials; windows' own sorts are not.**
+- Grass and flowers painted the same thing; wanted: dense grass in the wind, its length and shade (green, yellow, blue, white) after painting. **Built.**
+- Round bushes are blobs; trees and rocks wanted settings from what was painted, as a house has. **Built for bushes and trees; rocks only thicker and thinner.**
+- A house attached to a tower, or dragged out of one, as one; furniture placed and locked along walls; doors placed; your own palettes. **Not built: requirements, below.**
+
+**The roof gap.** `hiding_solids` cut each roof where it lay inside the other, the first a hand bigger and the later a few centimetres smaller (0.06 m). Where two ridges of one height cross, the first's ridge lay inside the later's solid, and the later's in the first's: both were cut and nothing was left. The later one is now made smaller by 0.16 m, more than the first is made bigger (0.12 m). Where they are within that of each other one is kept. The test `a_joined_house_has_no_gap_in_its_roof` lays out an oblong, an L, a T, a cross, a narrow wing into a wide one and the other way, and an offset join. With gable and hipped roofs, it looks down on every 20 cm of each outline for roof over it (`roof_hides` is now a function both use).
+
+**Built:**
+- **Roofs off** (main.gd `open_houses`):
+  - On the strip over a house and in View.
+  - One press hides every roof (`roof`, `polyroof`, `towerroof`). A second also hides what each house made over its first floor's boards (`world_view.cut_above`, by the maker): upper floors, their walls and windows. A third puts all back.
+  - For looking only; Show everything also ends it.
+- **A house's parts beside it** (buildbar.gd `_fill_beside`):
+  - Walls, roof, trim and timbers are each a picture of a house with that part in its colour now.
+  - Pressed, a row opens under the strip: 8 to 12 chips of colours for that part and a picker for any colour, set when it closes.
+  - The walls' and roof's materials are buttons showing the picture itself. Pressed, the others open: plain, plaster, painted plaster, bricks, stone, rough stone, boards, planks; plain, tiles, mossy, shingles, slates, tin, thatch.
+  - Each is one change through `look_set`.
+- **Brushes that grow their own** (buildbar.gd `BRUSHES`, `_grow`):
+  - The first time a brush is used, it grows designs of the plant generator (host `generate` with a name) and its maker paints them.
+  - Grass is one design of the grass family: about 45 cm, 22 blades a tuft, 12 tufts a patch, no seed heads, a little straw, and it gives in the wind. The old grass was nine blades and a wildflower, which is why grass and flowers looked alike.
+  - Flowers are daisies, poppies and bluebells among grass of their own. Bushes are a leafy shrub of the bush family.
+  - Trees and rocks paint the built-in ones, as before.
+- **Grass's own colour:** a knob of the grass family, `tint`, as rrggbb; 0 keeps the style's greens.
+- **Beside what was painted** (`_fill_painted`): clicked, the strip shows by where it was clicked.
+  - **Grass:** shorter and longer (12 cm to 1.4 m), ten colours.
+  - **Flowers:** daisy, poppy, bluebell, tulip, lupin, foxglove, each in the mix or out (grown the first time it is wanted). Also the grass among them shorter or longer.
+  - **Bushes:** shrub, wild rose, blueberry, bramble, low mat; lower and taller.
+  - **Trees:** mixed, broadleaf or conifers.
+  - **Every brush:** thinner or thicker.
+  - A change grows the design again, and all of it that stands follows. Each is one Ctrl+Z.
+- **A brush's making and its first stroke one Ctrl+Z again:** a big stroke is built in the background, and `together` sent at once was refused as busy, so grass took two steps back; it is now sent once the build is done (buildbar.gd `together_after`).
+- **Demo** `inplace` (5 beats).
+
+**What is owed, kept as requirements:**
+- **A tower and a house as one building:** a house dragged out of a tower or let go against one, its walls and roof meeting the tower's.
+- **Doors placed and moved by hand;** windows of their own sorts beside the house.
+- **A furniture mode:** furniture inside a house dragged along its walls and locked in place, so that characters walk in and live there.
+- **Your own palettes on the strip:** kept, locked, changed.
+- **Settings of their own for rocks** (a rock generator).
+- **Less text everywhere else in the editor:** the strip shows the way.
+- **The house's own dressing bushes are still round blobs.**
+
+## 7cv. One house, one outline: wings pulled out, houses joined, a palette beside it, painted plants (built 2026-10-20)
+
+**Why.** The user's hand test of 7cu. The bar was fine, but the experience was underwhelming:
+- two houses dragged together "don't look right, don't feel right";
+- there was no way on the house to make it an L;
+- palettes were in a menu, not on the thing;
+- grass and foliage were drawn as lines, where Tiny Glade paints them with a brush;
+- the look is poor.
+
+The user asked for the basic functionality first, comparable in how quickly things go together, with the polish to come later. They noted that the construction direction had been tried three times.
+
+**What was wrong underneath.** Each house was a box of its own, and two that overlapped were patched where they met: walls cut, roofs cut, doors moved (7cr, 7ct). Every way of overlapping found a case the patches missed. Also, an L-shaped outline was roofed over rectangles cut row by row (`square_blocks`), so a wing's ridge could run any way, and each piece had its own chimney and gable. That accounts for the grey slab and the cream triangle in the user's screenshot.
+
+**Built:**
+- **Houses that overlap become one house** (makers.gd `join_houses`).
+  - It happens when a house is dragged out into another, or moved, turned, pushed or given a wing into one.
+  - On letting go, the house is turned square to the one it went into (to the nearest quarter turn), and the two outlines are made one (`Geometry2D.merge_polygons`).
+  - The outline is squared to the first house's frame (`squared_outline`). That first house keeps its name, look and storeys; the other goes.
+  - The drawing or move and the joining are one Ctrl+Z (`together`). Ctrl held on letting go keeps them apart.
+  - A round tower never joins.
+- **A wing pulled out of a side** (line.gd `_wing_pulled`).
+  - A green + stands out past each side's arrow, on sides 3 m or longer.
+  - Held and dragged out, it pulls a wing from that side: half the side wide, at least 3 m.
+  - Dragged along the side as well, the wing slides; within half a metre of an end it is flush with it, and the house is an L. In the middle it is a T.
+  - It is built live while held. Corners that no longer turn are let go (`_plainer`).
+- **Which way is out for a side** comes from the way the outline goes round (`_outward`), so the arrows on an L's inner sides point out of the house.
+- **One roof as a roofer roofs it** (host `build::wing_blocks`, used for houses in place of `square_blocks`).
+  - The outline is covered by the fewest whole oblongs, biggest first: one wing over each arm, the wings overlapping where they meet.
+  - Each wing's ridge runs along its arm.
+  - A wing that runs into a bigger one, and is no wider than that one is deep, stops at the bigger one's ridge, so its ridge dies in the other's slope.
+  - The cutting of 7ct makes them one roof with valleys.
+  - One chimney to a house, on its biggest wing (`no_chimney`).
+- **The roof's look** (host `shapes::roof`, gabled):
+  - tiles laid one by one, in rows about 0.4 m up the slope, each about half a metre along;
+  - every other row set over by half a tile, each tile a little lighter or darker and lifted a hair more or less, with a dark underlay between;
+  - a board along each eave, barge boards up the gables, and a thicker ridge.
+  - What hides a roof now reaches 0.3 m below the eaves, so where roofs meet the boards are hidden too.
+- **Beside the house, in the view** (buildbar.gd `beside`). While a house is chosen and nothing is held, a strip over its roof shows:
+  - the seven palettes as swatches;
+  - gable, hipped or flat roof;
+  - a storey fewer, how many, a storey more.
+  - Each is one change, with no menu between.
+- **Paint on the bar.** Grass, Flowers, Bushes, Trees, Rocks and Rub out, each a brush dragged on the land.
+  - Each brush paints into a maker of its own, made the first time it is used and growing nothing until painted: `painted grass` and the like, a meadow or a wood of the plants the engine has.
+  - It uses the painting of 7v.
+  - New host setting `dense` on meadows and woods: so many plants to each 2 m square painted, so a brush is as thick wherever it goes. Before, the count was shared out over all that was painted.
+  - The making of a brush and its first stroke are one Ctrl+Z.
+- New pictures in icon.gd: grass, flowers, bushes, trees, rocks, three roof forms, storey up and down.
+
+**Checked:**
+- Host unit tests 72 of 72. `wing_blocks`: an L is two wings, the second running from the first's ridge; a T's stem stops at the bar's ridge; an oblong is one. Two older tests were adjusted, because the boards hang below the eaves: one measures a roof's top, not its size; one keeps the eave-hiding margin.
+- Protocol tests 83 of 83.
+- `-Demo onehouse -Check` 6 of 6, its pictures looked at:
+  - a house dragged out with the strip beside it and four wing handles;
+  - a wing pulled from the longest side to its end, giving an L of 6 corners with 2 roof wings and a cross gable;
+  - a second house dragged into it, giving one house of 8 corners;
+  - a palette and a storey from beside it;
+  - grass 864, flowers 487, trees 24 painted;
+  - six Ctrl+Z: the strokes, the storey, the colours, then the second house's drawing with its joining, leaving the L of 6 corners and no brushes.
+- `-Demo joined -Check` 7 of 7, with no script errors. Its "overlapped" beat (a house dragged into another) now ends in one house, not two sharing a wall.
+- **Not used by hand.**
+
+**Not done, or not right yet:**
+- A house dragged over another shows them overlapping until it is let go: the joining is not shown live.
+- Handles show once a house is clicked, not on hover.
+- Two chimneys were still seen on an L in the pictures (the second may be a sort's own); the gable end is plain where the walls are timbered.
+- Joining one house into a house of another sort keeps the first's look without asking.
+- Ladders and stairs that become one another, things that wrap round what they are turned against, decor placed by hand: not built.
+- The ground of a new world is still a dull yellow-brown; the look as a whole is the style step's.
+- The joining replaces 7cr's shared walls for houses that overlap. Houses side by side, touching but not overlapping, still share a wall as in 7cr.
+
+## 7cu. The construction bar down the right side, as a Tiny Glade player builds (built 2026-10-20)
+
+**Why.** After 7ct, the user asked whether construction was going the Tiny Glade way, and whether I knew how a player builds there with the tools (not only how the pieces behave). They asked for a construction bar of its own on the right side, with groups and the tools under them as pictures, each tool understanding what is built. Their references: `Tiny_Glade_Tool_and_Functionality_Reference_Consolidated.md` and `Draw3D_Style_References_Neva_and_Firewatch.md`. They also said merging two dragged-out houses sometimes doesn't look right.
+
+**How a Tiny Glade player builds** (from the reference, the wiki's Tools and Building menu pages, and community guides; I have not played it, and the guides disagree on details):
+1. Pick a tool from a small bar of pictures. Its groups have a few tools each: Build has a square building, a round building, a wall and a fence; Decor has three windows, a lantern, a flag and a chimney. Nothing is set before drawing.
+2. Gesture on the land: drag, and the building grows under the pointer; let go, and it is there.
+3. Shape it afterwards with handles on the thing itself: arrows push the sides, height, the roof's peak for pitch, a ring to turn it. Right click is focus mode.
+4. Context does the rest: overlapping buildings become one with one roof, a low window becomes a door, a path through a wall makes a gate, a path across water makes stepping stones, and stairs become a ladder, platform or bridge by their slope. Ctrl holds it off.
+5. Style afterwards: Change appearance on the part pointed at, and Style Clone from one thing to another.
+6. Erase is a brush too (ruins). Ctrl+Z undoes, so nothing is ever wrong.
+7. The charm is largely procedural detail and motion (irregular stones, ivy, clutter, things springing into place, sound, soft light), not more settings.
+
+**What Draw3D had against that:** the rules underneath (7ck to 7ct: drawing live, walls cut, joins, roofs one) follow Tiny Glade, but the way in did not. It was one worded list under Build on the left: about 25 rows mixing roads, lots and streets, grid cells, and drawn things. Each sort of house was a row of its own, so a sort was chosen before drawing. Handles only show once a house is chosen. A look is set from the Inspector or World outline.
+
+**Built:**
+- **The construction bar** (`buildbar.gd`, made by desk.gd `build_bar`), down the right side while editing. It has five groups, each a picture with a word: Build, Paths, Water, Look and Erase. Pressing a group opens its tools beside the bar as pictures; pressing it again puts them away:
+  - **Build:** House, Tower, Wall, Fence, Hedge.
+  - **Paths:** Path, Yard, Garden.
+  - **Water:** Pond (with life), Kerbed (a stone kerb).
+  - **Erase:** the eraser, as on the left.
+- **A tool is taken up at once** and drawn with on the land, as its row of the Build list draws (`makers.begin_drawing`). It is lit while it is in hand; pressing it again puts it down. Nothing is asked first: a house is drawn plain, and a tower is a house of the sort "tower".
+- **Look, afterwards, on the house chosen:**
+  - its sort (house, cottage, castle keep, tower, shelter, ruin);
+  - its colours, seven palettes drawn as little houses in their colours;
+  - **Copy** and **Give**, a style clone: Copy keeps one house's sort, colours, pictures, roof and storeys, and Give puts them on another house. Each is one step, undone with Ctrl+Z.
+  - With no house chosen, it says to click one first.
+- Windows keep clear of the bar (desk.gd `room`).
+- New pictures in icon.gd: tower, wall, fence, hedge, path, yard, garden, pond, kerb, look, cottage, castle, shelter, ruin, copy, paste, and swatch.
+- **The Build list on the left is kept** unchanged, at the user's word.
+
+**Checked:**
+- `-Demo bar -Check` 5 of 5, its pictures looked at. Each button was pressed as a hand would press it (`desk.hands`):
+  - all five groups are at the right edge, and Build's shelf opens to the bar's left with its five tools;
+  - House lights and a dragged house is built, then goes unlit;
+  - a second house is dragged into the first, and they are told of each other's roofs;
+  - a wall is drawn from the house's side;
+  - Look shows the sorts; cottage, then the palette "painted blue"; the look copied and given to the second house (cottage, 7393b4);
+  - Ctrl+Z takes the given look back, and Build pressed twice puts the shelf away.
+- No script errors.
+- **Not used by hand.**
+
+**Not done:**
+- **Handles shown on hover.** In Tiny Glade, pointing at a building shows its handles; here a house still has to be clicked. Showing one house's handles while another stays chosen would conflict with the right-drag and with Look, so it is its own step.
+- **Decor** (windows, doors, lanterns, flags and chimneys placed by hand) is not on the bar, because none of it can be placed by hand yet. A drawn house makes its own windows and door.
+- **Stairs** drawn by nodes, and **stepping stones** where a path crosses water, are not built.
+- Number keys and a quick ring of tools at the pointer (Tiny Glade's Space) are not built.
+- What the bar draws has the same merging as 7ct: two houses dragged into each other show two gables running into one another. The user's "merging doesn't look right" has not been pinned down to a case.
+
+## 7ct. Roofs that are one where houses meet; a door kept when its side is cut (built 2026-10-20)
+
+**Why.** What 7cr left owed, continuing construction as the user's direction document orders: roofs of houses that touch or overlap crossed one another, and a lower roof could be seen inside a taller house's upper room; a house's door in a side that came to stand inside another house was lost with that side.
+
+**Built:**
+- **Roofs run into each other as one roof** (host `shapes::hiding_solids`, `Mesh::cut_inside`):
+  - A roof is not built inside the house it runs into. That means inside the other's walls up to its eaves, or under the other's roof (gable, hipped or flat, as `roof` builds it).
+  - Each triangle is cut exactly where it goes in, so two roofs meet in a valley, and a lower roof ends at the taller house's wall.
+  - **Cut both ways**, so what is left is the outside of the two together.
+  - **Where two roofs lie in one plane**, side by side and as high, one gives way. The one built first (as with walls: the higher, or the earlier) is taken a hand bigger, its ridge cap included; the other a little smaller, so the first runs just under the other and no crack or flicker shows.
+- **The oblongs of one house** (an L, a T, a U) are cut by one another the same way, so an L-shaped house has one roof with a valley, not two crossing.
+- **Which houses are near.** The host tells each drawn house of the houses near enough (`roof_near`, in `tileops::cut_by_houses` after every edit, undone with it): their line, height, storeys, roof, form, pitch, and which is built first. The house's own build works out their eaves from the ground as their build does, and hands each of its roofs those solids in that roof's own frame (`hide`). Ruins, round towers and curved houses are not told.
+- **A door left out with its side** goes to the nearest piece of wall still standing outside, at least 1.6 m long (`build::cut_rim`). A gate in a garden wall left out where a house stands does the same.
+- Seen in the Inspector's structure (host `nodes`): `roof_near`.
+
+**Checked:**
+- Host unit tests 72 of 72, two of them new:
+  - `a_roof_is_not_built_inside_the_one_it_runs_into`: nothing of a cut roof inside the other; about half left where the other covers half; all of it inside a bigger one gone; one apart from it untouched.
+  - `a_door_left_out_where_a_house_stands_goes_to_the_nearest_wall`.
+- Protocol tests 83 of 83, p83 new: each house told of the other once, the higher built first; an L's two roofs built; moved apart, told of none; undone, told again.
+- `-Demo joined -Check` 7 of 7, beat 5 "Roofs that are one" new, its pictures looked at. Close up, two houses side by side, and overlapping: the lower roof ends on the taller's slope. An L-shaped house: one roof, one valley. A wing drawn across the end of a house: its roof runs into the main slope, nothing standing through.
+- `-Demo houses` 7 of 7, `sorts` 8 of 8, `walls` 6 of 6: no script errors, no host panics.
+- **Not used by hand.**
+- A hipped or flat roof running into another is worked out by the same planes, but not seen in a picture.
+
+**Not done:**
+- A roof over a house that is not square-cornered (`polyroof`) is cut by others, but does not cut theirs.
+- Round towers, ruins and curved houses neither cut nor are cut.
+- Chimneys and dormers are cut as the roof is: one inside another house is cut off where it goes in.
+- Where a moved door goes is chosen by the host, not asked; the person's `line_gates` still names the old side.
+- Floors overlapping are still lifted 2 cm, not cut (7cr).
+
+## 7cs. The user's hand test of 7cr: a house's sort undone, a house dragged by any part of it (2026-10-20)
+
+**Why.** The user tried 7cr by hand (`-Demo joined`, then by hand in the same world) and said:
+- Good: houses tracked around, "the house is kind of merge and blend".
+- "Sometimes moving them does not move."
+- The garden wall across the house does not move with it; they could see one move before.
+- A house made a cottage and then a house again no longer had a house's look.
+- On the look as a whole (kept, not acted on, at their word): the original built look is underwhelming, "generic", windows and roof tiles with "very little charm, very little character". If the planned base-style work is where that is answered, later is fine. It belongs with step 3 of their direction document of 2026-10-20 (a stylized base style after Firewatch and Neva).
+
+**Found, from the run log and the code:**
+- **Moving that did not move.** The log shows a second click in the same place, which picks what is behind (a window of the house), then a right click. The right button drags what is picked, and on a drawn house that was one piece, not the house. The toolbar's Move did the same, moving one window. Only the white cross moved the house. This is the likeliest cause; it was not seen happening, so it is not certain it is the only one.
+- **The wall that did not follow.** That wall is drawn across the house, not joined to it, so it is cut where the house stands and stays where it was drawn (7cr). A wall drawn out from a house's side is joined and does follow (7cp, `-Demo sorts` beat 6). This is as built, not a fault. Whether a wall drawn across a house should be carried with it is the user's to say.
+- **The sort undone.** Choosing "a house" set only the word `house`: the cottage's thatch, white walls, flowers and steep roof stayed.
+
+**Built:**
+- Each sort of house now sets everything any sort sets. What it does not say is given as a house drawn new has it (makers.gd `HOUSE_PLAIN`, `house_sort_values`): tiles, the world's colours, one storey, flowers and bushes.
+- **The right button on any part of a chosen drawn house** drags the whole house, as its white cross does (line.gd `grab_whole`, main.gd `dragging_whole`): one edit, undone with Ctrl+Z.
+  - A right click on one of its pieces says how to move it.
+  - The toolbar's Move on a piece of a house says so too, instead of moving one window off it.
+
+**Checked:**
+- `-Demo joined -Check` 6 of 6: two beats added.
+  - Cottage, then house, by the sort buttons: thatch then tiles, cottage white then the world's colours.
+  - Right-dragged by a wall, real mouse events: the cross moved 4.0 m; undone, 0.0.
+  - The pictures looked at.
+- `-Demo sorts` 8 of 8, `letgo` 4 of 4, `houses` 7 of 7: no script errors.
+- **Not used by hand.**
+- In the demo the sort buttons are pressed by their signal, not clicked.
+
+**Seen, not mended:** every hand run since 2026-10-18 ends with Windows code -1073741819 (an access violation) as the editor's window is closed, after Godot's own warnings of leaked render resources. It comes at exit, after the work is saved or not. Recorded, not looked into.
+
+## 7cr. A wall stops where a house stands; houses that touch share their walls (built 2026-10-20)
+
+**Why.** The next construction slice after 7cq, chosen by the user from what 7cp owed: "a wall put across a house shortened to it, and houses that touch joining their walls and roofs".
+
+**Built** (host `tileops::cut_by_houses`, after every edit, with the rest of `settle_drawn`, undone with it; host `land::build` `grown`, `spans_inside`, `cut_rim`):
+- **A wall, a fence or a hedge across a house** stops at the house's outside face. What of it lies in the house is not built (`cut`: each piece of its rim, how far along it is left out). An end of its own (a pier) stands at either face; beyond the house it goes on. Moved or pushed, the house cuts it where it is now; moved off it, the wall is whole again.
+- **Two houses side by side** have one wall between them, not two in one place. The house standing higher builds it; of two as high, the one first in the document does. Its corners meet the other's walls with a corner post.
+- **Two houses that overlap** are one inside: the walls of each that stand inside the other are left out. A house standing higher keeps its storeys over the lower one's top, so its upper walls stand whole over the lower roof. The house that gives way lays its floors 2 cm over the other's (`overlaps`), so the two are never one face and do not flicker.
+- **Roofs:** each house keeps its own roof; side by side they meet over the shared wall, overlapping they cross, as two gables do. They are not merged into one roof.
+- **Said where it is chosen:** World outline and the Inspector, under "How it is built", a part "Where it meets houses" says an end joined to a house (7cp), the stretches left out, and the houses it overlaps (host `nodes` `structure`: `cut`, `overlaps`).
+- A shelter or a ruin is cut whole (no storeys over).
+
+**Checked:**
+- Protocol p82 (new):
+  - a wall across a house has nothing inside it and a pier at each face;
+  - side by side, only the higher house's wall stands between them;
+  - overlapping, neither's ground-storey wall stands inside the other, the higher's upper storey over the lower is kept, and along the shared sides only one builds;
+  - the one giving way has `overlaps` 1, the other 0;
+  - moved apart, both are whole (`cut` empty);
+  - undone, cut again.
+- `-Demo joined -Check` 4 of 4, its pictures looked at:
+  - a wall across a house, from the side and from above with the roof off;
+  - two houses side by side;
+  - the first dragged by its cross into the second, from the side and from above;
+  - dragged out, then undone;
+  - the note in World outline for the house that overlaps.
+- `-Demo houses`, `sorts`, `walls` and `letgo` as before, no script errors, no host panics.
+- Host unit tests 70 of 70; protocol tests 82 of 82.
+- **Not used by hand.**
+
+**Not done, or only partly:**
+- Roofs are not merged. Where a lower house's roof runs into a taller one, it may be seen inside the taller house's upper room.
+- Floors overlapping are lifted, not cut: a 2 cm step where the two meet.
+- A house's door in a side that comes to stand inside another is left out with that side.
+- Walls drawn on cells (`on`) are not cut by drawn houses, nor drawn houses by them.
+- Gardens and ponds are not cut by houses.
+
+## 7cq. Every edit failing after a house was pushed narrow: found, reproduced and mended (2026-10-20)
+
+**Why.** The user's first test of 7cp by hand (after `-Demo sorts`, in the world it saved and opened again): live rebuilding as handles go, roof shapes changed live, the round tower and the other sorts each answering their controls in their own way, a cottage dragged out from Build, and the walls' handles and added places were all found good. Then, after some adjustments, a house could no longer be moved; a click said that the transaction had not finished and had no result; choosing another house did not help; things seemed locked. Asked: reproduce it against the code, find whether it is a regression, a tool handing over badly, a transaction gone wrong or something not yet understood, mend it if the cause is clear, and test that moving and editing go on working after a structure's size, roof or what is joined to it is changed.
+
+**What was found (from the user's own session, not guessed).** Their editor's log said, in order: "Not moved: the transaction ended without a result", then the same for a wall, a place, a hedge and a fence. The host's own error output (`editor/godot/host.log.err`, 17:20) said why:
+1. A build had panicked: `min > max ... min = 2.0, max = 1.15`. The stair chooser (7co, kept in 7cp, `land::build`) held each flight's length between 2 m and the room along its wall less a door's (`clamp(2.0, run_along - e - 0.6)`). A wall shorter than about 2.8 m made the upper bound less than the lower, and Rust's `clamp` panics then. A side pushed in by its arrow (it may go to 1.5 m from the side across), a small house or a narrow one, of two storeys or more, is enough.
+2. The panic happened while the engine held its memory of work done (`Cache::memo`, a lock), and left the lock poisoned. Every build after it asked for the lock and panicked in turn (`memo: PoisonError`), each ending without an answer: from that moment nothing in the world could be changed until the editor was started again. That was the "locked".
+3. A house's handle let go after its drag had failed said nothing and left the failed drag shown (`line.gd` `end`), so what came after looked as if it would not move.
+- Ruled out by the same reproduction: a handle let go over a window, over the toolbar or over a folded window's title (the release reaches the handle and the move is kept, one step); another house chosen after (its handles show, it moves); a house moved after a side pushed, its roof raised, its stair moved and a wall joined (each one step, the wall following).
+
+**Mended:**
+- The stair chooser skips a wall too short for a flight of 2 m (no panic, the stair goes where there is room, or there is none).
+- The engine's memory of work, found poisoned, is forgotten and the builds go on (`core/src/eval.rs` `Cache::memo`): it is only saved work, so forgetting it costs time, never what is made.
+- A build that panics now ends in an error that says why ("the build failed: …", `core/src/engine.rs`), not in "the transaction ended without a result".
+- A house's, a tower's or a height's handle let go when its drag was not kept: the drag is let go and the person is told ("Not changed: …. It is as it was"), and the house's places and height stay as the host has them.
+
+**Checked:**
+- `-Demo letgo -Check` (4 beats, new), driven by mouse events through the editor's own input (never the real pointer):
+  - a cross let go over a window and over the toolbar (kept, one step, not held after);
+  - another house chosen and moved;
+  - one house moved after its side, its roof, its stair and a wall joined (each one step; the wall followed);
+  - a side of a two-storey house pushed in as far as it goes (1.5 m), then the house moved and a hedge drawn (all kept).
+- **The same demo against the host as committed** (7cp, built apart): the push panicked (`min = 2.0, max = 1.95`), the move after it was not kept and the hedge failed with "the transaction ended without a result", the host's output `memo: PoisonError`. As the user saw.
+- Protocol p81 (new): 24 houses of the six sorts, small, narrow and thin, of two and three storeys, built, each moved, the narrow one pushed in further and its stair said to a corner with no room, and a hedge drawn after. It fails with the old clamp and passes now.
+- Core: a memory of work left poisoned by a panicking thread is forgotten and taken up again (unit test).
+- Host unit tests 70 of 70; protocol tests 81 of 81; core tests all pass.
+- **Not checked by hand.** Automated runs drive the editor's input, not a person's hand: whether it now feels right with a mouse is the user's to find.
+
+**The user's findings kept as requirements of the construction system (not built in this pass):**
+- *Doors and windows.* Some houses have windows and some seemed to have none; on at least one no door was found. As built: a house drawn from Build has its door in the side where the drag began (`line_gates s0`), which may face away from the eye, and its windows by bays (`window_every`), so a short wall can have none; a shelter has no walls and a ruin's doorway is a gap. Owed: openings and entrances placed so that every house has a door one can see and reach, consistently.
+- *Openings as modules.* Windows and doors placed, moved, sized, restyled and combined by hand (two or three windows together; whether window-sized openings may make a wider doorway is a design question to weigh, not a rule that every window may become a door).
+- *How windows look.* Some windows look unsightly in some places: for the styling of openings, after the current construction milestones.
+- *Roofs.* The live roof controls are good; the flat end of the range is not reached by the knob (it stops at a rise of 0.2; a flat roof is its own `roof_form`). Owed: the whole range of profiles, flatter ones included, by the same handle.
+- *Hedges, fences and walls* were not assessed by hand, because of this fault: not to be judged missing or broken until tried on their own.
+- *Trees and what grows*: how far they can be edited is for the capability checks later.
+
+## 7cp. Houses of their sorts, stairs of their own, what is joined following, and a style and palette to build in (built 2026-10-20)
+
+**Why.** After 7co the user asked for variety: "stairs are not in the same place in every house and the house building itself can be a castle or cottage or shelter or various things", with a Tiny Glade summary, and then a direction document: construction first (the Tiny Glade reference, `Tiny_Glade_Tool_and_Functionality_Reference_Consolidated.md`), then a first strong stylized style after Firewatch and Neva (`Draw3D_Style_References_Neva_and_Firewatch.md`), an editable palette of the world's colours at a scope the creator can see, and explicit save scopes for whatever is made to be reused. With it the joining tier 7co left for approval was approved ("proceed with the next pass").
+
+**What was found first (inspected, not assumed):**
+- *Already usable:* walls, fences, hedges and houses dragged out and rebuilt live with handles (7cl–7cn), the towers' rings and points (7cm), floors and stairs that follow a house (7co), paths that open gates and doors and growth that keeps clear (7ck), a structure's own colours and pictures (7cm, 7cn), colour variation at four scopes, by design, group, maker and one thing (`vary.rs`, the Varybox), a creature's or design's part colours in the Inspector (7cc), styles with colour roles, hours of light, tone, grade, cast, glow, shade and film (7bn), a style kept in the world's file, and a world saved, opened and undone as one document.
+- *A foundation with its workflow incomplete:* a style's colour roles could be changed only by editing `styles.txt` (the Styles window had the picture's controls, not its colours); the renderer's haze had no glow toward the sun, no layer lying low, a fixed aerial distance, and the shade was the sky's light only; every house was the same sort, and every stair chose the same corner in houses alike.
+- *Gaps:* walls and paths drawn up to a house stayed behind when it moved; no round building, keep, shelter or ruin.
+
+**Built:**
+1. **Houses of six sorts** (host `land::build`, the parameter `house`, `HOUSES`), each built its own way and every part of it still a setting:
+   - *a house*, as before;
+   - *a cottage*, a house given a low storey, a steep thatched roof, white walls, dark wood and flowers;
+   - *a castle keep*: a turret at each corner (the wall's towers, roofed as said) and battlements round its top (a new piece, `parapet`), three storeys, stone, a flat roof;
+   - *a round tower*: the ellipse inside the oblong it is dragged out as (`house_line`), so its handles push its sides as a house's do; a cone of a roof; windows in every third side; its stair wound up inside its wall (below);
+   - *a shelter*: a roof on wooden posts, open all round, one storey;
+   - *a ruin*: its walls broken off a metre or so at a time at heights of their own, higher at the corners, some pieces gone, its doorway a gap; no roof and no floors over its first.
+   - In World outline (and the Inspector) under **A house of its sort**, a button each gives it a look and storeys to start from as one step; under Build > Draw on the land each sort has its own row, dragged out as a house is.
+2. **Stairs of their own.** A drawn house chooses for itself which corner its stair is in and which of that corner's two walls it runs along, among those as good as the best (never along the wall with its door when another will do), by a number of its own (its node, mixed): houses alike have them in different places (six alike: four places in p79). The second flight, of a third storey, is at another corner whose stairwell the first does not stand on, chosen the same way.
+   - **Its handle:** an orange ball over each flight. Dragged toward a corner, the stair goes there, along whichever wall of it the pointer is nearer, built again as it goes, one step (`stair_corner`, its places counted from 1, 0 the house's own choice; `stair_way`). "Let it choose where its stairs go" gives the choice back.
+   - **A round tower's stair** is wound round inside its wall (a new piece, `winder`, walked up as a slope wound round), each storey's flight going on round from the one under it, its floor cut back to the flight's inner edge all along it.
+3. **What is drawn up to a house follows it** (host `tileops::follow_joins`, after every edit, with the rest of `settle_drawn`): the end of a wall, a fence, a hedge, a border or a path that is at a house's side, or near it (a path to its door, 1.3 m), is joined to that side, so far along it and so far out (`joined`). The house moved, turned or a side of it pushed, the end goes where the same part of the side is now, built again as the handle goes and undone with it. An end moved by hand stays where it is put and is joined again where it is. Saved with the world.
+4. **The air between the eye and what is far** (a style's `look` lines, `air.gd`, `clock.gd`, using Godot's own fog): `haze` (how much it glows toward the sun, how high a layer of it lies and how thick it is under that), `distance` (how much far things lose their colour to it), `shadow` (the colour the shade is lit by and how much of it, in place of the sky's light), `soft` (how soft the sun's shadows are). Each has a control in Window > Styles for a style of one's own.
+5. **Two styles to build in** (`styles.txt`), original, after the references' lessons and not their art:
+   - **lookout**, after Firewatch's light: a conifer wilderness, teal woods and golden grass, red-brown bark, warm amber sun late in the day, cool blue shade, haze lying low and glowing toward the sun, ridges fading by layers; a world begun empty (World > New world, an empty island or nothing) begins in it;
+   - **storybook**, after Neva's palette: fresh mint and gold greens, pale trunks, pink and lilac flowers, soft low-contrast light with a bloom, lilac shade, a watercolour haze, a little grain.
+6. **The palette** (Window > Styles, host `palette`): every colour a style colours the world with, by what it is for (walls, trim, stone, wood, roofs, windows; bark, leaves, greens, flowers, fruit, rocks; grass, cliffs, sand, under water, roads, the sea), each a swatch. In a style of one's own each is changed with a click and seen at once on everything that takes it; a colour put into a list (+) or taken out (−). What a change reaches is said there:
+   - **a role** of the style: every house, tree, flower or patch of ground that takes it;
+   - **one thing's own** (a house's or a wall's colours in Makers > Its look, a creature's parts in the Inspector, colours varied per design, group, maker or one thing): that thing's, kept when the style's change.
+
+**Save scopes, as they are (inspected; nothing claimed that does not save):**
+| What | One thing | This world | Every world |
+|---|---|---|---|
+| A style, its palette and its air | (a thing's own colours, above) | kept in the world's file while it has the style (Ctrl+S), undone like any edit | `styles.txt`: a style of one's own made there (Make my own) is offered to every world |
+| A house's sort, its stair, its look | its own settings, saved with the world | | not yet (a house's look kept as a design to reuse: a gap) |
+| Moves, combos, gear, buttons (7ba–7bh) | a character's set | the world's kinds | buttons and profiles in `%APPDATA%/Draw3D` |
+- Not yet: a style or palette saved to a library outside the project (`styles.txt` is the project's file), a palette apart from a style, a structure's look saved as a reusable design. The shared step those need is a library that is the person's own, outside the project, with the project's copy kept apart from it; recorded for the audit after construction.
+
+**Checked:** host unit tests 70 of 70; protocol tests 80 of 80 (p79 new: six houses alike have their stairs in at least three places, none along the door's side; a stair said to a corner and wall goes there, the other wall elsewhere; a round tower has two wound stairs at three storeys; a keep four turrets and battlements; a shelter posts and no walls, one storey; a ruin broken walls of stone, no roof, no floors; back to a house as it was. p80 new: a wall's end and a path's end follow the house moved and a side pushed out, undone back, and an end moved by hand stays and is no longer joined); `-Demo sorts -Check` 8 of 8, no script errors: the six sorts built (a keep's 4 turrets and 12 battlements, a tower's 2 wound stairs, a shelter's 12 posts, a ruin's 28 broken pieces and no roof), four houses alike with their stairs in three places, a stair dragged to the corner across (its corner 3, the other wall, kept when saved and opened), a wall's end and a path's end moved with the house (3.1 m, -2.0 m, as the cross was dragged), lookout, storybook and none on the same place with woods and a meadow (each style's haze, distance and shade read back), a palette of one's own (40 swatches; the first roof made blue and the first leaves rust, seen on the roofs and the crowns), and the world saved and opened again with every house's things as they were. Looked at in its pictures, not used by hand.
+
+**Not done, owed to the construction workflow** (the Tiny Glade reference's operations, by what matters most to the core loop):
+- houses that touch joining their walls and roofs; a wall put across a house shortened to it;
+- windows placed on walls by hand (a low one a door), grouped in twos and threes;
+- paths as a brush, with arches through walls and stepping stones across water;
+- stairs as a route of their own outside (steps, platforms, ladders, bridges, round a tower);
+- a house's base raised on stilts or a foundation by its own handle; a roof turned or bulged by dragging;
+- cutting a wall in two and joining two walls;
+- style clone (one structure's look given to another) and a structure's look saved to reuse;
+- group selection and moving several together.
+
+## 7co. A drawn house's floors over its first, and its stairs (built 2026-10-19)
+
+**Why.** After 7cn, the user said "a two story house still only has one floor inside", and added, as a standing direction: "modular doesn't just mean a house or a wall. systems should connect seamlessly. when one adjusts the others should adapt." A house drawn on the land (7bu, 7cn) was given a facade for each storey but no floor over the first and no stair: the floors and flights of 7bv were only for a house on cells. Two storeys looked right from outside and were hollow inside.
+
+**Built:**
+1. **A floor for each storey over the first** (host `land::build`, kind `upper`, `inside_f1`, `inside_f2`...):
+   - boards the shape of the drawn line, at the top of the storey under;
+   - each with a stairwell cut out of one corner (the outline with that corner notched).
+2. **A stair up to each** (kind `stair`, `inside_up1`...):
+   - a flight along a wall from the floor under, coming up through the stairwell;
+   - in a corner that is square enough (to about 17°), turns in, and has a side long enough to run it along;
+   - not along a side with the door in it while another corner will do, and never over the doorway;
+   - the flights go up by turns at two corners, so each stands on floor and not over the stairwell under it.
+3. **Furnishing on every storey** of a drawn house now (only the ground floor before). Nothing stands on a stair or in a stairwell.
+4. **Each part adapts.** All of this is built from the line every time, so it follows when the house changes:
+   - its storeys (one storey: none; three: two floors, two stairs);
+   - their height, set by the blue point (the floors go up with it, and the stairs are steeper);
+   - its sides, moved by their arrows or their dots (the floors as wide as the house).
+
+**The standing direction, as it stands.** Already adapting after every edit (`tileops::settle_drawn`):
+- a path opens a gate or a door it reaches, and it closes again when the path goes;
+- planting keeps clear of what is built and of the ways through it.
+
+Not yet:
+- a wall drawn up to a house, or a path to its door, does not follow the house when it moves;
+- two houses that touch do not join (their walls and roofs stay two);
+- a wall does not shorten for a house put across it.
+
+Those are the next tier and await the user's approval.
+
+**Checked:** host unit tests 70 of 70; protocol tests 78 of 78 (p78 new: two storeys give one floor and one stair, its floor about a storey over the ground floor, its stair not along the side with the door; three give two of each at two corners; taller storeys lift the floors; a side pushed out widens them; one storey removes them); `-Demo houses -Check` 7 of 7 (a floor and a stair counted at two storeys, none after the undo; seen from above with the roof off). Not used by hand.
+
+## 7cn. A drawn house's own look, dragged out, and its handles (built 2026-10-19)
+
+**Why.** After 7cm the user said "proceed with the next step". In the comparison document the next tiers were buildings with handles, paths as a brush, then windows, and the user had said with 7cm that they will want to restyle anything they don't like, with handles. A house was the one drawn structure with no look of its own and no handles: clicked round, coloured by the world's style, its roof always gabled.
+
+**Built:**
+1. **A house's own look.** Host `land::build::LOOKS`, now 12 words, carried in every piece's brief:
+   - New colours, rrggbb: `wall_colour` (its plaster), `trim_colour` (round windows and doors, the band under the eaves), `pane_colour` (its glass).
+   - Already there, now used by a house too: `wood_colour` (doors, timber framing, floor boards), `roof_colour`, `stone_colour` (footing and plinth).
+   - Pictures: `texture` (over its walls, not over windows or doors) and `roof_texture` (over its roof), by the `texture` line.
+   - `land::build::looked` lays what a brief says over the world's look. `shapes::made` calls it for every piece, so walls, windows, doors and roofs are made in it.
+   - The facade generator (`WalledFacade`) declares these words. It passes them to the wall, windows and door it makes through a new core call, `Ctx::give_children`, which adds values to the children planned so far.
+2. **Its roof.**
+   - `roof_form`: two slopes and gables (as before), four slopes (hipped, its ridge as much shorter as the roof is wide), or flat with a rim. Each has a solid to match.
+   - `roof_rise`, the towers' steepness word, is now a house roof's too, carried as `pitch`.
+   - A house not square-cornered keeps the roof that rises to a point.
+   - A finished project's roof (`real`) keeps its own gable unless another form is said.
+3. **Its windows** (`window_every`, metres; 0 is 2.2 m as before).
+   - A drawn side is in pieces of up to 3 m, each piece a facade. Where windows are further apart than a piece is long, each piece gets one window in its middle or none (`piece_bay`), so they fall about that far apart along the whole side. Before this, a piece longer than its spacing had none at all.
+4. **"Its look" for a house** (`makers.gd` `_build_house_look`, in World outline and the Inspector):
+   - six palettes plus "as the world's style", each one step;
+   - a colour picker for each part, with x;
+   - the two pictures and how often they repeat;
+   - how the roof is made and how steep;
+   - how far apart the windows are.
+5. **Dragged out** (`marks.gd` `box_places`): Build > Draw on the land > A house is pressed at one corner and dragged to the other.
+   - It is built as it goes (staged) and is square to the view, to 15°.
+   - It is at least 3 m each way, and goes round (its door in the first side, as before).
+   - Let go, it is one step and is chosen. Clicks still put corners for a house of any shape.
+6. **Handles on a drawn house** (`line.gd`, Tiny Glade's set):
+   - a white cross in its middle moves it;
+   - a white ring off a corner turns it, by 5°;
+   - an orange arrow on each side pushes that side out or in (it stops 1.5 m short of the side across);
+   - the blue point over a side sets each storey's height (all storeys together);
+   - a blue point over its roof sets its steepness;
+   - its corners' dots, "+" and Alt+click, as a wall's.
+   - Each handle is built again every frame (staged), is one step on letting go, and Esc gives it up.
+
+**Found and mended:**
+- **A closed line came open.** Dragging the first dot of a drawn line that goes round (a wall round a yard, a house) moved its first place and left its last, the same place, behind, so the line came open. The two now move together. This dates from 7cl.
+- **A mesh lost its colours.** A house part written out as a mesh (M3's "change the roof that was generated") was made without what its structure says of how it looks. It is now made with it, and the `shape` answer says the look it was told (`look`).
+
+**Not built (Tiny Glade has it):**
+- stilts, and a roof that turns or bulges when dragged;
+- buildings that snap together and join roofs;
+- windows placed and stacked by hand;
+- cutting and joining walls;
+- paths as a brush.
+
+The wood colour also paints the timber framing, so doors cannot be coloured apart from it. A palette's pictures darken its colours, since the picture multiplies them, so roof tiles over red look brown.
+
+**Checked:** host unit tests (1 new: a house's own colours, its three roofs, a steeper roof taller, pictures over walls and roof and not windows); protocol tests (p77 new: the look reaches its windows, door and walls through their facades; windows further apart are fewer but on every side; one step, one undo); `-Demo houses -Check` 7 of 7; `-Demo walls` 6 of 6 and `-Demo looks` 7 of 7 as before. Not used by hand.
+
+## 7cm. A drawn wall's look, its towers' handles, a place put in or taken out, snapping (built 2026-10-18)
+
+**Why.** The user tried nothing of 7cl by hand yet, but found it "closer to the goal" and asked for the next step, with this in mind: they will want to change the palette, or at least restyle the objects themselves (if they don't like how the towers' roofs look, and so on), with handles to customize all of it, and textures where they apply. Until now a drawn wall took every colour from the world's style, its towers always had the same cone, and nothing about how it looked could be changed for that one wall.
+
+**Built:**
+1. **A structure's own look** (host `land::build`, `LOOKS`; carried in every piece's brief, so each piece is made again when it changes). Each is "" or 0 for as it was:
+   - colours rrggbb: `stone_colour`, `cap_colour` (the coping, the piers' caps, the band round a tower's top), `wood_colour` (fences, posts, gates), `green_colour` (a hedge), `roof_colour` (its towers' roofs);
+   - `texture` and `texture_repeat`: a picture of the project's textures laid over its pieces (not over a gate, water, a floor, steps or a path), by the same `texture FILE S` the designs have had since 7cc; its colour tints it;
+   - `roof_texture`: one over its towers' roofs;
+   - `course`: how high a course of its stones is (bricks small, rough blocks large).
+2. **Its towers, said** (`tower_roof`, `tower_wide`, `tower_rise`, `roof_rise`):
+   - roofed with a cone, a tall spire, a dome, a flat lid, battlements of stone (no roof), or left open;
+   - how wide (0: by how thick the wall is), how far over the wall they stand (1.3 m as before), how steep their roofs are.
+   - A tower's roof is now a piece of its own (`towerroof`, "tower roof"), so it has a picture of its own and is chosen and taken away as one.
+   - A tower has a floor over its top now (it had none: the cone covered it).
+3. **"Its look" in World outline and in the Inspector** (under "How it is built", `makers.gd` `_build_look`):
+   - a palette: as the world's style, grey fieldstone, warm sandstone, red brick, whitewashed, mossy ruin, dark slate; each sets its colours, pictures and stone size together, as one edit;
+   - a colour picker for each of its parts, seen as it is chosen (`livecolour.gd`), and "x" for back to the style's;
+   - the picture over it and over its towers' roofs, how often it repeats, the size of a course;
+   - with towers: how they are roofed, how wide, how high over the wall, how steep.
+4. **Handles on its towers in the view** (`line.gd`): a green ring round each tower, dragged out or in for how wide they all are; a green point over each, dragged up and down for how far over the wall they stand. Built again every frame as they go (staged edits); each drag one step of history; Esc gives it up. The host says where its towers stand (`towers_at`) and how wide they are by default (`tower_usual`).
+5. **A place put in, one taken out** (`line.gd`): a white "+" lies on the wall half way between each two of its places. Pressed, a place is put there and held; dragged, the wall is built again as it goes; let go, the place and the drag are one step. Alt and a click on a place takes it out (two stay at least): one step.
+6. **Snapping** (`line.gd` `snapped_to_walls`): the ends of a wall dragged out, and a place of a wall dragged, go onto another drawn wall near them: onto its end within 1.6 m, onto it along its length within 0.9 m. Ctrl held, they don't.
+
+**Not built (Tiny Glade has it):** cutting a wall in two and joining two; buildings with handles; paths as a brush with live arches; windows placed on walls; small things linked to windows and doors. Not here either: a look for buildings (their own walls, roofs and windows keep the world's style), and a visible cue while a place is snapped.
+
+**Checked:** host unit tests (1 new: a wall's own stone colour, a picture over it and not its gate, the four roof forms made, taller in the order spire, cone, dome, lid, battlements taller than a cone's tower, no faces that fight); protocol tests; `-Demo looks -Check`; `-Demo walls -Check`. Not used by hand.
+
+## 7cl. Walls drawn by dragging, built live, with handles (built 2026-10-18)
+
+**Why.** The user found 7ck, and 7bu before it, did not build the way Tiny Glade does. Both drew with clicks and Enter, showed nothing until the line was finished, and had no handles on what was drawn. The user pointed to a video transcript of Tiny Glade's tools, the developers' Rust/Bevy talk and Bevy itself. What was read, what was compared and what Draw3D lacked are in `Draw3D_Tiny_Glade_Comparison.md`. The developers' talk itself was not seen. The user chose to measure the round trip first, then build drag-to-draw walls with handles that rebuild live while dragged.
+
+**Measured first.** A drag step is the host's existing staged edit: shown, not kept until a commit, and dropped without trace (the host has had this since its drags of houses). One step costs:
+- the whole wall made again;
+- the cells and content sent;
+- the meshes built in Godot;
+- then drawn.
+
+Results:
+- **Answer:** 3–7 ms.
+- **Ask to drawn:** about 7–10 ms on average, worst 24 ms (`-Demo walls`, last beat).
+
+So the live preview is the real wall built by the host every frame. There is no stand-in drawn in the editor.
+
+**Built:**
+1. **Drag to draw.**
+   - Applies to Build > Draw on the land: a stone wall, a fence and a hedge.
+   - Pressed on the land and dragged: the wall is made again as the pointer goes, once a frame. It is a staged `compose` of its line and itself.
+   - Let go: kept as one step of history (`commit`); Esc gives it up (`drop`).
+   - The stroke is kept as the few places it bends at. Douglas–Peucker keeps it within 0.35 m, and no two places are nearer than 1.5 m, so a hand slowing at a corner does not leave two.
+   - Ended within 1.5 m of where it began, after going 6 m, it goes round.
+   - The pointer reads the land only (`land_at`), never the wall being built under it.
+   - A click without a drag still puts places one at a time, Enter ending them, as before.
+2. **A curve through the places** (host, `build::curved`, the structure's `curve` 1). Lines dragged out are given it.
+   - The wall passes through every place on a centripetal Catmull–Rom curve, in steps of at most 2 m.
+   - A place where the line turns by 55° or more stays a corner, which a wall with towers gets a tower at. So does each end of a line that does not go round.
+   - `tileops::drawn_line` gives the curve, so paths crossing it, gates and keep-clear (7ck) all see the curve that is built.
+3. **Handles on a drawn wall, fence or hedge chosen** (by clicking any piece of it, or in World outline). They are a second instance of `line.gd` (`walls_line`), kept apart from the Inspector's.
+   - **Its places:** orange dots on the land, each dragged with the left button. The wall is made again each frame as a staged `param polyline` on its line, and letting go commits it as one step.
+   - **Its height:** a blue point over its middle, dragged up and down (on an upright plane facing the eye). It is a staged `param height` on the structure, one step on letting go.
+   - Esc while holding either: the wall is as it was.
+   - The host now says of a drawn structure its `curve`, its line's node (`route`), the line's places (`controls`, `route_at`, `route_yaw`) and the line as built (`built_line`).
+
+**Found and mended on the way:** an open drawn line measured each place's turn against the side two before (`drawn_rim`). Its second place was measured against the line from its far end back to its start, so an open wall could get a tower near one end. Lines that go round were right. This dates from 7bu.
+
+**Not built (Tiny Glade has it):**
+- snapping to other walls, with Ctrl to turn it off;
+- cutting a wall in two, and joining two;
+- a "+" on the curve for a place;
+- buildings dragged out to a size, with handles on each side, roof and stilts;
+- paths as a brush with a width, with live arches, steps and stepping stones;
+- windows placed and stacked (doors when low);
+- small things linked to windows;
+- the tool staying in hand after a stroke. Here, letting go chooses the new wall so its handles show at once.
+
+These are the next tiers in the comparison document, each for the user's approval.
+
+**Checked:** see PROGRESS (Done, "Walls drawn by dragging").
+
+## 7ck. Places drawn that know one another: paths that open their way, growth that keeps clear, a pond with life (built 2026-10-18)
+
+The user's brief of 2026-10-18, "Integrated, Context-Aware Modular Construction", resumed construction with Tiny Glade's interaction design as the reference: the person chooses a tool, draws, drags, paints or places, and Draw3D interprets the action in its spatial context and gives a coherent, editable, undoable result. Buildings, gardens, ponds and paths as one workflow, not separate features; audit first; the most valuable vertical slice, not a superficial pass over everything; no showcase logic; tests that use the normal tools.
+
+**The audit** is in `Draw3D_Modular_Construction_Feedback_and_Next_Systems.md`, section 6, with what was there, the friction points in order, the decisions and what is owed. In short: drawn structures (7bu) each planned alone; growth and the brush kept off roads and water and nothing else, so a meadow grew through a drawn house and its doorway; no path along a line existed; a pond made with the tools had no life, and the frogs, fish and lilies of the island town's pond were put by its script (`examples/town.rs`), of designs only `town.txt` had; one drawing was two undo steps.
+
+**What is built where, one text the host keeps** (`shapes::land::BUILT`, `built.clear`; `Kept`, `Clear` in `land.rs`; written by `tileops::settle_drawn` after every edit, as `tiles.raised` is): each drawn house's, pond's, garden's and paved yard's inside, every drawn wall's foot along its line, every path, and every way through (a gate or a door and 2.6 m of ground either side), each with whose it is, in the land's frame. Woods, meadows and fields keep clear of all of it; a structure's dressing, a garden's rows and a pond's bank life of what is not its own; nothing is planted in a way through, its own included; the brush (`stroke`) keeps clear as it paints and says how many places it left (`kept_clear`).
+
+**Paths, and the ways they open** (`build.rs`, `tileops::settle_drawn`): drawn along a line that does not go round and built as nothing round it with a floor, a structure is a path: a strip `wide` across (1.4 m when not said) that lies on the ground in pieces mitred where it bends (`pathway`: four corners and their heights, a hull to walk on). Where a path crosses a drawn wall, fence, hedge or garden edging, the piece it crosses is opened (a gate; an edging, a gap); where it crosses a drawn house's wall, or ends within 1.2 m of its side, the piece is a door. What is opened, and by which paths, is written on the structure (`opened`, `opened_by`), apart from the gates a person asked for (`line_gates`), which are never touched. Move the path's line and the openings move; take the path away (or undo it) and they close; `opens 0` keeps a structure shut to paths. The `nodes` answer says `opened`, `opened_by`, `opens`, `path`, `border`, `wide`.
+
+**Gardens beside what is built:** a garden drawn along a line and not round is a border (a strip of soil, `pathway` pieces of soil, planted in rows, no edging along its middle); a garden drawn round a house (or a pond, or a yard) plants round it and lays no soil under it (`Clear::round_another`). A garden's gateway has no leaf of zero height any more.
+
+**A pond's edge and its life** (`build.rs`): `edge bank`, a low broad bank (`BANK`, 2.6 m across its foot) of the land's own grass a hand above the water, its inner slope running down under it, with mounds where it turns; still standing on the land (7af: never dug). `life` (designs in its water), `bank` (designs along the outside of its edge) and `lively` (0 to 1): in the water what swims (`swims R H`) is put so far under the top as it swims over where it is put, what floats (`floats`) on the top, anything else on the bed; swimmers not over a bank's slope. Each is a thing of the pond (`life#...`), kept by hand as any is. The designs: the library's new group "Pond and water's edge" in `rural.txt` (lily pad, water lily, reeds, bulrushes, frog, goldfish, duck, dragonfly, two butterflies), written from the town's and made to float or swim as the pond asks. Sets of them in `editor/godot/ponds.txt` (lively, quiet, fish); a set chosen brings its designs from the library.
+
+**In the editor:** Build > Draw on the land has "A path", "A pond with life" (bank, set lively), "A pond with a stone kerb", "A garden: draw round it for beds, or along a wall for a border", "A paved yard". One drawing is one step of history (`makers.gd` `drawing_mark`, `drawing_done`; host `together`, 7ce), also when the host answers before it has finished (`marks.gd` `_merge_when_done`). A drawn structure is named for what it is (house, stone wall, path, border, garden, pond, yard) where it was "structure N". World outline shows, for a drawn structure, a path's or border's width, "paths drawn across it open a way (a gate / a door)" and what opened it, and for a pond its edge, a pond-life set, its two lists of designs and how lively it is (`_build_context`).
+
+**Decisions taken to build it** (the user's to overrule; section 6 of the construction record says why): a path opens what it crosses by itself, with a switch per structure; a path's end near a house's side opens a door there; a path across a house is two doors; what a person put by hand or painted is not taken away by something built over it later; ponds stay raised; only drawn structures take part in this tier.
+
+**Found and mended on the way:** a drawn structure's dressing never came to the first of its words ("rocks" of "rocks grass ferns": a drawn pond had grass and ferns only, since 7bu): each place took its word by the piece's name's length, and drawn pieces' names are all as long and hold two places at most; drawn, the words now go in turn along the whole line (structures on cells as before). And `-Tour -Only build` chose "built as" by its place in the list, which 7bu's garden had moved: its "only its floor" step picked a garden; it now picks by the word.
+
+**Continued the same day, at the user's word ("put structures on cells into what is built where, so meadows keep out of village houses too"):** `settle_drawn` also reads every structure on cells, from what `settle_makers` has just told it (`over`: its cells in its own frame; `rim`: its sides): each cell of a house, a pond, a garden or a floor alone (a path, a yard, a square on cells) is inside it, every side it builds and every wall inside has its foot, every gate and door is a way through. Woods and meadows told tiles (`on`) keep clear of them as those over a reach do. Worlds built on cells (the village showcase, the shelter, the genre worlds) open with nothing grown in their houses, on their paving or in their doorways any more: what grew there before was the fault this mends, and nothing a person put by hand is touched. Checked: protocol p74 (a house of four cells with a door, a path of paving on four cells, a meadow over both: nothing in the house, the doorway or on the paving; 70 in the house with the change taken out; the house taken away, the meadow grows there again).
+
+**Owed** (section 6): a path's end drawn to a door, paths that join; a pond dug into the land (a decision: 7af says never); steps where a path climbs; a garden painted with the brush; pieces of the person's own; a preview while drawing.
+
+**Checked:** host unit tests 66 (two changed: a piece a path crosses is opened; a path's piece and a bank are made with nothing in one plane); protocol 74 of 74 with p74 (below), p73 new (a house, a wall round it, a meadow, a path through the wall to the house: the wall opened in s0_3 by "the path", the house's door in s0_1; nothing of the meadow in the house, on the wall's foot, on the path or in its ways; the brush kept clear; undone back past the path, gate and door gone, again; the path moved: s0_5 and s1_0; `opens 0`; a border of soil and plants; a garden round the house with no soil under it; a pond with a bank and life: fish under the lilies' top, frogs outside; written and opened again the same); p43 with the new group. `-Demo glade -Check`, 11 of 11, every step through the Build entries and the line tool as a person's clicks: see PROGRESS. Not used by hand.
+
+## 7cj. The watchtower made fit to show: a controller first, a dressed ranger, a real tower, life and a style (built 2026-10-18)
+
+The user played 7ch with a controller and judged it not good enough for a commercial demo, "not at all": an unclothed model with no gear; an axe that had to be put in hand from the inventory though the hands were empty; old side-steps still on the shoulder buttons and no button to swing the axe; a pause menu the controller could not work; wolves far too fast; a tower that looked like a house; nothing alive but the wolves; no style; health drawn as # signs. And that the testing had not been the kind a completion could rest on. All of it was so: 7ch's checks counted what was done and never judged what a player sees and presses. The user's standing rule from it: **a controller is the default way to play and test** (unless a game is declared one of pointing and clicking), its buttons laid out logically, every screen workable by it.
+
+**Controls, a controller first** (`controls.gd`, `moves.txt`, `player.gd`, `aim.gd`, `studio.gd`): a new button, **attack** (X, RT, left click), which every blow asks (the fist's `strike`, now with or without a foe before it, and the sword cuts); A jump, B dash and dodge, Y act, LB lock on, RB run, LT crouch (and aim), right stick pressed puts away; the side-steps on Z and X only; use on the D-pad's left. With a controller plugged in, every prompt and hint shows its buttons from the start (`main.gd`). A person's own buttons (`%APPDATA%\Draw3D\controls.txt`) still lie over these.
+
+**The game's screens by a controller** (`gameui.gd`): the D-pad or the left stick goes from choice to choice, A chooses, B goes back, whatever Godot's own ui actions are; a gold frame and gold words round what is chosen (`screens_theme`); "A choose  B back" under the menu; the controls page lists only the device in use, by names, not Godot's numbers.
+
+**An axe in hand at once** (`items.gd` `first_use`, `things.gd`): gear picked up goes into empty hands, or onto a place nothing is worn on; **hew**, an axe's own blow (`when wields axe`, drawn as it is wound up), shown by UAL's sword attack (characters.txt, look scout).
+
+**A dressed ranger** (`outfitmake.gd`, `characters/ranger.glb`, `character ranger`): Quaternius's CC0 ranger outfit and the head of his base character, made one file on UAL 2's bones; downloaded with the user's yes; a world makes him its walker by its own characters text (the watchtower does). **Found and mended:** a model whose meshes carry colours in their corners was shown in them and its textures thrown away (`animated.gd` `_paint`): the ranger came out white.
+
+**A real axe** (`characters/kaykit_weapons`, KayKit Fantasy Weapons Bits, CC0, within the 2026-10-16 approval of weapons): `model PATH turn x y z` in gear.txt (`gearbook.gd`), so a file made upright lies as gear lies.
+
+**A real tower** (library/rural.txt `watchtower-keep`, the Woodland shelf): a square keep of pale dressed stone, 6.8 m across and 9.7 m high, its stone stair climbing round the outside of its walls (a landing at each corner, a breast-high wall along it) to a gap in the battlements 8 m up: one design, written by `library/watchtower-keep.js` from a few numbers; each flight is walked as one slanted slab (`solid hull`) under its seen steps. The stair is outside because within a 6 m room a third-person eye has nowhere to be, and the first try (a stair round the inside) let the walker fall into the well. The house-built tower (7ch) is gone from the level; why the Build tools could not make this is the benchmark's G31.
+
+**The walker climbs steps** (`player.gd` `_step_up`): it stepped up nothing; now, on foot and in no move, up to 0.3 m, as the world's other walkers do (first written with a wrong test of "in no move", which never held; found when it did not climb).
+
+**The display** (`fight.gd`, `stats.gd`, `watch.gd`): health and breath as bars (a hurt foe's bar over it, facing the eye); the stealth meter only where going unseen is part of the game.
+
+**Wolves** (`moves.txt`): run 5.6 m/s (the walker runs 8.5, walks 4.4), slower to turn, a bite gathered 0.4 s.
+
+**Life and a style:** the library's deer, rabbits and a fox; dead trees that sing (`hums birds`); a style of the level's own, `golden_valley` (warm low sun, deep greens, a rose sunset as the tower is climbed, a blue dusk when the beacon is lit).
+
+**Checked:** see the benchmark's part E (the polish bar, judged screenshot by screenshot) and PROGRESS.md. Not played by hand; no real controller on this machine (the presses are sent as one sends them).
+
+## 7ci. A future idea: guided recreation of a finished level (recorded 2026-10-18; not built)
+
+Recorded at the user's asking with the wilderness benchmark (7ch). Nothing of it is built, and it is not to widen the benchmark's scope.
+
+**The idea.** Draw3D could one day load a reference level and walk a person through making it again themselves, in the real editor: it asks for a piece of terrain, says which tool to open and which settings matter, the person does it, says it is done, and the guide goes on to a building, the woods, the characters, their behaviours, the interactions, and the rest. Where the person finds that an option the guide names is missing, or that the words do not match the interface, they say so: the guide records that limitation and helps them carry on where it can.
+
+**What it is for.** Finished benchmarks become practical, interactive tutorials that teach how a whole world is made with Draw3D's own tools, step by step, in the order the work is done. Each run of a guide is also a test of the interface against its own documentation: every "this is not here" a person reports is a finding with the step, the tool and the words that did not match.
+
+**How it relates to what exists.** The benchmark's recreation guide (`Draw3D_Wilderness_Adventure_Benchmark.md`, part C) is already written as steps, each with its goal, where in the editor, the settings, what is seen when it is done and what it depends on: that is the content a guided mode would step through. The in-editor checklist (`checklist.txt`, `checklist.gd`) is the nearest thing that exists: a list of what to try, ticked by hand. A guide would be that list made into steps with a reference world beside it, and a place to say a step could not be done.
+
+**Shape, if it is taken up** (for the user to decide, nothing assumed): a guide is a text, like the checklist's, of steps (goal, where, settings, expected, depends on); a window shows one step at a time with Done, Back, and "This is not here / not as it says"; the reference level can be opened beside the person's own world, or its parts looked at in the Inspector; what is reported is written to a file kept with the guide, for whoever keeps the interface. It should work as a structured workflow without an LLM; later, the assistant (7ce) could read the guide and the person's world and answer "what next?" or "why does mine not look like that?".
+
+**Not decided:** whether a step is checked by the engine (a structure of storeys exists, a quest is in quests.txt) or only ticked by the person; whether the reference level opens beside the person's world or replaces it for a moment; whether reports go to a file or into the guide itself.
+
+## 7ch. The wilderness benchmark: the Forgotten Watchtower (built 2026-10-18)
+
+The user asked (2026-10-18) for a small, complete, polished third-person wilderness adventure made with Draw3D's existing authoring systems, as a benchmark of what the engine can make and to expose its gaps: a trailhead with the destination in view, a trail through a composed forest, an abandoned camp with supplies, creatures guarding the way, equipment found, a watchtower whose beacon is restored by the engine's own interaction and outcome systems, and a clear ending. The LLM work is a separate workstream and not a dependency. After the benchmark, the user's queued item is the assistant (Qwen) making a vase-shaped sign that added a library entry with no visual and placed nothing.
+
+**The level** (`editor/genres/watchtower.json`, built by `editor/host/examples/watchtower.rs` with the host's own commands, as the other genres are; World > New world, "Genre: The Forgotten Watchtower"): a valley flattened and raised by the land tools; a dirt trail painted on it; eight woods of Generator-grown and library trees, each given its designs; a forest floor and a trail edge painted with two groups; logs, boulders, outcrops, toadstools, a cairn, standing stones; the trailhead (start, the ranger, a signpost, a waymark lantern); the woodcutters' camp (a cold fire, a tarp, crates, the camp chest of lamp oil, food and medicine, an axe and a backpack); two pairs of wolves; a stone tower of two storeys on four cells whose walls are each given a stone design of their own, with a lookout and the beacon on top. The whole of it, its systems, how to make it again and what it found: `Draw3D_Wilderness_Adventure_Benchmark.md`.
+
+**Added, general:**
+- **A game's hour and its ending** (host `land.rs` Start: `hour`, `ends`, `ending`; `nodes` rows; `makers.gd` `ending_rows`, `set_ending`; `inspect.gd` the start's part; `gameui.gd` `begin_run`, `_ask_ending`, the ending screen, `play_again`; `main.gd` `play`): the hour a game begins at, and a condition in `cond.gd`'s words that ends it. While it holds the game is held at an ending screen with the start's words and how long it was played: Keep exploring, Play again from the start, Back to editing (in a game: Leave). The world's fact `ended` is put. In the Inspector at the flag and in World outline.
+- **The quest step wraps** on the display when it is longer than about a third of the screen (it ran off the left edge with a hint after it).
+- **`genres.ps1 -Only NAME`**: one genre built again, no other (`-Over` rebuilt all six and their backups).
+- **Found and mended: an exported game began where the world says** (`main.gd`): the export's writer and the game's boot read the world's start from whichever host answer came last after opening it, so every exported world began at (0, 0); and `play` now uses the Player start in a game too (its eye and stamina).
+- **Found and mended: the why-not prompt** (`acts.gd` `_wants`) skips an act its `while`/`unless` rules out (a beacon kindled said it wanted lamp oil).
+- **`lights … glow R`** (`things.gd`): how big the glow over a light is.
+- **Found and mended: a piece given a design of its own kept its height** (host `land.rs` `by_hand`): it was stood on the ground beneath it, so a building's upper storey given its own designs came down onto the ground floor (the tower's parapets across its archway). Test p72.
+
+**Added, content:** goods.txt `lamp_oil`; acts.txt `kindle` (hands a lamp oil to the thing, puts `kindled`, heard 10 m off); sounds.txt `fire` (a loop) and `kindled`; quests.txt `watchtower_beacon`; talks.txt `ranger_beacon`; the library's Woodland shelf (Fallen log, Tarp shelter, Beacon brazier, Waymark lantern, Stone tower wall, Stone parapet, Stone doorway, Stone tower corner), People's The old ranger, Animals that hunt's The grey alpha.
+
+**Found, not built (the benchmark's gap record):** a building's second flight of stairs goes into its wall when the stairwell's row has no further cell (the tower is two storeys; construction is postponed by the user); the only humanoid models are mannequins (Character Maker tier 2 waits on the user's choice of assets); a world's own text is replaced by the project's file of that name if that file is saved while the world is open, and quests, talks and acts are the project's, not a world's; what lights by a condition (the beacon) is lit only within three of the view's 32 m cells of the eye, so not from the trailhead 126 m off, and its glow is a ball 0.26 m across; a colour named `course` made a library collection unreadable with the error naming another design (not explained); twenty wall pieces were given their design one at a time (no "all the walls of this structure"); overlapping raise dabs add up and a top flattened above its surroundings stands as a step at its rim (the walker stopped short of the tower; the way up is now graded and the builder fails on a slope over 0.5); a creature that bites more often than the walker is spared after a bite (0.8 s) chains them down (the alpha and the valley wolves now bite every 1.6 s); a building's flight rises a storey over 0.7 of a cell, so in cells under 4 m it is steeper than the walker climbs, and nothing says so (the tower's cells are 4 m); the scripted fighter, not a person, judged the wolves fair.
+
+**Checked:** see PROGRESS.md, "The Forgotten Watchtower" under Done, and the benchmark's part E. Not used by hand.
+
 ## 7cg. When this happens, do this: the catalogue's third tier (built 2026-10-18)
 
 Asked for after 7cf as the next of the catalogue's tiers (7cc, the plan's item 3): what already happens to a thing wired to something done.
