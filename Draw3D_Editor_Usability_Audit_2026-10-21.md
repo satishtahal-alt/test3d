@@ -12,6 +12,19 @@ It builds on two earlier documents and does not repeat them:
 This audit is about **words, concepts and decisions**: what the editor asks a person to
 understand before they can do an ordinary thing.
 
+### Your U0 decisions (2026-10-21)
+
+- **(a) Terms.** Use ordinary words that fit the task. Starting points, not rigid
+  replacements: **Create** (make something new), **Layout** (how things are arranged),
+  **Object** (one thing in the world), **Type** (what kind of object it is). Prefer the
+  specific name whenever there is one: House, Character, Behaviour, Style, Forest.
+- **(b) Merge toolbars.** Not yet. The duplication stays recorded (F5); decide after
+  reviewing a proposed layout. U1 moves and removes no tools.
+- **(c) Snow.** Keep both: painted snow makes local snowy areas, weather snow changes the
+  world as it falls. How they interact is worked out later.
+- **(d) Spin one part.** Worth having (windmill sails). Assessed as its own feature after
+  U1.
+
 ---
 
 ## 0. How this was done, and what it can and cannot claim
@@ -873,17 +886,50 @@ an inventory update and a checklist rewrite, as the standing rules require.
   - "behaves as"
   - "F6" / "F10" inside labels
 
+*U1 built 2026-10-21* (PROGRESS "U1 of the usability audit"; inventory 13zz37). The
+vocabulary check is `run.ps1 -Tour -Only vocab`; it treats the text windows, Signals,
+Who can do what and a behaviour's steps as the advanced level. The ranger's line now
+reads "Ranger: Run away (this one only)."
+
 **Stage U2. The Behaviour card and the Inspector order.** Interaction.
 - The Inspector gains its header summary, "What it does", Look, Placement, and
   Advanced (F4).
 - The behaviour picker with inline settings and a scope radio (F1).
 - The Behaviours window opens on authoring, its library actions in one menu.
 
+*U2 built 2026-10-22* (PROGRESS "U2 of the usability audit"; inventory 13zz38). The
+Inspector begins with the object's name and a line of what it is, then a Behaviour card:
+a list, Edit steps…, Only this one / Every one (begins on Only this one; not offered for
+Draw3D's own objects, which have no type text), the description, what it cannot do yet,
+and the settings inline. Placement, Physics and Advanced follow, folded and remembered.
+The Behaviours window begins on the behaviour, with its library actions in one Behaviour
+▾ menu and Add from library ▾. Found by the user's hand test of U1 and mended first: the
+library and a world's behaviours were one file, so Delete lost a behaviour for good and
+Add from library had nothing to add; the library is now a file of its own, Delete keeps
+a copy there and asks first when the behaviour is used.
+
+Noted by the user for a later pass (2026-10-22): **no way to see every creature and
+character in a world at once.** "Objects in this world" lists types with counts, not the
+individuals. Wanted: a list of the world's creatures and characters (and, by extension,
+any placed object), each one selected and framed with a click, perhaps marked in the view.
+Proposed for U3 beside the one "What it does" list, or as its own small step.
+
 **Stage U3. One "What it does" list.** Interaction, with small engineering.
 - Abilities, behaviours and use presets shown together, by outcome.
 - A conflict prompt.
 - Generated designs named in plain words.
 - "Take out of the forest and give…" as one step (F3, F6).
+
+*U3 built 2026-10-22* (PROGRESS "U3 of the usability audit"; inventory 13zz39). The
+Inspector's What it does holds the behaviour, the abilities and the uses together, with
+one list, Add something it does…, by heading (the behaviours that move a body among what
+goes about by itself, the uses under "Used by the player"). A second way of deciding
+where it walks asks first, Replace / Keep both / Cancel, saying which would never happen
+and why (`folk.gd` `wanted`'s order). A layout's object is taken out and given what was
+chosen in one step. Generated designs were already named in plain words by U1 ("Fox (own
+copy)", "Made a copy of the Fox type for this one…"). The creature list is Objects >
+Creatures and characters…: every one, click to select and go to it, names over them all
+in the view.
 
 **Stage U4. Task presets.** Small engineering.
 - The Door preset (T3).
@@ -892,13 +938,43 @@ an inventory update and a checklist rewrite, as the standing rules require.
 - The Move tool moving a whole house (T4).
 - Combo buttons shown in the combo editor (T2).
 
+*U4 built 2026-10-22* (PROGRESS "U4–U7 of the usability audit"; inventory 13zz40):
+- **A door**, and **a locked door**, under Used by the player in What it does. Any object becomes a door: it swings about its left edge, and has a handle on each side. The locked door adds Key, chosen from the goods. A door that shuts itself is the behaviour Door lock.
+- **Spins** (whole thing): Moves of itself > spins round and round, with its axis chosen from a list.
+- **The creature card** is the creature row with "Moves like" chosen from every set of moves (with "Its moves as text…" under Advanced). The Studio does not yet open on a creature's set, because it works on characters.
+- **The Move tool** on a piece of a drawn house moves the whole house, to where the next click is.
+- **The combo editor** says what plays it ("Played with: Attack, then Attack again for each next move") and chooses the button there, with "the rest by itself".
+
 **Stage U5. One place per job.** Interaction, only after U0(b).
 - One Build (the right bar), Paint ground, one Erase.
 - Time & weather, and World style.
 
+*U5 proposed 2026-10-22, not built:* `Draw3D_U5_Layout_Proposal_2026-10-22.md` is the layout U0(b) asked to review first. It has five questions; U5 is built after they are answered.
+
+*U5 built 2026-10-22,* at the user's "complete U5", as the proposal recommended: the left toolbar is for the whole world (Select, Move, Erase, Terrain, Objects, Plants, Weather, Style); the right bar for what is drawn and built (Build, Town, Paths, Water, Roads, Brushes, Look, Erase). Roads holds the old left Build list; Brushes the old left Paint list (Objects ‹); the ground is painted with Terrain. Moved outright, no links left behind; the top bar's Build menu stays as the right bar's index. Inventory 13zz41.
+
 **Stage U6. Capability gaps.** Engineering, only after U0(c, d).
 - Paint snow (T5).
 - Spin one part (T6).
+
+*U6 built 2026-10-22*:
+- **Snow** is a fifth surface of Terrain > Paint (the host's `SURFACES`). It is a snowy place whatever the weather. What grows there still grows, and the weather's snow is apart, as U0(c) decided.
+- **A part of it spins**: What it does > a part of it spins, then **Pick the part…** and a click on a sail. The part clicked, and what lies flat beside it and touches it, spin about their middle. The axis is the way they are thin. It is written `spins AXIS D X Y Z W H DEEP` on a copy of the type. The view parts those triangles from the rest and turns them in the shader (`world_view.gd`). The tower stands; picking and the object's size still use the whole.
+
+**Stage U7. What everything is.** Found by the user's hand test of U3 (2026-10-22). On a wolf ("Valley alpha"), with the Behaviours window open beside the Inspector, the user noted:
+- "the wolf has behaviours not visible in the behaviors panel". What the Inspector lists (wanders, sees, hunts…) are abilities. The Behaviours window showed "no behaviour yet", and nothing said why the two differ.
+- "move reach bite harm etc have no information about what they do except guessing based on the line that precedes them."
+- "there's no indication of if they belong to a system or if they are behaviours or properties and no way to change them or access their libraries. a standard color coding for the different types of things and grouping them in their rightful library systems will be useful."
+- "'while' i guess handles a condition and 'always' is the condition but where does always come from and are there other possibilities and where is that group of possibilities housed."
+- And, seen in the picture: "The engine has words the catalogue does not list yet: wades, neon, glows."
+
+*U7 built 2026-10-22*:
+- **One colour and one word per sort**, wherever a row is shown (`shown.gd` `SORTS`): Behaviour blue, Ability green, Use amber, Only while violet, When pink. Each row of What it does begins with its sort's word, and a click on it opens that sort's library. A legend at the top of What it does opens each library.
+- **What things can do** (Objects menu, `catalogview.gd`): one window with every library, which are abilities by group, behaviours, uses, conditions, and what may happen and be done then. Each shows its settings and what they mean, with Add to the selected.
+- **Every setting says what it is**: a `field` line in abilities.txt for every setting of every ability. The text is shown as the setting's tooltip, and in full when the row's title is clicked. Fifteen settings are chosen from a list: an axis, the sets of moves, moves, sounds, goods, textures.
+- **Only while ▾** lists Always and every condition by what it means (`condition` lines in abilities.txt, the words of `cond.gd`). One chosen is written in the field to change.
+- **The Behaviours window** says what the selected object does by its abilities, in their colour, and that only one of a behaviour and those abilities decides where it walks.
+- **The three missing words are in the catalogue**: glows, glows like a neon sign, grows in the shallows too.
 
 U1 can start as soon as you agree, because it changes no behaviour. U2 and U3 are where
 the ranger problem is actually solved.

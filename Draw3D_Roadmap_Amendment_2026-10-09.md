@@ -5207,6 +5207,208 @@ The user asked (2026-10-17) for "an extensible library of visual styles and game
 
 **Checked:** host `style` tests 4 (2 new: the picture, what a style is, a part taken, wrong lines said; the project's styles.txt read whole with the eight); protocol p13, p41; `-Demo styles -Check` (4 beats: "industrial" finds 2; the town with no style and in the eight, every picture's mean colour apart from every other's by 0.045 at least; my_neon made from neon_noir, its glow turned up and its air taken from silent_reel, neon_noir not changed by a letter; styles.txt as it was after); `-Tour -Only ui` (the Styles window passes the windows' checks; only the Studio's known in_the_room/resizes fails; the Environment window's style row was made too wide by a button at first, and failed folds/resizes, so it has a row of its own); studioplay 226/226; chartest 192/192. Not used by hand.
 
+## 7di. The guard: patrol, hear, investigate, alarm, back to the round (built 2026-10-22; G2's third example)
+
+**Why.** The user's brief after 7dh and commit 9414904: build the guard that 7dh owed, as a behaviour made of the behaviour system's own building blocks on the events `watch.gd` already has. Do not build a separate guard AI; add only the general capabilities it lacks; keep the existing semantics (what happens comes first, states taken up again, a lower state resumed). It was not to be another audit or a UI pass.
+
+**What was there, read from the code first.** 9414904 changed the behaviour window only (the abilities line, U7). The runner, reader, conditions and events were as 7dh left them. `watch.gd` already had:
+- a guard's eyes and ears (`sees`, `hears`) and its noticing, the stealth meter;
+- the event `spots`, raised when that noticing is enough;
+- `patrols X Z ...`, gone round only when nothing else decided its legs;
+- `hunts`: catching the walker, and running while it hunts;
+- noises from the walker's steps, landings, things broken, shots and sounds, with where each was made.
+
+The library's `guard` design says all of these. The condition `sees WHO [R]` (7dh) asks the same eyes.
+
+**What was missing, and added, each general (any behaviour may use it):**
+- **The event `hears [WHAT]`.** `watch.gd` raises it when a thing with ears hears a noise, at most once a second while the noise goes on. It gives what was heard in one word (steps, landing, alarm, shot, sound, something_break ...) and where it was made. A noise the thing made itself (a bell it rings) is not raised. Registered in `rulebook.gd`'s EVENTS (it needs `hears`). Wires (`on ... do`) do not have it: the host's ON_NEEDS was left as it was.
+- **The place `noticed`**, for `go` and `hurry`: where it last heard a noise, saw the walker (kept up while it sees them), or was told something from (`tell`). `events.gd` now passes where an event happened on to `rules.gd` (`heard(..., at)`). It is not kept in a saved game.
+- **The step `patrol` ("Go round its patrol").** To the next place of its design's `patrols`, done there. The round is the same one `watch.gd` keeps (`patrol_k`), so it is taken up where it was left. A place it cannot get to is passed by, and that is said. It needs `someone` and `patrols`; a behaviour's needs may now be several words, and "a round to patrol" is said in the window.
+- **The step `look_about S` ("Look about").** It stands and turns this way and that for S seconds (`folk.gd` turns it each frame by `rule_look`). It takes the look.
+- **The step `hurry WHERE` ("Hurry to").** As `go`, at a run (`folk.gd`'s `rule_run`). Found by the demo: a guard told of an alarm 34 m off walked there at 0.85 m/s and ran out of its time limit. It takes the legs.
+- **The event `catches`, and no reset behind a behaviour's back** (the user's decision the same day: "the guard's behaviour should decide what the guard does; the stealth system should decide whether the player has been caught"). `watch.gd` still finds the catch, counts it (the world's fact `caught`), and puts the walker back where they were last safe. It raises `catches` for whoever caught them (EVENTS; it needs `hunts`). Its `calm` no longer puts a guard whose legs a behaviour has (`ruled`) back home, nor begins its round again, nor clears the move it was asked: such a guard only forgets what it noticed. Those with no such behaviour are sent home as before. A world reset on a catch, if one is wanted, is a rule of its own (an `on fact caught`), not this.
+- **Said when a choice gives up.** When the choice of a `most_pressing` that was going is not done, that is now said with why ("'In order' not done: took longer than 2 s") as the next choice is tried. Before, a lower choice taking over hid why.
+
+**The guard, `guard_ways`** (seed `behaviours.txt` and the library's). It has parameters `look 5`, `alarm alarm`, `calls 40`, `warns Intruder! To me!`, `gives_up 30`. `on spots` (its eyes' noticing, enough) makes it `become alarm` in every state; `on catches` makes it say `{caught_says}` ("Got you.") and go back to patrol, from where it stands.
+- `patrol`: repeat forever, `patrol`. `on hears`, go to investigate; `on told {alarm}`, go to answer.
+- `investigate`: says "What was that?". In most pressing first: within a time limit of `gives_up`, go to noticed; look about; say "Nothing there."; go back to patrol. If that cannot be done, it goes back to patrol anyway, which is the way out of a place it cannot reach. `on told {alarm}`, go to answer.
+- `answer`: says "Coming!". As investigate, at a run (`hurry noticed`): the place it was told from.
+- `alarm`: on entering it says `{warns}`, puts the world fact `{alarm}`, rings `bell`, and `tell {alarm} {calls}`; leaving it clears the fact. In most pressing first: only while it sees the walker, hurry to them; else, within the limit, hurry to where it last noticed them, look about, back to patrol; else back to patrol.
+
+Hearing never confirms a threat by itself: only seeing does, through `spots`. A guard that goes to look and sees nobody returns to its round. The library guard says `hunts`, so the stealth game's catch still happens when one reaches the walker; what the guard does then is its behaviour's (`on catches`).
+
+**What was kept.** Nothing in `rules.gd`'s states, `on` handlers, resuming or body parts changed, except the line said when a choice gives up. `go` is as it was. A behaviour that holds the legs still decides where the body goes, and `watch.gd`'s own phases decide nothing for it but its noticing, running while it hunts, and catching.
+
+**How.** In `editor/godot`: `rulebook.gd`, `rules.gd`, `watch.gd` (`hears`, `catches`, `calm`), `events.gd`, `folk.gd`, `rulesview.gd` (the needs line; templates for the three steps), `behaviours.txt`, `demo.gd` (`guard`). Also `editor/library/behaviours/behaviours.txt`. The host is unchanged.
+
+**Checked:** see PROGRESS (7di).
+
+**Owed.**
+- `noticed` is not saved. A guard loaded mid-look has nowhere to go and goes back to its round, which is checked; it does not go on looking.
+- Wires have no `on hears`.
+- The guard's spoken words are parameters only for the alarm.
+- Hearing again while it looks about does not send it to the new place until it is back on its round.
+
+## 7dh. Behaviours and rules: Draw3D's own behaviour system, first pass (built 2026-10-21; G2 of the gameplay roadmap)
+
+**Why.** The user's brief "Build the Native Behaviour and Rules System" after the research (`Draw3D_Behaviour_Tree_Research_2026-10-21.md`): a Draw3D-owned, reusable, no-code way to make, combine, test, save and reuse behaviours across entities and genres. It is to borrow proven patterns (LimboAI and others) without importing them, keep Draw3D the source of truth, reuse the existing conditions, events, reactions, perception, moves and Studio, and build the first usable vertical slice with tests: a door and a deer first, a farming routine and a platform mechanism as checks of the design. Nothing was downloaded.
+
+**B0, decided from the code (the research's section 8, answered as recommended, since the brief says so).**
+1. **Where it lives.** A behaviour is an entry of the world's written text `behaviours`, with `behaviours.txt` as the file every new world begins with. It is kept in the document like `reactions` and `acts`: each change is one undo step, saved with the world, and the same in a game on its own. A design or one thing says `behaves NAME [with KEY VALUE, ...]`. The host checks that line (`kind.rs` `behaves_said`). The word is said once (ONCE), so one thing's own line replaces its design's; that is how one thing has its own numbers. There is no second home in Godot resources.
+2. **What runs it.** `rules.gd`, in GDScript. It is event-driven (what happens to a thing is heard at once) and looks at each thing five times a second, staggered. It does not look at what is far off and asleep. The state is the fact `state` about the thing, saved with the game; after a load, that state is entered again. A running step is not saved.
+3. **The words.** In text they are `most_pressing`, `in_order`, `at_once [any|all]`, `repeat [N | until C | forever]`, `time_limit S`, `cooldown S`. The window calls them "Most pressing first", "In order", "At once", "Repeat", "Time limit", "Cooldown". `when C` (only while a condition holds) is a seventh block. Waiting is done by steps: `wait S`, `wait_until C`, `wait_for EVENT`. Every step ends going, done, or not done with why.
+4. **States.** States are optional. The first one written is where a behaviour begins.
+   - A state written with `when C` comes over a less pressing one by itself (`priority N`, 1 if not said).
+   - The state it came over waits and is taken up again where it was, or begun again if that state says `restarts`.
+   - A `when` state is left when its condition no longer holds and its steps are over.
+   - It goes back to what it came over, skipping any that no longer hold.
+   - A `become` step clears the waiting stack.
+   - Seven changes of state in a second hold the thing where it is for 2 s, and that is said.
+5. **What happens comes first.** Steps under `on EVENT` run before the regular steps. While they go, the regular steps wait, letting go of the body, and are taken up again after.
+6. **One body.** The steps that move a thing (`go`, `wander`, `flee`), turn it (`face`) or play a move (`move`) each take a part of its body: legs, look or pose.
+   - Two parts of an `at_once` may not take the same part; that is said when the behaviour is read.
+   - At run time, a step that finds its part taken is not done, and says so. The exception is a choice in `most_pressing` that comes over another: it takes that part from the lower choice.
+   - A behaviour that takes the legs decides the body's running and straying. The design's own `flees`, `shies` and `roams` wait (`folk.gd`).
+7. **Reuse.**
+   - `use NAME [with ...]` runs another behaviour's steps. It is shared, not copied: each thing's behaviour is made again from the text whenever the text changes.
+   - A behaviour's parameters are `param NAME VALUE` (with a `says` line), written `{NAME}` where they are used.
+   - Copy is an explicit, separate behaviour. Rename also renames every `use`, own line and design line that names it, as one undo step.
+   - Delete leaves whatever used the behaviour saying it is missing.
+   - "Save to the library" writes the world's behaviours into `behaviours.txt`; "Bring from the library" adds the entries this world lacks.
+8. **Brought in.** Text only, read by the same reader. It is refused, with each problem named, if any step, move or used behaviour is unknown. No code is loaded.
+9. **Growing it.** `rulebook.gd` lists each building block (BLOCKS), step (ACTIONS) and event (EVENTS) once, with what it is called, its fields, what it needs of a thing and which body part it takes. A step's doing is `_start_WORD`, `_tick_WORD` and `_stop_WORD` in `rules.gd`. A new capability is one entry plus those functions, and the window offers it from then on.
+10. **Animation.** A `move` step names a move and never copies it.
+    - Its row has **Edit animation**, which opens the move in the Studio's Edit tab (`studio.edit_move`).
+    - The Studio's banner then has **◀ Back to behaviour**, which comes back to the same behaviour and step.
+    - The banner says how many behaviours use the move ("used by N behaviours").
+    - This is the Studio exception the research asked for (decision 5).
+
+**Built.**
+- **Host** (`kind.rs`):
+  - `behaves` in TRAITS, ONCE and OWN, with `behaves_said`;
+  - three more condition words, also in Godot's `cond.gd`: `its FACT [OP N]` (a fact about the thing asking), `state NAME`, and `sees WHO [R]` (with the thing's eyes, as `watch.gd` has them);
+  - `lib.rs`: the op `behaving` (who says `behaves`, own or design), sharing `said_by` with `signals`.
+- **Godot:**
+  - `rulebook.gd`: the reader, tree by indentation (`book.gd` now counts depth, and reads a text given to it with `read_text`). It holds the registry, the checks with lines, and the writing-back.
+  - `rules.gd`: the runner.
+  - `rulesview.gd`: the window **Behaviours and rules** (Ctrl+B; Window menu; the Inspector's **Behaviour…**; Playtest's button), with these parts:
+    - For: what it behaves as now; give it to this one, to every one of its design, or to the several chosen in one step; take it away.
+    - The behaviour: New, Copy, Rename, Delete, Save to the library, Bring from the library, Bring in from words.
+    - Needs: what a thing must say, what the one picked lacks, who behaves so.
+    - Parameters: for every one, or this one's own.
+    - States and steps: a tree with problems shown red. Under it, the chosen step's fields: lists for moves, states, behaviours and events, and a condition built of parts (not, a sort from a list, what it is about; all of these or any; + another).
+    - Add a step, Add… (a state, when something happens, on entering or leaving, what it does, after a while), Put inside a block, Up, Down, Remove.
+    - Running: each one that behaves so, while playing.
+  - `playtest.gd`: a Behaviours section (state, step going, last not done, each `when` state holding or not, and the cost in milliseconds).
+  - `events.gd` passes every event on to `rules.gd`.
+  - `folk.gd`: `rule_want`, `rule_flee` and `ruled`.
+  - `things.gd` reads `behaves`.
+  - `studio.gd`: the Back button and the "used by" note.
+  - `acts.txt`: `try` (needs no move, so any walker may try a door).
+  - `library/shelter.txt`: `door-ruled` (offers `unlock_key` and `try`).
+  - `abilities.txt`: `behaves` given elsewhere.
+- **Seed behaviours:**
+  - `door_lock`: locked, it says so; with its key carried, it unlocks itself for good and opens; it shuts after `shuts` seconds.
+  - `run_away`.
+  - `deer_ways`: grazing; watching (when near walker 18); fleeing (when near walker 8; uses `run_away`, then waits until the walker is not within 18, for at most 20 s).
+  - `skittish`: sees the walker within 10 m and runs away (uses `run_away`), else wanders.
+  - `timed_gate`: a switch's world fact opens it; it shuts after `open_for` seconds.
+- **Mended on the way.** Undo in a scripted run wrote the text's file (`main.gd` `step`, now only when `keeps_texts`). Every other text write already kept to that.
+
+**Cross-genre check (B5, as asked: evaluated, not built out).**
+- **Platform mechanism:** made of existing pieces as `timed_gate`.
+  - A pressure plate (`pressed`) or a lever puts a world fact; `on fact` hears it.
+  - `after S` shuts the gate; `open` swings what opens.
+  - Not yet: re-timing while it is pressed again, and a moving platform driven by a state (a joint's motor goes by `when`, not by a behaviour).
+- **Farming:** schedules (`goes HOUR do WORK`), sequences, goods and conditions exist for the folk.
+  - A crop could hold its stages as states, using `after S` and its own facts.
+  - What is missing: a crop that looks like its stage (nothing draws a thing by a fact but doors, lights and `when` gates); an act to harvest by; the folk doing a behaviour's step at a thing (`act ACT at THING` is a sequence step, not a behaviour step yet).
+  - Each is a separate, defined task. None was built.
+
+**What changed from the roadmap.**
+- G2's words are as the roadmap had them (`state NAME [priority P] [when C]`, `enter`, `on`), with `leave` as steps and `after S` added. The tree tier of the research came in the same pass.
+- The guard example of G2's acceptance (patrol, hears, investigate, alarm) is not done: `watch.gd`'s own phases still decide a guard. The door and the deer are done.
+- The beside strip of the construction bar has no button yet; the Inspector's HOW IT WORKS has.
+- With several chosen, parameters are not shown mixed; the behaviour is given to each, as its own.
+
+**How.** `editor/host/src/shapes/kind.rs` (with the test `a_behaviour_is_named_with_its_parameters_and_one_thing_has_its_own`), `editor/host/src/lib.rs`, and in `editor/godot`: `rulebook.gd`, `rules.gd`, `rulesview.gd` (new), `book.gd`, `cond.gd`, `things.gd`, `folk.gd`, `events.gd`, `playtest.gd`, `inspect.gd`, `studio.gd`, `main.gd`, `desk.gd`, `demo.gd` (`behave`), `behaviours.txt` (new), `acts.txt`, `abilities.txt`; `editor/library/shelter.txt`.
+
+**Checked:** see PROGRESS (7dh).
+
+**Owed.**
+- The guard (G2's third example) on `watch.gd`'s events: built as 7di.
+- The construction bar's button.
+- Mixed values with several chosen.
+- A deeper condition builder: nested groups are typed in a part's field today.
+- Remarks inside an entry are lost when the window writes it.
+- Folk cannot open a door that behaves: `nav.gd` makes a way only through what offers `open`.
+- The farming and platform gaps above.
+- Re-timing `after` on an event.
+- The LimboAI fallback stays untried: the measure passed its budget (see PROGRESS), so probe P1 is not needed.
+
+## 7dg. The user's findings after 7df mended; G1 and X1 of the gameplay roadmap (built 2026-10-21)
+
+**Why.** The user's message after 7df, with four pictures (a platform's edge of stone walls drawn round in red; three of Tiny Glade: a mound raised, and one with rock faces dragged along its edge; a house of the editor's with a window over its door): "platform doesn't look right ... manufactured construction coming out of it. It should be sort of a natural edges, things that look like earth ... when you kind of click on the mound and you kind of hold and drag left and right, you can add sort of the edges that look natural, like natural earth, kind of like a rocky type surface"; "cut the fence, it's still erases half of the fence ... It only keeps half"; "when you draw out a house, some of the windows get placed where the door is ... this was a problem with the original build ... in the demo town, one of the buildings had a window blocking the door"; "I don't see the frame rate number or option that I asked for in a corner of the screen ... when a game world is running"; "have a look at these things and continue the roadmap."
+
+**What was found and done.**
+- **The fence cut losing half.** Found: a drawn line turned with several chosen (7df's `move_group`) was turned by its route's own turn, which the editor's handles, cuts and joins do not read (`makers.gd` `line_world` used the route's place only). Cut so, the first half was written in the route's turned frame and the other half in the world's, unturned: it stood elsewhere, turned about the route's place. Now `move_group` turns a drawn line in its places (the route keeps no turn); `line_world` and `_line_to` read and write a turn where an older world has one; and a cut whose other half comes to nothing (or fails) is put back as it was, with why, instead of leaving the line half gone. The 7de/7df hand tests' other causes (a gap smaller than a pier) were mended in 7df.
+- **A window over the door.** Found: a facade's windows by bays (the identity prototype's `FacadeGen`, which the acceptance suite keeps unmodified) never looked for its door, so a side with an odd number of bays had a window over the door in its middle (the old demo town had the same); windows put by hand (7dc) were not looked at either. The host's facade (`shapes.rs` `WalledFacade`) now lays its bays itself where it has a door, by the same names, leaving out any within 0.25 m of the door's 0.9 m; one put by hand over the door goes to the nearer side if it fits, else is not made. Its code version went up, so worlds opened are made again by it (7df's upgrade on open).
+- **The frame rate.** It was there (7dc: View > Frame rate, Ctrl+Shift+F) but hidden unless asked for, and this machine's preference said hidden (written 11:13 that day, by a person or a run). Now shown unless put away (a new preference; the old one is not read), on a layer of its own over the game's HUD, and switched from the game's menu (Esc) too. A tour or a demo no longer writes the preference.
+- **Platforms of earth and rock.** A platform's edge may be `rocks`: the land's own slope, steeper (1 m), faced with rock all round: crags a metre apart and wider, sunk into the land inside the rim, their tops at the lip of the grass, each made by the rock generator of 7cx as a broken boulder of the style's rock with moss on top (`build.rs` `crag`), so they are one with the rocks painted about. Build > Platform makes one so now (it made a wall of stone; stone is still a choice beside it, with the land's slope). Chosen, a platform's edge is pressed and dragged along (Tiny Glade's gesture): rock faces come where the pointer goes, or, pressed on rock, are taken off there (`rocky`: stretches in metres along its rim; all of it is the edge `rocks`); one step each, rebuilt as it is dragged. A platform shows its handles when chosen now (its corners and height), without the + marks, which would take the press.
+- **G1, one condition language and declared events** (the roadmap's first batch, on its own recommendations: the user said to continue the roadmap without answering its section 10).
+  - `cond.gd` takes `all: A; B` and `any: A, B` (an any: inside an all: parted by commas), with why each does not hold ("none of them holds: it is 22:00, not between 06:00 and 20:00; nor the weather is clear, not rain"), anywhere a condition is written: talks' `if`, quests, work, `while`.
+  - A thing's `when` may say a condition in those words (`when all: fact open; any: hour 6 20, weather rain`, `when hour 18 6 for 5`): `state.gd` asks `cond.gd`, its `for` kept as before; a fact's name as before.
+  - `events.gd`: one place every event is raised (acts, loose, watch and talk call it), the last forty kept; and events about the world watched for there, of every thing whose lines wait on one: `on fact NAME`, `on hour H`, `on timer S`, `on enters R`, `on leaves R`.
+  - The host validates the new words (`kind.rs` `cond_said`, `when_is_cond`, ON_HAPPENS of ten) and says what each event needs said of a thing (`ON_NEEDS`, in `{"op":"words"}` as `needs`, with `conditions`): the capability manifest the G2 entry point will offer from. A thing's own lines parted by semicolons keep an all:'s semicolons in its line.
+  - Why not yet: the Playtest window lists, under what was done, what waits nearest the walker and why it has not happened ("no one has done 'ring' at it", "it is 14:00; it waits for 18:00", "the walker is 12 m off, and it waits for them within 4 m").
+  - The Inspector's rows offer the new events (abilities.txt), with a value to begin from (18, 5 s, 4 m, a fact).
+- **X1, autosave.** Every 3 minutes while there are changes in no file (World > Autosave, on or off), the world is written aside to `backups\autosave-NAME.json` beside its file (a new world's beside this machine's settings); the host's `write` with `autosave` leaves what is unsaved unsaved. A run that did not end as it should is told at the next start and offered the autosave, opened as an earlier save is (Save asks where). Measured first: writing the showcase village aside takes 2 ms on this machine.
+
+**What changed from the roadmap.** Nothing of its order. G1's "the Playtest window shows, for a selected entity, each rule" is, for now, every thing that waits, nearest the walker first, not one chosen. `enters`/`leaves` are of the walker only. The capability manifest is said by the host and not yet used to narrow the Inspector's list (G2's panel will).
+
+**How.** Host: `shapes.rs` (`WalledFacade` bays round a door, own windows moved aside, code version 101), `shapes/land/build.rs` (`EDGES` with `rocks`, `rocky`, `rocky_said`, crags along a rocky slope, `crag`; tests `a_rock_face_is_made_as_big_as_asked`, the wear test reading `bounds` as middle and size), `shapes/kind.rs` (ON_HAPPENS, ON_NEEDS, `can_happen`, CONDITIONS with all:/any:, `cond_said`, `when_is_cond`, `own_said` keeping groups; test `one_condition_language_and_world_events_are_said_rightly`), `lib.rs` (`move_group` turns a line in its places; `rocky` and `rim_long` said; `words` with `needs` and `conditions`; `write` with `autosave` and `ms`), `tests/protocol.rs` (p92 the turned line keeps no turn; p93 no window over a door; p94 a platform faced with rock where said; p95 an autosave written aside). Godot: `makers.gd` (`line_world`, `_line_to` with a turn, `_turned`; a cut put back if its other half is nothing), `line.gd` (a platform's handles without +; pressed and dragged along its edge, `_along_rim`, `_with`, `_rock_values`), `marks.gd` (a platform's handles shown), `buildbar.gd` (Platform's edge rocks by default; the edges beside it), `fps.gd` (shown unless put away; not written by a script), `main.gd` (the frame rate on its own layer; `events`, `autosave`), `gameui.gd` (Frame rate in the game's menu), `cond.gd` (`WORDS`, `parts`, all:/any: in `check`, `why`, `said`), `state.gd` (`when` in cond words), `events.gd` and `autosave.gd` (new), `acts.gd`, `loose.gd`, `watch.gd`, `talk.gd` (raised through `events`), `playtest.gd` (what waits and why), `inspect.gd` (a value for a new event), `abilities.txt` (the five events), `desk.gd` (World > Autosave), `demo.gd` (`mended`, 5 beats; `rules1`, 6 beats).
+
+**Checked:** see PROGRESS (7dg).
+
+**Owed.** The press on an unchosen mound (Tiny Glade needs no choosing first); a rock face dragged on a Raise-painted platform tried by eye; rock faces that turn with the rim's own bends more closely; a structure turned by its own turn (makers.gd's Turn on a drawn structure's node) is not read by its handles either; G2 next (states as pages, the Behaviour and rules… entry point, the manifest narrowing what is offered); the unclean-exit offer of X1 seen by hand (a script is kept out of it).
+
+## 7df. Construction made sound; several chosen at once; the gameplay roadmap (built 2026-10-21)
+
+**Why.** The user's brief "Post-Construction Roadmap and Reusable Gameplay Systems": finish the construction milestone first — the defects of their hand test (cut walls and fences losing end posts; wear that showed nothing, or regular gaps; wear lost on low fences), regression coverage, the tours repaired or their fate said, and a selection of several with group move, turn and lift — then a code-grounded roadmap into reusable gameplay systems (events, conditions, states, interactions, AI, items, combat, quests), with targeted research, a common contextual entry point, a vertical slice, milestones, a first batch, a manual plan and a records plan. Nothing of the gameplay roadmap is built.
+
+**What was found and done.**
+- Wear: a piece's mesh is its brief without its place (`engine_core::build::PLACE`), so all pieces of a structure were worn alike. Worn pieces now get one of seven seeds by their place (`worn_apart`); counts come by chance under one (`some`); a dry-stone wall wears through its stones (its cracks had been inside them), a fence through its pales, rails and posts, a hedge thins; all scaled by height.
+- Cuts: the least gap is a pier and a hand, by sort (`CUT_GAPS`); a cut keeps clear of the places either side.
+- Opening: a world written by older code is upgraded as it is opened (the host's `open`): it had stood empty, since nothing holds made things in a file. The showcase village had been empty since 2026-10-17.
+- Several chosen: `group.gd`, Shift and a click; the host's `move_group` moves, turns and lifts makers and things as one edit, a drawn structure by its line, a joined wall once. What stays each one's own is said, not written over.
+- Demos check themselves (`expect`, `demo: problems`).
+
+**The roadmap.** `Draw3D_Gameplay_Roadmap_2026-10-21.md`. Its decisions, for the user to confirm (its section 10): behaviour stays content in the host's document, evaluated in Godot; one condition language (`cond.gd` taking in `when`, with all/any); declared events; states as pages (RPG Maker's model: the highest eligible wins), with `work.gd`'s priority and resume; a capability manifest from the host's words; one entry point, **Behaviour and rules…**, from HOW IT WORKS and the strip beside a structure, applying to several by their shared rows only; no behaviour-tree library now (LimboAI and Beehave assessed: MIT, but behaviour as scene nodes would be a second home for it); Luau stays parked. Order: G1 conditions and events, X1 autosave beside it, G2 states and the entry point, G3 the bell at the gate, then G4 interactions, G5 perception and AI, G6 items, G7 combat, G8 quests.
+
+**How.** Host: `shapes/land/build.rs` (`worn_apart`, `some`, `towards`, `leaning`, the dry-stone, fence, post and hedge wear, `sunk` given worn pieces, `weathered` scaled), `shapes.rs` (weathering not over dry stone or wooden posts), `lib.rs` (`open` upgrades; `move_group`). Godot: `group.gd` (new), `main.gd` (Shift+click, right drag, keys, the open's words), `desk.gd` (the status line), `makers.gd` (`CUT_GAPS`), `demo.gd` (`expect`, demos `fences`, `several`).
+
+**Checked:** see PROGRESS (7df).
+
+**Owed.** A look or a setting given to several at once (G2); a structure on cells as one of several; the village tour's door offer and its "Walls inside…" beat (G4); the items tour (G6); the library tour rewritten as a protocol test and a demo; the ui tour's Studio beat skipped while the Studio is parked; the style tour's clock beat.
+
+## 7de. Cut, joined, taken away; the core capabilities audit (built 2026-10-21)
+
+**Why.** The user's brief after 7dd: "First, review the current code, latest PROGRESS.md, Tiny Glade construction reference, and UI inventory. Identify which Tiny Glade-inspired construction requirements are genuinely still missing or incomplete. Complete only the remaining milestone-critical items ... Then conduct a code-grounded Core Capabilities Audit ... Evaluate a reusable contextual editing bar for selected objects and entities ... Do not begin implementing the next major systems until the audit is complete and reviewed." What the reference's construction tools have that the code did not, and what was done:
+- A wall or fence split into sections, and snapped back (reference 1.3, 5.2; the user's notes 3, 7; the 2026-10-18 comparison's "still missing"). **Built: Cut beside it and a click on a +, or Shift and a click on a +; joined by an end dragged or drawn onto another's end, the one that was there kept.**
+- Delete on what is in focus, the hammer removing a whole structure (5.4, 12.1). **Built: Delete takes a drawn thing whole with its line, one step; Shift+Delete one piece.**
+- The disable-snapping key keeping a window from becoming a door (1.1, 2.2, 12.2). **Built.**
+- Style Clone across buildings, walls, fences, stairs (4.5, 12.4). **Built: Copy and Give beside every drawn sort, to one of the same sort.**
+- Roof orientation changed (the user's notes 1). **Built: Turn its roof, on a house of four corners that meets no other.**
+- Left, with why and how large, in the audit's section 1: roofs curved by dragging; supports under a lifted house; a stairs route tool; a quick eraser; group selection and transforms; a quick toolbar; trapdoors and bunting.
+
+**The audit.** `Draw3D_Core_Capabilities_Audit_2026-10-21.md`: every system's capabilities, what is authored in the interface, how the systems join, what tests, tours, demos and hands each rests on, verified apart from partial apart from missing foundations; the contextual bar evaluated across eight sorts of thing as declared facets in one order (phases: extract the strip's helpers, then placed objects and creatures, then facets declared, then several selected); the next priorities in two directions for the user to choose, and four questions.
+
+**How.** In Godot: `makers.gd` (`CUT_LINES`, `line_world`, `remove_drawn`, `cut_line`, `join_lines`, joining after a drawing), `marks.gd` (a stroke drawn on from an end joined), `line.gd` (`cutting`, a + cut with Shift or after Cut, an end let go on another's end joined), `main.gd` (`take_away`: a drawn thing whole), `buildbar.gd` (Cut, Copy, Give, take away beside a structure; take away beside a house; Turn its roof; `copied_sort`, `_copy_structure_look`; Ctrl at the foot of a wall), `icon.gd` (`cut_line`, `roof_turn`), `demo.gd` (`cuts`, 7 beats). In the host: `build.rs` (`roof_turn`, the roof's `across` on one oblong with nothing hidden), `shapes.rs` and `real.rs` (`across` in both roof builders and the roof's solid, `rise_over`), `lib.rs` (`roof_turn` in a structure's look), `tests/protocol.rs` (p88).
+
+**Checked:** see PROGRESS (7de).
+
+**Owed.** A cut anywhere along a wall, not only at a +; joining an end onto another's middle (a T); cut, join and Copy and Give for structures on cells; a roof turned on an L or a joined house; the turned roof meeting a neighbour's (its planes); a tour part for drawn construction.
+
 ## 7dd. Leaves under trees, snow with depth, rooftops and streets (built 2026-10-21)
 
 **Why.** The user's message after 7dc: "autumn leaves should not appear everywhere. mostly around the trees and blowing around when you create the real depth. urban set should have ramp additions on the roof tops and boards across buildings and other parkour type addons and decor and power poles. complete the rest of the work not done as well. and add a button for me to cycle through seasons or weather somewhere in the corner". Their words, and what was done:

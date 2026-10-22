@@ -34,6 +34,13 @@ world), **mesh** (a shape of corners and faces a kind is made of), **node** and
 **generator** (a maker, in the Inspector), **design/kind/sort** somewhat
 interchangeably: see section 12.
 
+**Since 2026-10-21 (the usability audit's U0)** the user's words for the screen are
+**Create** (make something new), **Layout** (how things are arranged: a maker and its
+arrangement, as seen), **Object** (one thing in the world) and **Type** (what kind of
+object it is: design, kind and sort, as seen), as starting points, with the specific
+name preferred (House, Forest, Behaviour, Style). The code's words are unchanged. U1
+(section 13zz37) put them in the labels; older sections keep the words of their day.
+
 ---
 
 ## 1. The layout
@@ -1996,6 +2003,247 @@ Not changed: the bar, the keys, the other windows, the other tabs.
 - **Moves tab:** *The game's buttons* is now *Buttons…*, which opens the Buttons tab.
 
 **Side by side:** the preview keeps its least width, and someone to strike moves to a row under Front / Side / Back / Above.
+
+## 13zz42. The guard (2026-10-22, amendment 7di)
+
+No new window or button: three steps and an event join the Behaviours and rules window's lists, as any registered word does.
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| The window, Add a step ▾ | Go round its patrol | `patrol` | to the next place of its design's round (`patrols`); no fields |
+| The window, Add a step ▾ | Hurry to | `hurry` | as Go to, at a run; its field is where (a place, home, walker, noticed, someone) |
+| The window, Add a step ▾ | Look about | `look_about` | stands turning this way and that; its field is seconds |
+| The window, Add… ▾ When something happens; a Wait for's event list | hears | `hears` | a noise heard (its ears); which: steps, landing, alarm, shot, sound … or any |
+| The window, Add… ▾ When something happens | catches | `catches` | it has caught the player (stealth: it hunts and reached them) |
+| The window, Needs | a round to patrol | `needs` | said of a behaviour with Go round its patrol; what is picked lacks it, said in red |
+| The window, a Go to or Hurry to field | noticed | `field_where` | where it last heard a noise, saw the player, or was told from (typed; not yet a list) |
+
+## 13zz41. One place per job, and the user's findings on U4–U7 (2026-10-22, stage U5 of the usability audit)
+
+After the user tried U4–U7 by hand: the findings mended, and "complete U5", the layout of `Draw3D_U5_Layout_Proposal_2026-10-22.md` built as its recommendations answered its questions.
+
+**U5: what moved (ids kept for whatever opens them by name).**
+
+| Control | Was | Is |
+|---|---|---|
+| `tool_paint` (left "Paint ›") | left toolbar | removed. Its list ("Paint") opens from the right bar's Brushes, **Objects ‹** (`objects_brush`); the ground is painted with Terrain (F8) |
+| `tool_structures` (left "Build ›") | left toolbar | removed. Its list ("Structures") opens from the right bar's new **Roads** (`cb_roads`), beside that bar; `use_tool("structures")` opens it there |
+| `tool_environment` | "Sky" | **Weather** (the Time and weather window) |
+| `tool_style` | (none) | **Style**, new: the Styles window |
+| `cb_paint` | "Paint" | **Brushes**, the same brushes and Objects ‹ at the end |
+| `cb_roads` | (none) | **Roads**, new, between Water and Brushes |
+| Time and weather's style row (list, Edit styles as text…, Styles…) | that window | one **World style…** button (`styles_window`) |
+| top bar Build menu | the right bar's tools | the same, and **Roads, lots, streets, and building on a grid's cells…** |
+
+**The user's findings.**
+- **Erase:** **paint on the ground (snow N m²)** (`ground`, ticked at first) beside objects painted, placed one by one and terrain tiles. "which" offers "only snow on the ground (N m²)". The eraser, Clear… and Erase them take it. "Removed elsewhere" now points only the ground's *shape* to Terrain.
+- **Terrain > Paint:** under its words, "Painted in this world now: snow N m². Erase (paint on the ground) or 'as generated' takes it off."
+- **Snow lies on what faces up over painted snow** (roof, rock, crate, bench): nothing to set.
+- **Right click** (not a drag):
+  - on what is selected (the thing, its house or forest, one of several): kept, and says so;
+  - elsewhere: nothing selected;
+  - with nothing selected: the tool in hand is put away;
+  - while a click is awaited: given up.
+- **What it does, a part that spins:** "the part: picked (W m wide, H m high)" or "the part: none picked yet" (`ability_spins_part_part`) in place of the "where" numbers. Speed's - and + step by 10.
+- **A drawn house's handles:** smaller near the eye; faint but for the one under the pointer; the white + (a corner), the green + (a wing) and the green towers at its corners appear as the pointer comes near.
+- **Play:** nothing selected, no handles.
+- **A house's door:**
+  - the door panel (right bar, Look, the door) gains **opened in play / always open / always shut** (`by_door_keeps_usual`, `_open`, `_shut`);
+  - the Inspector, on a door, shows a Use row (`door_keeps`) with the same three choices.
+
+## 13zz40. Task presets, snow and spinning parts, and what everything is (2026-10-22, stages U4, U6 and U7 of the usability audit)
+
+After the user's hand test of U3 ("so far so good"), with what they found on a wolf (U7, below), and "continue with u4 to u7 autonomously". U5 is proposed and not built: `Draw3D_U5_Layout_Proposal_2026-10-22.md`.
+
+**U7: what each row is.**
+- **Sorts, by colour and word** (`shown.gd` `SORTS`, `Shown.tag`): Behaviour (blue), Ability (green), Use (amber), Only while (violet), When (pink). Each is a small flat button at the start of a row; clicked, it opens that sort's library at the row.
+- **What it does, in the Inspector:**
+  - It begins with a legend (`does_legend`): the five sorts and **Libraries…** (`does_library`).
+  - The behaviour row's "Behaviour:" label is its Behaviour tag (`behaviour_tag`).
+  - "Made usable as:" is a Use tag.
+  - A wire's "when" is a When tag.
+- **An ability row** (`ability_NAME`):
+  - Its tag, then its title as a flat button (`ability_NAME_title`). Clicked, the title shows below the row what the ability is and what each setting means (`ability_NAME_told`); clicked again, it folds.
+  - Each setting's label is in words ("unless slower") with what it is as its tooltip.
+  - A setting with choices is a list (`ability_NAME_FIELD`, an OptionButton): an axis; a set of moves; a move; a sound; a good; a texture.
+  - **only while ▾** (`ability_NAME_while_menu`, violet) replaces the word "while". It lists Always and every condition, each by what it means with its words in brackets, then "What each means…". One chosen is written in the field (`ability_NAME_while`) and given.
+- **Objects > What things can do…** (new window, `can`, `catalogview.gd`):
+  - The sorts as a legend (`can_sort_SORT`), and the section list (`can_section`): Abilities, Behaviours, Uses (by the player), Only while… (conditions), When this happens….
+  - **Find** (`can_search`); the list by group (`can_list`).
+  - One chosen is said in full (`can_info`): what it is; each setting, its first value and what it means, and its choices; what it is given with; how many may be had at once.
+  - **Add to the selected** (`can_add`, through the Inspector's `add_from_library`; an object of a layout is taken out first). **Edit as text…** (`can_text`, advanced).
+- **The Behaviours window, Selected** gains a line (`also_text`): "It also does, by its abilities (set in the Inspector, What it does; …only one decides where it walks): wanders about, sees the player, …". Each is in the abilities' colour, and a click opens What things can do at it. With none: "No abilities: what it does is its behaviour alone."
+- **abilities.txt** gains `field NAME [one of …|from LIST] : WORDS` for every setting, and `condition WORD EXAMPLE : WORDS` for every condition. It also gains new abilities:
+  - spins round and round;
+  - a part of it spins;
+  - is bright of itself;
+  - glows like a neon sign;
+  - grows in the shallows too.
+
+  The "engine has words the catalogue does not list yet: wades, neon, glows" line no longer shows.
+
+**U4: task presets.**
+- **Used by the player > a door** (`use:door`) and **a locked door** (`use:locked_door`), in the one list. Either makes a copy of the type that swings about its left edge (`opens`), with a handle on each side. Taken away (its Use x), it is its type again, in one step.
+- **Moves of itself > spins round and round** (`spins`: `turns AXIS D`), its axis a list.
+- **The creature row**: its set of moves is a list of every set (`ability_creature_set`); **Its moves as text…** (advanced).
+- **Move** (left toolbar) with a piece of a drawn house selected: "Click where the house is to go: all of it moves. Esc keeps it where it is." Before, it said to drag the white cross.
+- **Character Studio, a combo in Edit**: **Played with** (`combo_button`, every button with what it is for) and **the rest by itself** (`combo_itself`). The combo's words begin "Played with: Attack, then Attack again for each next move."
+
+**U6: capability gaps.**
+- **Terrain > Paint: snow** (a fifth surface, before "as generated").
+- **What it does > a part of it spins** (`spins_part`): its axis, speed, and where (the box of the part), with **Pick the part…** (`ability_spins_part_pick`). The next click on the object chooses the part; Esc gives it up.
+
+## 13zz39. What it does, in one list; the creature list (2026-10-22, stage U3 of the usability audit)
+
+After the user found U2 good so far ("so far so good. proceed with next step"). U3 as the audit proposed (F3, F6), with the list of creatures and characters the user asked for after U1.
+
+**The Inspector's What it does** (`works_does`, open to begin with), for an object you placed, in place of three parts (the Behaviour card, What it can do, Make it usable):
+- **Its behaviour**, while it has one: "Behaviour:", the list to change it, Edit steps…, an x (`behaviour_away`: takes it away wherever it was given, this one's or its type's); Only this / Every; its description, what it cannot do yet, its settings. With none, no row: the list below adds one.
+- **Its abilities**, each row as before (numbers, while, then…, x), now beginning with a capital ("Wanders about").
+- **Its uses** ("Made usable as: Bed x").
+- **One list, Add something it does…** (`abilities_give`): the catalogue's groups as headings; the behaviours that move a body under "Goes about by itself" ("run away (a behaviour)"); the other behaviours under "Behaviours"; the uses under "Used by the player" (was the separate "make it…" list, `usable_preset`, gone).
+- **Asked first** when the one chosen would not work beside what it has (`does_clash`): one behaviour at a time ("It has one behaviour at a time, and has 'Deer ways' now"); and only one of keeps hours, patrols, follows, works, wanders decides where it walks, in that order, as `folk.gd` `wanted` does, with a behaviour that moves the body before all of them ("…comes first, so 'wanders about' would not happen"). **Replace** (one step of undo), **Keep both**, **Cancel**. Before, both were kept and one waited silently.
+- Then what using it does (its effects, its button's word, not used up) and How it is done, as before.
+- **Moved to Advanced:** Save as a use…, Edit abilities as text… (was "Edit catalogue as text…"), Edit uses as text…, Edit stats as text….
+- **"What it does in play"** (the lines it says, each glossed) is now **"In play, line by line"**; its empty line says "Add something it does under What it does, above."
+
+**An object of a layout** (a tree of a forest), where What it can do and Make it usable said "Ctrl+D places a separate copy of it": What it does says it is one of the forest's objects, and its list takes it out of the forest first (standing where it is, the forest going on without it) and then adds what was chosen, all one step of undo. **Only take it out of the forest** (`take_out`) does the first alone. A part of a structure (a wall of a house) says what it does is given to the whole.
+
+**Objects > Creatures and characters…** (new window, `who`, `whoview.gd`): every creature and character of the world, from every layout and every object placed: those whose type says someone, bodied (ridden, steered), flutters, swims, hops or perches. Each row: its name, its type, what it does ("Run away, wanders, runs from you"). Click: it is selected as a click in the view would, the view goes to it, the Inspector shows it. **Find by name or type**; **Everything you placed** lists every object put down by hand instead; **Names over them in the view** names every one listed at once, seen through what is in front; **Look again** makes the list anew.
+
+**The Behaviours window's library:**
+- **Add from library ▾** also lists, under "Not as in your library", each behaviour this world has written otherwise than the library: "Run away: your library's copy, over this world's" (one step of undo).
+- **Delete** never saves over a different copy in the library: the library's stays, and the deleted one is kept beside it as `run_away_2` ("Run away 2"), and the message says so.
+
+**Found while checking:** the world's Run away (`godot/behaviours.txt`, and the user's unsaved Watchtower world, in its autosave) had lost its only step, `flee {from} {far}`, after 2026-10-22 00:21; the library's copy had it. The file is mended from the library; the Watchtower world is not touched: Add from library ▾ there offers the library's copy back.
+
+## 13zz38. The Behaviour card and the Inspector's order (2026-10-22, stage U2 of the usability audit)
+
+After the user tried U1 by hand: they deleted Run away and the locked door and could not get them back ("Add from library does nothing"), and found the Settings hint unneeded. Then U2 as the audit proposed.
+
+**The Inspector, top to bottom, for an object selected:**
+1. **Its name** (`works_title`, the heading), then a line of what it is: "Placed by you. Type: Deer. Behaviour: Run away (this one only)." A layout's object keeps "A tree in the forest 'w': one of its N objects."
+2. **Behaviour** (new card, `works_behaviour` fold; objects you placed): a list (None and this world's behaviours, each one's description as its tooltip; `behaviour_pick`), **Edit steps…** (`behaviour_edit`, the Behaviours window on it), the choice **Only this deer** / **Every deer** (`behaviour_only`, `behaviour_every`; begins on Only this; Every is not offered for Draw3D's own objects such as a barrel, which have no type text), the behaviour's description, a red line when it cannot do it yet ("It cannot do this yet: it is not a creature that moves by itself…"), and its settings, each a field with what it means beside it (`behaviour_set_NAME`; Enter sets it for this one or every one, as chosen).
+3. What it does in play, What it can do, Make it usable, as before. **Only when…** begins folded.
+4. **Look: its shape (every deer)** (was "Its shape: the design 'deer'").
+5. **Placement** (fold): where it stands and how it is turned.
+6. **Physics** (fold): weight, bounce, grip, collider, joints, its own lines.
+7. **Advanced** (fold): Edit its use as text…, Behaviours window… (was Behaviour…), Edit type as text…, Signals…, Its layout…; the lines of what it is and where; its layout's settings; freeze, another seed; Edit its mesh….
+
+Placement, Physics and Advanced begin folded. Whether each fold is open is kept for the person between runs (`user://inspector.cfg`). With nothing selected, or a layout chosen from the list at the top, nothing is folded and the fold headings are not shown. The game start's heading is "Game start" (was "What it does").
+
+**The Behaviours window:**
+- It begins with the behaviour: the list, then **Behaviour ▾** (New…, Copy…, Rename…, Delete (a copy stays in your library), Save to library, Import from text…) and **Add from library ▾**. New…, Copy… and Rename… show one name field with OK and Cancel (was a field and three buttons always shown). **Selected** and its Apply buttons come after the needs.
+- **Your library of behaviours** is `editor/library/behaviours/behaviours.txt`, apart from the world's behaviours (which are kept with the world and in `godot/behaviours.txt`, as before). Before, the library and the world's behaviours were the same file, so Add from library never had anything to add and Delete lost a behaviour for good.
+  - Save to library saves the behaviour shown into it (added, or saved over its copy).
+  - Add from library ▾ lists the library's behaviours this world lacks, each by name with its description, and "All of these (N)".
+  - Delete keeps a copy in the library first and says so. One used by other behaviours or objects is named first ("'Run away' is used by Deer ways, Skittish…"), and goes on a second press.
+  - Nothing in the library is taken away by the editor.
+- **Settings:** shown only when the behaviour has some; the line "No settings. A number in a step can be made a setting" is gone. **Add a setting** moved under the steps' buttons (advanced), with two fields, Setting name and Usual value (was one field, "name value (danger 8)").
+- New names are made lower case with spaces as underscores ("Patrol" is `patrol`, shown "Patrol").
+
+## 13zz37. Plain words (2026-10-21, stage U1 of the usability audit)
+
+Words only: no control was moved, added or taken away, and nothing does anything
+new. The user's terms (U0, 2026-10-21) are **Create, Layout, Object, Type**, used as
+starting points, the specific name first (House, Forest, Behaviour, Style). Ids and file
+names are shown only in the advanced places (the text windows, Signals, Who can do
+what, a behaviour's steps); everywhere else a name is shown as words by `shown.gd`
+(`run_away` → "Run away", `cot_own_cot` → "Cot (own copy)", `my_lookout` → "Lookout
+(mine)"), the id kept as the list item's metadata. Checked by `-Tour -Only vocab`.
+
+| Where | Was | Is now |
+|---|---|---|
+| Every change message (29 scripts, 192 lines) | "Ctrl+Z takes it back" and its kin | "(Undo: Ctrl+Z)" |
+| Visible strings (24 scripts, 96 lines); behaviour, ability and HUD descriptions | "the walker" | "the player" (the hub's doer keeps its name; the journal says "You:") |
+| Behaviours window, first line | "Ranger (a ranger): behaves as 'run_away', its own." | "Ranger: Run away (this one only)." (or "(every ranger)", "(this one only; other rangers: …)", "no behaviour yet") |
+| Behaviours window | headings For / Parameters / States and steps | Selected / Settings / Steps (advanced) |
+| Behaviours window | Give this one 'X' / Give every R 'X' / Take its behaviour away | Apply to this one / Apply to every R / Remove behaviour |
+| Behaviours window | Save to the library / Bring from the library / Bring in from words… / Check and bring in / Add a parameter | Save to library / Add from library / Import from text… / Check and import / Add a setting |
+| Behaviours window, needs | "Needs of whatever has it: a body that goes about by itself (someone)" | "Needs: to be a creature that moves by itself" |
+| Row under the bar | "Picked: one rock — it belongs to the arrangement of N things made by the maker 'm' (Meadow)…"; "Works on: …" banners | "Selected: Rock (in Meadow 'm'; K of its N objects are rocks)"; no banner, "Delete removes this one only" where it matters |
+| Row under the bar, nothing selected | the long sentence | "Nothing selected. Click to select. View: W A S D or right-drag to move, middle-drag to turn, wheel to zoom. Play: Tab." |
+| World menu | Save the world (to …) / Save the world as… / Open a world… / Open an earlier save… / Open again: X / Show the folder… / Autosave every 5 minutes while… / Export the game… (…) | Save / Save as… / Open… / Restore a backup… / Recent: X / Show in folder / Autosave every 5 minutes / Export the game… (explanations in tooltips) |
+| Edit menu | Duplicate the one picked… / Move the one picked… / Edit the shape of what is picked / Delete the one thing picked (its maker stays) / Detach what is picked… / What needs a look… | Duplicate… / Move… / Edit shape / Delete / Take out of its layout / Review lost changes |
+| View menu | Look at what is picked / Show what is picked alone / Hide what grows… / Hide other things… / Colliders: … / Frame rate, in the corner… | Frame selected / Show selected only / Hide plants / Hide other objects / Show colliders / Show frame rate |
+| Menus | "(open)" before an open window | "✓" |
+| Window titles | sentences ("Behaviours and rules: how things behave, made and given", "World outline: forests, streets, the land (makers)", "Environment: time, weather, wind, style", …) | short names: Behaviours, World outline, Time and weather, Objects in this world, Object text (advanced), Texts (advanced), Styles, Character Studio, … |
+| Inspector | HOW IT WORKS; "'x', put down by hand, of the design 'y'."; "What it goes by: conditions and facts"; Its design's text (F6); Its acts' text (F10); Its maker in World outline; The catalogue (abilities.txt); The uses' text (uses.txt); Stats and statuses (stats.txt) | What it does; "X, placed by you. Type: Y."; Only when…; Edit type as text…; Edit its use as text…; Its layout…; Edit catalogue as text…; Edit uses as text…; Edit stats as text… |
+| Inspector, a thing's lines in words | "it behaves as 'x' (behaviours.txt) …", "of the design 'x' (its text: F6)", "the set 'x' of moves.txt" | "behaviour: X", "of the type 'X'", "it moves like: X" |
+| Giving an ability that makes a copy of the type | nothing said | "Made a copy of the Cot type for this one, so other cots are not changed." |
+| Character Studio | Clips (list) / Ready to see / Asked with / Someone to strike / Open the move's text | Clips / Plays here / Button / Practice target / Edit move as text…; moves, combos, clips and characters shown as words |
+| Styles | Make my own from it / Open styles.txt | Customise (makes a copy) / Edit styles as text…; styles shown as words |
+
+## 13zz36. Behaviours and rules (2026-10-21, amendment 7dh)
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| Window menu; Ctrl+B | Behaviours and rules | `rules` | the window where behaviours are made, given and watched |
+| Inspector, HOW IT WORKS | Behaviour… | `works_behaviour` | opens the window for the thing shown, on the behaviour it has |
+| Inspector, What it does in play | the `behaves` line | — | says what it behaves as, with its own numbers |
+| Playtest (P) | Behaviours, and the button Behaviours and rules… | `rules_view` | each thing that behaves, nearest first: its state, the step going, what it last could not do and why, each `when` state holding or not, and how long they all took |
+| The window, For | Give this one / Give every DESIGN / Give the N chosen / Take its behaviour away | `give_one`, `give_design`, `give_several`, `take` | the behaviour chosen, as its own line; on its design; to each of the several chosen that was put down by hand, in one step; `no behaves` of its own |
+| The window, Behaviour | the list; a name field; New, Copy, Rename, Delete | `chooser`, `name_field`, `new`, `copy`, `rename`, `delete` | the world's behaviours; Copy is a separate one; Rename renames every use of it and every line that says it |
+| The window, Behaviour | Save to the library / Bring from the library | `library`, `bring` | writes this world's behaviours into behaviours.txt / adds those it has and this world has not |
+| The window, Behaviour | Bring in from words…, Check and bring in | `import`, `import_check` | pasted words read first; refused, each thing named, if anything in them is not here |
+| The window | Needs | `needs` | what whatever has it must say, what the picked one lacks, who behaves so (and inside which behaviours) |
+| The window | Parameters: every one's value / this one's own | `param_NAME`, `own_NAME`, `add_param` | the default for all; this thing's own (`behaves NAME with ...`); a new parameter |
+| The window | States and steps (a tree) | `steps` | its states and steps, the parts of each under it; red where written wrong |
+| The window | Add a step ▾ / Add… ▾ / Put inside ▾ / Up / Down / Remove | `add_step`, `add_state`, `wrap`, `up`, `down`, `remove` | each one step of Ctrl+Z |
+| The window, the step chosen | its sort; its fields (lists for moves, states, behaviours, events) | `step_word`, `block_word`, `field_*` | what the step is and what it is about |
+| The window, a condition | not / its sort / what it is about / all of these or any / + another condition / × | `cond_not_N`, `cond_sort_N`, `cond_rest_N`, `cond_mode`, `cond_more` | a condition built without typing an expression; said in words under it, or why it is not one yet |
+| The window, a state | its name, pressing, comes over others by itself when…, restarts | `state_name`, `priority`, `comes_over`, `restarts` | — |
+| The window, a step that plays a move | Edit animation | `edit_animation` | opens the move in the Character Studio's Edit tab |
+| Character Studio, the banner | ◀ Back to behaviour 'NAME' | `edit_back` | back to the same behaviour and step; the banner says "used by N behaviours" |
+| The window, Running | Try it | `try` | plays the world with Playtest open; each one that behaves so is shown as it goes |
+
+## 13zz35. Earth and rock, the frame rate, events about the world, autosave (2026-10-21, amendment 7dg)
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| The bar, Build > Platform | drawn round | `cb_platform` | a platform whose edge is the land's slope faced with rock all round (was a wall of stone) |
+| Beside a platform | Its edge made: Rock / The land's slope / Stone | `by_edge_rocks`, `by_edge_grass`, `by_edge_stone` | rock faces all round; grass slope; a retaining wall |
+| The view, a platform chosen | pressed on its edge and dragged along it | — | rock faces where the pointer goes; pressed on rock, taken off there; one step each |
+| The view, a platform chosen | its corners and its height handle | — | as a wall's; no + marks on a platform |
+| The corner, bottom right | the frame rate | `frame_rate` | shown from the start, editing and playing, over the game's HUD; View > Frame rate or Ctrl+Shift+F puts it away |
+| The game's menu (Esc) | Frame rate: shown or not | `menu_frame_rate` | the same switch while playing |
+| World menu | Autosave every 3 minutes … | — | on or off; writes `backups\autosave-NAME.json` beside the world's file while there are changes in no file |
+| At start, after Draw3D stopped without closing | Open the autosave / Not now | — | the autosave opened as an earlier save (Save asks where) |
+| Inspector, When this happens, do this | the event list | `wire_N_when` | five more: fact, hour, timer, enters, leaves, each with a value to begin from |
+| Playtest (P) | the lines under "When this happened, done" | `wires_view` | then "Waiting, and why not yet": what waits nearest the walker, and why it has not happened |
+| Any condition written (talks' if, quests, work, while, a thing's when) | all: A; B / any: A, B | — | every one / one at least, with why not |
+
+## 13zz34. Several chosen at once (2026-10-21, amendment 7df)
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| The view, Select | Shift + left click | — | adds what is under the pointer to the several chosen, or takes it out; the one chosen before is the first of them |
+| The view | left click alone | — | chooses one again, as before; the several are let go |
+| The view | right drag on one of them | — | all of them go, framed where they will be; put down as one step |
+| Keys | [ and ] | — | turn the several 15 degrees about their middle |
+| Keys | Page Up / Page Down | — | lift or lower by a quarter metre what has a height of its own; the rest are named |
+| Keys | Delete | — | takes them all away, one step |
+| Keys | Esc | — | lets them go |
+| Under the menus | the status line | — | "Works on: N chosen together (…)", what is done to them, and that each one's look and sort are changed alone |
+| Under the menus | Deselect | `let_go` | lets the several go too |
+
+Not yet: a look or a setting given to several (the roadmap's G2); a box dragged out to choose several; Ctrl+click as well as Shift (the roadmap asks).
+
+## 13zz33. Cut, joined, taken away (2026-10-21, amendment 7de)
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| The view, over a wall, fence, hedge or power line | Cut | `by_cut` | then a click on a white + cuts it in two there, a gap between |
+| The view, a drawn wall's + | Shift and a click | | cuts it there at once |
+| The view, a drawn wall's end | dragged onto another's end (of its sort) | | one with it, the one that was there kept; Ctrl held, two |
+| The bar, Build > Wall, Fence, Hedge | drawn on from another's end | | one with it; Ctrl held, two |
+| The view, over a wall, fence, hedge, path, yard, pond, platform or garden | Copy; Give | `by_copy_look`, `by_give_look` | its look copied; given to another of its sort |
+| The view, over any drawn thing, and a house | Take it away | `by_take_away` | all of it, with its line; one step |
+| The view, a drawn thing chosen | Delete; Shift+Delete | | all of it; the one piece picked |
+| A house's materials fold | Turn its roof | `by_roof_turn` | the ridge across it (a house of four corners that meets no other) |
+| The bar, Build > Windows | Ctrl and a click at a wall's foot | | a window there, not the door |
+
+The audit's section 5 (`Draw3D_Core_Capabilities_Audit_2026-10-21.md`) sets out a bar of declared facets, one order for every sort of thing, as the reference for any regrouping of these strips.
 
 ## 13zz32. Leaves under trees, snow with depth, rooftops and streets (2026-10-21, amendment 7dd)
 
