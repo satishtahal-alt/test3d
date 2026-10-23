@@ -2004,6 +2004,19 @@ Not changed: the bar, the keys, the other windows, the other tabs.
 
 **Side by side:** the preview keeps its least width, and someone to strike moves to a row under Front / Side / Back / Above.
 
+## 13zz50. Emberwatch: what the benchmark needed (2026-10-23)
+
+Found while authoring *Emberwatch* through the interface (`Draw3D_Emberwatch_Authoring_Workflow.md`, section 9).
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| Texts window (F10), under the text | also the project's file | `to_file` (textview.gd) | ticked (as before): Apply writes the project's shared file too; unticked: the text is this world's alone |
+| Texts window (F10), list | endings | `endings.txt` (endbook.gd) | `ending NAME`, `called`, `when CONDITION`, `says`; the first whose condition holds is shown when the game ends; `{fact}` shows a fact's number |
+| Inspector at the game start; World outline | an hour of play lasts (minutes; 0: one) | `hour_lasts` (makers.gd) | how long an hour of the world is while playing; a world fact, so a behaviour can change it (`put hour_lasts 1.1`) |
+| Inspector, What it sees and hears | far off too | `restless` (inspect.gd) | it goes on behaving while far from the player: never let go by the regions, never left standing, made wherever it is |
+
+Unchanged but found hard: a placed thing's turn is under `>  Placement`, folded below a long Inspector, and the Inspector heads a thing with its kind's name, not what it is called.
+
 ## 13zz49. Seen, heard, followed (2026-10-22, G5)
 
 | Where | Control | Name | Does |
