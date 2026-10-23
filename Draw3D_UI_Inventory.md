@@ -2004,6 +2004,89 @@ Not changed: the bar, the keys, the other windows, the other tabs.
 
 **Side by side:** the preview keeps its least width, and someone to strike moves to a row under Front / Side / Back / Above.
 
+## 13zz49. Seen, heard, followed (2026-10-22, G5)
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| Behaviours and rules, a step | Follow (who, metres) | `follow` | keeps within so many metres of the player or someone, after them by the ways there are |
+| Behaviours and rules, a step | Tell others (word, metres, to) | `tell` | the new third field, to whom: by name or by what they count as |
+| Behaviours and rules, an event | When it comes to see … | `on sees WHO [R]` | heard as it comes to see them |
+| Behaviours and rules, any "who" field | walker, a name, folk, creature, hunter, anyone, a tag; several with "or" | (`cond.gd` `where_is`) | whom it is about |
+| Behaviours list | Follows, Looks into noises, Keeps home | (behaviours.txt) | behaviours to give as they are |
+| Behaviours, deer ways / skittish / guard ways | fears / from / calls to | (their params) | whom the deer fears, whom the skittish run from, who is told the alarm |
+| Inspector, HOW IT WORKS | a `tags` line, a `way` line | (inspect.gd `_gloss`) | says what each means |
+
+## 13zz48. Made, stacked and kept (2026-10-22, G6)
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| In play, at what `crafts` (a bench) | E / Y: work at the bench | (act `craft`) | opens the inventory "At the bench": the recipes made there first |
+| Inventory "At the bench", under "Made here" | a recipe's row, greyed "(not yet)" when something is wanted | `recipe NAME` rows | says what it is, what it wants and why not yet |
+| the same | Make | `b_use` ("Make") | makes it: its goods used, the thing or goods put in the pack |
+| In play, at what `stores` (a chest) | E / Y: look in the chest | (act `store`) | opens the inventory "In the chest" |
+| Inventory "In the chest" | its goods and items; "Yours to put in" | `theirs good`, `theirs item`, `mine good` rows | one chosen |
+| the same | Take / Put in | `b_use` | moves one across; a thing of the pack chosen is put in |
+| Inventory, In the pack | "A torch  x2" | (one row of a stack) | things of one sort as one row; the buttons act on the first |
+| Inspector, Make it usable | a bench / a store | (uses `bench`, `store`, uses.txt) | gives one thing `crafts bench` or `stores` and the act at its front |
+
+## 13zz47. Put down in play, felled, kept (2026-10-22, PW1b of the persistent-world milestone)
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| Inventory (I), under "To eat, drink and use" | Put down | `b_use` (its word from goods.txt `used_as`, "put down" for a good that `puts`) | puts one of a good that says `puts DESIGN` (the barrier of planks, a crate) down before the walker, turned as they face: solid, gone round by the ways, kept with the game |
+| In play, beside a tree that `offers fell` | E / Y: fell the oak | (act `fell`, acts.txt) | chops at it; it is gone (`where gone`) and stays gone, also after a load |
+| Inspector, Make it usable | a tree: felled where it stands, and it stays gone | (use `tree`, uses.txt) | gives one thing `offers fell` |
+| Playtest, Regions | (text) "N put down in play" on a region's row; "Crossings: N; the longest frame in the second after one, M ms" | `regions_view` | what was put down in each region; how long the slowest frame after a region change took |
+| The load message, and Playtest's list of what is gone | "… made again somewhere else (a wood sown again) …" | (told) | a saved game's facts about something now standing elsewhere under the same number are set aside, not applied to what has the number now |
+
+## 13zz46. Regions (2026-10-22, PW1a of the persistent-world milestone)
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| Playtest, under "Regions: active near the player, far beyond" | Show them on the ground | `regions_shown` | draws each region of 128 m round its edge at the player's height, green while active, grey while far, its name and state over its middle |
+| Playtest, the same heading | (text) | `regions_view` | what Godot holds (nodes, moving bodies, those who go about, those let go, mesh MB), then each region: state, things, how many with facts, awake / asleep / let go, its last change and how long it took |
+| The run log | regions: The walker is in region … | (log) | each change of the regions while the world runs |
+| What happened (Playtest) | The miller was far off and is now where their day says (10:00). | (told) | catch-up of one with a day |
+
+## 13zz45. One act for every doer (2026-10-22, G4 of the gameplay roadmap)
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| Behaviours and rules, Add a step ▾ | Do an act | `act` | an act of acts.txt done with the nearest thing called so, as the player's E / Y does it; fields: the act (a list of the acts), and what it is done with |
+| Behaviours and rules, a Do an act step | (list) | `field_act` | the acts, by name |
+| Behaviours and rules, What it does | goes and does “open” at the gate | `plain` | the step said in plain words |
+| Playing, at a thing whose act's condition does not hold | Open the gate? It is 21:00, not between 06:00 and 20:00. | (the offer line) | why it is not offered, said where E / Y's offer would be |
+| Inspector, How it is done | open: only when it is between 06:00 and 20:00 (acts.txt 'when'; otherwise the player is told why not) | `done_when` | each offered act's condition, in words |
+| Library > Shelter | A gate; A gate opened only by day | `gate-plain`, `gate-by-day` | a gate opened and shut by hand or by a behaviour; one opened only between 6 and 20 |
+| acts.txt | when CONDITION | (file) | an act offered only while a condition holds |
+
+## 13zz44. Saved games that keep up (2026-10-22, PW0 of the persistent-world milestone)
+
+No new window or button. What a loaded game says, and one line in Playtest.
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| The message on loading a game (F9, the game's menu) | "…N things it remembers were renamed since, and what it remembers went with them" | `tell` | said when the world's makers were made by newer code since the game was saved; what the game remembers of each thing now holds for it under its new name |
+| The message on loading a game | "…N things it remembers are gone, and what it remembers of them is kept but applies to nothing (Playtest lists them)" | `tell` | was "N things it remembers are gone" |
+| Playtest, under Behaviours | The saved game loaded remembers N things no longer in this world… • something gone, remembered as: open | `gone_view` | shown only after a load that left such things; each one's facts in words (never its id), the first 12, then how many more; "its maker's new code has no place for" when a migration said so |
+| Saved game files | `migrations` | (file) | a saved game now says how many id migrations its world had; older games, which do not, are still read |
+| The guard, playing | (nothing new seen) | fact `noticed` | where it last noticed something is kept with the game, so a guard loaded mid-search goes on to the same place |
+
+## 13zz43. Behaviours said in plain words; the bell at the gate (2026-10-22, G3 of the gameplay roadmap)
+
+The checkpoint's finding: the window was too technical.
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| The window, under the description | What it does | `plain` | the behaviour said as a person would: "While it is Shut (it begins so) / When it is told “ring”: if it is between 06:00 and 20:00: changes to Open; otherwise: says “Come back by day.”". It is read from the states and steps, with the settings (or the one picked's own) filled in, and changes nothing (`plainrules.gd`). |
+| The window, where "Steps (advanced)" was | ▸ Show the details (states and steps) / ▾ Hide the details | `details` | folds the steps' tree, Add a step, Add…, Put inside, Up, Down, Remove, Add a setting and the chosen step's fields. It opens by itself when a step is chosen (from the Studio's Back to behaviour, a new step). |
+| The window, Needs | to be used by the player (E / Y) | `needs` | was "to react to 'act'" |
+| Library > Shelter | A gate that a bell opens; A bell beside a gate | `gate-ruled`, `bell-post` | designs that come with `day_gate` and `bell_rope` |
+| Library > Watchers | A gatekeeper | `gatekeeper` | comes with `gate_keeper` |
+| Playing, at the bell | E / Y: ring the bell | act `ring` | rings it: the bell sounds and tells what is near |
+
+Still technical, and to be taken up as the window is next touched: the step chooser's and the event list's own names, the condition builder's sorts, and the Settings rows' names (`opens`, `night_says`).
+
 ## 13zz42. The guard (2026-10-22, amendment 7di)
 
 No new window or button: three steps and an event join the Behaviours and rules window's lists, as any registered word does.
