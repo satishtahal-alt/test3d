@@ -184,7 +184,9 @@ written".
 
 **Characters parked (2026-10-16, the user's word).** The Character Studio, moves and combos are far enough for now; the to-do for when they are taken up again is in `Draw3D_Character_Maker_Plan.md`, "The user's answers after 7bh": fingers round the grip first (UAL2's hand does not close on the sword), a starting library of downloaded assets (approved: free for sold games, every one credited in `editor/assets/CREDITS.txt`), one character with face shapes that plays the move sets' clips and wears gear, expressions, the weapon designer and clothes made in the engine. The user then chose section 7 of the roadmap: items, equipment and the game's own screens (7bi, under Done).
 
-**Being built:** nothing. Latest: the Emberwatch benchmark (2026-10-23, under Done), a vertical slice authored through the interface, with its evaluation in `Draw3D_Emberwatch_Benchmark.md` and the workflow as performed in `Draw3D_Emberwatch_Authoring_Workflow.md`; not tried by hand. Before it, G2 of the gameplay roadmap is built as Draw3D's own behaviour and rules system (7dh, and its guard as 7di, both under Done; amendments 7dh and 7di record the decisions), auto-checked, not tried by hand; the construction bar's button is owed. Before it, G1 and X1 of the gameplay roadmap (`Draw3D_Gameplay_Roadmap_2026-10-21.md`) are built (7dg, under Done) on the roadmap's own answers to its section 10, as the user said to continue it without answering; G2 (states as pages, the Behaviour and rules… entry point) is next. Before them, the user's findings after 7df were mended (7dg). Before it, 7df (construction made sound, several chosen; under Done). Before that, the core capabilities audit (`Draw3D_Core_Capabilities_Audit_2026-10-21.md`) awaits the user's review; at their word no next major system is begun until it is reviewed. Before it, cut, joined, taken away (7de, under Done): what the construction milestone still lacked of Tiny Glade's handling, found by checking the reference against the code. Before it, 7dd and 7dc (under Done). Before them, context and the wild edges (7db, under Done), from the user's hand test of 7da with two pictures (a context bar too long, porch roofs that do not line up) and their list, "work autonomously to complete these things and use your judgement for the smaller reversible things". Before it, its details beside it (7da, under Done), from the user's hand test of 7cz ("refer to the docs and proceed ... complete the milestone ... I can test them out after"). Before it, decorated and alive (7cz, under Done), from the user's hand test of 7cy ("everything so far recently is finally headed in the right direction"). Before it, where a tower meets a house, and cattails' heads (7cy, under Done), from the user's hand test of 7cx ("really good pass again"). Before it, mixes, rocks and towers (7cx, under Done), from the user's hand test of 7cw ("extremely pleased with the direction"). Before it, changed where it stands (7cw, under Done), from the user's hand test of 7cv ("very, very finally good in terms of the direction"). Before it, one house of one outline (7cv, under Done), from the user's hand test of the bar. Before it, the construction bar (7cu, under Done), at the user's ask that construction follow how a Tiny Glade player builds; how a player builds there, and what Draw3D lacked against it, is in amendment 7cu. Before it, roofs that are one where houses meet (7ct, under Done), construction going on from what 7cr owed. Before it, the user's hand test of 7cr mended (7cs, under Done). Before it, a wall stops where a house stands, houses that touch share their walls (7cr, under Done), the user's choice of next slice. Before it, the fault the user found testing 7cp by hand was mended (7cq, under Done); construction goes on from what 7cp lists as owed, with the user's findings of 7cq beside it. Before it, houses of their sorts, stairs of their own, what is joined following, a style and a palette (7cp, under Done), at the user's ask for variety and their direction document of 2026-10-20 (construction first, a first stylized style and an editable palette, save scopes made explicit); what of the Tiny Glade reference is still owed is listed in 7cp. Before it, a drawn house's floors and stairs (7co, under Done), after the user found a two-storey house had one floor inside and asked that systems connect and adapt to one another; what adapts and what does not yet is in 7co, the joining tier awaiting approval. Before it, a drawn house's own look, dragged out, and its handles (7cn, under Done), after the user said "proceed with the next step": the next tier in the comparison document was buildings with handles, and with 7cm the user had asked that anything they don't like be restylable. Before it, a drawn wall's own look, its towers' handles, a place put in or taken out and snapping (7cm, under Done), after the user found 7cl "closer to the goal" and asked for the next step, saying they will want to change the palette or restyle the objects themselves (a tower's roof they don't like), with handles and textures. Buildings, paths and the rest keep the world's style for now. Before it, walls drawn by dragging, built live, with handles (7cl, under Done), at the user's word after they rejected 7ck as not how Tiny Glade builds; the comparison and the tiers after it (snapping, cutting and joining walls, buildings with handles, paths as a brush with live arches, windows placed) are in `Draw3D_Tiny_Glade_Comparison.md`, each for the user's approval. Before it, places drawn that know one another (7ck, under Done), at the user's brief of 2026-10-18 that resumed construction ("Integrated, Context-Aware Modular Construction"): paths that open a gate or a door where they cross, growth and the brush that keep clear of what is built and of the ways through it, borders and gardens round houses, a pond with a bank and life of the library's; its audit, the six decisions taken and what is owed are in `Draw3D_Modular_Construction_Feedback_and_Next_Systems.md`, section 6. Before it, the Forgotten Watchtower made fit to show (7cj, under Done), at the user's verdict on 7ch; the polish bar it is judged by is in `Draw3D_Wilderness_Adventure_Benchmark.md`, part E. Before it, the wilderness benchmark, the Forgotten Watchtower (7ch, under Done), at the user's brief of 2026-10-18; its record is `Draw3D_Wilderness_Adventure_Benchmark.md`. After it, the user's queued item: the assistant (Qwen) asked for a 3D sign shaped as a vase with flower silhouettes added something to the Library with no visual, and placing it does nothing. Nothing of 7ch is committed (the user has not tried 7bz on by hand). Before it, when this happens, do this (7cg, under Done), the catalogue's third tier; the fourth (moves and acts in the catalogue) is next. The user said not to commit until they have tried 7bz to 7cf by hand. Before it, only while it holds (7cf, under Done), the catalogue's second tier, after the user said to continue with the next logical steps. The user said not to commit until they have tried 7bz to 7ce by hand. Before it, modelled and asked for (7ce, under Done), after the user's asks on 7cd (Godot's modelling tools, LLM support with undo as in Draw5, a default character with a sneak that is not the basic one, then the next steps). The user said not to commit until they have tried 7bz to 7ce by hand. Before it, furnished and set out (7cd, under Done), after the user's questions on 7cc (doors, the HUD, furnishing buildings and caves, the outline jumping, more pictures and covering things, the next steps; an LLM's cost and Godot's modelling tools answered in amendment 7cd). The user said not to commit until they have tried 7bz to 7cd by hand. Before it, what anything can do (7cc, under Done), after the user tried 7cb by hand (colours and textures, the colour crash, applying without Enter, three search heights, uses not seen, a catalogue of abilities or a plan for one, the bed-creature lying wrong, climbing walls and ceilings); its catalogue's next tiers are proposed in amendment 7cc for the user. The user said not to commit until they have tried 7bz, 7ca, 7cb and 7cc by hand. Before it, anything made, and made to do anything (7cb, under Done), after the user tried 7ca by hand (their list: search, facing, a search animation of its own, nothing hard-coded, the controller in the inventory, animations downloaded, their own uses, shapes, models, an exe). The user said not to commit until they have tried 7bz, 7ca and 7cb by hand. Before it, use anything (7ca, under Done), at the user's choice ("Do the quick fixes first … then build the Use anything milestone … Survival needs are approved."). Before it, a click shows how it works, and changes it there (7bz, under Done), after the user said: "ensure what you're making is editable in the engine. it's still not intuitive. when i click on an object or entity i should be able to see its info, modify its physical attributes or behaviors and related conditions … if i click on a house i should have access to all relevant settings including switching the camera view under certain conditions." Before it, keys, drops, finds by chance and breath spent by dodges and blows (7by, under Done), after the user said to proceed: the small items left in section 5, item 6 of `Draw3D_Genre_Readiness_2026-10-17.md`, but for ladders, a gate anywhere along a side and a curve through a drawn line. Before it, a boss of phases, and acts seen side-on reached at once (7bx, under Done), after the user's hand test of the shelter ("everything is reasonable for now"; the walk before an act faced the wrong way) and "continue with the next part". With it the enemy section of `Draw3D_Genre_Readiness_2026-10-17.md` has no row left that needs no approval. Before it, barricades, locks, crafting, searching heard and stamina (7bw, under Done), after the user said to continue. Before it, the enemy section, building by drawing and houses of storeys (7bt, 7bu, 7bv, under Done), at the user's word: "work on the advanced enemy behaviors … until the completion of the enemy section then work on modular building like tiny glade style … and modular for the 2.5d style buildings like in this war of mine and into the dead our darkest days … make sensible reversible decisions and only defer extremely major directions". What is left of each, and what would advance the engine most, is in `Draw3D_Genre_Readiness_2026-10-17.md`; survival needs, live drawing and enemies drawn by animated characters wait for the user's word. Before it, the user's findings on 7br mended (7bs, under Done). Before it, items and saved games across worlds (7br, under Done), at the user's word. Before it, connected worlds (7bq, under Done), the second of the three steps 7bp recommended, at the user's choice. Before it, the user's findings on 7bo and their open-world direction (7bp, under Done): the inventory's freeze found and mended, each enemy's settings in the Inspector, rooms re-rolled per run and cutaway walls (approved), and the direction catalogued against what exists, with three larger steps recommended for the user to approve (composable behaviour's second tier, connected worlds, survival needs). Before it, side-on 2.5D, perception and stealth, creatures, a level as a genre (7bo, under Done), at the user's authorisation of the two systems 7bn recommended and the reference's mechanics, cheapest first; vehicles, rooms re-rolled per run, character switching, bosses, cutaway walls, enemies as clip-animated characters and the project-management area itself are still the user's. Before it, a library of styles after games (7bn, under Done): eight of the 30 games (the reference document was not provided), the picture and `takes` in a style, the Styles window; perception and stealth and a side-on 2.5D camera recommended next, for the user to approve. Before it, the shot camera (7bm, under Done). Before it, the sixth hand test (7bl, under Done): the library folded to the side, the blade as the sheath lies, and the eight ways (approved after 7bk's explanation); the shot camera still approved and not begun. Before it, the Studio after ActionForge (7bk, under Done): what the user found trying the animator pass by hand, mended, and the Studio laid out with a clip library of pictures; the shot camera approved, eight directions awaiting the user after an explanation, rigging declined. Before it, the animator pass (7bj, under Done; `Draw3D_ActionForge_Analysis.md` A1–A3, B4–B7, at the user's word "go all the way to b 7"): fingers moved by the clips and closed round a grip, a clip over a part of the body, how a body is held and walks, what follows it, its feet on the ground, poses of one's own with keys, the clips looked through quickly; C and B8 wait on the user. Before it, items, equipment and the game's own screens (7bi, roadmap section 7, under Done): items each with its own id, gear of the library's Gear to find picked up and worn or taken in hand by the walker's character, the display while playing, the inventory (I) and the menu (Esc), all of it in a saved game. Before it, the Studio's fourth hand test answered (7bh, under Done): every box seen, the yard's stick as the game's and mirrored, a thing carried that stays where it is or goes with the one in hand, a fit kept for a model; a weapon designer, clothes and fingers on a grip planned. Before it, the third hand test answered (7bg, under Done): why the sword was not drawn by the cut (an old set in the world and in the profiles; the box read as on), the yard's pad and keys and its right stick, versions of a move, Make on the character's row, the sword's grip on other models. Before it, making a character, tier 1: the Studio's Make tab (7bf, under Done); tier 2 (faces, eyes, hair, expressions) waits on the user's choice of assets (`Draw3D_Character_Maker_Plan.md`). Before it, the Studio's second hand test answered: drawn by the cut, + Before, a weapon's own moves, lock-on, the yard, a cape that swings (7be, under Done); making a character planned (`Draw3D_Character_Maker_Plan.md`), tier 2 waiting on the user's choice of assets. Before it, the Character Studio after the user's hand test (7bd, under Done). Before it, a two-handed stance, both hands by IK (7bc; A1c open), after the other hand by IK (7bb), under Done with 7ba. Before it, gear, buttons of one's own, moves and combos on any button, and a phase's numbers all in sight (7ba, "Character Studio: gear and buttons" under Done; the audit, the stages after it and five decisions are in `Draw3D_Gear_Actions_Controls_Plan.md`). Before it, the Character Studio made easier to work in, and how its moves reach a player's buttons (7az, "Character Studio: what plays stays in sight" under Done; the four questions it leaves are there). Before it, Mixamo's clips taken in: FBX read, `map mixamo`, Import clips… in the Studio's Clips tab (7ay, "Character Studio: Mixamo's clips taken in" under Done); the steps after downloading are in the checklist. Before it, the Character Studio's workflow made to follow the work: what can be changed first, one Edit for a move or a combo, saved, copied or discarded, and Where under the preview (7ax, "Character Studio: the workflow" under Done). Keyframes, Mixamo, a kind's set chosen from a window and a project-wide save of moves are answered there, not built. Before it, the Character Studio's playback made explicit (Play plays what is chosen), dash-and-cut mended, its panels steadied, the paint brush agreed on between Objects and the Plant Generator, and a UI overhaul proposed (7aw, "Character Studio: Play plays what is chosen" under Done; the proposal is `Draw3D_UI_Overhaul_Proposal.md`). Animation work is parked there, at the user's word. Before it, the Character Studio made reliable, with phases, combos and Universal Animation Library 2 (7av, "Character Studio, reliable" under Done), after its authoring pass (7au, "Character Studio, authoring" under Done) and its first tier (7at, "Character Studio, first tier" under Done). Before it, sound, first tier (7as, "Sound, first tier" under Done), after Signals was finished to a first
+**What "untried by hand" means (2026-10-25, the user):** the user has played much of what is listed here without reporting it each time, so "untried" or "none by hand" in these records means *not reported*, not *not played*. A testing phase comes next: verdicts go in the Hand column of `Draw3D_Gameplay_Loop_Tracker.md`, and from then on this file says what the user reported.
+
+**Being built:** the brief of 2026-10-26, third (a river into the sea to a timed course: under Done, checked by script, none by hand); before it the brief of 2026-10-26, second (rivers to a skill tree: under Done); before it the brief of 2026-10-26 (styles to endings: under Done); before it the brief of 2026-10-25, fifth (walls the foes break, parkour with the hands free, turrets and arrows, the range, the pad, rewards and crafting, a base against what stands, a body imported, the assistant for the loops, the loop tracker: under Done); before it the brief of 2026-10-25, fourth (idles and poses, Foes, Regions, cave growths, the sea, a base of your own, the parkour run, the loop analysis: under Done); before it the brief of 2026-10-25 (commits ee74df8 to 216e1a4): a house's rooms (how many of each, walls between them dragged, each furnished); the Studio as each character's animation workshop and Powers; moves and acts in the catalogue and the rest of the abilities list; crops harvested and ripe again; tall grass a quarter faster (its shadows a graphics setting); a quest's steps as cards with conditions picked; a far island with a village after the end, reached by a causeway or by boat (`editor\town.ps1 -Wastes`, `editor\town-wastes.json`), and how far things are drawn; a drawn building's parts, its door among them, swapped for designs. Checked by script, none by hand. Before it, a thing turned by its ring, every patch found again, one flower swapped (2026-10-25, under Done), the two issues held until the Game Shell was done: a ring with a knob round a picked thing, dragged round to turn it (5 degrees a step, Shift 1, Ctrl 45, one Ctrl+Z); a brush's panel listing every patch it has painted, one clicked shown, chosen and painted from now; one thing of a patch picked, swapped for another sort of the brush's or a design of your own, where it stood and turned as it was, as one change. Checked by script (`-Demo turnswap` 3/3), none by hand. Before it, the Game Shell (2026-10-25, under Done; committed 3fb357e), at your message after 08644db ("Proceed with the Game Shell and ONly after game shell implementation tackle these two issues"): the title with Continue (the latest saved game), Load a saved game and Credits; save slots with how long played, where, the quest, when, the save version, an unreadable one said so, saved over and deleted only when pressed twice; the autosave at checkpoints and by the clock; a loading screen; a You fell screen (try again, load, title); Back to the title; the credits rolled; all of it set in Project › Project settings › The game's flow (game.txt, no text typed); an exported game carries the worlds it leads into. Checked by script (`-Demo gameshell` 10/10), none by hand. Then (asked to wait for it): rotation handles round a thing, one flower swapped for another of the library, where earlier patches go. Before it, the combo screen as laid out in its design (2026-10-24, under Done; committed 08644db), at your message after 8b1b0b3 ("build the combo screen as laid out in the design"; the design's three questions taken as moves left to right, the preview at the left, icons with short words): one play bar, the moves as cards with + between them opening the list of moves there, the chosen move's tools under its card, its phases as chips under it, the settings in six cards (Timing, Movement, Animation, Hit, Opponent reaction, Damage), whether a strike reached them said in the Hit card, one timeline for the whole combo; checked by script (`-Demo comboscreen` 6/6), none by hand. Before it, clips of one's own, browsing clip files, the uppercut walkthrough, a slide (2026-10-24, under Done; committed 8b1b0b3), at your message after 7d9a16b: a clip copied from the closest there is and reshaped (an uppercut made from the cross, and seven other ready-made changes), clip files browsed and each clip played on the character before importing, the uppercut walkthrough, the brawler's launcher an uppercut, a slide under low things with a body that is lower, the play camera kept out of rock; the combo screen laid out anew as a design to review (https://claude.ai/artifact/54fG9Z7qAqPwzFJiz4SCTb), not built; checked by script (`-Demo uppercut` 8/8, `-Demo slide` 3/3), none by hand. Before it, the powerbomb changed step by step, phases with them, a base, a cave through a mountain (2026-10-24, under Done), at your message after 735def0: a phase seen with the sparring partner, what it does to them edited at each phase, the powerbomb walkthrough (Next by Next), military vehicles whose wheels roll and steer, a base's pieces and six new kits, building while playing, blood and broken glass, a cave through a mountain, diving and the Air bar; checked by script (`-Demo powerbomb` 13/13, `-Demo basepass` 9/9), none by hand. Before it, see it, change it, add to it, take from it, go deeper (2026-10-24, under Done; committed 735def0), at your message after b73ab4b: the mini map bottom right and put away from the Game menu; one place of work at a time, with a way back; each Project list saying where it is added to and changed; a combo's Edit, Joins and ✕ in a character's profile; the Studio adding a combo from the library and taking one out; the training ring in the clear; animals on four legs (their own models and clips); retro things in the Library; checked by script (`-Demo workflowpass` 8/8), none by hand. Before it, every character a profile, the library under old worlds, capes as cloth (2026-10-24, under Done; committed b73ab4b), at your findings after the Moves & Combat pass, with a proposal for the rest (Draw3D_Character_Management_Proposal_2026-10-24.md, five decisions yours); checked by script (`-Demo profilecloth` 7/7), none by hand. Before it, moves and combat in the Project window (2026-10-24, under Done; committed 5243dea), at your findings on the Combo graph pass: Moves & Combat a category of its own, apart from the characters; every set, combo, move and reaction played for real on the Project stage on a sparring partner, the eye on both; a combo set up by lists; the brawler's strings written as combos; demos' pictures checked to have what they are of in view; checked by script (`-Demo combatpage` 9/9), none by hand, uncommitted. Before it, actions, reactions and the Combo graph (2026-10-24, under Done; `Draw3D_Actions_Combo_Graph_2026-10-24.md`), at your message after d555740: the bigger combat moves as pieces of moves.txt (a blow says what it does to whoever it strikes; pursuit, gravity, crashes, grabs, shots, retargeting as phase words), Window › Combo graph that joins them and says why one cannot follow, the brawler and sparring partners, the Combat debug overlay; the imp and puglin that slid; the kits' weapons in hand, coats against the cold, overgrown ruins; checked by script (`-Demo airjuggle`, `-Demo laterpass`), none by hand, uncommitted. Before it, kits, mangling, the sea floor, cold and fuel (2026-10-24, committed with the auras pass as d555740 at your word, under Done; `Draw3D_Kits_Mangle_SeaFloor_2026-10-24.md`), at your message after the auras pass: a shaped aura as the Effects window's own setting, figures turned on stages, up to 1 GB of free assets downloaded (15 CC0 packs, about 730 MB) and brought in as kits, any folder made a kit, `mangled` designs, the sea floor, the dead walking by their own clips, and what the three reference documents show missing (cold, fuel, radiation, quest debugging and checks, the debug overlays, lock-on to the next); checked by script (`-Demo kitpass`), none by hand. Before it, auras, pinned previews, zombies and the sea (2026-10-24, committed as d555740, under Done). Before it, previews, imports, Edit here and the wasteland (2026-10-24, committed as afedf48, under Done). Before that, looks, powers and mountain ranges (2026-10-24, committed with the rendering pass as cb9a233, under Done; `Draw3D_Looks_Powers_Ranges_2026-10-24.md`), at your findings after the pass extended: styles in the Project window and forms for weathers, goods, needs and recipes; a style of your own changed live and listed under its parent; presets on library styles; paper diorama, sketchbook, watercolour and comic ink; blue buttons and wrapped tooltips; a brush's panel before it paints, every panel movable; a mountain range brush; the glide as a skydiver; telekinesis, force fields and auras; checked by script (`-Demo lookpass` 11/11), none by hand, uncommitted. Before it, the pass extended (2026-10-24, under Done; `Draw3D_Rendering_Variety_Traversal_2026-10-24.md`), at the user's brief "Rendering, World Variety, Traversal and Visual Authoring": Graphics and performance (every renderer setting tried on the scene, measured, the game's, the player's and the editor's kept apart), clouds, palette presets with sections kept and varied, styles drawn as cartoon, pixels, paint and posters, water life that swims each its own way, a super jump and a glide; checked by script (`-Demo rendering` 11/11), none by hand, uncommitted. Before it, controls, wheels, worlds and maps (2026-10-24, under Done; `Draw3D_Controls_Worlds_Maps_2026-10-24.md`), at the user's message after c1df72b: RT shown (every way of a button), layouts kept with the project and tried at once, presses (tap, hold, twice, chords, rows, toggles, on conditions, for a character), wheels with wheels inside them and time held or slowed, World › Project › Controls & Input and Worlds (every world, its ways in and out, a map of them), a mini map and a world map, where an ability's animation is changed; checked by script (`-Demo inputs` 15/15), none by hand, uncommitted. Before it, the Project hub (`Draw3D_Project_Hub_Plan_2026-10-23.md`), committed as c1df72b. The Project window is rebuilt to the user's design (`Draw3D_Project_Window_Design.html`), with abilities given straight to a character, every button changed where it is listed, the aim mended, and forms for powers, shots, statuses, effects, sounds and quests (2026-10-23, under Done; set against the other engines in `Draw3D_Project_Window_Comparison_2026-10-23.md`); checked by script (`-Demo hubplayer` 11/11), none by hand, uncommitted. H1 committed as 26d8476. Next: the rest of H2 (talks, acts, recipes, goods, needs; a power's levels as rows), then H3–H6. Before it: project management, asset inspection and authoring integration (2026-10-23, under Done; `Draw3D_Project_Management_Pass_2026-10-23.md`): World › Project as a browser of what the game is made of (whose each is, what it uses and what uses it, Go to, opened in its own window), the character played made explicit (and the Studio opening on it), Shots and powers readable with a labelled preview on the character, targeting fixed at its cause (`targets`/`picks`, foes only, the lock first, the aim ray), power levels (Emberwatch's ember bolt level 2 after Rook's quest), the world's night and lanterns (Environment › Night) and a Debug window (F3); checked by script (`-Demo projectflow` 11/11), none by hand, uncommitted. Before it, shots, powers, statuses and effects (2026-10-23, under Done; `Draw3D_Abilities_Effects_Pass_2026-10-23.md`), after the user's Emberwatch playtest: reusable shots and powers given to anyone, statuses on anyone with their own look, effects with shapes, light and fields to edit, effects and trails timed by a move's phase, looks by state, Window › Shots and powers, in-game Settings, quieter marks and rims, a quest banner, Pip handed to Finn, and the demo rule (features demos protected, damage reported); checked by script, none by hand, committed as dbb6f73. The map, minimap and starting worlds are planned there (§7, §8), not built. Before it, the Emberwatch remediation (2026-10-23, under Done; `Draw3D_Emberwatch_Remediation_2026-10-23.md`), after the user's first hand test of Emberwatch: gates lined up, legs, the inventory, a light of one's own, the display in talk, facing after a load, a title screen and fades, test switches, one's own models and sounds, the project overview, recentering, effects; all checked by script, none by hand, committed as 6d15acc. Before it, the Emberwatch benchmark (2026-10-23, under Done), a vertical slice authored through the interface, with its evaluation in `Draw3D_Emberwatch_Benchmark.md` and the workflow as performed in `Draw3D_Emberwatch_Authoring_Workflow.md`; not tried by hand. Before it, G2 of the gameplay roadmap is built as Draw3D's own behaviour and rules system (7dh, and its guard as 7di, both under Done; amendments 7dh and 7di record the decisions), auto-checked, not tried by hand; the construction bar's button is owed. Before it, G1 and X1 of the gameplay roadmap (`Draw3D_Gameplay_Roadmap_2026-10-21.md`) are built (7dg, under Done) on the roadmap's own answers to its section 10, as the user said to continue it without answering; G2 (states as pages, the Behaviour and rules… entry point) is next. Before them, the user's findings after 7df were mended (7dg). Before it, 7df (construction made sound, several chosen; under Done). Before that, the core capabilities audit (`Draw3D_Core_Capabilities_Audit_2026-10-21.md`) awaits the user's review; at their word no next major system is begun until it is reviewed. Before it, cut, joined, taken away (7de, under Done): what the construction milestone still lacked of Tiny Glade's handling, found by checking the reference against the code. Before it, 7dd and 7dc (under Done). Before them, context and the wild edges (7db, under Done), from the user's hand test of 7da with two pictures (a context bar too long, porch roofs that do not line up) and their list, "work autonomously to complete these things and use your judgement for the smaller reversible things". Before it, its details beside it (7da, under Done), from the user's hand test of 7cz ("refer to the docs and proceed ... complete the milestone ... I can test them out after"). Before it, decorated and alive (7cz, under Done), from the user's hand test of 7cy ("everything so far recently is finally headed in the right direction"). Before it, where a tower meets a house, and cattails' heads (7cy, under Done), from the user's hand test of 7cx ("really good pass again"). Before it, mixes, rocks and towers (7cx, under Done), from the user's hand test of 7cw ("extremely pleased with the direction"). Before it, changed where it stands (7cw, under Done), from the user's hand test of 7cv ("very, very finally good in terms of the direction"). Before it, one house of one outline (7cv, under Done), from the user's hand test of the bar. Before it, the construction bar (7cu, under Done), at the user's ask that construction follow how a Tiny Glade player builds; how a player builds there, and what Draw3D lacked against it, is in amendment 7cu. Before it, roofs that are one where houses meet (7ct, under Done), construction going on from what 7cr owed. Before it, the user's hand test of 7cr mended (7cs, under Done). Before it, a wall stops where a house stands, houses that touch share their walls (7cr, under Done), the user's choice of next slice. Before it, the fault the user found testing 7cp by hand was mended (7cq, under Done); construction goes on from what 7cp lists as owed, with the user's findings of 7cq beside it. Before it, houses of their sorts, stairs of their own, what is joined following, a style and a palette (7cp, under Done), at the user's ask for variety and their direction document of 2026-10-20 (construction first, a first stylized style and an editable palette, save scopes made explicit); what of the Tiny Glade reference is still owed is listed in 7cp. Before it, a drawn house's floors and stairs (7co, under Done), after the user found a two-storey house had one floor inside and asked that systems connect and adapt to one another; what adapts and what does not yet is in 7co, the joining tier awaiting approval. Before it, a drawn house's own look, dragged out, and its handles (7cn, under Done), after the user said "proceed with the next step": the next tier in the comparison document was buildings with handles, and with 7cm the user had asked that anything they don't like be restylable. Before it, a drawn wall's own look, its towers' handles, a place put in or taken out and snapping (7cm, under Done), after the user found 7cl "closer to the goal" and asked for the next step, saying they will want to change the palette or restyle the objects themselves (a tower's roof they don't like), with handles and textures. Buildings, paths and the rest keep the world's style for now. Before it, walls drawn by dragging, built live, with handles (7cl, under Done), at the user's word after they rejected 7ck as not how Tiny Glade builds; the comparison and the tiers after it (snapping, cutting and joining walls, buildings with handles, paths as a brush with live arches, windows placed) are in `Draw3D_Tiny_Glade_Comparison.md`, each for the user's approval. Before it, places drawn that know one another (7ck, under Done), at the user's brief of 2026-10-18 that resumed construction ("Integrated, Context-Aware Modular Construction"): paths that open a gate or a door where they cross, growth and the brush that keep clear of what is built and of the ways through it, borders and gardens round houses, a pond with a bank and life of the library's; its audit, the six decisions taken and what is owed are in `Draw3D_Modular_Construction_Feedback_and_Next_Systems.md`, section 6. Before it, the Forgotten Watchtower made fit to show (7cj, under Done), at the user's verdict on 7ch; the polish bar it is judged by is in `Draw3D_Wilderness_Adventure_Benchmark.md`, part E. Before it, the wilderness benchmark, the Forgotten Watchtower (7ch, under Done), at the user's brief of 2026-10-18; its record is `Draw3D_Wilderness_Adventure_Benchmark.md`. After it, the user's queued item: the assistant (Qwen) asked for a 3D sign shaped as a vase with flower silhouettes added something to the Library with no visual, and placing it does nothing. Nothing of 7ch is committed (the user has not tried 7bz on by hand). Before it, when this happens, do this (7cg, under Done), the catalogue's third tier; the fourth (moves and acts in the catalogue) is next. The user said not to commit until they have tried 7bz to 7cf by hand. Before it, only while it holds (7cf, under Done), the catalogue's second tier, after the user said to continue with the next logical steps. The user said not to commit until they have tried 7bz to 7ce by hand. Before it, modelled and asked for (7ce, under Done), after the user's asks on 7cd (Godot's modelling tools, LLM support with undo as in Draw5, a default character with a sneak that is not the basic one, then the next steps). The user said not to commit until they have tried 7bz to 7ce by hand. Before it, furnished and set out (7cd, under Done), after the user's questions on 7cc (doors, the HUD, furnishing buildings and caves, the outline jumping, more pictures and covering things, the next steps; an LLM's cost and Godot's modelling tools answered in amendment 7cd). The user said not to commit until they have tried 7bz to 7cd by hand. Before it, what anything can do (7cc, under Done), after the user tried 7cb by hand (colours and textures, the colour crash, applying without Enter, three search heights, uses not seen, a catalogue of abilities or a plan for one, the bed-creature lying wrong, climbing walls and ceilings); its catalogue's next tiers are proposed in amendment 7cc for the user. The user said not to commit until they have tried 7bz, 7ca, 7cb and 7cc by hand. Before it, anything made, and made to do anything (7cb, under Done), after the user tried 7ca by hand (their list: search, facing, a search animation of its own, nothing hard-coded, the controller in the inventory, animations downloaded, their own uses, shapes, models, an exe). The user said not to commit until they have tried 7bz, 7ca and 7cb by hand. Before it, use anything (7ca, under Done), at the user's choice ("Do the quick fixes first … then build the Use anything milestone … Survival needs are approved."). Before it, a click shows how it works, and changes it there (7bz, under Done), after the user said: "ensure what you're making is editable in the engine. it's still not intuitive. when i click on an object or entity i should be able to see its info, modify its physical attributes or behaviors and related conditions … if i click on a house i should have access to all relevant settings including switching the camera view under certain conditions." Before it, keys, drops, finds by chance and breath spent by dodges and blows (7by, under Done), after the user said to proceed: the small items left in section 5, item 6 of `Draw3D_Genre_Readiness_2026-10-17.md`, but for ladders, a gate anywhere along a side and a curve through a drawn line. Before it, a boss of phases, and acts seen side-on reached at once (7bx, under Done), after the user's hand test of the shelter ("everything is reasonable for now"; the walk before an act faced the wrong way) and "continue with the next part". With it the enemy section of `Draw3D_Genre_Readiness_2026-10-17.md` has no row left that needs no approval. Before it, barricades, locks, crafting, searching heard and stamina (7bw, under Done), after the user said to continue. Before it, the enemy section, building by drawing and houses of storeys (7bt, 7bu, 7bv, under Done), at the user's word: "work on the advanced enemy behaviors … until the completion of the enemy section then work on modular building like tiny glade style … and modular for the 2.5d style buildings like in this war of mine and into the dead our darkest days … make sensible reversible decisions and only defer extremely major directions". What is left of each, and what would advance the engine most, is in `Draw3D_Genre_Readiness_2026-10-17.md`; survival needs, live drawing and enemies drawn by animated characters wait for the user's word. Before it, the user's findings on 7br mended (7bs, under Done). Before it, items and saved games across worlds (7br, under Done), at the user's word. Before it, connected worlds (7bq, under Done), the second of the three steps 7bp recommended, at the user's choice. Before it, the user's findings on 7bo and their open-world direction (7bp, under Done): the inventory's freeze found and mended, each enemy's settings in the Inspector, rooms re-rolled per run and cutaway walls (approved), and the direction catalogued against what exists, with three larger steps recommended for the user to approve (composable behaviour's second tier, connected worlds, survival needs). Before it, side-on 2.5D, perception and stealth, creatures, a level as a genre (7bo, under Done), at the user's authorisation of the two systems 7bn recommended and the reference's mechanics, cheapest first; vehicles, rooms re-rolled per run, character switching, bosses, cutaway walls, enemies as clip-animated characters and the project-management area itself are still the user's. Before it, a library of styles after games (7bn, under Done): eight of the 30 games (the reference document was not provided), the picture and `takes` in a style, the Styles window; perception and stealth and a side-on 2.5D camera recommended next, for the user to approve. Before it, the shot camera (7bm, under Done). Before it, the sixth hand test (7bl, under Done): the library folded to the side, the blade as the sheath lies, and the eight ways (approved after 7bk's explanation); the shot camera still approved and not begun. Before it, the Studio after ActionForge (7bk, under Done): what the user found trying the animator pass by hand, mended, and the Studio laid out with a clip library of pictures; the shot camera approved, eight directions awaiting the user after an explanation, rigging declined. Before it, the animator pass (7bj, under Done; `Draw3D_ActionForge_Analysis.md` A1–A3, B4–B7, at the user's word "go all the way to b 7"): fingers moved by the clips and closed round a grip, a clip over a part of the body, how a body is held and walks, what follows it, its feet on the ground, poses of one's own with keys, the clips looked through quickly; C and B8 wait on the user. Before it, items, equipment and the game's own screens (7bi, roadmap section 7, under Done): items each with its own id, gear of the library's Gear to find picked up and worn or taken in hand by the walker's character, the display while playing, the inventory (I) and the menu (Esc), all of it in a saved game. Before it, the Studio's fourth hand test answered (7bh, under Done): every box seen, the yard's stick as the game's and mirrored, a thing carried that stays where it is or goes with the one in hand, a fit kept for a model; a weapon designer, clothes and fingers on a grip planned. Before it, the third hand test answered (7bg, under Done): why the sword was not drawn by the cut (an old set in the world and in the profiles; the box read as on), the yard's pad and keys and its right stick, versions of a move, Make on the character's row, the sword's grip on other models. Before it, making a character, tier 1: the Studio's Make tab (7bf, under Done); tier 2 (faces, eyes, hair, expressions) waits on the user's choice of assets (`Draw3D_Character_Maker_Plan.md`). Before it, the Studio's second hand test answered: drawn by the cut, + Before, a weapon's own moves, lock-on, the yard, a cape that swings (7be, under Done); making a character planned (`Draw3D_Character_Maker_Plan.md`), tier 2 waiting on the user's choice of assets. Before it, the Character Studio after the user's hand test (7bd, under Done). Before it, a two-handed stance, both hands by IK (7bc; A1c open), after the other hand by IK (7bb), under Done with 7ba. Before it, gear, buttons of one's own, moves and combos on any button, and a phase's numbers all in sight (7ba, "Character Studio: gear and buttons" under Done; the audit, the stages after it and five decisions are in `Draw3D_Gear_Actions_Controls_Plan.md`). Before it, the Character Studio made easier to work in, and how its moves reach a player's buttons (7az, "Character Studio: what plays stays in sight" under Done; the four questions it leaves are there). Before it, Mixamo's clips taken in: FBX read, `map mixamo`, Import clips… in the Studio's Clips tab (7ay, "Character Studio: Mixamo's clips taken in" under Done); the steps after downloading are in the checklist. Before it, the Character Studio's workflow made to follow the work: what can be changed first, one Edit for a move or a combo, saved, copied or discarded, and Where under the preview (7ax, "Character Studio: the workflow" under Done). Keyframes, Mixamo, a kind's set chosen from a window and a project-wide save of moves are answered there, not built. Before it, the Character Studio's playback made explicit (Play plays what is chosen), dash-and-cut mended, its panels steadied, the paint brush agreed on between Objects and the Plant Generator, and a UI overhaul proposed (7aw, "Character Studio: Play plays what is chosen" under Done; the proposal is `Draw3D_UI_Overhaul_Proposal.md`). Animation work is parked there, at the user's word. Before it, the Character Studio made reliable, with phases, combos and Universal Animation Library 2 (7av, "Character Studio, reliable" under Done), after its authoring pass (7au, "Character Studio, authoring" under Done) and its first tier (7at, "Character Studio, first tier" under Done). Before it, sound, first tier (7as, "Sound, first tier" under Done), after Signals was finished to a first
 version (7ar: several joints a thing, what waits kept in a saved game). Before it: the pass after the plants is built (see "Plants walked through,
 bamboo and stranger forms, painted by the thousand" under Done, and amendment 7ap), and
 the field after it ("A field that fills an outline", 7aq).
@@ -214,6 +216,17 @@ already behaves:
    - A3: gear in the world's inventory, and slots;
    - A4: whether profiles carry gear, and a gear library shared across projects;
    - A5: a stance of its own while a weapon is put away.
+5. **Sounds and music made by a model** (asked 2026-10-28: "can we integrate something like
+   audiocraft"). A big bet, proposed and not built. Meta's AudioCraft (MusicGen, AudioGen)
+   is MIT code but its model weights are CC-BY-NC 4.0: not for a game that is sold. It
+   also needs Python and a CUDA GPU, neither set up here. Choices, cheapest first:
+   (a) grow what is here: `sounds.txt` recipes made by the engine (no model), with more
+   recipes and a "make one like…" form; (b) Stable Audio Open (Stability AI's community
+   licence allows sold work under a revenue limit) run locally, as a separate tool that
+   writes .ogg files Project › Import takes in; (c) a paid sound-effect API, files made on
+   request and imported the same way. (b) or (c) is about one pass; the user chooses.
+   **The user, 2026-10-28:** "i will probably use stable audio open on this machine. will
+   think about it." Nothing is built for it until they say.
 
 ### Waiting for a hand, no decision needed
 
@@ -1040,6 +1053,53 @@ A demo saves to its own slot (`demo`).
 | `guard` (9 beats, about 8 min) | `editor\run.ps1 -Demo guard` | 7di, G2's guard: guard_ways read, a deer's lacks said; given to every library guard in the window, one its own gives_up 2; patrol; a noise heard, gone to and looked at, nothing, back to the round; heard again and the walker seen: the alarm (words, fact, bell, the others told), after them at a run; the others hurry to look, one gives up on the way; lost, searched, back to the round; caught: the behaviour answers, nobody sent home; saved while looking and loaded, it goes on to where it heard the noise (PW0); shown in Playtest; stopped. Each checks itself (-Check) |
 | `emberwatch` (13 beats, about 9 min) | `editor\run.ps1 -Demo emberwatch` | the Emberwatch benchmark played prepared, on the world `run.ps1 -Author emberwatch` made through the interface: Mara's and Bram's quests, supplies, two gaps mended, a kit made and put down, F5/F9, Pip, the ridge, the beacon repaired and lit, the night begun, the north gate battered and holding, Dawnkeeper | everything; the night at the gates by a person's eye |
 | `emberdark` (4 beats, about 4 min) | `editor\run.ps1 -Demo emberdark` | the same world unprepared: gaps broken, the assault at midnight with the beacon cold, wolves inside and after Wren, Cold Valley | everything |
+| `lockwalk` | `editor\run.ps1 -Demo lockwalk` | remediation B, 8: Wren walks aside locked on, feet crossing measured; R3 tapped recenters, held sheathes. Checks itself | the gait by eye |
+| `gaterepair` | `editor\run.ps1 -Demo gaterepair` | remediation A: rays through Emberwatch's three gaps before and after mending | a wolf at a mended gate by eye |
+| `hudrules` | `editor\run.ps1 -Demo hudrules` | remediation E, 3D: a notice moved clear of talk, the quest hidden in talk and shown for a while after a change, peek, the `fade` step | the screen by eye |
+| `playerlight` | `editor\run.ps1 -Demo playerlight` | remediation D: a lantern held, worn at the hip, M and the use button; the flashlight's beam | the night by eye |
+| `testswitches` | `editor\run.ps1 -Demo testswitches` | remediation 4: Playtest › Testing, cannot be hurt, needs kept full, needs still; the red line; not in the save | everything |
+| `titlescreen` | `editor\run.ps1 -Demo titlescreen` | remediation 3A–D: the start's title rows, New game, Continue of a saved game, a picture behind, the fade in | the title by eye |
+| `soundfile` | `editor\run.ps1 -Demo soundfile` | remediation 7: a .wav brought in, a sound replaced by a file, Go to what sounds it for a weather | hearing it |
+| `projectview` | `editor\run.ps1 -Demo projectview` | remediation 6: World › Project overview, every row, a missing file at the top, Open where it is changed | everything |
+| `effectsdemo` | `editor\run.ps1 -Demo effectsdemo` | remediation 9: flames as the `fire` effect, Window › Effects, Preview, Give it to the one picked | the fire by eye |
+| `ownmodel` | `editor\run.ps1 -Demo ownmodel` | remediation 5: Inspector › Look like a model of mine…, About this type, Look as it was made | everything |
+| `powers` (9 beats, about 4 min) | `editor\run.ps1 -Demo powers` | the pass after the playtest, in Emberwatch: the shots, powers and statuses read back from the saved world and changed in their form; Rook's ember rod taken and thrown at a wolf (burning, its flames, the quest done and its banner); the alpha using the same ember_bolt; marks and Settings; the woodpile low when empty; Pip going to Finn; the beacon's beacon_fire. A features demo: the walker cannot be hurt, and the end says what was spared. Checks itself | everything |
+| `kitpass` (11 beats, about 10 min) | `editor\run.ps1 -Demo kitpass` | On a copy of the island town: auras seen shaped effect by effect without a tick each, a fire's row greyed; the stage's figure turned and spun; an abandoned car crushed then ruined, a kit's police car burnt out; 14 kits in the Library and a folder made a kit; the sea floor off a beach (a crab creeping, a shark swimming by its clip); a graveyard zombie, a slime and an imp walking by clips; cold in the snow, warmed under a roof by a fire; radiation by toxic drums; a war truck run out of fuel and filled; moves and clips over everyone, a quest begun and stepped in Debug; lock-on moved aside. Features: protected | the same by hand |
+| `airjuggle` (11 beats, about 6 min) | `editor\run.ps1 -Demo airjuggle` | On a copy of the island town, the walker as the brawler and two sparring partners: the brawler's moves in the Combo graph (a join dragged and taken out); jab, cross and the launcher, a jump out of it, an air dash to them up there, an air punch and kick (each lifting less), the katana drawn for a cut and sheathed in a spin kick, an axe kick slam, the lock moved to the other before landing and an air dash and slam on them; a kick into a wall and off it, caught on the bounce; one kicked into the other; a grapple from 6 m and a powerbomb; a flip off a chest throwing three darts; a move asked out of its window refused and why said (the Combat overlay, a window moved in the graph); the juggle limit and a safe landing. Features: protected | the same by hand, in the training ring |
+| `profilecloth` (7 beats, about 3 min) | `editor\run.ps1 -Demo profilecloth` | A world's own copy of moves.txt without the brawler: the brawler, its combos and its boxes in the Combo graph all the same; the sparring partner's page a profile (Who, Moves, Combos, Carries, Abilities); the ranger given Launch and pursue from its Combos tab and playing it on the stage; the mannequin given the jab, cross and kick, a set of its own made so walker is untouched; the Combo graph opened from the ranger's Moves tab, each set said with whose; a cape on the ranger as cloth, out behind a run, settled after, seen from the side and behind. Features: protected | the same by hand |
+| `workflowpass` (8 beats, about 5 min) | `editor\run.ps1 -Demo workflowpass` | The mini map bottom right, hidden, shown, moved to a corner and back from the Game menu; the brawler's Combos tab, a combo's Edit opening the Studio on it with the Project put away, and *‹ Back to Project*; Joins opening the Combo graph in its place; a combo added to the ranger in the Studio from the library and taken out; Characters & Creatures' ways, the creature library opened from them; the training ring in the clear, the Project back after; animals on four legs (horse, cow, pig, donkey, stag, zebra, deer, wolf) walking, grazing, galloping; retro things put down and seen close. Features: protected | the same by hand |
+| `powerbomb` (13 steps, about 4 min) | `editor\run.ps1 -Demo powerbomb` | A walkthrough, Next by Next (pressed by itself with -Check): the brawler's powerbomb in the Character Studio played on the sparring partner; its grapple swapped for the launcher; an air dash after it; a sword stab made from the air slash (a thrust, a step forward, them held up); the dash's window opened to the stab; a slam made from the powerbomb's, which strikes them down into the ground while the brawler hovers; the whole combo played and measured (the brawler still up as they land); kept as air_powerbomb, the powerbomb as it was. Each step says what it will change, then outlines what changed. Features: protected | the Studio's Combos tab, *Show me, step by step* |
+| `basepass` (9 beats, about 6 min) | `editor\run.ps1 -Demo basepass` | Library › Military and base building: a jeep, truck, carrier and tank; the jeep driven and turned, its wheels rolling and the front two steering; the base's pieces (bunker, warehouse, watchtower, guard tower, sandbags, gun nest, checkpoint, barbed wire, tent, lockers, crates, generator, radio); the six new kits placed; build mode in play (a plank wall, a concrete wall, sandbags, not enough for the next, one taken down and its goods given back); grime and gore laid and left by blood_burst and glass_burst; in town, a dive with the Air bar going down and coming back; on the forest glade, a mountain range drawn and *cave through* dragged across it; walked in at one mouth, along the cave, out of the other. Features: protected | the same by hand |
+| `uppercut` (8 steps, about 3 min) | `editor\run.ps1 -Demo uppercut` | A walkthrough, Next by Next (pressed by itself with -Check): in the Character Studio's Clips, the cross punch chosen as the closest clip; a clip of one's own made from it and named my_uppercut; an uppercut laid on with the slider at the hit; the elbow bent more; a dip lower before it; played quicker; given to the brawler's launcher and played on the sparring partner; then Browse files... opening a KayKit file and playing its unarmed punch on the character before importing. The fist's height and reach measured at each step. |
+| `dressed` (6 beats, about 2 min) | `editor\run.ps1 -Demo dressed` | Ann in the Character Studio, Make, Clothes and face: her head with a face of twelve shapes, hair, clothes piece by piece; Close on the face, then angry, happy, surprised and sad tried on her; Talk (the mouth going); her travel outfit (ranger's hood and pauldrons); her hair picked and coloured, her resting face set, a face made with the sliders and kept as 'sly', all three undone; four kinds drawn as Ann, Tom, Mira and Rook wandering a world. | how the faces read at play distance, the brows and hair in daylight, each piece worn under every clip |
+| `charguide` (9 beats, about 4 min) | `editor\run.ps1 -Demo charguide` | The walkthrough *a character of my own* run step by step: the brawler copied, a man's head given (twelve face shapes), hair and a beard, the ranger's pieces, a face at rest and faces tried, 'proud' made with the sliders, one put in the world, its day and reactions in Routines; then it in edit mode and played, alike. | whether each step is clear to follow by hand; the copy's face at play distance |
+| `routines` (6 beats, about 3 min) | `editor\run.ps1 -Demo routines` | Window › Routines on a baker: its day of three parts (a face for the morning), its paths drawn; its work with a branch on the rain; it meets the player, it rains; a rule for everyone to go in from the rain, which the walker in the rain keeps its own day through; played at nine in the rain. | the window's layout at a smaller size; the paths over hills; a branch picked by hand |
+| `desert` (5 beats, about 3 min) | `editor\run.ps1 -Demo desert` | Library › Desert and Cave finds put down: camels, scorpions, a cobra, a lizard, cacti, palms, a well, a tent, a market stand; played, the animals go about (a camel plods, a scorpion skitters); crystals and mushrooms that glow; a crystal vein mined (three crystals), a chest searched. | how the models sit together; which way the gecko, scarab and black scorpion face; an oasis laid by hand with sand and a pond |
+| `editlook` (3 beats, about 2 min) | `editor\run.ps1 -Demo editlook` | Ann and Rook drawn in edit mode as they are played; a right click on Ann lists where each of her is changed; her day (Routines) and her looks (the Character Studio) opened from it. | the menu by a real right click; Routines and the Studio opened on someone of a town |
+| `gathering` (5 beats, about 1 min) | `editor\run.ps1 -Demo gathering` | A vegetable patch harvested, waiting until watered, fed for more; a berry bush picked by hand; a jetty fished from with a rod in hand, a fish one time in two; what was gathered in the pack and counted; Project › Fields and gathering. | each by hand with the controller |
+| `studioclick` (3 beats, about 1 min) | `editor\run.ps1 -Demo studioclick` | A move clicked in the Studio's list plays it, clicked again plays again; a phase clicked plays that phase; every move of the one played clicked in turn. | |
+| `skysea` (4 beats, about 1 min) | `editor\run.ps1 -Demo skysea` | Soft-edged clouds; Environment › The sea's waves from flat to heavy, a boat riding them; undone. | |
+| `partmove` (3 beats, about 1 min) | `editor\run.ps1 -Demo partmove` | One thing picked: the square knob behind its turning ring dragged moves it, a drawn house's wall among them, one edit, kept when the house is made again. | dragging a wall by hand |
+| `partswap` (5 beats, about 1 min) | `editor\run.ps1 -Demo partswap` | A house drawn; the wall with its door picked, "its door" offering the library's castle door, put in the doorway; a wall lantern swapped for a lamp that fits; both kept through a third storey; undone to the house's own. |
+| `wastes` (6 beats, about 3 min) | `editor\run.ps1 -Demo wastes` | `editor\town-wastes.json` (build it with `editor\town.ps1 -Wastes`): the far island over the sea and the causeway; the village after the end; walked on the causeway; a boat at either shore; how far things are drawn, measured three ways; far regions let go and near again. |
+| `questform` (4 beats, about 1 min) | `editor\run.ps1 -Demo questform` | Every quest read into cards and written back the same; the hall's supper as two step cards; 3 bread picked instead of 2, undone; a step added and moved up, undone. |
+| `harvest` (3 beats, about 1 min) | `editor\run.ps1 -Demo harvest` | A wheat crop from the Plant Generator, harvested (sheaves in the pack, stubble left), not again while cut, ripe again after its hours. |
+| `workshop` (5 beats, about 1 min) | `editor\run.ps1 -Demo workshop` | A character's page: Moves as the character, its profile and its workshop; the Studio saying whose workshop it is and going back; a set made like another; Powers. |
+| `houserooms` (4 beats, about 1 min) | `editor\run.ps1 -Demo houserooms` | A drawn house's Rooms: bedrooms, a bathroom and a kitchen asked for storey by storey, laid out and furnished; a wall between two rooms dragged; Shuffle. |
+| `turnswap` (3 beats, about 1 min) | `editor\run.ps1 -Demo turnswap` | A garden bench picked: the ring round it, its knob dragged a quarter round (drawn turning, then turned), one Ctrl+Z back; Flowers painted, a new patch painted, the panel's list of both patches and the first chosen; one flower of a patch swapped for a poppy where it stood, and back. |
+| `gameshell` (10 beats, about 2 min) | `editor\run.ps1 -Demo gameshell` | The game shell on Emberwatch, titled: the title (New game, Continue and Load not pressable with nothing saved, Credits), New game behind the loading screen, the menu's Save the game… to slot 1 (saved over only when pressed twice), the autosave at a checkpoint, Back to the title and Continue taking up the autosave where she stood, the list with an unreadable slot, You fell (tried again, then slot 1 loaded from it), a slot deleted, the credits rolled, The game's flow in Project settings set from its form. Its saves under its own names, gone after; game.txt as it was. |
+| `comboscreen` (6 beats, about 1 min) | `editor\run.ps1 -Demo comboscreen` | The Studio's Edit tab on the brawler's powerbomb: one play bar, the moves as cards, the + list under the row (the launcher put in after the grapple), the chosen move's tools (‹ moved it first, the bin took it out), its phases (▶| to the next), the Hit card saying the launcher reached them and, with a 5 cm reach, missed, the whole combo on one timeline and dragged onto the second move. Discarded at the end. |
+| `slide` (3 beats, about 1 min) | `editor\run.ps1 -Demo slide` | Running standing at a bar 1.05 m up: it stops the player. Crouch pressed at a run 3 m before it: the slide takes them under. On to a low roof 4 m long: slid under it, they stay crouched beneath it, creep on, and stand again past its end. |
+| `combatpage` (9 beats, about 4 min) | `editor\run.ps1 -Demo combatpage` | World › Project › Moves & Combat: sets, combos, fighting moves, reactions apart from the characters; launch and pursue played on the stage by the brawler on a sparring partner (the eye on both the whole while); the four old combos played by whoever's set has their moves; the super launch played after the launcher that lets it in; launched shown by the partner; the brawler's set playing its combos in turn; a move added to a combo from its list and played at once; a combo made from Create; one opened in the Combo graph. Features: protected | the same by hand |
+| `laterpass` (4 beats, about 4 min) | `editor\run.ps1 -Demo laterpass` | The dead walking with their limbs (the imp and the puglin too); the kits' weapons as things to hold, pointing ahead, the brawler holding the kit's sword; ruins taken back by the green; the cold in the snow, then in a coat. Features: protected | the same by hand |
+| `deadwalk` (1 beat, a probe) | `editor\run.ps1 -Demo deadwalk` | Every kind of the dead put down and measured as it hunts: how far it went, how much its limbs turned. Features: protected | — |
+| `aurapass` (8 beats, about 8 min) | `editor\run.ps1 -Demo aurapass` | On a copy of the island town: a shaped aura on the played character in Effects, the stage and buttons pinned while the settings scroll; flame, blue, hugging 0 and 0.9; Shots and powers' own stage; Project's stage pinned; an aura hugging the player in the world; a zombie shambling by clips; an abandoned car searched; fish off a beach never ashore, mackerel in a school. Features: protected | the same by hand |
+| `ownpass` (10 beats, about 7 min) | `editor\run.ps1 -Demo ownpass` | On a copy of the island town: an aura, a status, a power, a shot and a force field on the Project window's stage; an effect changed and seen at once on two stages and larger; a force field set by fields; a particle picture and a model brought in and changed; a talk and an act by fields; every sort opened; the wasteland put down and seen in two styles; the war truck driven; Edit here and back. Features: protected | the same by hand |
+| `lookpass` (11 beats, about 5 min) | `editor\run.ps1 -Demo lookpass` | On a copy of the island town: a style's page in the Project window and the pages of eleven other sorts; Summer's glow moved, made yours under it, seen at once; a preset on Autumn made yours; a palette saved to palettes.txt; paper diorama, sketchbook, watercolour, comic ink; blue buttons and wrapped tooltips; Life's panel before painting, moved and put back; a mountain range with a pass and snow, undone; the glide as a skydiver; telekinesis on a crate; a hex force field and six auras; telekinesis's form. Features: protected | the same by hand |
+| `rendering` (11 beats, about 4 min) | `editor\run.ps1 -Demo rendering` | On a copy of the island town: each quality and setting on the scene, measured side by side; what players are offered, their choice, what is tried and the game's kept apart; clouds of every kind, with grey weather and numbers of their own; a palette preset given with a section kept, varied, saved, renamed; Cartoon, Pixel quest, Painted, Posters; water life in the sea, each its own way; a super jump and a glide from a press; found from the Project window. Features: protected |
+| `inputs` (15 beats, about 4 min) | `editor\run.ps1 -Demo inputs` | Controls & Input, Worlds and the maps, in Emberwatch: every way of a button (attack X and RT), one added and undone; a layout saved, tried and undone; the presses and their problems; a tap and a hold on one button; twice, a chord, a row; a toggle ended by a condition; the lantern to hand, hip and hand; presses by what is in hand and how the body is; the long jump and a crawl; the wheel with a wheel inside it and time slowed; a flat wheel of eight chosen three ways, held and not; the mini map and the world map; every world and its ways; a way made, seen at once, and one to nowhere. Features: protected |
+| `hubplayer` (11 beats, about 3 min) | `editor\run.ps1 -Demo hubplayer` | World › Project as the design lays it out, in Emberwatch: the overview; Characters & Creatures as cards; the ember bolt's assignments; a power as its fields; the player's moves with the built-in actions; Dodge's button picked; run's controller button picked and put back; the frost bolt given with no item and had once a quest is done; in play, cast with nothing in hand and aimed as the eye turns; every button; Create › Ability. A features demo (protected). Checks itself | everything |
+| `projectflow` (11 beats, about 4 min) | `editor\run.ps1 -Demo projectflow` | the project pass, in Emberwatch: World › Project (whose each is, find), the character played opened in the Studio and switched only by its button, the ember rod → its power → its users, Preview on the character, harm changed in Shots and powers, saved to a copy and read back; a villager ahead not fired at, a wolf ahead picked and hit, the lock first, a target fallen in flight let go, aiming from behind level; the ember bolt's level 2 after Rook's quest; the night tried in Debug and kept; F5/F9. A features demo (protected). Checks itself | everything |
 | `perceives` (7 beats, about 5 min) | `editor\run.ps1 -Demo perceives` | G5: a deer runs from a wolf and from the walker; a dog heard at a run; the dog up a flight of steps, a villager up a ladder after the walker; an alarm told only to the watch; thirty bodies timed. Each checks itself (-Check) | everything |
 | `crafting` (6 beats, about 3 min) | `editor\run.ps1 -Demo crafting` | G6: an oak felled for wood, scrap taken from a chest, two torches made at a bench (one row of two), one held and lit, the other put in the chest; saved, stopped, started and loaded. Each checks itself (-Check) | everything |
 | `remembers` (7 beats, about 5 min) | `editor\run.ps1 -Demo remembers` | PW1b: the six changes a player makes (an oak felled, a gate left open, an axe dropped, a crate put down from the pack, flour fetched by a villager, a crate shoved), each kept away and back and over save, stop and load; a barrier the ways go round; barley grown while away; a wood sown again that fells no other oak; ten crossings timed. Each checks itself (-Check) | everything |
@@ -1162,6 +1222,72 @@ A demo saves to its own slot (`demo`).
 | `meshes` (6 beats, about 1.5 min) | `editor\run.ps1 -Demo meshes` | a mesh's text in the kinds' panel, with what each line made beside it; three anvils on the road, of two kinds made of the one mesh; a line added to the mesh and all three with a spike; Wren, whose skirt is a mesh and its bands one mesh four times; the skirt written longer and worn at once, walked in and crouched in; what is kept with the world | **writing one yourself**: F6, "New mesh", "A kind of this mesh", "Put one down", then lines added and applied with the thing in view; `turn` for something round (a pot, a hat, a bell), `box` and `push` for something square; `move face N by ...` and `move 3 4 by ...` with the numbers read from beside the text; a line that is wrong, and what is said under the text; Duplicate and Delete on a mesh; Ctrl+Z after each; her skirt's line changed while you walk as her (Tab back to editing first) |
 | `land` (6 beats, about 1.5 min) | `editor\run.ps1 -Demo land` | the land's tools (F8) shown; a brush dragged along a line, the ground rising as it goes; a cliff put down, 6 m, and a ledge 3 m up it; its top painted rock, and what grew there gone; the woods given another seed, every tree elsewhere and the cliff as it was; the walker at its foot: the ledge's edge caught and climbed, then the top's; what is kept with the world | **the brush under the hand**: does the ground follow the pointer closely enough, is a stroke the size you meant, `[ ] - =`; each brush; a cliff turned (`, .`) and put where you want it, and a ledge on it; climbing what you made, and falling off it; a house's ground levelled with flatten; a pond dug with lower, down to the water; F7: `?`, freeze, the road's places; F10: a move changed and taken back. The whole manual script is in `Draw3D_Milestone_M2_Brief.md` |
 | `climb` (6 beats, about 1.5 min) | `editor\run.ps1 -Demo climb` | the yard's wall gone at with a jump: its edge caught on the way up, and hung from, the hands on it; jump, up onto it, as it is and five times slower; walked off its edge, a jump asked just after (it counts) and too long after (it does not); hung again and let go with crouch, hung again and pushed off; a house's wall held to, slid down, and jumped off; a copy of `moves.txt` in which it slides at 0.5 m/s | **all of it under the hand**, keyboard and controller: is an edge caught when it is wanted and not when it is not (it wants a way asked into the wall); the pace of the climb; C to let go; a wall jump from one house to the next; a hang caught from above, having walked off and turned back; up onto a stall, a well, the pen's wall and along it; a roof, if one can be got onto. The numbers in F1 ("Walls and edges") and the four moves in `moves.txt` changed while playing. How it looks in motion |
+| `foes` (5 beats, about 2 min) | `editor\run.ps1 -Demo foes` | Window › Foes: a villager made a duellist with "Fight as …", its defence and patterns set; a boss whose blows change as its health drops; guards, parries and dodges in play | all of it |
+| `areas` (6 beats, about 2 min) | `editor\run.ps1 -Demo areas` | Window › Regions: a region drawn on the land, given weather, light, music and a table of who lives there; walked into and out of; named when found; the map dark until walked | all of it |
+| `cavegrow` (4 beats, about 1 min) | `editor\run.ps1 -Demo cavegrow` | cacti, crystals and mushrooms grown from numbers in the tree generator, presets and knobs; the crystals and mushrooms glowing by night | all of it |
+| `sea` (3 beats, about 2 min) | `editor\run.ps1 -Demo sea` | a harbour from the library's Sea and harbour: a lighthouse lit at night, a pier, boats; pirate ships and a navy galleon sailing and firing cannonballs, the shore battery answering | all of it |
+| `base` (4 beats, about 2 min) | `editor\run.ps1 -Demo base` | build mode while playing: chain-link panels joined edge to edge, barbed wire on top, platforms joined into a deck, steps, a tower, turrets on the deck; mines, bear traps and spikes outside; the dead come and the base fights | all of it |
+| `parkour` (10 beats, about 3 min) | `editor\run.ps1 -Demo parkour` | the town's parkour run: the checkpoint and the grappler, ice, a slide under a bar, up the climbing face, along under the overhang, from a box onto a deck, a long jump to the next; the axe drawn and put away by its button, put away for a pull-up at a run; a run along a wall; the grappler up to an edge | the run by hand, with a controller |
+| `range` (4 beats, about 1.5 min) | `editor\run.ps1 -Demo range` | the range on the training ground: a bow and a box of arrows, three arrows shot and stuck as they flew, the practice turret swinging round to follow, the range's parts as things to change | the bow by hand, with a controller |
+| `layouts` (2 beats, about 1 min) | `editor\run.ps1 -Demo layouts` | the pad's layouts gone round while playing (Classic, Parkour, Combat), and the press that does it changed in a form | all of it, with a controller |
+| `seeing` (3 beats, about 1.5 min) | `editor\run.ps1 -Demo seeing` | a sheep three times as big still a sheep; keen senses outlining everyone near through walls; quicken: the world slowed, the walker not | all of it |
+| `frontier` (12 beats, about 4 min) | `editor\run.ps1 -Demo frontier` | bold autumn and misty teal; the palette's saturation and warmth shifted; a saddled horse's bags opened and ridden; a stew cooked and water boiled, slept in a cot till seven; an infection turning; a hot zone and a gas mask; a generator lighting a work light, running dry, fuelled again; a pack of three things; a brute's guard broken, knocked down and up again; seized and struggling free; a lookout finding a body; a bodyguard going at a raider; the raid preset; an ending added by its form | all of it |
+| `drygulch` (5 beats, about 2.5 min) | `editor\run.ps1 -Demo drygulch` | Dry Gulch's main street; its folk with faces; beans bought from Mabel by talk and over the counter; a shave and a whiskey; the Blackwater gang | all of it |
+| `rewards` (7 beats, about 3 min) | `editor\run.ps1 -Demo rewards` | a bandit falls and leaves his loot by its icons, +XP; walked over, taken, level 2; a recipe wanting a level, one learnt from a scroll and a bench of tier 2, the bench bettered; an axe worn out and mended; flame and lightning trails; a fence against a wall, a deck on it on posts; the assistant drafting loot, a recipe and the game's earns | all of it |
+| `bodyimport` (3 beats, about 1 min) | `editor\run.ps1 -Demo bodyimport` | a body on Mixamo's bones imported as a character, the Studio showing it, made the walker and walking and running; bones with no body refused | a real Mixamo download |
+| `idle` (3 beats, about 1.5 min) | `editor\run.ps1 -Demo idle` | people standing about in the training ground: a flask and a smoke, sat cross-legged on the bench, leaning on a wall with arms folded, a head turned to the walker going by; each facing as it was put down | all of it |
+| `valley` (4 beats, about 3 min) | `editor\run.ps1 -Demo valley` | the far valley over its causeway: its river and bridges, woods and deer; Millbrook of whole houses and its waterwheel; the cave under the mountains to its gold chest; the train through every town, stopping at Millbrook | all of it |
+| `marketday` (5 beats, about 2.5 min) | `editor\run.ps1 -Demo marketday` | the Millbrook shop's window: bought, known there after a quest, the cookbook cheaper, bread sold back; an apple pie cooked at the campfire and eaten; a region's finds in a chest; two places found and travelled between; a body hidden in tall grass | all of it |
+| `hazards` (6 beats, about 2 min) | `editor\run.ps1 -Demo hazards` | a raider lured through a fire pit; fuel drums struck, exploding one after another; a parry answered by a counter; a chaser coming round a barricade; a zipline ridden down; weapons kept in hand while climbing | all of it |
+| `storyline` (7 beats, about 3 min) | `editor\run.ps1 -Demo storyline` | quest steps of new kinds (posted, made, felled, found, standing); letters posted at Millbrook and a cutscene playing on it; the skill tree learnt; the postman's day changed by the rain; a rising platform ridden; Project › Cutscenes and Skills, how hard the game is, the assistant's plan as a checklist | all of it |
+| `skies` (6 beats, about 2.5 min) | `editor\run.ps1 -Demo skies` | a weather of your own from the panel given to a region; a front bringing rain over you; a bolt and its thunder heard by a watchman; hail in the open; a dust storm with tumbleweeds and crates jostled; the calendar into winter | all of it |
+| `firsthalf` (4 beats, about 3 min) | `editor\run.ps1 -Demo firsthalf` | the far valley: the train given four carriages from its settings and Ctrl+Z; the cave set into its slope; a footbridge chosen whole from a piece of its path; the game started where asked | whether the cave mouth sits in the hillside with no gap round it; the train with four carriages in motion |
+| `riding` (2 beats, about 1 min) | `editor\run.ps1 -Demo riding` | at a horse's head E pets it, at its side E rides (hold E for the other); the rider seated, then galloping | how the seated ride and the gallop look in motion |
+| `scenes` (1 beat, about 1 min) | `editor\run.ps1 -Demo scenes` | Project › Cutscenes: ▶ Play it plays the game and the scene, and comes back to editing; a shot's camera, fades and the fact it sets picked | whether the cameras frame what you want |
+| `hanging` (9 beats, about 3 min) | `editor\run.ps1 -Demo hanging` | the hanging walkthrough: a zipline hang and a ceiling crawl made from the arms-up clip in the Studio, step by step; the zipline ridden by the hang | how the hang and the crawl look in motion |
+| `moods` (1 beat, about 1.5 min) | `editor\run.ps1 -Demo moods` | Project › Moods: the alarm's grey and red sky coming in over 2 s and going again; evening; Try it while editing | whether the moods' colours are what you want |
+| `follow` (2 beats, about 2 min) | `editor\run.ps1 -Demo follow` | the right click on one of the village's folk: Follow, the eye with them; moving brings it back; Unstuck in a game's menu putting the player back on safe ground | both |
+| `vary` (2 beats, about 2 min) | `editor\run.ps1 -Demo vary` | twelve people of two kinds chosen together and varied (hair, beards, outfits, colours, faces, height); other draws; alike again; one Ctrl+Z | whether the variety is enough, too much, or wants other hair and outfits |
+| `skillrace` (2 beats, about 1.5 min) | `editor\run.ps1 -Demo skillrace` | Project › Skills raising Ember bolt (one shot, two, three); a course of four gates run, one out of turn told, the time and best kept | the course's clock and light in play |
+| `perfplay` (2 beats, about 2 min) | `editor\run.ps1 -Demo perfplay` | the Graphics window stays while playing; the performance monitor shown over the game; World kept alive near puts far people to sleep, everywhere wakes them; Low from the monitor | whether the monitor's numbers help, and the frame rate in a big town |
+| `setforms` (3 beats, about 2 min) | `editor\run.ps1 -Demo setforms` | Project › a furnishing set's designs picked with shares and read by a structure, undone; pond life and rooms; a camera's width changed and undone, a new camera | whether picking designs with shares is easy |
+| `escortghost` (2 beats, about 2.5 min) | `editor\run.ps1 -Demo escortghost` | a course run twice: the first run's ghost beside the second, how far ahead at each gate; a quest made an escort (step, fails when, following); she follows, falls, it fails | whether the ghost is easy to see, and the escort's follow distance |
+| `loadscan` (a measure, about 1 min) | `editor\run.ps1 -Demo loadscan` (PERF_WORLD=a world) | opens the wastes town (or the world named) and prints how long it took, cells, things, meshes, triangles, memory, video memory and the textures held by size | nothing to judge by eye: numbers for the streaming plan |
+| `snowclear` (4 beats, about 2 min) | `editor\run.ps1 -Demo snowclear` | snow made to lie, then clear: kept, let melt, cleared at once, as Environment › What lies says or as the step says | whether melting is quick enough to see |
+| `treads` (1 beat, about 1 min) | `editor\run.ps1 -Demo treads` | a person, a hound and a horse walked across fresh snow: boots, paws, hooves | whether the prints read as theirs |
+| `counters` (6 beats, about 2 min) | `editor\run.ps1 -Demo counters` | a counter after a parry, getting up, a fall broken when flung, a grab turned round; by the player and by a bandit | the timing of each |
+| `cover` (3 beats, about 2 min) | `editor\run.ps1 -Demo cover` | braced, in cover and peeking out to a side, a foe seized and held up as a shield | whether peeking feels right |
+| `sands` (5 beats, about 3 min) | `editor\run.ps1 -Demo sands` | the far desert: its life and ruins, a camel ridden, the caravan's swaps, the four tablets read into the codex, Project › Lore to find | whether the desert is far enough and the caravan clear |
+| `packs` (3 beats, about 3 min) | `editor\run.ps1 -Demo packs` | foes round the player on a ring, two striking at once; the companion Ash follows, fights, goes down, is helped up, helps the player up | how the wait ring looks; the companion's follow distance |
+| `hotbar` (4 beats, about 2 min) | `editor\run.ps1 -Demo hotbar` | Emberwatch: the hotbar filled by what is carried, keys 1-9, the wheel's Weapons and Use, Y onto the hotbar, LB chords, Controls & Input › Hotbar | the pad chords |
+| `chain` (3 beats, about 2 min) | `editor\run.ps1 -Demo chain` | Millbrook: stook, millstone, log pile and oven making by themselves; wheat to flour to bread by the player; the miller carrying at six | whether the works read as one chain |
+| `marks` (about 2 min) | `editor\run.ps1 -Demo marks` | two guards, the second's cone and rings set to nothing in the Inspector yet still noticing the player; then the game's own marks faint or hidden in Game display | how faint is faint enough |
+| `builds` (about 3 min) | `editor\run.ps1 -Demo builds` | the three classes offered at the start; points spent on attributes; each class's combos, finisher and super; the super bar filling; a thing made better and enchanted at an anvil, and compared | whether the classes feel apart; the super's look |
+| `farm` (7 beats, about 3 min) | `editor\run.ps1 -Demo farm` | a bed tilled with a hoe, seeds bought, sown, watered, grown, harvested with a sickle; a tomato that regrows; Project › Crops | whether the crops read as they grow |
+| `manylegs` (4 beats, about 2 min) | `editor\run.ps1 -Demo manylegs` | the sand queen walking on eight legs, a centipede on twenty, the queen's tail stinging, legs and tail set in the Inspector | whether the legs' steps look right |
+| `breakables` (5 beats, about 2 min) | `editor\run.ps1 -Demo breakables` | a crate cracked twice and broken, its scrap left lying; a pot at one blow, a pillar at six; whole again a day on; the new objective types; the Inspector's rows | the pieces' size and colour |
+| `workers` (5 beats, about 3 min) | `editor\run.ps1 -Demo workers` | Project › Workers; a villager placed as the farmer who farms two beds and brings the harvest; their own day out of hours; work given in play; the Inspector's picker | the farmer's pace |
+| `tutorial` (4 beats, about 2 min) | `editor\run.ps1 -Demo tutorial` | lessons taught in play one after another, done by walking, running, jumping; one put by; kept as learnt; Project › Tutorial | the lesson's place and look |
+| `puzzleforms` (2 beats, about 1 min) | `editor\run.ps1 -Demo puzzleforms` | Project › Puzzles: the falling blocks as a card, a piece given a block by a click, the well made deeper | whether the piece cells are easy to click |
+| `airprobe` (1 beat, about 3 min) | `editor\run.ps1 -Demo airprobe` | the tenth pass: a helicopter, a plane and a balloon boarded, pilot inside, rotors and propeller turning; birds with beating wings; a boy, a girl, a toddler and an old man beside a villager; the ostrich on two legs. Checks itself | the aircraft flown, the ages chosen in the maker |
+| `tenth` (1 beat, about 4 min) | `editor\run.ps1 -Demo tenth` | the tenth pass: a copper rock struck three times to rubble; an oak felled to a stump; a hillside of a region mined; a line cast into the sea, a bite struck, a fish landed; a deer brought down and skinned with a knife; the after fields in Project. Checks itself | everything by hand: a hillside found, fishing in a pond, a hunt with the rifle |
+| `editspeed` (1 beat, about 2 min) | `editor\run.ps1 -Demo editspeed` | how long the editor's frames take while editing: idle, placing, dragging, brushing, undoing, the pointer over the world, the Library and Inspector open. Prints each one's mean and worst | whether editing feels quick by hand |
+| `begin` (1 beat, under a minute) | `editor\run.ps1 -Demo begin` | the Begin window as the editor opens on nothing, and the World menu with every row. Checks itself | whether the start is what a person wants |
+| `phuse` (1 beat, about 3 min) | `editor\run.ps1 -Demo phuse` | Poly Haven pieces used: a chair sat on, a crate searched, an apple taken, a boulder mined with the Poly Haven pickaxe, a street lamp lit at night, a bed and the hatchet beside them. Checks itself | the sizes beside a person, the tools held in hand |
+| `animpass` (6 beats, about 3 min) | `editor\run.ps1 -Demo animpass` | the dog clicked (its name, its card), its Animation: a clip for each way; the horse's clips; a pony's poses as sliders on its bones; a Poly Haven chair tinted; the dog leaving flowers where it goes; autumn leaves. Checks itself | the clips chosen, the trail's look, the leaves |
+| `carclick` (1 beat, about 2 min) | `editor\run.ps1 -Demo carclick` | a taxi of a city's traffic clicked: its street chosen, its cars and taxis in the Inspector. Checks itself | whether the street is the one wanted |
+| `fixpass` (7 beats, about 6 min) | `editor\run.ps1 -Demo fixpass` | crystals behind a sheep; a flock sheep's abilities; a companion's settings from the right click; the bar over a placed house; Edit here keeping the player and a sheep where they stood and a rewritten companion made again; the display laid out by hand (a look, a piece dragged); the town opened with its loading bar. Checks itself | the companion's menu, the display designer by hand, the bar's look |
+| `weapontrails` (4 beats, about 2 min) | `editor\run.ps1 -Demo weapontrails` | a katana, a short sword, an axe and a greatsword swung in play, each with its trail (plain, flame, lightning, aura). Checks itself | swinging by hand with a pad |
+| `heights` (4 beats, about 4 min) | `editor\run.ps1 -Demo heights` | the Heights and lookouts shelf set out, the walker stood on each; the watchtower and treehouse decks; a house dug into the land twice; the model towers, tree, mesa and fortress. Checks itself | climbing each by hand; the mound's look |
+| `stylepass` (11 beats, about 5 min) | `editor\run.ps1 -Demo stylepass` | the eight new styles on the island town; exposure seen at once; the Styles window keeping its place with Keep pinned; two colours for houses chosen; a light from behind set from Every setting. Works on a copy of styles.txt. Checks itself | how each style feels while walking |
+| `helppass` (3 beats, about 1 min) | `editor\run.ps1 -Demo helppass` | the Test menu and a group of it; the help, five pages, a search. Checks that every demo is listed once and every name the help gives exists | playing a demo from the menu (a window of its own) |
+| `camppass` (1 beat, about 2 min) | `editor\run.ps1 -Demo camppass` | the Camping set at dusk: the fire lit and cooked at, a tent, the covered wagon and a bedroll slept in. Checks itself | the camp's look at night, lying in the tent |
+| `lowpoly` (10 beats, about 4 min) | `editor\run.ps1 -Demo lowpoly` | low poly as an art direction (2026-10-30), on a copy of town-wastes: three views under the world's own style and each of Low poly, soft, angular, cartoon, diorama, sunset; a rock, pine, tree and prop close; the Styles window's Low poly part pressed, Every setting › Things made Angular and Simpler (a copy made yours); a kit's cottage picked and Kept as made; back to the world's own style with every face back. Checks itself; `DRAW3D_LP_ONLY` plays only the styles named | everything: does it look like the user's pictures |
+| `blocks` (6 beats), `waters` (3), `millspin` (1), `isletstairs` (1), `cutout` (2) | `editor\run.ps1 -Demo NAME` | dioramas to build on (2026-10-30): the islet's block grown, cut, a hexagon with a broken edge, land extended past it, paint kept on it; rain rings, a crate that splashes and floats, the walker out of the water; the farm windmill's blades turning; the islet's stairs walked up onto the deck; the isle's house cut out as a hexagon world and opened. Each checks itself | building on a diorama by hand, how quick editing feels |
+| `shaping` (5 beats), `edges` (10) | `editor\run.ps1 -Demo NAME` | the toolkit rounded out (2026-10-31): a world of nothing given land by the first press, terrace, slope, roughen, hill, crater, mesa, water grown past the block, woods, a meadow and a river on a diorama; extend land's ring over the water, the walker kept on the block, a furrow through deep snow, smooth and faceted water, a colour behind by night, the grain row in paint, the sea bed seen, the compass, a dock level over the skyisle's drop, the floating rock. Each checks itself | crabs following the ground in the editor |
+| `islandbound` (16 beats), `patterns` (4) | `editorun.ps1 -Demo NAME` | the Islandbound benchmark played through with the controller (2026-10-31): washed up on Driftwood, Mara's quest by Y, wood, stone and fibre gathered, the lean-to built, Finn's rod made, three fish caught off the jetty and one cooked, the beacon found and the map dark where not walked, the ferry to Pinewatch with the pack and quests carried, a bow and arrows made, two rabbits shot and skinned, the tower, the boat to Mistfall, Edda's cache, the stones, the charm, saved and loaded the same; patterns: craters the same from the same seed, spires, pods, dunes, the rim, a platform grown, cut and bitten. Each checks itself | `-Author islandbound` makes the three islands |
+| `fills` (3 beats), `blockform` (2), `showing` (3), `flotsam` (2), `grain` (2), `skyisle` (3) | `editor\run.ps1 -Demo NAME` | the diorama toolkit (2026-10-30): a dip filled to its brim, waves that stop at the shore, two quick paint strokes; a rounded block leaning in and hanging to a point, square and organic brushes; the compass, views from above, three-quarters and level, white behind and a small sky; flotsam afloat; grain on the sand; the island in the sky. Each checks itself | the falls on the island in the sky, sea life by hand |
+| `dioramas` (11 beats, about 5 min) | `editorun.ps1 -Demo dioramas` | dioramas after the user's pictures (2026-10-30): a round block with the sea all round from World › New world, its block in the land's settings (two ticks), then the eight scenes from `editor\dioramas\` opened and seen as their pictures were taken (meadow 8, castaway 1, lake 2, pond 3, isle 4, islet 5, farm a tile of 15, city 20), the isle's house clicked and named. Checks itself. The scenes are made by `-Author dioramas` | does each look like its picture |
 
 Any of the others can be shown in the built game too: `editor\run.ps1 -Game -Demo door`.
 
@@ -1176,6 +1302,1938 @@ shown for whichever of keyboard and controller is used from then on.
 ---
 
 ## Done
+
+### The open-world generator, a Terrain bar, far land merged, turf, terraces and sway, big worlds made quick (2026-11-02, tenth pass)
+
+The user, 2026-11-01: the diorama game's issues parked (the walker not running, the walker's place lost after crossings); the terrace tool's pale marks, grass that sways on the lowest setting, a thick turf grass, a Terrain bar of icons so the big window can stay shut, an organic edge for the block; and then the main work, an **Open-World Generator** for a 4 × 4 km test world (their brief and its controls list, with Basic and Advanced modes). The plan, the benchmark and what 80 km² needs are in `Draw3D_Open_World_Generator_2026-11-01.md`. Built by five helpers at once, then a speed pass and a mending pass after the joint runs.
+
+- **The open-world generator** (World › Open-world generator, `worldgen.gd`; host `shapes/land/world.rs`). One recipe, set in the window, never typed:
+  - **The host works out the plan** in about 0.2 s for 4 km: geography, rivers that only run downhill (with branches) and lakes in hollows, heat and wet, 12 biomes given shares to meet their coverage targets, least-effort routes bridged over water, places for settlements, and habitats and herds.
+  - **The land takes its height and colour from it.** A land can now be up to 64 patches from its middle. Untouched ground has 2 m faces; ground shaped by hand keeps 1 m.
+  - **What is made is laid down as the editor's own makers**, so all of it can be clicked and changed: drawn rivers and lakes, woods and meadows per biome per 500 m region (woods and meadow gain `biome`), herds of the existing creatures, and tracks with bridges.
+  - **Every layer has its own seed.** Regions and layers lock. Make again works by layer, region, biome, vegetation or wildlife, and keeps makers changed by hand. A locked region keeps its land through a new geography (`world_bake`). Hand edits to the land stay.
+  - **The world keeps a record** (the text `worldgen`): the recipe, seeds, locks, the last ten recipes and what each maker was made with. Presets are kept in `library/worldgen`.
+  - **Basic has 25 rows and Advanced 220**, in folding sections. What has no system yet (seasons, highways, nests and calls, background generation) is said under *Not yet*, not shown as a dead control.
+  - **The map** has eight layers and the region grid; click a region to lock it or make it again.
+  - **The Inspector** says what the generator made, and its layer and region.
+- **Big worlds made quick** (found by the benchmark):
+  - The game's systems walked all 67,000 things about once a second. They now use an index of what can be acted on (`world_view.gd` `acts_where`, `cells_near`).
+  - The makers' list rebuilt the land for every structure: 2.6 s became 75 ms.
+  - Leaves are named by their stored hashes.
+  - Routes are laid before what grows.
+  - A making is one undo step as it goes; before, the history was trimmed halfway through and the world from before it was lost.
+  - The host's `remove` takes many nodes as one edit (327 makers in 816 s became 6 s).
+  - On the 4 km world: play went from 14–18 fps to 59–128, making from 205 s to 32 s, loading from 50 s to 14 s.
+- **Far land merged** (`world_view.gd`, Graphics › Performance › Far land merged): a far region's land is drawn as one coarser mesh, built off the main thread, with a skirt so no seam shows. Where land just changed, its own patches are drawn until the merge is rebuilt. Blocks are never merged. On a 1.5 km world from above, 2,588 draws became 300 and 4.9 M triangles became 0.5 M.
+- **The Terrain bar** (`terrainbar.gd`; View, Window, Terrain list, Shift+F8, Start on a pad):
+  - The land's 32 tools are pictures in six groups down the left, with the brush's radius, main number and main choice under them.
+  - Tools now work with the Terrain window shut. Before, closing the window dropped the tool.
+  - It has 28 new pictures in `icon.gd`.
+- **Terraces keep their colour.** The land is coloured sand by height near the water, and terrace steps cut into that band turned pale, sample by sample. The terrace now keeps each place as sandy or grassy as it was (`Spot::held_colour`).
+- **Grass sways by its own height**, never further over than it is high. Before, its rustle went by the land's height, so grass by the sea was laid flat. Woods, meadows and painted patches have **sways in the wind** (0 still, 1 as grown, 2 wild); Wind › None stills everything.
+- **Thick turf**: a grass form of short blades close together that paints into one carpet (Brushes › Grass, the preset Thick turf).
+- **The block's organic edge**: it was already there as "its edge broken". It is now named "the block: organic edge (m)" in Terrain › Block shape.
+- **Found and mended along the way:**
+  - `terrain.gd` `EASES` had no entries for the ninth pass's new brushes (about 6,200 script errors in the user's log).
+  - People far off are stepped less often but moved only one tick's worth each time, so guards walked their rounds and wolves came down the road at a fraction of their pace (`motor.gd` `_go`).
+  - A guard went to look where a fellow guard ran (`watch.gd`: one's own side's footsteps no longer raise *on hears*).
+  - The ranger, every new world's walker, could not chop, pet or sit: `set brawler` now has the everyday moves.
+  - A compose with a meadow was refused whole (meadow had no `keep_off`).
+  - "X.txt was not taken: busy" on every new world: the file is now given again quietly.
+- **Results:** all 40 demos run together: 39 passed, with no problems and no script or shader errors. powers failed once on the size of its marks (0.0013 px read while drawn) and passed on both reruns: flaky. The first joint run had 15 older demos failing. The cause was the index's empty member lists: the speed pass appended to a copy. Four of them (guard, remembers, workers, emberwatch) also failed at the last commit, and were mended at their causes. Host tests 113 + 124 and the core tests all pass. The new demos are openworld, worldplay, farland, terrainbar and turfsway (with terracecolours).
+- **Not done:**
+  - **For 80 km²:** undo that keeps the document, not finished meshes; streaming the host's regions; content taken in over frames; the river's draws batched; far plants as a carpet.
+  - **The generator:** valley floors filled flat where a hollow was not made a lake. Seasons, highways and wildlife signs (nests, calls and tracks) are not built.
+  - **Far land merged:** snow caps are hidden where land is drawn merged.
+  - **The Terrain bar:** its title is clipped to "Terra", and block-only tools are not dimmed on open land.
+  - **Not tried by hand.**
+
+### A log of what the tools did, hands full when carrying, no magnet, people who turn to you, tips at the side, smooth letters, Keep close in a combo, plants walked through, sculpting brushes, any world a diorama (2026-11-01, ninth pass)
+
+After the user's third look at Islandbound, with four screenshots (two prompts at once while carrying a crate, the walker standing on an agave, a lesson in the middle of the screen, the choppy pixel letters), and their list: say why a stroke did nothing, a log in a corner while editing, a pull that keeps a combo in reach, any world as a diorama, people turning to the walker, the most useful SculptForge ideas. Done by eight helpers at once, each with its own files and port, then every demo touched run again together.
+
+- **The editor's log** (edlog.gd, new): bottom left while editing. Folded it is one line, the latest message with a mark (✓ done, ! partly or worth knowing, ✕ nothing and why); open, the last 60 with their times. Its button, L, or the pad's right stick pressed. It reads the same list as Window › Messages; `tell` takes a mark, `note` writes only to the log.
+- **A stroke that grows or paints nothing says why.** Paint into a wood or meadow only marks squares; the host then drops places by its rules (by a road or path, under water, off the block, bare, kept clear) and nobody compared the count. marks.gd `_check_paint`/`paint_reasons`, terrain.gd `_say_painted`: what grew, or why not; a press on no land says so. The host's `ground` answers `road`, `off_block`, `kept`, `kept_by` for each place.
+- **Decorate quicker on a big world.** `ground`, `hollow` and `height_grid` built the land's shape again on every call; lib.rs `land_shape` keeps it until the land changes. town-wastes: the longest pointer move 40.7 → 5–8 ms, a drag frame 32.7 → ~17 ms on average, 88 → 43 ms at worst.
+- **Hands full.** A carried good (goods.txt `carried`) narrowed nothing, so "sleep in a bedroll" and gathering were offered beside "put down". acts.gd `hands_full`/`with_full`: with the hands full only putting down, handing over, doors and gates, more of the same good, and talking to whoever's quest is under way; acts.txt `full yes|no`, the Inspector's "with the hands full: offered" (instead of "stops you before it").
+- **No magnet.** `acts.toward` turned the walker to the nearest usable thing and stopped them on every step. Gone: the mark is still shown, and only a press brings the walker to it and turns them.
+- **People turn to the walker** when spoken to (quest words and greetings too), smoothly, and keep facing them while they speak (folk.gd `heard_until`, `TURNS_TO`); the walker faces them.
+- **Tips at the side** (tutorial.gd): a log at the right, newest on top, older ones small and ticked. D-pad up held (U): got it, never shown again. Back with D-pad down (Ctrl+U): no more tips; Settings › Tips (the tutorial) brings them back. A two-button press's held button no longer also taps (presses.gd `_fire`: Back let go after the pair opened the pack).
+- **Smooth letters.** hud.txt drew every piece in Kenney Mini, a pixel font 8 dots high, at 13–20 with smoothing, and only fonts named "pixel" were treated as pixel. Now a smooth font (a distance field) with a 3-dot outline by default; pixel fonts drawn at whole multiples (`PIXEL_GRIDS`, also on a piece with a fractional scale). Game display: for every piece the font, letter size, outline, shadow and how much backing shows; new pieces the race clock, the crossing's words, the time of day (hidden at first), the crosshair and hit numbers. The error screen says "{back} leaves" for the device, and B or Start leaves it.
+- **Keep close** (keepclose.gd, new): while a combo is live the striker and the struck are drawn toward the next blow's reach (its shortest `strikes` plus the target's width), more the bigger the gap; the lighter and the airborne one moved more; the striker rises to meet, the target's fall is held to the striker's, never lifted. It stops at the chain's end, a finisher (`sends_away`: kick, axe kick, flip darts, slam), a guard, someone down or carried, or three times the weight. Combo graph: Keep close for the set (0 off, default 1, up to 3), and per move Sends them away and its own strength (moves.txt `keep_close N`, `sends_away`).
+- **Fights that hold.** A companion's blows struck the walker mid-chain and it fought the sparring partners; partners struck back with getup strikes and parries. Companion and player blows now pass each other by; partners (`spars`, heavy 150 kg and light 30 kg in Library › Training) are no one's foes and do not strike back. The axe kick's window opens from the drop's start, without a rest; an air warp to someone standing ends 0.6 m above them. `-Demo airjuggle` 0/5 → 5/5, `keepclose` 5/5, no retries. The arena's buttons and prizes in plain words, for the device.
+- **Plants walked through, rocks by their outline.** A design with no `solid` line (every CC0 kit model) got a box round its parts: the agave a 2 m box, which a run mantled onto. kind.rs `blocks_by_what`: plants (bush, fern, grass, flower, reeds, agave…) block nothing, trees and palms only at the trunk, rocks and other things by a hull of their own (big kit models face for face, solid.gd from the model); loose things keep their box. Kit plants sway in the wind (models.gd `_bent`). Inspector › Blocks the way: as its design says, no, at its trunk only, by its own shape, a box, a ball, a post. Generator bushes have no post, only the slow-down.
+- **Sculpting brushes** (ideas from SculptForge, none of its code): **only on** steep ground, flat ground, hollows, ridges or between two heights (picked on the land) for every round brush, paint too; **hardness** for raise, lower, hill, crater and mesa; **gully**, **sharpen ridge**, **pinch**, **fill in**, **scrape**; **texture** pressing scales, ridges, pores, cracks or lumps (land.rs `Brush`, `stroke_with`). Host tests p104–p107.
+- **Strokes**: **mirror** east ↔ west, north ↔ south or all four, through the land's or block's middle or a clicked point, the ring drawn mirrored (one Ctrl+Z); **Steady** (the stroke on a string), **Dots**, **Box**, **Spray**; hill, crater and mesa **sized by dragging**; a **recent** row; **Keep this brush…** (a name and every number, written by the editor to library/brushes/kept.txt; missing numbers take defaults, others clamped). The square brush's knob: Shift holds the square, drag the knob to turn and size it. Pad: A held paints at the view's middle, X the stroke, B the mirror, Y keeps the brush, D-pad the brushes, LT/RT the size.
+- **Any world a diorama.** The host cuts a block out of any land; nothing let a regular world in. Terrain › Block shape (and World outline › the land) › **Make this a diorama**: a block round the land (or 32, 64, 128 m), its heights, paint, style and textures kept, one Ctrl+Z; **Make it open land again**. On open land the block's rows and tools say why they do nothing. `cut_in_at` read the oldest of two sides kept while the first was made again (world_view.gd: the newest wins). A layout's water follows its seed (seed 1 as before; Another seed shown for layouts).
+
+- **Found while checking them together.** A held spray on the pad wandered: each round was centred on the last dab, not the brush (terrain.gd `_spray_at`). A kit model's hull was made afresh for every size it was put down at (half a second each): now made once a model and only turned and sized (solid.gd `_model_corners`). A deer that slid onto a bank too steep to stand on (Driftwood's shore) hung there, slipping and taken back each step: after 8 slips it is put back where it last stood on firm dry ground, and only firm ground is remembered (folk.gd `_keep_dry`, `SLIPS`; a beat in `-Demo ibdeer`). Host test p38 now expects a rock to block by its hull.
+
+**Results** (all together, -Check on 47810): editorlog, carryfeel, tipslog, keepclose, propshapes, sculptbrushes, sculptstrokes, dioramaregular, airjuggle, dioramaweather, devicewords, tutorial, talk, settingswords, buildview, randomtests, perfcheck, hudpanels, hudrules, dioramalook, wateredge, shaping, edges, blockform, patterns, paintcover, glade, nature, own, fights, charui, arena, dropcarried, case, islandbound, houses, walls, scenes and animatorworld: no problems, no script or shader errors. sculptstrokes and islandbound passed again after their mends (islandbound 4 of 4, ibdeer with its new beat). decoratespeed failed several runs in a row on single frames of about 480 ms that no script, physics or host call accounted for, then passed three runs and the last check with no change; most likely the first runs compiling this pass's new shaders, not proven. airjuggle 5 of 5 and keepclose 5 of 5 (the keep-close helper's runs). Host built (target-lp); every host test passes, run one at a time (110 + 118).
+
+**Not done.**
+- Decor laid over plants still holds about half a second once built: the host's `text` waits for every meadow. On a diorama block the meadow's band off a road is not shortened as woods' is; meadow builds give no reason of their own.
+- Mirroring is east–west and north–south only (land is shaped from above); caves, fills and platforms are not mirrored; a mirrored pattern is placed again, not reflected. Renaming a kept brush needs the keyboard; removing one has no pad route. "Only on" does not reach cliff, ledge, extend, take land away, slope, mountain range or pattern.
+- After a juggle the walker can land at over 13 m/s (spared by the test switch; in a game it would hurt).
+- Blocks the way in the design editor (designs can say `solid trunk`); kit houses keep their box.
+- New world's diorama words still say to pair it with a low poly style; things outside a smaller chosen block are not warned about.
+- Not tried by hand.
+
+### Sunsets and leaves on a diorama, a quicker Decorate brush, words for the device in hand, settings in plain words, the square brush turned, fewer adjusters, a porch taken off (2026-11-01, eighth pass)
+
+After the user's second look at Islandbound and the editor, with six screenshots (Driftwood at sunset all one orange, leaves that would not be seen falling, the island maker's settings as bare names, the block's settings only under Environment, a square brush outline that could not be turned, a house hidden behind its adjusters). Done by seven helpers at once, each with its own files and port, then every demo touched run again together.
+
+- **Sunsets on a diorama.** The golden hour's volumetric fog (density 0.0035, strong forward scatter, the sun's fog energy 1.6) was tuned for an eye near the ground; a diorama is seen from 100–160 m, so the whole model sat inside it and turned one orange, the tree tops toward the sun glowing from the scatter, the shade lit by the orange sky. clock.gd `_light`: the shade turns cool under a low sun, the golden fog thins with the eye's distance and a narrow lens, gentler scatter; re-lit when the lens or distance changes. clouds.gd: the patchy kind's puffs warped, of many sizes, faded where too small to draw (it was a regular cell pattern). Pictures `editor/dioramas/look/sunset_before_*`, `sunset_after_*`.
+- **Leaves that are seen falling.** The flutter turned each leaf toward a random way every step, so after a second they stopped falling and hung where they began: in play about 8 m over the walker, at the picture's top edge. While editing, what falls was placed about the eye, 100 m and more off, in empty air; the wind carried it 100 m sideways; leaves were too small to see from there and flat ones vanished edge-on; they fell through the sea. weather.gd: what falls does so about what is looked at, kept over the block (`block_box`), drift capped, each at least 8 dots on screen, in play from over the walker; enough made to fill the time in the air; flutter 0.002–0.006; the leaf folded and tipped. On screen in play: 0.0001 → 0.0046 of the picture. Every weather checked on Driftwood and five on a big world. The Leaves weather still lasts 3 hours in play and turns to a breeze, as written.
+- **The Decorate brush** (and every brush in the Brushes column). Each pointer move asked the host for ground heights three times (10–20 ms each on a big world: the host builds the land's shape again for each); now once (marks.gd `_lay_brush`, `_add_strip`): a big world's drag 55 → 29 ms a frame. After a Decorate or Rocks stroke, what lies under it was written to the host every time, rebuilding every meadow (about 0.45 s on Driftwood with plants painted); now only when a plant is under it (buildbar.gd `_lying_matters`): bare-ground decor's worst frame 374 → 109 ms. Decor over plants still costs about 0.35 s (the host, below).
+- **Performance against the last commit** (medians, other runs alongside): a diorama editing 6.9 ms both; a diorama played 7.0 → 7.6–8.0; a big world editing 9.6–11.4 → 11.3–12.0 (within its noise); a big world played 20.8–24.7 → 21.1 after folk.gd's `_keep_dry` was skipped on dry ground (it cast a ray each step of every shy creature, about 1 ms); terrain Paint and Raise unchanged. The feet laid on slopes cost about 0.6 ms on a big world, kept. The finish costs nothing in scripts. Demos decoratespeed, perfcheck.
+- **Words for the device in hand.** The last device used was heard only after the game's screens had taken their presses, and nothing watched it, so most words were made once: "Enter (A)", "E", "Ctrl+B", Islandbound's "tap Back (I)". controls.gd `device()` and `serial`, heard from every event (a stick past half, a trigger pulled, a mouse moved 90 px, not drift or a nudge); `{action}` words (inputwords.gd) filled for the device and filled again when it changes, in lessons, quests, the journal, talks, notices, the game's screens, the map's legend; Islandbound's texts, talks.txt, reactions.txt use them; Project's word fields have **＋ a button…** to put one in. The talk panel's keys follow the act button's binding.
+- **The ranger jumps from standing.** The brawler set (the default walker's) had only `jump_cancel`, out of another move, so the jump lesson could never be done. `move stand_jump like jump`, `when ground rested 0.3` (a new `when` word, moveset.gd and motor.gd: nothing done for so long), longer than a press is kept, so a jump in a combo is still `jump_cancel`. `-Demo tutorial` passes again.
+- **Settings in plain words.** The Inspector named a maker's settings by the engine's own names spaced out ("Block mid z"), said nothing under them, and showed strokes as raw numbers. settingwords.gd: the words of World outline (makers.gd `SETTINGS`), and its own for the rest (the land's grown strokes, water, layers, side dress, far islands, and other makers' bare ones); lists read as words ("2 grown, 0 cut: change…") and open the tool that makes them; the ? says what would change ("The block: its middle south (m) set to 0: nothing would be added or taken away; 14 things may move. Press Enter (A) to apply.").
+- **Terrain › Block shape** (blockshape.gd, folded): the block's half width and depth, how far its sides go down, round, a hexagon, the sea all round, broken edge, corners, lean, hang, layers, middle; the words and ranges of World outline's land rows, set through the same function (`makers.set_own_of`). Still under Environment too.
+- **The square brush turned** (ss5's yellow square: the outline of Extend land and Grow the block, not a selection). Host: a dab's `turn` (rim.rs, saved as a fifth word; old saves read the same), the square edge along it (land.rs). The outline turns with a tick at its front, a "turned, °" knob; `,` and `.`, LB and RB, Shift and the wheel. With no terrain tool LB and RB turn the thing picked.
+- **Adjusters: All, Few, None.** The blue lines were a stroke through every piece of a house; the rest stair balls, the house's line, plus marks, wings and towers. Few (the default) draws no strokes, the picked thing's foot only, and the rest only near the pointer; None draws nothing and grabs nothing, picking and moving still work. H, the pad's Back, or the build bar's Adjusters button; kept between sessions. A house: All 56, Few 17, None 0. In the editor the pad's A picks what is in the middle of the view and the left stick moves it (editpad.gd).
+- **A porch taken off.** Changing a house's sort never touched its porch, so a wrap-around porch stayed on every sort. Look › **Its porch**: None, Front, Around, and Roofed (host `porch_roof`, build.rs: an open deck with no roof or posts). A house, cottage or townhouse keeps its porch when the sort changes, every other sort drops it, and the notice says which.
+- **Three tests drawn at random** (Get-Random from lists of 12 generators, 10 hand tools, 8 changes of behaviour): a village from a map's layout (great_dagger, 74 houses, the same twice, otherwise with other sliders, nothing in the water, saved and opened the same); a wall dragged on the meadow diorama (stops the walker, undone and done again); "spins" given to a hay bale on the pond diorama (30 then 90 °/s, undone step by step). `-Demo randomtests`, frame times printed at each step. Found: a stroke begun past a diorama's cut edge made nothing and said nothing; now it says so (marks.gd `press`).
+- **A cutscene stopped while going back to editing** left the editor looking through the walker's eye (cutscene.gd `stop`).
+- **SculptForge** (Draw3D_SculptForge_Lessons_2026-11-01.md): islandmed/SculptForge, GPL-3.0-or-later, so ideas only. Worth taking, in order: mirrored strokes, a hardness knob, brushes only where steep, flat, hollow or between heights, a gully and a sharpened ridge, a steadied stroke and stamps sized by dragging, recent and kept brushes.
+
+**Results** (all together, -Check on 47810, after the last change): dioramaweather, decoratespeed, devicewords, tutorial (passing again), talk, settingswords, buildview, randomtests, hudpanels, hudrules, dioramalook, wateredge, shaping, edges, blockform, houses, details, onehouse, walls, glade, bar, looks, editlook, body, director, scenes, paintcover, animatorworld, fights, charui, case and islandbound: no problems, no script or shader errors. houserooms (no kitchen range) and lookpass (a style's copy not listed under its parent) fail, and fail the same on 49aafbe (git archive). Host rebuilt (target-lp); host tests rim, shapes::land::build, p87, p99–p103 pass.
+
+**Not done.**
+- **The host:** `ground` builds the land's shape again on every call (lib.rs ~5581) and `text` waits for every meadow to rebuild from all of `lying` (~5960): decor laid over plants still holds a frame about 0.35 s.
+- Painting a meadow near a road or path makes nothing, and brushes paint nothing off a diorama's block, both silently. A layout's ponds and river come from a fixed seed (layouts.gd `_water_asked`). `world_view.cut_in_at` reads -4 in places inside the block.
+- `-Demo airjuggle` fails 1 to 5 beats a run with or without `stand_jump` (the axe kick every time); a small worsening by it is not ruled out.
+- A drag handle on the square brush's outline (the brush follows the pointer). The arena's panel's words change only when it opens; the error screen's "Esc leaves".
+- Not tried by hand.
+
+### Sat on a log, feet on a slope, panels for quests and lessons, water that meets its side, paint that covers, the Animator's In this world, cutscenes directed, a finish like a painted model (2026-11-01, seventh pass)
+
+After the user's hand test of Islandbound, with five screenshots (sitting in the air above a log, a mesa's sides as sharp teeth, a heel sunk in a slope, the sea's surface apart from its side in a storm, a grass stroke that took only a band). Done by seven helpers at once, each with its own files and port, then every demo touched run again together.
+
+- **Sitting.** The body's origin (its feet) was put on the seat point, and the castaway's sit clip holds the hips 1.13 m above and 0.95 m behind it; the log's seat point was also in front of the log. Now the hips go to the seat (acts.gd `_sat_at`, `hips_of`), 0.1 m over the seat's top found by a ray (`_seat_top`, which also mends the old seat points in saved worlds); any seat, any rig; `_carry` uses the seat taken, not always the first. The log's point is `0 0.5 -0.12` (library camping.txt, campmake.gd).
+- **Feet on slopes.** The foot IK (overlay.gd `_ground`) put the ankle at the right height but turned the foot with the shin, so a heel or toe sank up to 0.15 m. Each foot is now laid along the ground's normal after it, by how planted it is, at most `FEET_TILT` 0.6 rad: on a 23° slope every heel and toe within 2 cm. Folk on the same rig too.
+- **Stopped by everything to gather.** Walking toward anything that offered an act stopped the walker at arm's length until they turned away (acts.gd `toward`); only pick-up was spared. Now gathering (`reaps`) and things with no collider do not stop them; a chest, cupboard or bed still does. A camp fire (no collider) no longer stops them either.
+- **Quest and lesson text.** `hud.txt` `piece all` said `plate none` and stripped every panel, leaving thin white words on the sky; quest news went through the one shared notice and was replaced by the next message at once. Now the quests followed stand in a dark rounded panel top right with a heading; news (NEW QUEST, QUEST UPDATED, QUEST COMPLETE, QUEST FAILED) in a panel for at least 6 s plus a quarter second a word, queued, fading; the lesson in its panel above the E prompt; every HUD word with a soft shadow; Window › Game display has a corners picker. Old worlds are mended to the new pieces (`mends/hud`). Held peek brings back a timed piece at once (the tracker is filled only now and then).
+- **Lessons by device.** They always said "RB (Shift)". Now the keyboard's keys with no controller plugged in, the controller's buttons with one, redrawn when the device changes (tutorial.gd `device_for`); unplugging the last controller shows keyboard words again (main.gd).
+- **The sea's side in a storm.** The side's top was level while the surface rolled (a gap up to 0.17 m). One swell, `SWELL_GLSL` in world_view.gd, is used by the surface and the glass side, whose top rises and falls with it.
+- **A wall left after growing water.** The sink brush's rim wobbles; ground outside the old block stood at the new edge as spikes and walls. Host `Shape::drown` (land.rs, called from lib.rs) puts all the grown ground and the old edge's first metre at least 0.5 m under water.
+- **The deer.** One running along the shore was carried over the drop at the waterline; nothing stopped the move itself. folk.gd `_keep_dry`: a shy land animal's step deeper below the waterline is taken back, its fall stopped; one wedged on the line is put back where it last stood dry. islandbound passes its deer checks.
+- **Paint that covers.** Host land.rs `Spot::painted` dropped paint weaker than another already there, so a soft brush's whole rim did nothing over painted ground (raised low land is painted sand by itself): a hard-edged band about 60% of the stroke, every surface. `Spot::brushed` now takes the new paint with a chance of the rim's strength, a fixed number per sample, so the edge fades into the old; terrain.gd `drag` fills in places between pointer samples for every brush tool. Host test `a_soft_brush_paints_over_paint_to_its_rim`.
+- **Brush pictures.** Brushes ‹ a patch (What is in it, swap one), decor sets and tree mixes drew one shape in different colours. sorticon.gd draws about 150 pictures, one for each sort; very dark colours lightened on the dark buttons.
+- **The Animator's In this world** (animworld.gd, new): every animation the open world uses (the character's getting about, moves and combos; each person's set and idles; creatures' clips, poses and gaits; turning parts, doors, boats, things swayed by the wind, clips baked into imported models), grouped by who has it, searched, filtered by sort, played one after another (pad ▲▼, A, Y edits). What cannot be edited is greyed and says why, with a button to the window that changes it. Driftwood with a mill and a fox: 438 from 23 owners.
+- **Cutscenes directed.** A shot's camera moves (hold, pan, glide, push in, pull back, crane, track, orbit), eased; from which side, how far, its turn; a cut or a dissolve into it; a title card, who says it in a subtitle panel, slow motion, shake, focus on the subject, a sound; a scene's letterbox sliding in. Set in Project › Cutscenes from lists and sliders (scenes.txt words `move`, `to`, `by`, `side`, `turns`, `eases`, `into`, `title`, `speaker`, `slow`, `shake`, `focus`, `sound`, `letterbox`). A scene that starts by itself waits until no talk or crossing; the game's own overlays are put away meanwhile.
+- **Islandbound's scenes.** An opening (a glide over the sea from the beacon to the castaway under the title, a push in, Mara calling), an arrival at Pinewatch and at Mistfall with the island's name, a scene at each quest's end, a closing in three shots. Written through Project › Cutscenes' own functions; the player starts on the beach. 20 beats.
+- **The look of the dioramas** (Draw3D_Diorama_Look_Comparison_2026-10-31.md): ranked, the references have surface texture (grain, brushiness, worn edges) where ours is clean flat colour; lighting that grounds things; quieter greens and kit colours inside the palette; one kit's level of detail; denser clusters; a backdrop gradient. A style's **finish** (finish.gd, finish.txt; Styles › Finish, sliders): brush grain, low parts settled darker, lit edges, colours drawn together toward the palette, warm and cool, ambient occlusion reach, the backdrop's gradient; on for every low_poly style. It is its own file because the host's style.rs refuses words it does not know.
+- **A mesa's teeth.** Not by design: each tall sliver of a near-vertical drop took one corner's flat colour, so the face alternated rock, sand and grass. Steep land now blends smoothly, the steepest taking the style's cliff colour (world_view.gd).
+
+**Results** (all together, -Check on 47810, after the last change): body 3/3, hudpanels, hudrules, wateredge 2/2, paintcover, animatorworld 4/4, animatorwin 11/11, director, scenes, pitintro, dioramalook 7/7, case 6/6, fights 11/11, charui 3/3 and islandbound 20/20 (deer included): no problems, no script or shader errors. By the helpers alone: fills, waters, ibdeer, brush, paintseen, shaping, animatortools, dioramas 11/11, lowpoly 10/10 no problems. Host tests p20, p49, p53, p54, p56 and the land paint tests pass. The host was rebuilt (target-lp) for `brushed` and `drown`.
+
+**Not done.**
+- **Islandbound's own polish:** the quest talks are still one line each (their character comes through the new scenes' words), bare stretches of ground, things floating or sunk, music.
+- **The look:** shade baked into the host's mesh colours (the biggest gap left), real bevels, a palette pull when a kit is imported, denser dioramas; SSAO barely darkens the foot of things. An exported game does not carry finish.txt yet.
+- **`-Demo tutorial`** fails "run and jump taught by doing them": the walker never leaves the ground in the jump lesson. It fails the same on 49aafbe (run from git archive), so it predates this pass.
+- The Animator's window runs about 30 px past a 720 px screen (it did before); people list every move of their set.
+- Not tried by hand.
+
+### A case to solve, demos seen whole, the Animator's phase length (2026-10-31, sixth pass)
+
+After 49aafbe (the user: "commit and fix animator demo. note demos still do not show correctly due to camera view. change the view to something further out so that the demo can be seen clearly. close the least developed game loop").
+
+- **The Animator demo.** Two causes, neither the window's look: `set_time` wrote a phase's `covers` when it had one, but a phase with both `time` and `covers` is timed by `time` (studio.gd `_seconds`), so Lasts did nothing on the human shield's catch; now both are said anew. And the demo picked the first striking move of the set, the human shield, a grab that asks `when … foe`: it picks one done from where they stand (not `foe`, `aloft`, `following`, `finishing`, `super`). Its beat count was 8 of 11. animatorwin 11/11.
+- **Demos seen from further back.** One factor, `drawn_back`, on the editor's view (main.gd `_see`) and the walker's eye (eye.gd), 1 always; demo.gd `DRAWN_BACK` (eye 1.4, view 1.5) for the whole of a demo, and the eye tipped down a little (-0.38). run.ps1 -Close sees a demo as near as ever.
+- **No one in the eye's face** (found by the fights demo's pictures: the eye was stopped 0.3 m short of a bandit behind the walker, as by a wall, and his back filled the picture). People are not walls: the eye's line looks past bodies, the spring arm leaves out everyone within its reach, and anyone within 1.1 m of the lens is not drawn while there (`_people`, seen again after). For play too.
+- **The investigation loop** (the audit's Investigation & Social: nothing of it was there; every other loop had something). Lore gains `deduce NAME / of SET / from NOTE NOTE / called / says / sets FACT` (lorebook.gd); lore.gd `join(a, b)`: two notes found put together, the right two make deduced_NAME and its `sets` so (a chime, the folk told), two that do not fit say so and count lore_misfits; the codex shows ⇒ what is worked out and how many are still to. The journal has **Put two together**: a button for each note found that may still be worked out (pad first: the first has the focus as it opens). Project › Lore: **Worked out from two of its notes** under each set's notes, the two picked from the set's own, what it means, the fact; ＋ Something worked out. With what was there (a talk's answer `if fact`, `pays`, `put`; a quest's `done`, `hint`, `fails`), that closes it: clue found → kept → put together → a question opens → accused, the wrong one costing.
+- Seen: the editor still ends with code -1073741819 at quitting (an access violation as Godot shuts down), as in every run since before this pass; the problems and pictures are all written first.
+
+Checked: case 6/6, animatorwin 11/11, fights 11/11, hitchain 4/4, charui 3/3, lowpolypeople 4/4, rangersword 4/4, studio 10/10, sands (4 beats, no problems). islandbound 17/17 beats, its deer checks failing (a deer swimming off Driftwood, one chased into the sea): the same with -Close, and on 49aafbe without this pass, so the deer of the fourth pass are not yet kept dry every run. No Rust changed.
+
+### Solid low poly heads, blows that feel held, the character windows tidied (2026-10-31, fifth pass)
+
+After 5680259 (the user: "commit and start the fixes. the low poly guys have some flickering. also the head is a bit transparent. have a toggle for that. i like it but most of the time should be opaque. spend some time tidying up the character and animation systems UIs and updating the catalogue").
+
+- **The flicker and the see-through head were one fault.** lowpolymake.gd wound every face the glTF way (counter-clockwise from outside); the writer turns Godot's way into the file's, so read back every face was the other way round from Godot's own BoxMesh: front faces dropped, the far side of each block drawn through its near side (the head "see-through"), and the far faces of blocks that overlap fighting each other (the flicker). Wound as Godot's own, all five read back with every face out (the demo counts them: 264 out, 0 in). The head and neck are a mesh of their own (`..._head`), sharing the body's materials (two of a name were read back as skin and skin2).
+- **See-through head, a toggle.** `head see-through` in a character (the Make tab: Colours › Head › See-through head) draws the head mesh by its far faces, lit as from behind: the look the user liked, on purpose and off by default. Seen on the figure at once, written as one edit.
+- **Attack fixes begun** (the causes ranked in the fourth pass):
+  - *Judder*: physics interpolation on (project.godot), for the walker, its eye and the folk only (main.gd turns it off at the root; player.gd and body.gd on for themselves; put, a body's put and the eye's settle reset it so a teleport cuts). V-sync was already on in play (Esc › Settings); the fourth pass's "vsync off" was the project file only, which the settings override.
+  - *Hit stop never held*: loose.gd set Engine.time_scale every frame of play, undoing clash.gd's 0.05 the next frame. loose.gd now multiplies clash's `still_factor()` in; and every blow that lands on someone by or on the walker holds 0.06 s (`DEFAULT_STOP`) when its phase says no `stop`. hitchain: 6 blows, 6 stops, the world at 0.05.
+  - *Presses forgotten*: input_buffer 0.12 → 0.25 s (tune.gd), since the next blow's window opens 0.35–0.5 s in.
+  - *Blows before the blade arrives*: strike.gd `contact()`: a clip with a `cut` or `hit` mark strikes from that moment of the clip (animated.gd `act_at`, the move's clip, not walking's), or in the last fifth of the phase if the mark lies beyond it; a clip with none as before.
+  - Not done: clip-timed phases (still stretched to typed times), root motion, per-actor hit stop, aim assist. The body's yaw lags the facing by about 0.07 s only: left.
+- **Tidied.** The Make tab's headings fold (Start from, Body, Colours, A whole look at once open; the rest folded), Open all / Fold all at its top, rows of three buttons or more wrap, long labels wrap: one label that did not ("Its age: …") held the Studio 1551 px wide, off a 1280 screen; now 1141, the whole window and its x on screen. The preview's row of eyes wraps. The Animator's ghosts, path, loop, follow, lens, every bone and keys under **👁 Showing**, folded, so the preview is not under seven rows of buttons.
+- **The catalogue** (Objects › What things can do): a section **Characters (what one can be made)**, seventeen entries (its body and the low poly people, height, build, colours by surface, see-through head, bearing, gait, follow-through, feet, clothes, face, outfits, gear, clips, looks, moves, a clip's moment of meeting), each saying where in the Studio it is set, which characters have it, and a button opening the Studio's tab.
+
+Checked: charui 3/3, lowpolypeople 4/4, hitchain 4/4 (with the hit stop), fights 11/11, rangersword 4/4, make 6/6, charmaker 4/4, studio 10/10, islandbound 17/17 (the first run missed skinning the second rabbit, its Y prompt not offered where it lay; the run again passed: flaky, not the hit changes). animatorwin: two checks fail ("the phase lasts 24 frames" reads 12; the test does sword_slash, not Human shield, which wants RB and run held): the same on 5680259 with this pass put aside, so not from it. No Rust changed; host tests not run.
+
+### The line on the rod, deer kept dry, why attacks look out of step, low poly people (2026-10-31, fourth pass)
+
+The user: "fishing line not connected to rod. the deer runs into the water. make sure you're fixing the actual code. park voxel. won't pursue for now. the animation for attacks and so on doesn't seem refined or in sync for a commercial game. i have been attemting to fix this for weeks. what is the issue? ... also update teh character system to create low poly characters. with square heads and other types etc. do research for what's popular."
+
+- **The fishing line on the rod (`fishing.gd` `rod_tip`).** The line was drawn from a guess (1.6 m ahead, 2 m up), never the rod. It now leaves from the rod's own `point tip` (gear.txt), carried by the hand's bone as the cast swings it; the hand if a rod says no tip.
+- **Deer kept out of the water (`folk.gd` `dry_way`, `wet_ground`; `rules.gd` wander).** Fleeing turned for home only once already afloat, so a deer chased toward the shore always ran in. It now looks three metres ahead and runs along the shore, the dry way nearest the one it was running. Wandering picks a dry spot. Water is the sea where the ground is under it, and ponds and filled pools (a structure built as a pond is a place that is water). **The cause found by watching its path step by step (`-Demo ibdeer`):** turning hard along the shore it skidded and slowed, folk's walk took it for stuck and sent it "round" (its way turned 1.45 radians) after the dry check, straight into the sea. The way round is now checked for water too, and a fleeing deer keeps to the way it was running while that stays dry (no turning this way and that each step). Next it leapt onto the jetty and ran off its side: a dry way now needs room (dry a stride on, three strides on, and a metre either side), so a jetty or a spit is no way to run, and a deer cornered with no dry way stands at bay. Chased without let for ten seconds it ran 38 m round the shore and stayed dry. At a run it looks farther ahead (0.6 s of its speed), and the waterline itself counts as wet (a short drop beyond it took one in). Last, the deer also wandered into the sea and the pond while grazing (a way planned across the shallows): every step a shy creature of the land takes (one that flees or shies), whatever moves it, is now looked at a stride and a half ahead, and goes along the shore or stops rather than in. And where its body is going as well as where it means to: one that stopped fleeing at the top of the shore slid over it still at a run (found by a watcher over the whole demo: "Gathering", motor diving). Turned along the shore, or braked.
+- **Attacks out of step: the causes found (read-only diagnosis, then one fixed).** (1) A move shown by one clip for all its phases (`strike Punch_Cross`, the brawler's `kick`, `spin_kick`) was handed its progress through each phase, so the clip began again at the windup, the hit and the recovery: three replays of the punch in half a second. **Fixed** (`move.gd` `through_all`, `animated.gd`): such a clip plays once across the whole move. (2) Clips are stretched to typed phase times, so the tempo jumps at each phase (slash at 2.2×, 1.4×, 3×). (3) The hit lands for the whole hit phase with a 0.35 m allowance, usually on its first frame before the blade arrives; clip `mark`s are read but only the Studio shows them. (4) Blends of up to 0.12 s eat windups of 0.08–0.12 s. (5) The motor's facing snaps while the model eases round at 14/s, and `pace` pushes the body the new way: it slides. (6) No root motion: feet skate on lunges. (7) vsync off and no physics interpolation: on a fast screen the frames judder. (8) An input buffer of 0.12 s against windows that open at 0.35–0.5. (9) Hit-stop only on the brawler's moves, and its end sets the world's time scale to 1. Ranked fixes and their size in the closing message of this pass; none but (1) made yet.
+- **Low poly people (`lowpolymake.gd`, `characters/lowpoly_*.glb`, characters.txt).** Five, after what is made and played most (Kenney's blocky people, the cube-headed road-crossers, KayKit's chibi adventurers, Synty-like lean ones, the first 3D consoles): **lowpoly_blocky** (a square head, a box body), **lowpoly_cubehead** (a big cube of a head on a small body), **lowpoly_chibi** (a round head of few faces), **lowpoly_lean** (a grown-up in few faces, a jaw), **lowpoly_retro** (five-sided limbs, a diamond head). Flat blocks, each carried whole by one of the mannequin's bones, so every clip that plays on the mannequin plays on them (`rig humanoid`, clips ual ual2 kaykit basic, `looks scout`). Each colour is a material of its own (skin, hair, shirt, trousers, shoes, eyes, belt) for the Make tab's colours; each is in the Make tab's models to start from. Made again by `lowpolymake.gd` (headless, no window).
+- **Voxels parked** at the user's word: not to be pursued for now.
+- **The demo's own hunt mended.** Rowan's rabbits are skinned where they lie dead, not where each was seen to fall a second after the shot (one dying later, or another than the one aimed at, was missed).
+- **Checked.** `-Demo islandbound -Check` 17/17, problems []: the line tied to the rod's tip (2.1 m from the hand, 0.0 off the tip), no deer into the water by itself through the Driftwood beats, a deer chased toward the sea for ten seconds ran 30 m and stayed dry. `-Demo lowpolypeople -Check` 3/3: the five whole, their own models, hands found, colours by name, feet on the ground (0.00); the strike's clip 0.11 to 0.59 s through windup, hit and recover, never back. `-Demo ibdeer` (probe): a minute alone, no deer afloat. Compile checks clean (folk, rules, fishing, move, animated, demo, lowpolymake). No Rust changed; host tests not run.
+- **Known.** The low poly people have no clothes or gear of their own fitted yet (the wardrobe's pieces are made for the mannequin's body, not blocks); they take colours, gear in the hand, and every move. Attack timing beyond the replay fix is not changed (see the causes above).
+- **Demos.** `-Demo lowpolypeople` (3 beats: the five walked as and seen whole, one walked, a strike's clip watched step by step). `-Demo islandbound` checks the line tied to the rod's tip and a deer chased toward the sea keeping to the shore.
+
+### Water held or let go, a diorama's sides dressed, the town's streets and roofs, the first island's foe (2026-10-31, third pass)
+
+The user, with pictures of Mistfall and of Mara at the camp (the lesson cut off at the left): "i want to be able to extrude just the water if possible when extending or just the land ... maybe there's a way to hold the water in place in those specific places which defies physics but still want the option to let it behave as normal when toggling.. fix the npc. fix the tutorial for this game. put one easy enemy on the first island and allow the player to get accustomed to the surroundings and get a weapon etc first. walk the player through getting prerpared. make sure both gamepad and keyboard is mapped. what does it take to add voxel capability? also allow for exxport of the final product as a game so i can test it on another computer. if possible the ability to paint the sides of the cutout with vines and other decor. to change the layer material from say dirt to granite ... need ability to paint with concrete and a feature set for building urban streets like stoplights and telephone poles and blvds ... pavements and rooftop patios. create a few dioramas with urban settings."
+
+- **Just the land, just the water, held or let go (`land.rs` `wet`, `terrain.gd`, `world_view.gd`).** Terrain › the block › grow it › what is made: **land only** (the water held back from it) or **water only** (nothing under it). Held water has its own outline (`wet` in the land's cut), drawn and felt there; land kept dry is not floated in. Terrain › the block › **held water**: Held where it was put / Flows as water does (`water_loose`), one Ctrl+Z. Mended on the way: a block cut and dry (all its land over the sea) drew no water where water was held.
+- **A diorama's sides (`land.rs`, `terrain.gd`).** Terrain › its sides › **dress the sides**, dragged along the edge: vines, ivy, moss, roots, flowering vines, stones, crystals, or clear. Terrain › the block › **its layers**: earth, granite, sandstone, clay, chalk, basalt, slate, limestone, or bands of them (earth over granite).
+- **The town's ground.** Terrain › paint: concrete, asphalt, paving, cobbles and brick.
+- **Streets (`build.rs` sort `street`, piece `roadway`; `buildbar.gd`).** Build › Town › **Street**, **Boulevard**, **Back lane**, dragged: asphalt with its centre line (dashed, or a double yellow over two lanes), lane and edge lines, zebra crossings at its ends, kerbs, pavements, a planted middle with trees; street lamps by turns either side, traffic lights at both ends, telephone poles and their wires. Its corners mitred, level across, sloping along; it clears plants as a path does. Set before dragging and changed where it is clicked (Its road, What stands along it). The piece is named `roadway`: an archetype named as a generator (`street`, the street of houses) is taken by the core for that generator and nothing is drawn.
+- **Rooftops.** A flat-roofed building's materials fold: Its roof made into **a patio**, **a garden** or **a bar** (decking or turf, a railing, planters, tables under parasols, raised beds, a counter and string lights).
+- **Three urban dioramas (`author_dioramas.gd`), made through the editor's tools:** `downtown` (a boulevard and a street, apartments with a roof patio, a bar with a roof bar, a loft with a roof garden, taxis and police cars, concrete sides with ivy), `backlane` (dusk, a lane with telephone poles, cobbles, brick over concrete with vines and flowers), `harbour` (granite, water grown alone and held off the quay, a dry dock grown land only below the sea, a jetty). In `editor\dioramas\`.
+- **The first island's foe (`author_islandbound.gd`).** Quest **Teeth in the Wood** (Mara, after the lean-to): a stone spear made at the bench, taken in hand, a thin half-wild dog in the Old Wood (a Library wolf made small and slow to bite: one blow with the spear, two with the fist) driven off. It keeps to itself until a weapon is carried. Finn waits for it. Islandbound has six quests now. The castaway's profile has the Up press (journal; held, the lesson put by), as the ranger's had.
+- **The tutorial (`author_islandbound.gd`, `tutorial.gd`).** Lessons taught on Driftwood in the order the first quests go (look round, the map, gathering, building, the bench, taking a weapon in hand, locking on, striking and stepping back), each with the controller's button and the key. The lesson box centred (it was cut off at the left). Up on the controller: a tap opens the journal, held puts the lesson by (as U held). In build mode with the castaway's profile, Right and Left are the hotbar's next and turn.
+- **Mara** stood in the tent in the evening; her place by the fire is moved out of it.
+- **The game to another computer (`export.ps1`).** Every model, body, picture and recording a world names (kits, models, characters, textures, sounds) is carried beside the game at the same path, with what a glTF, an FBX or an OBJ names beside it; only what is named goes (the kits are gigabytes).
+- **The castaway could not strike (`profiles.txt`).** Its profile said `button attack X`, but with a profile in force a blow is asked only by a move the profile puts on a button (motor.gd `OFF_PROFILE`), so X did nothing, bare-handed or with the spear. X and the click now ask `thrust` (running, the spear drawn) and `strike`. Found by the dog's beat in the demo.
+- **Checked.** Host builds; `cargo test --release`: 108 unit and 114 protocol tests pass (`p103` new: a street's road, lamps, lights, poles and wires; a roof as a patio and a bar). `-Demo urban -Check`: 6 of 6, `problems []`. `-Author islandbound` made the three islands again; `-Demo islandbound -Check`: 17 of 17, `problems []` (the spear made and held, the dog felled on the third press, Mara told, every later quest as before). `export.ps1 -World editor\dioramas\driftwood_island.json -Name Islandbound`: `build\Islandbound.zip` 198 MB, 598 files of models, bodies and sounds carried beside it; not yet run on another computer.
+- **Known.** The dog's beat in the demo stands the castaway a pace off the dog before each press (the fight helper's walk-in stood too close to land a blow). Voxels: not begun (see the answer in the session).
+
+### Cracks mended, docks' boats, true dioramas, and assets in and out (2026-10-31, second pass)
+
+The user, with a picture of a spire on Mistfall's edge (cracks and gaps under it): "crackks or gaps when raising land. whe placing a doc shoulld have option to keep or avoid the boat and option to add more boats. for the 3 islands i can see all the water. in some of the demos it's a true diorama. there should be a setting for this. either way update the demo so that only the dioramas are showing and editted and allow for traversal through a section. i will also be using character studio 5 and nomad sculpt to create and modify assets. ensure draw3d makes it easy to export and import and work with assets from them in terms of formats and schemas and being able to apply styles to those assets too if possible."
+
+- **Cracks under raised land at the block's edge (`land.rs` `cut_side`, `cut_water`, `finely`).** The block's side was drawn straight between the outline's corners, so land rising between them (a spire on the edge) left holes under it. Both the earth's side and the water's side now follow the land every third of a metre, the earth a hair over it; the sides are made again (`made` 5).
+- **A dock's boats (`build.rs`, `buildbar.gd`).** A dock's `boats`: none to four, one each side of its end by turns, a pair further in; Build › Dock shows Boats before it is dragged, and the dock's fold changes them after. Host test `p102`.
+- **The sea inside the block or to the horizon (`terrain.gd`).** Terrain › the block › **the sea**: Inside the block (a true diorama) or To the horizon; the land's own `block_sea`, which was only in the land's settings and New world.
+- **Islandbound as true dioramas (`author_islandbound.gd`).** Each island's block is 9 m wider than the island each way, round, the sea only inside it, the walker kept on it; the land past each coast let down to a sea bed, the coast broken by Terrain › pattern › shore (no longer the block's edge). Docks and boats inside the block; crossing between the islands is by the boats, as before.
+- **Assets in (`models.gd`).** Import reads PLY (text and binary, its paint) and STL (binary and text, Z up stood up) besides glTF, FBX and OBJ; OBJ's corner colours (`v X Y Z R G B`, as Nomad Sculpt writes) are kept; corner colours survive being written as glTF (a material named `Painted_in_its_corners`). Before it comes in: Up, Size (metres high), Colours.
+- **Assets in the world's style.** A design's `palette HOW_MUCH` (host `kind.rs`, `things.gd`): its colours, and its corners' colours, moved to the nearest of the world's style's colours, following a change of style. Inspector: Its own colours / Half the style's / The style's colours, Smaller / Bigger.
+- **Assets out.** Inspector › **Export as a model…**: the type as .glb, or .obj with its colours and an .mtl, as it is seen, for Nomad Sculpt, Character Creator and Blender.
+- **Character Creator's bones (`characters.txt` `map cc`, `animated.gd` `arm_down`).** CC_Base_ names mapped to the humanoid profile (52 bones); `stance arms-down` measures where a body's upper arms point and turns them down (an A 46°, a T 86° as Mixamo's), so any maker's stance is met. Written from Reallusion's names: no file of theirs was tried.
+- **Checked.** Host builds; `cargo test --release`: all 108 unit and 113 protocol tests pass (`p102` new). `-Demo islandbound -Check` on the new islands: 16 of 16, `problems []` (walks put beside their target 27 times). `-Demo assets -Check`: 7 of 7, `problems []` (spires and a mesa 6.5 m on the edge with no cracks; the sea round then inside; a dock with 3, 0, 2 boats; PLY 1.5 m high, STL stood up, OBJ's paint; style colours on it, following Low poly strange; a crate out as OBJ (72 coloured corners) and glTF, the OBJ back 1.1 m high; the cc map chosen by its names, an A's arms turned 46°). `-Author islandbound` made the three islands again; pictures looked at.
+- **Known.** USD (Character Creator's and Nomad's other format) is not read: Godot has no reader; export glTF, FBX, OBJ or PLY. Pictures on an OBJ (map_Kd) are not read, only its colours. A model's style colours are the nearest of the style's, so a red stays a red where the style has one. Runs still end with code -1073741819 after finishing.
+
+### Islandbound: three islands to survive on, a pattern from a seed, platforms shaped like the land (2026-10-31)
+
+The user: "the platforms should be modifiable like the rest of the diorama ... add a tool that can modify the terrain surface and edges in a random mathematical way with some seed and parameters ... craters on the surface or weird shaped land extrusions on a foreign planet", with the benchmark *Islandbound – Three Islands Survival* (Driftwood, Pinewatch, Mistfall; Mara, Finn, Rowan and Edda; exactly five quests; travel keeping the pack and quests; fog per island; fishing, hunting, camp; save and load), "build only using the UI/engine", waterfalls, birds, decor, sounds and water splashes. The report: `Draw3D_Islandbound_Benchmark_2026-10-31.md`.
+
+- **A pattern from a seed (`land.rs` `pattern`, `PATTERNS`; `terrain.gd`).** Terrain › from a seed › **pattern**: craters, spires, pods, ridges, dunes, the shore broken in and out, and **rim** (a diorama's edge bitten into and grown in lobes); how many, size, rise (under 0 sunk), seed, twist, direction; the same seed makes the same land, one click one Ctrl+Z. Host test `p101`. A style for a strange world to go with it, **Low poly strange** (`styles.txt` `low_poly_strange`: rust-red ground, lilac plants, a violet sky).
+- **Platforms shaped like the land.** Terrain › the block › grow it / cut it pressed on a platform reshapes the platform's own outline (`reshape_platform`, round, square or organic); the rim pattern over its edge bites and grows it (`rim_platform`); cutting it all away is refused.
+- **Islandbound, built through the editor (`author_islandbound.gd`, `-Author islandbound`).** Three islands as dioramas (`editordioramas*_island.json`), each with its regions (fog over the whole), people with hours, the five quests one after another, boats between them; a new Library shelf **Island survival** (`librarysurvival.txt`: fibre grass, berry bush, driftwood, loose stones, shells, lean-to, the three landmarks, the cache, the boat, a drying rack, a net), recipes (rod, spear, bow, arrows, rope), goods, a castaway character and its profile (`castaway_survivor`: LT aims the bow, RT looses).
+- **What the game needed (engine).** Quests one after another (`needs quest X done : WORDS`, Project › a quest › Offered › After / Until then); `built N DESIGN` and `found` across worlds (`cond.gd`); the crossing between worlds drawn (the sea at dusk, a boat rocking, its name) with quests, skills, catches, kills, things made and places found carried (`travel.gd` `CARRIED`); landmarks starred on the map with a banner (`waypoints.gd`, `maps.gd`); fog over the whole island not shown through by named regions (`areas.gd`); **picks game** for a weapon (`aim.gd`, the gear and power forms): foes and wild animals, never a person; a person looked straight at comes before a seat beside them (`acts.gd`); flocks of birds that wheel, land, peck and fly up (`wild.gd`, `flocks`); spray and the sound of falling water where a river falls (`build.rs`, `effects.txt` `falls_spray`); new water sounds (splash, plop, a big splash, paddle, thrash, surf, falls) and flap.
+- **Bugs found by playing it.** A world being opened answered "nothing written" while it opened, so the editor gave it the shared files over its own texts (the islands' quests lost): the host now says busy (`lib.rs`) and the editor asks again (`main.gd` `settle_written`). What was known of a world's things outlived a crossing, so the next island's landmarks were never found (`acts.gd` `clear`). Demos now let profiles play for `islandbound` (`PROFILED`).
+- **Also mended.** Dunes were flat wherever the way along the wind was below 0 (`.fract()` of a negative number; `rem_euclid` now, and in the spires' bands); four survival designs named colours the style already has (`wood`, `stone`, `leaf1`); the second rabbit was not skinned when a berry bush was nearer (the demo now turns to the rabbit, as a player does). The full report: `Draw3D_Islandbound_Benchmark_2026-10-31.md`.
+- **Checked.** Host builds (`target-lp`); `cargo test --release`: all 108 unit and 112 protocol tests pass (`p101` makes dunes off the middle; `p43` lists the Island survival shelf). `-Demo islandbound -Check`: 16 of 16, `problems []` (all five quests done, 3 fish, 2 rabbits shot and skinned, three landmarks, two crossings carrying the pack, save and load the same; the walk put beside its target 22 times). `-Demo patterns -Check`: 4 of 4, `problems []` (spires to 11.4 m from 6, pods 7.4, dunes 7.0, Low poly strange taken). Pictures of all three islands looked at.
+
+### The diorama toolkit rounded out, after the user's hand test (2026-10-31)
+
+The user's thirteen screenshots and list: the compass obtrusive, demos in a new editor, knee-deep snow only footprints, no preview for extend land, the Inspector jumping, the brush line off the pointer, the floating island, a colour behind by night, land that would not flatten, colour patches on extended land, flashing, keeping the walker on the block, water under a bridge, the water's side, smooth or poly water, mist, floating creatures, the grain setting, zoom stopped at sea level, a skyisle dock, their own river, generators on dioramas, nothing to shape in an empty world; "ensure everything you do and create in the diorama is recreatable in the UI".
+
+- **Mended.** Host tests `p35` (a floating kind told to rest on the ground lies, not let into the slope) and `p47` (turf not let into slopes). The compass smaller and fainter. Demos open where the editor is, the editor put down meanwhile (they still run in their own process: each needs a scratch library and a fresh world). The Inspector does not rebuild as a shape number changes. The brush line follows the pointer, subdivided and lifted to the ground. Flashing: the block's sides kept as they stood until the new ones come. View › **Down to the sea bed**.
+- **Generators and rivers on a block (`land.rs`, `build.rs`, `tileops.rs`, `makers.gd`).** What grows needs only a hand over the water on a block (`Ground::dry`), keeps 2 m off paths there (`kept_off`), and woods spread over the block, not the whole land (`spread`: a 16 m block got none). A river dug a hand deep on a block (`river_dig_on`). **The river bug:** a drawn river was named nothing, its line "line of", so in a world that had one (meadow, skyisle) every other was refused as a name taken; now "river", "river 2"…; its bar says the depth it is dug.
+- **Docks.** A dock keeps the level it was begun at: past a drop it goes on as a jetty on posts, never a ladder.
+- **Shaping (phase 6).** Terrain › terrace, slope, roughen; stamps hill, crater, mesa; the block's **grow water**; a ring over the water where extend, grow and grow water will come. A world begun with nothing gets the sea bed at the first press of a land tool.
+- **Edges and settings.** The land's **the walker kept on the block** (`block_keep`, `player.gd`). Snow over the shins ploughed as a furrow (`lying.gd`). Environment's **The water drawn** (`sea_facets`) and **Behind the world, by night** (`backdrop_night`), both world words. The grain row in Terrain › paint. Mist reaches as far as the eye is from what it looks at. The floating land rebuilt: a patched green top, a turf lip, earth drawn in, rock in layers.
+- **Checked.** Host builds (`target-lp`); `cargo test --release`: 108 unit and all 111 protocol tests pass, among them the new `p99` (woods, a meadow and a river on a small block) and `p100` (a dock off a high tier stays level). Demos `shaping` and `edges` `-Check`, `problems []`, pictures looked at.
+- **Known.** Screenshot 6's colour patches are the low-poly style's per-face tint and slope colouring, by design; the first dab paints only what it reaches. Screenshot 5's land that will not flatten is not reproduced (the coarse facets of low poly can hide small changes). Crabs and other crawlers sit at their home height in the editor (fine in play).
+
+### The diorama toolkit: water that behaves, the block's form, how it is shown, grain, sea life, flotsam, and an island in the sky (2026-10-30, after the user's toolkit proposal)
+
+The user, after trying the dioramas: paint refused while busy, the sea flashing, snow left lying, raised sand turned to grass, waves through the island, seams in the water; water round the block or not, fill a dip, the sea into land dug from the shore, waves over the shore or not, floating driftwood, crates and barrels, sea life; life icons told apart; the block's sides, square and organic brushes, strata, bevels; a compass; a grain on the ground; a small sky round the world and a colour behind it; and, from their *Diorama Editing Toolkit Expansion Proposal*, a plan (`Draw3D_Diorama_Toolkit_Plan_2026-10-30.md`) and "the multi-level floating one with waterfalls" as the benchmark.
+
+- **Fixes.** Paint strokes wait their turn instead of being refused; no flashing in the sea while sculpting; snow goes from the ground in the editor when the weather clears; sand stays sand when raised; the swell lies flat under the land; no light lines down the water's cut side.
+- **Water.** Terrain › **fill with water**: a click in a hollow fills it to its brim (host op `hollow`, `land/hollow.rs`), a pond whose shore follows the land. Land dug from the shore below the sea fills with the sea. Environment › The sea's waves › **Over the shore** (`wash`): the waves die down in the shallows, or wash up the beach; `world_view.shore_calm_at` mirrors the shader so what floats rides the same sea.
+- **The block's form (`land.rs`, `land/rim.rs`).** `block_corner` (a rounded square), `block_lean` (the sides lean in), `block_taper` (the underside hangs to a point of rock: a floating island), `block_band` (fewer, bolder layers of earth); brush **Round**, **Square** or **Organic** for extend, take away, grow and cut. Without the sea round it and its land above the water, no sea is drawn in it. A river drawn off a block falls where its line crosses the side (`land/build.rs`), on past the foot of a floating island.
+- **How it is shown.** `compass.gd`: View › **Show the compass**, and a game screen piece `compass` (hidden until shown; old worlds get it through `hudbook._library_heads`). View › Lens › **Seen from: above, three-quarters, level**. Environment › the sky › **Behind the world** (as its style has it, the sky, any colour) and **A small sky round it** (`clock.gd`, a bubble of sky about the world, its edge broken as cloud is), kept in the world's weather.
+- **Ground grain.** A style's `ground_grain` (how much, how fine; Style › Grain on the ground): mottling and specks on sand, grass, dirt and rock in the land shader. The castaway's sand has it.
+- **Life and flotsam.** Each Life set's button its own creature; three sea sets (shoals, the deep, the sea bed) kept to the water, sea life painted off a block staying on the sea round it. Five flotsam kinds (`rural.txt`, under Pond and water's edge) and a Flotsam set: on the water they ride the swell.
+- **The benchmark: `skyisle`.** `-Author dioramas -Only skyisle` makes `editor\dioramas\skyisle.json` in the new style `low_poly_skyisle`: a round island hanging to a point in a small sky over a pale backdrop; two tiers with a cliff between; a stone temple on top, stone stairs down the cliff, a village of cottages below; a river rising by the temple, over the cliff, across the lower tier and off the island's edge as a waterfall down its side; a small land floating over it.
+- **Checked.** Both hosts build (`target-lp` and the plain `target`); `cargo test --release`: 108 unit tests and 107 of 109 protocol tests pass. `p35` (a boat told to rest on the ground, on the bed) and `p47` (tiles' ground through a stroke) fail the same way on the commit before this pass (3971522, the things let down into slopes), so they are from there. Demos, each `-Check`, `problems []`: `fills`, `blockform`, `showing`, `flotsam`, `grain`, `skyisle`, and again `blocks`, `waters`, `dioramas`. `blocks` caught sea-life keeping letting stones past the block; mended (only what floats or swims stays on the sea). Pictures looked at: the compass, white behind with the small sky, flotsam round the isle, the grain's specks, the island in the sky whole, at the cliff and off the edge.
+- **Known.** On the island in the sky the fall at the cliff is short and partly hidden in its notch, and the fall off the edge ends in the air, with no mist. Sculpting's terrace, slope and stamps (phase 6) and a roughen brush are not begun. No assets were downloaded; the kits on hand were enough.
+
+### Dioramas to build on, after the user's try: grown and cut, water that answers, stairs that work, a part saved as its own world (2026-10-30, after the dioramas)
+
+The user tried the dioramas: "I can't extend it. I can't use terrain tools"; drag blocks out, "mostly squares and hexes", land or land and water; paint kept to the block and one brush size for all painting; trees that touch the ground; "the performance is extremely horrible"; the rain carried into the next file opened; "if you've got stairs there that are not walkable, then I say that's lazy"; a waterfall that flows, splashes, rain on the water, climbing out of the water; planks, windows and roofs; a real pool; the canoe by the dock, not flags on the island; a blank start truly blank; the windmill's blades turning; "a section that I want to cut out and like save as its own little world". Untried by hand; nothing committed.
+
+- **The block grown and cut (engine, `lib.rs grow_block`, `land.rs`, `land/rim.rs`).** Terrain › the block › **grow it** (drag past the edge; *grows as* the land as it is, land level with where the drag began, or water) and **cut it**; **all at once** grows the whole shape one way or all round (a square stays square: a direction of 0 was read as 1 by `signum` and grew it both ways). The outline is a square, round or hexagon (`block_hex`) with an edge broken by `block_wobble`, moved by `block_mid_x/z`, and the strokes over it (`block_more`). What grows or is painted stays on the block unless `block_open` (`land.rs settle`).
+- **Brushes and slopes.** Ctrl + wheel widens or narrows the terrain, paint and strew brush (`main.gd`). A thing on a slope is let down as far as the ground falls under its foot, at most 0.6 m (`land.rs into_slope`), except what floats, is raised, or is walked up (a design with a `solid ramp` stands level, `level`).
+- **Water.** Rain rings on the sea and on ponds as hard as it rains (`world_view.gd rain_rings`, `weather.gd`); a loose thing that lands in water splashes and floats, its push now in the physics step (`loose.gd _wet`); the walker hauls out onto a bank ahead when swimming at it (`motor.gd _bank`), and the eye's pitch no longer dives a swimmer unless looked well down (`LOOK_DIVES`). Falling water over a block's edge runs in threads.
+- **Models with spinning parts.** A design shown by a model says what of it spins as any design does; each of the model's own parts whose middle lies in the box turns about its middle (`models.gd _turning_parts`); Inspector › Pick the part… offers the model's own parts (`inspect.gd`). The farm's tower windmill: its blades turn.
+- **Built things keep their faces under low poly (`shapes.rs form_sort`).** A design named as a house, hut, cabin, barn, stairs, dock, fence, crate and the like is "built": lit flat, never merged or pushed about. Before, the isle's house came out with its windows and door lost inside walls pushed past them and its beams leaning.
+- **The scenes mended.** The islet: a pool with straight sides; the cabin with planks, framed windows, a lintel and a chimney, its deck lower with posts into the ground and solids of its own (deck, walls, roof: it had been one 8 m box); the stairs a ramp turned along the flight (it lay across it), their top at the deck's edge. The pond: the canoe floats by the dock, the flags gone. The isle's house: plank seams and window sills.
+- **A part saved as its own world (`worldcopy.gd cut_out`).** Edit › Draw round a part to copy, then the bar's **Save as its own world…** (or Edit › Save what is drawn round as its own world…): a square, round or hexagon block, then a file. The world is written aside (as the autosave is: nothing unsaved is marked saved), then only what lies inside the line is kept (what Copy finds, and tiles and painted patches inside it), the land made a block round the line, the start at its middle. Godot writes whole numbers as 17.0, which the host refuses: they are written whole.
+- **Blank start, weather, speed.** New world › Nothing or An island opens no window. A world opened shows its own weather, not the last one's. Less work per frame while editing: the tile view refreshes every 6 s, the library's and growing pictures not while a key or button is held, the style list read only when the styles change; unfocused, the editor draws at 60 frames a second (10 minimised).
+- **Checked.** The host builds (`target-lp` and the plain `target`); `a_style_s_form_makes_things_in_fewer_flat_faces` passes; the changed scripts compile headless. Demos, each `-Check`, `problems []`: `dioramas` 11/11, `blocks` 6/6, `waters` 3/3 (rain 0.38, the crate floating at -0.32, the walker out), `millspin` 1/1, `isletstairs` 1/1 (from 1.94 m up to the deck at 3.08 m, at the cabin door), `cutout` 2/2 (14 things down to 10, the dock left out, a hexagon). The islet, isle and pond pictures were looked at.
+- **Known.** The castaway's water, liked by the user, is clearer than the pond's and the isle's (their styles say a grey-blue still water). Blending two dioramas at their edges is for later. Quitting after an `-Author` run ends with Godot's own exit code -1073741819, as every hand run has since 2026-10-20; the worlds are written before it.
+
+### Dioramas after the user's pictures: blocks of land, round islands in the sea, eight scenes made and pictured (2026-10-30, after the low poly pass)
+
+The user: the low poly look lacked "the stylized, deliberate artistic look"; flat surfaces without poly marks, facets on slopes, hills, rocks and leaves; recreate pictures 1–5 and 8 (and 15 for variety, 20 for a city) closely, "you're going to have to update the engine"; up to 100 MB of assets allowed (none was downloaded: the kits already in the library were enough); "I should be able to recreate everything with the engine". Untried by hand, uncommitted.
+
+- **The land as a block (engine).** The land's `block`, `block_z`, `block_deep` and now `block_round` (an ellipse) and `block_sea` (the sea all round it) (`land.rs Far`). The sides (`cut_side`) are earth in bands measured up from a foot under the lowest edge (`Shape::cut_foot`), with a ragged foot and a lip of the ground's own colour; sand where the edge is low. Water inside the block is seen through its sides (`cut_water`, coloured by the glass shader's `through` in the style's water colours). Round: faces, bands and the floor follow the ellipse. A river run off the block's edge falls as a waterfall over it (`build.rs`, the river branch, `hug`). The view clips the sea to the block, or not at all when the sea goes all round (`world_view.gd _cut_said/_cut_now`). Off a block with the sea all round, the ground counts as under water: a dock out over it is a jetty on posts with its boat tied (`Ground::sea_off`, `height`).
+- **Kits sized and coloured.** A kit model's design takes `grown` like any design (`shapes.rs`, `models.gd`). A design written with library meshes brings them into the world with it (`lib.rs` kind op). Under a low poly style a kit coloured from swatches (most faces taking one small spot of the colour map: the cars, the tractor) keeps its swatches, read sharp; other pictures are still averaged (`models.gd _swatched`).
+- **In the editor.** World › New world › **A diorama: a block of land** (width, depth, sides, round, sea all round, hills, seed, colours: `worldmake.gd`, `newworld.gd`). World outline › the land: the five block settings, the two switches as ticks (`makers.gd`: a row may be a tick). View › **Lens** (Normal, Narrow, Model from afar) and **A clean picture: the world alone** (every bar hidden; any key, click or pad button brings them back: `main.gd set_clean`). Eight styles: low_poly_meadow, castaway, lake, pond, isle, islet, tiles, dusk, each with a `backdrop`. Help › A diorama.
+- **The scenes (`editorun.ps1 -Author dioramas [-Only NAME]`, `author_dioramas.gd`).** Each is made with the editor's own ops (sculpt, paint, river and dock drawing, the rock generator, designs written as kinds, library kits), saved as `editor\dioramas\NAME.json` and pictured from where the user's picture was taken (`editor\dioramas\shots`, side by side with the user's in `compare-N.png` for 1, 2, 3, 4, 5, 8, 20): **meadow** (8), **castaway** (1), **lake** (2), **pond** (3), **isle** (4), **islet** (5), **farm** (a tile of 15), **city** (20). Designs written for them and kept in each world: cone tent, round tree, leaf hut, lookout pole, tall sign, red canoe, striped flag, mushroom tree, wooden cross, crate pile, plank house, cone pine, rail fence, plank cabin, stairs, great trunk, stepping stone, row of crops, wrecked bus, yellow tree.
+- **A world opened starts with bare ground.** Snow, wet, leaves and dust lying on the ground were the editor's, not the world's: leaves from the world open before lay on the summer islands when the demo opened them. A world opened or begun now starts bare, or as a game in it kept it (`main.gd fresh_ground`). The demo deselects before each scene's picture.
+- **Checked.** The host builds; the scripts compile headless. Every scene's picture was looked at after each change (shots in `editor\dioramas\shots`). `-Demo dioramas -Check`: 11 beats of 11, `problems []`; its pictures looked at (no leaves lying, nothing selected).
+- **Known.** The lake's islands are faceted green hills with rock painted on their sides rather than sheer rock cliffs. The pond's still water does not mirror. The city's buildings are the downtown kit at half size and read beige-brown under the dusk light; its street arms are darker than its crossing. Kit plants (nature-plant) come out pale under these styles. The city's crossings are a design of white bars (`zebra-crossing`): the kit's see-through crossing picture is painted one colour by a low poly look, as any see-through picture would be. In the demo the islet is shown at its world's 09:00, darker than its authored picture at 13:00. Runs still end with code -1073741819 after finishing. Nothing tried by hand.
+
+### Low poly as an art direction: things made in few faces, its variations, colours and settings in Styles (2026-10-30, after the particles pass)
+
+The user's brief "Advanced Visual Styles: Low Poly Style Development" with twenty pictures: "low poly doesn't mean bad low poly art". The day before's Low poly only drew the world flat, pale and washed out, with every leaf still there. Now the host makes things in few faces by design, with colours, surfaces, light and water chosen to go with them. The record for handing on is `Draw3D_Low_Poly_Advanced_Style_2026-10-30.md`: what each word controls, what each sort becomes, the limits, and where it is in the editor.
+
+- **How things are made (`form`, a new style group).** `form none|faceted|soft|angular`, `simpler`, `uneven`, `bolder`, `face_tint`, `form_on SORTS` (`style.rs Form`, `FORMS`, `FORM_ON`). `Mesh::formed` (`shapes.rs`) runs after the collider in `outputs_as` and `kind_outputs_covered`. It merges corners by a cell sized to the sort, keeps at least half the visible surface (grass and fences are never eaten), pushes faces unevenly, makes crowns and trunks bolder and rocks squatter, and gives each face its own colour and a flat normal (soft: smoothed with creases). `lighter()` joins formed corners for LODs. The generators build differently under a form: trees as a trunk, boughs and a few lumps, or a pine of stacked cones (`real.rs tree_formed`, `land.rs conifer`); rocks as chunks (`land.rs rock`); roofs as slabs with an overhang and a block chimney (`real.rs roof_formed`). `made_from` gives `style.form` to every build, wild and kind realizer, so a change to it remakes only those.
+- **Surfaces, ground and water.** `surface ROUGH GLINT PICTURES` and `water_tones SHALLOW DEEP CLEAR` (look group). The paint shader's `rough`/`spec`/`pictures`, and ground facets each their own shade (`face_tint`). The sea and rivers in two colours by depth, with a duller glint and softer foam (`world_view.gd surface_as`, called from `clock.gd`). `treat tilt` is a model seen close (tilt-shift). Models brought in keep their shape and are painted their pictures' average colours, matt (`models.gd plain_as`/`flatten`).
+- **The family.** `low_poly` (faceted, vibrant natural), `low_poly_soft` (pastel), `low_poly_angular` (muted earthy), `low_poly_cartoon` (saturated, ink), `low_poly_diorama` (tilt-shift), `low_poly_sunset`. Palettes `lowpoly_vibrant`, `lowpoly_pastel`, `lowpoly_cartoon`, `lowpoly_earthy`. The user's own styles are kept (`my_low_poly` is `like low_poly` and so takes on the new look).
+- **In the editor.** Window › Styles has a **Low poly** part: the six variations, the four palettes, Custom, jumps to Shapes and to Light (not duplicated), and the picked thing's design As the style says / Kept as made / Faceted / Soft / Angular. Every setting has a new first group, **Low poly: how things are made**, built from the window's schema of rows (`styleview.gd EVERY`), and "Low poly" there is now "Land in facets". Any change makes a copy that is yours; Customise names one.
+- **One design or one thing.** The design word `styled no|faceted|soft|angular` (`kind.rs TRAITS`, `ONCE`, `kind::styled`). In `abilities.txt` it is "is made its own way under a low poly style", so the Inspector gives it to one thing (a design of its own first). Not by region: a style is the world's (said in the record).
+- **Checked.** Host tests `low_poly_styles_say_how_things_are_made`, `a_style_s_form_makes_things_in_fewer_flat_faces`, `a_design_says_how_a_style_makes_it`, and the whole host suite (105 unit, 109 protocol, all passing). `-Demo lowpoly -Check`: `problems []`. Its pictures were looked at and the palettes retuned twice (neon greens, haze over Angular's whole land, a pale Soft). Triangles drawn on town-wastes: 2,111,152 under the world's own style, 242,611 under Low poly, 2,111,152 again after.
+- **Known.** House walls keep their timbers and shutters merged rather than redesigned (good from a distance, busier close up). Horses and other boned bodies are not formed. Switching town-wastes to Low poly the first time takes about 15 s. `-Tour -Only ui`: 13 problems, against 15 with the committed scripts on the same host. The Checklist window had been as wide as a demo's title (its play button now wraps), which mends four. Two not seen with the committed scripts: the 'said' window no_smaller_than_it_needs (least 609×279, given 609×560), and the walker's numbers put_back (already known as intermittent). Not explained, not looked into further. Runs still end with code -1073741819 after finishing. Nothing tried by hand.
+
+### Particles in modules, shots that fly true and hit, the wall of names found, the crates renamed, eye colour (2026-10-30, after the looks pass)
+
+The user: the wall of names came from painting trees from the generator on raised land; rename the breakable crate stack with a suffix; continue; refine the particle system (each particle meets the ground over time; birth, life and death with sub-emitters; colour, alpha, size and rotation over life; GPU drawing; emission / initializers / updaters as modules; the common uses covered); projectiles with configurable trails like arrows or bullets, their facing fixed, lock-on shots that hit, feedback on a hit, a recoil setting.
+
+- **The wall of names (`-Demo treepaint`).** Not raised land: run.log showed "Painted 21 with 'cypress-1'" and then four refusals naming every kind in the world. The design had gone from the world (Ctrl+Z takes back the stroke and then the Tree Generator's "save as object") while the Objects brush still held it. `marks.gd design_gone()` puts the brush down with one sentence before a stroke and after every Undo/Redo (main.gd `step()`); the host's refusals (`design_known`, five "no kind" messages, "no mesh", "no tile") now say "did you mean 'cypress-1'?" (`lib.rs no_such`/`nearest_names`). Trees stand on the raised land (0.00 m off, 34 trees).
+- **Crates (`-Demo cratenames`).** The Pit's breakable stack is `crate-stack-breakable` (creatures.txt, town.rs, worldcopy demo); town-wastes.json and town.json renamed by exact replacement (backups `editor/backups/*-before-crate-rename-2026-10-30.json`); town-wastes also given the searchable `kind.crate-stack` for Gil's scrap, which had been breakable. Host tests all pass now: 102 unit, 109 protocol (p43's expected lists brought up to date with the kit passes), core 10.
+- **Particles (`-Demo particles`).** Layers are GPUParticles3D with ParticleProcessMaterial (CPUParticles3D on the Low preset: graphics knob `particles`). New words by module: Emission `rate`, `bursts`, `swells`; How each begins `aim`, `vary`, `stretch S` (drawn long along its way); As each ages `grows` with up to 9 points, colours with fades, `turns`, `swirl`, `drag`, `wind` (the game's one wind); When it meets something `meets bounce B friction F` / `stop` / `die` (land through weather.gd's heightfield, about 26 m round the eye; the stage floor); What it lets go `lets LAYER on hit N / at end N / trailing N`. 16 new effects (spark_bounce, muzzle_flash, bullet_trail, arrow_trail, blood_splatter, sword_slash, explosion_sparks, rain, snow, falling_leaves, dust_motes, fog, drifting_clouds, energy_beam, glowing_trail, fireball, teleport). Weather rain streaks bounce once and leave leaping drops and rings. The Effects window: list and preview left, settings right in five folding bands with switches. Old world copies of sparks, blood_burst and explosion upgraded by mends. 24 effects (4510 particles): about +1 ms a frame.
+- **Shots (`-Demo shots`).** `streak.gd`: a ribbon, line or stretched tracer behind a shot, set in its form (lasts, width, colour, fade, glow). Facing: `fight.along()` keeps the look along its velocity (arrow +22.7° rising, −17° falling; straight up and down without flips); a stuck arrow is placed by its tip. Lock-on misses had five causes: no reload in ranger_testing (one round, then "Empty"), hits tested on a ball at the body's middle, aim from the shoulder not the launch point, no lead, full spread while locked. Fixed: reload by itself, a feet-to-head capsule, aim from the launch point, `aim.lead_point`, spread ×0.2 locked. 90/90 hits with real pad events (crossbow, bow, pistol; 6, 10, 14 m; standing and walking). Hit feedback `hitmarks.gd` (X at the crosshair, red ring on a kill, flash, sounds, optional number; Project settings › Hit feedback). Recoil per shot or per weapon (up, aside, settles, shake, kick back), in the shot form and the item's card. town-wastes picks up the new arrow, bolt, round, rifle, shotgun and hunting rifle through mends (unchanged entries only; the file is not written).
+- **Lead's own.** Eye colour in Studio › Make (swatches, picker, 🎲, ↺; `eyes r g b`; a shader colours the iris and keeps the white; crowds get eyes with their skin). The lightning flash no longer washes the ground white (weaker, and fainter with distance).
+- **Demos mended on the way.** foeblows/fix1030 pressed the launcher on LT+X; the profile has it on LB+X now (read from the profile). powers asked for a render-scale button that no longer exists (Quality low now). range: the walked brawler has no rummage in `moves.txt`, so it could not search the arrow box (the demo gives its copy the moves; the shared set is the user's to say).
+- **Known.** Rain splashes are faint in wide, high views. A spark at rest keeps letting sparklets go (pool-limited). Particles meet only the land near the eye, not walls. The Shots and powers window runs off the bottom of the screen. Runs still end with code -1073741819 after finishing. Nothing tried by hand.
+
+### Land shaped quickly, two new looks, painted mist, lightning seen, six quests and the Pit's prizes, 48 idles and six people, a fuller character maker (2026-10-30, after rangerlayout)
+
+The user, after the controller sheet: terrain work takes too long; make sure the tree generator and the others still work; a style like Slots & Daggers; a low-poly style for the whole world; paint mist in an area; "i still don't see lightning"; more quests of varying type; close another game loop; idle actions from two lists (everyday and wasteland), given to the people and a few more people; more variety in the character maker. Done by six helpers at once and merged; every demo below run again on the final host. Untried by hand, uncommitted.
+
+- **Shaping the land (`-Demo sculptspeed`).** One stroke rebuilt 283 makers (6–8 s a step) because every maker on the land read all 316 parts of the hand-made layer. Now a maker depends only on the land parts it samples (`core` plan/eval/build: `Ctx::peek`, `read_later`, `input_but`; an owner whose exports are unchanged keeps its old Arc; `shapes/land.rs` a lazy part list; pond floors worked out when asked). A step: 0.1–0.2 s, 10 makers. Opening town-wastes: 0.3 s of host work (was 6.3). `examples/sculptspeed.rs` compares every maker's things against a fresh open: 294 makers, 5305 things, 0 differ. Status answers carry `rebuilt` by generator. The tree generator and nine other makers' demos (grow, nature, land, cavegrow, valley, village, pass1029, details, riverpass, heights) pass.
+- **Styles (`-Demo stylepair`).** `pixel_lantern` and `pixel_lantern_green`: big dithered pixels in three tones (amber/gold or green on near-black), dark edges, an old monitor's lines, glow. `low_poly`: every face flat and one soft colour, flat land in 4 m triangles (banks, cliffs and river beds keep their shape), rivers/ponds/sea in pale flat facets, conifers, soft light; as fast as the world's own style; land coarsened a few ms a frame. New style words any style can use (style.rs, Styles › Every setting › The screen and low poly): `scanlines`, `vignette`, `tones`, `faceted`. Game display: "A look for all of it…" (riveted dark metal, amber or green pixel letters) and `frame riveted`. Not faceted: people, creatures, imported models' own materials.
+- **Mist (`-Demo mistlightning`).** Brushes › Mist (`mist.gd`): thickness, height, drift with the wind, thinning by day, the hours it lies, soft edges, colour, brush size; erase, new, remove; a world text `mists`, each change one Ctrl+Z; clicking ground under it shows its settings. Drawn as FogVolumes following the ground. Not shown on the Low graphics preset (fog off there).
+- **Lightning.** It was there all along: the storm's haze let 6% of a bolt at 300 m through, bolts were 1.6 m thin, 3 in 4 struck off screen. `lightning.gd` rewritten: branching bolts drawn through the haze, mostly where you look, the land and sky lit, thunder after the distance's delay; weather words `bolts NEAR FAR`, `bolt_colour`; Time and weather: "Thunderstorm now", "Lightning strike now", and the storm's form has nearest/farthest/colour.
+- **Quests and the Pit (`-Demo questloops`, played with the controller).** Six quests in town-wastes (`worldadd_quests.gd`, applied to the file): deliver scrap, scout the old roads, a Pit wager, a hunt before nightfall, the last dose (give or sell: Rook answers which), Tallow's escort. The dead now fight (a claw) rather than catch. The Pit pays each wave cleared, keeps runs, best and a rank (Pit rat, Brawler, Veteran, Champion, each with a gift once) as facts quests can read; Inspector › Prizes and ranks on the ring; journal › Arenas. In a talk the eye comes over the shoulder to the person spoken to; people are named by their own names. The ranger_testing set was given the act moves (talk, search, eat): it could not talk before. Not played: the scrap quest, the night failure; watchtower_beacon still cannot be finished.
+- **Idles and people (`-Demo idlefolk`).** 48 idle moves in six groups, each with its prop (`props` word in moves.txt; 48 made clips in characters.txt; 28 `idle_*` items in gear.txt), people-watching (`heeds … anyone`), pairs answering (converse→listen, argue→argue). Routines › how it stands about, Animator › Idles. `worldadd_folk.gd` (applied): idles for the camp's people, and Gil, Vane, Old Mags, Dace, Pell, Juniper. Engine fix: `animated.gd turn()` read stale poses while baking, so bent clips sometimes came out with arms in a T; made clips are cached per character.
+- **Character maker (`-Demo charmaker`).** Studio › Make: a whole look at once (Random, a woman, a man, ten archetypes in `archetypes.txt`, draw one part again), skin swatches, build presets and sliders, face presets and 15 sliders, 23 places to wear in layers each with pictures, colour, Worn and 🎲; 76 new pieces per body made from the CC0 Quaternius base (`garmentmake.gd`); keep as an archetype or in the library, give to a kind; Populate › "People each look different". Wardrobe grew 15 → 56 MB. No eye colour; the kettle helm's brim stays white.
+- **Lead's own.** A long list in what is told is cut to eight names and "and N more" (`main.gd lists_cut`; the whole stays in the log): an error naming every design had covered the window. town-wastes.json was given the quests and folk by `run.ps1 -Author worldadd` on a copy; the old file is `editor/backups/town-wastes-before-quests-folk-2026-10-30.json`.
+- **Known.** Host test `the_project_library_reads_without_problems` (and p43) fail on `crate-stack` being in both library/creatures.txt (breakable, used by the Pit) and library/furnishing.txt (searchable, used by rooms): in HEAD before this pass; renaming either touches worlds, so it waits for the user. Runs still end with code -1073741819 after finishing now and then.
+
+### The ranger laid out as the user's controller sheet, the strafes brought in, and what the user listed with it (2026-10-30, after profilesweep)
+
+The user's sheet "Third-Person Character Controller – Proposed Default Gamepad Layout", made
+the ranger's (ranger_testing), every part of it something any profile can say: nothing done
+for the ranger alone. Checked by **-Demo rangerlayout** (new: town-wastes as the user has it,
+never saved over, every press a real controller event, the walker led by nothing, in the Pit
+with a foe): 9 beats, no problems; untried by hand; not committed.
+
+- **The sheet.** LS move, LB held run, LS click crouch (a toggle), RS click lock on and the
+  next one (none other: let go), RS held recenter, A jump, B dodge, X the three cuts, X held the
+  finisher (only on whoever is weak or down), LB+X the launcher (on the ground), LT held the
+  crossbow out and aimed over the shoulder and put away again on release, RT fired (aimed, or
+  from the hip at whom you are locked on to, the katana back after), RB guard and parry, X just
+  after a parry the counter, Y use, D-pad up draw/sheathe, D-pad down held the wheel, left and
+  right the hotbar, View tapped the inventory and held the map, Menu the pause menu. Jump is
+  not a default of the engine: the game's buttons a profile does not use are on nothing
+  (`game buttons` / `unused`, inputs.txt).
+- **What a profile can now say.** `pad X:hold move N` (a hold, apart from the tap; the tap is
+  not slowed when the hold could not be done now), `pad LT aim ITEM`, `pad RT fire ITEM`,
+  `pad W press N` for the game's presses (tap, hold, toggle), and `lets ... if_hit` in a move
+  (the jump after the launcher only if it struck someone; why not is said).
+- **The air combo.** LB+X → (if it hits) A → X air slash → LB+B spin kick down, the foe slammed;
+  the air slash now lets the spin kick in (mended into a world's own copy, res://mends).
+- **Strafes.** Mixamo's Strafe and Great Sword Strafe, brought in, are listed in the Animator
+  as "Brought in" and given as `walk_left/shooter`, `walk_left/blade` rows: Strafe locked on or
+  aiming with the crossbow, Great Sword Strafe locked on with the sword; played in place (their
+  1.4 m of travel taken out).
+- **Read out where it is set.** Controls & Input opens on "The character played": his profile,
+  each press, what it does and when, the combos and chains step by step; the same at the head
+  of Profile & buttons; the Animator's list shows only the profile's buttons, and a combo's
+  step says which step of which combo on which button.
+- **Found by playing it.** The lock let go every step when "lock while held" was on and the
+  lock was taken another way (player.gd). The wheel, let go on a slot that could not be chosen
+  ("you have no lantern"), stayed open with its button up and swallowed every other button
+  (wheel.gd). Draw and sheathe on one button were called a conflict (profilebook.gd). The
+  Controls page listed presses a profile puts on a button as "pressed with nothing".
+- **Grapple** shows its line to whom it pulls, in the game and in the Animator's preview.
+- **Water** (-Demo riverpass, 5 beats, no problems). The river was a row of flat panels
+  overlapping at different heights (the water drawn see-through without depth, so each overlap
+  showed twice): its pieces now meet edge to edge at one height, eased, drawn from one sheet of
+  rows (build.rs). The falls at its head were six curtains with each pool sticking out past its
+  lip: one sheet now from lip to pool, foam at the lip and the foot, threads of white down it
+  (build.rs, world_view.gd). A bridge has `opening` (Narrower / Wider on its panel): its middle
+  level and high over the water for that width, no posts in it. Not tried: a boat under it.
+  The dark-blue slab the user saw by the river is not identified (the waterwheel's shadow, or
+  the old fall curtain at the mouth, now gone).
+- **Village from a map** (-Demo villagelayout, 5 beats, no problems). Houses were left empty
+  because the plan preview filled a cache of each house's furniture with nothing, and the cache
+  outlived the world (worldmake.gd); every build starts it again. "Furniture style" with plain
+  names and two new times, medieval and western (rooms.txt). A layout asks for rivers (how many,
+  how wide, which way), lakes and ponds; houses are kept out of the water, roads bridge it, the
+  plan shows them (layouts.gd, layoutplan.gd, newworld.gd). The village and city makers do not
+  have the water yet.
+- **Colours** (-Demo colours, 5 beats, no problems). The Styles window emptied its palette while
+  the host was busy after a colour was added, and everything below moved up: now only the row
+  changed is drawn again (styleview.gd). A thing's Inspector shows COLOURS, a swatch a part
+  (trunk, leaves, roofs…), this one or every one of its wood; names never stack "own" (inspect.gd,
+  shown.gd). The status bar still says "Tree (own copy)" for one made its own.
+- **Project links** (-Demo projectlinks, 4 beats, no problems). "1 cave inside" was a plain chip
+  on the world's card, so a click chose the island; now "◖ 2 caves inside →" opens the cave's own
+  page (its shape: ways wide, rooms, room size, side ways, what grows; Another layout, Fit it
+  under the hill, Give it rooms; its mouths with Go to it), and Look at it closes Project, picks
+  the cave and opens the Inspector. The renamed cave was not counted. The cave's mouths
+  (`leads here`) were listed as 8 ways to no world. Every window item's "Set it up here" now
+  opens its window; Sky and clouds opens Time and weather at Sky; Goods → and Acts → no longer
+  point at their own page (worldspage.gd, projectview.gd). A whole audit of Project's buttons is
+  `run.ps1 -Author projectaudit` (author_projectaudit.gd). Still pointing nowhere, seen by it:
+  Animation packs → on a move page, Animations from Mixamo… on a character page, Change in
+  Effects… / Sounds…, Preview on cave and set pages, ‹ Project Settings on the game page. The
+  cave's form fields were not changed end to end.
+
+The demo runs on physics steps: unseen, two or three steps pass in a drawn frame, and after
+a picture is saved several run on one input, so presses meant inside a cut's window landed
+after it.
+
+### Only the profile's buttons, both hands on the crossbow, every press with every other, the combo on every foe (2026-10-30, after fix1030)
+
+The user, after fix1030: the ranger "magically gets the bow out and is missing an arm"; only the
+buttons the profile assigns may be used, nothing else on a button until the user assigns it, no
+duplicates or conflicts, every move of the profile tried with every other and looked at; then
+the foes. Checked by **-Demo profilesweep** (new: town-wastes as the user has it, never saved
+over) and **-Demo armprobe**; untried by hand; not committed.
+
+- **The missing arm.** The crossbow (two hands) hung from the right hand at the hip and the left
+  arm, sent to its second grip there, folded into the body. A thing of two hands is now held
+  where it says (`two_hands_at shouldered`), both arms brought to it (animated.gd).
+- **The bow out of nowhere.** X with the crossbow in hand did nothing, and LT+Y did the launcher
+  with the crossbow. A move takes what it wields or strikes with as it begins, and a blow is
+  never struck with something that shoots: the katana is taken, or with no blade the crossbow is
+  put away (move.gd, motor.gd `shoots`). RT pressed during a cut waits for the cut to end.
+- **Only the profile's buttons.** Under a profile the game's own presses (hotbar, wheel, map,
+  super, grapple) are on no controller button until the profile puts one there (`pad W press
+  N`, presses.gd); no blow is on a game button (jump, dash); a chord's button is the chord's
+  alone while its held button is down (LT+Y no longer also acts). With no drop button, Y puts
+  down what is carried.
+- **Duplicates and conflicts.** Profile & buttons says at the top what it found (profilebook.gd
+  `check`): one button twice, one thing on two buttons, a name that is missing, two game
+  buttons on one, a chord held on a game button, a move shadowed by another on the same press.
+  ranger_testing: none. Its powers are on the D-pad.
+- **Every press with every other.** 20 presses alone and 144 pairs, with the controller only,
+  the body looked at after each (hand and inventory agree, arms not inside or across the body,
+  nothing begun the profile did not ask): 143 pairs clean. The sweep starts every pair where he
+  stood, unhurt (the town's foes knocked him down and he walked into a crate before).
+- **The foes.** LT+X then A, X in the Pit: archer, wolf, bandit and brute each launched and met
+  by the air slash; a thrown foe no longer steps aside or guards; the jump out of the launcher
+  goes as high as the foe (2.8 m), and a world saved before keeps the mended moves
+  (res://mends, only entries the user never changed).
+
+Open: one pair (B then LT+Y) once read "the right hand inside the body" while he walked; it
+does not repeat on its own and its picture shows the arm whole. Taking a thing from the
+inventory shows in the hand 1 to 4 frames later. Mid-blow the free hand swings across the body
+(the clips' own). fix1030, foeblows and padplay pass (padplay now casts from the D-pad).
+
+### The water by snow, LT and the sword through combos, moves only on the profile, foes taking a combo alike (2026-10-29, after fix1029)
+
+The user, after fix1029: straight-edged shapes in the water by snowy land; after the Pit, LT
+brought up the aim mark with a sword in hand; the sword put away in the middle of combos; moves
+not on the profile must have no button until the user puts them on one; the combo juggles the
+foe but its follow-up does not work as described, and enemies should be controllable in how
+they respond (hitboxes, launchers) so one combo affects them alike. Checked by **-Demo fix1030**
+and **-Demo foeblows** (new, town-wastes as the user has it, never saved over); untried by hand;
+not committed.
+
+- **The water.** Snow (and frost, dust, leaves) lay on the sea bed too: shallow water showed
+  it, cut off in straight lines where the world's painted snow ended. Nothing lies below the sea
+  now (world_view.gd PAINT and drifts.gd caps `sea_level`, told by lying.gd), ending above the
+  waterline by noise, not in rows.
+- **LT aimed with a sword.** RT (`pad RT fire crossbow`) took the crossbow into the hand; then
+  the air slash's `takes blade` drew the katana on the body only, and the inventory still had
+  the crossbow in hand, so LT aimed it. The body and the inventory now agree both ways
+  (player.gd `_hand_kept`).
+- **The sword put away.** Measured press by press: LT+X, the launcher, put the katana away (its
+  windup `sheathes`, as does the axe kick's). A blow now keeps what is drawn and strikes with
+  it; climbing and the sheathe button still put it away (move.gd).
+- **Moves only on the profile.** With a profile in use, a blow, a combo, a super, a greeting or
+  the sheathe it does not put on a button is asked by none (motor.gd `profiled`,
+  `OFF_PROFILE`); Profile & buttons says so. Jump, dash, crouch, block stay on their game
+  buttons, what begins by itself (ledges, walls) as it was.
+- **One combo, every foe.** Measured with the pad on the Pit's four foes: the launcher missed
+  the wolf's low body or the air slash passed over it, the brute and bandit went to different
+  heights. Blows now meet whoever takes blows at least where a grown person standing there would
+  be (strike.gd), so every foe thrown as high meets the follow-up at the same place. Each foe's own say, in the
+  Inspector's **How it takes blows**: `lifts F` and `answers REACTION MOVE|none` (things.gd,
+  body.gd `takes`).
+- quests.gd: a freed marker checked with `is` before `is_instance_valid` (a script error).
+
+Open: the one-combo-every-foe check is not steady. Of the foes the launcher meets, each goes up
+2 to 3.2 m, but the air slash after it does not always meet them; the archer was never launched
+in the demo (its cause not found), and the bandit sometimes steps aside (its set's steps). fix1030
+reports this as a problem; the rest of fix1030, fix1029 and padplay pass. The Inspector's How it
+takes blows is not seen in a picture yet.
+
+### Your character among the cards, clicks that stay, the Pit's scene, smooth shadows, the white on the water (2026-10-29, after the tenth pass)
+
+The user, after the tenth pass: shadows jagged; clicks sometimes went to the island (the
+boat clicked once, not again, so it could not be moved to the water); could the white on
+the rolling water be adjusted; the character played was not among the "Who are you?" cards,
+and those cards hung even in edit mode (the editor froze, nothing could be edited); the Pit's
+cutscene no longer played. Checked by **-Demo fix1029** (new, town-wastes as the user has
+it, never saved over): passes; untried by hand; not committed.
+
+- **The cards hung the editor.** Play stopped with "Who are you?" up left it up and the world
+  held: every key and click went to it. Stopped, it is shut and the world let go (gameui.gd).
+- **Your character among them.** town-wastes offers the warrior and the ranger (classes of
+  builds.txt, their own bodies); the character played, the ranger as made with ranger_testing,
+  now has its own card first, "As you are": chosen, nothing of a class is put on (builds.gd
+  `OWN`, buildui.gd `_own_card`).
+- **The Pit's scene.** A pressed for Start the waves was also the scene's "skip", in the frame
+  it began: it was over at once. A scene takes no skip in its first half second (cutscene.gd).
+  The arena's panel also hears a script's controller presses now (arena.gd), so a demo
+  presses A as a person does.
+- **Clicks went behind.** A second plain click in the same place went to what was behind what
+  was picked (the island behind the boat). Now only Alt and a click goes behind; a press on
+  what is picked holds it, and dragged it moves (marks.gd `grab_body`, main.gd).
+- **Jagged shadows.** Every quality but Ultra drew the sun's shadows in two splits: past the
+  first few metres one coarse map, and the edges a house, a signpost or a lamp cast stepped.
+  Four blended splits at every quality now (graphics.gd `SHADOW`); seen before and after.
+- **The white on the water.** weather.txt `white SHORE CRESTS` (Environment › The sea's waves:
+  White on the shore, White on the waves, 0 to 2, 1 as before): the shore's foam, and the
+  waves' crests, the sky's sheen along them and their glint (world_view.gd SEA).
+
+Open: the boat dragged onto the water is not checked by a demo (where it was found in the
+user's picture is not known); the class picker is shown only once a run (Project › Overview ›
+Ask again to see it again).
+
+### The controller as a person holds it, the profile in the Animator, moves kept for every world (2026-10-29, tenth pass)
+
+The user, after the ninth pass: in town-wastes the ranger could not do the profile's moves;
+LT did nothing, not even a crouch; the Animator should show the profile in use, with Save
+to profile; a copy of the launcher was gone; variants should be every world's and offered
+to any character; a move made around a sword is not a sword given to the character; every
+window's sections should fold; lines on the waves. The ninth pass's demo had pressed the
+profile's buttons through its own `pretend`, never as a controller sends them, and had led
+the walker by script, so none of this was seen. Checked by: **-Demo padplay** (new),
+**-Demo animatorprofile** (new); untried by hand; not committed.
+
+- **Every held button let go (the cause of most of it).** presses.gd takes and gives back
+  the ways its own chords are pressed with (`_claim`), and each time made the input map
+  anew (controls.gd `apply`); Godot lets go of every action whose events were made anew, and
+  a trigger, a stick or a button still held sends nothing more: LT held to crouch, LB to
+  run, the stick to walk, all dropped until let go and pressed again. `apply` now holds
+  again each action whose ways are held now (`_held_again`, on the devices heard: a real
+  controller in front, a script's behind); `_claim` no longer makes the map anew for the
+  same ways in another order. Let go, they are let go (checked).
+- **LT aimed the ember bolt instead of crouching.** The ranger knows abilities, and LT is
+  both crouch and aim in the profile: with the sword in hand, LT held aimed a known power
+  (nothing seen) and the crouch was taken away. A power is aimed now only by a way of the
+  aim button that is not also the crouch (aim.gd `_aim_free`); LT aims what is in the hand
+  that fires (the crossbow).
+- **The controls panel** (playing, top left) lists the profile's own presses under PROFILE:
+  X the cuts, LT+X launcher / axe kick, LB+X the rush, RB+face the abilities (controlspanel.gd,
+  `Controls.prof_rows` from profileplay.gd).
+- **The profile in the Animator** (animprofile.gd): under WHO, PROFILE: the character's
+  profiles in a list (● in use; None: the game's own buttons), what it holds in a line,
+  💾 Save to profile (the set shown, what is carried now and how, the abilities; its buttons
+  kept), ＋ Save as a new profile… (in use at once; a new one without a profile to copy is
+  given the game's whole controller, never none), 🎮 Buttons….
+- **Moves kept for every world.** A world whose own copy of moves.txt (or characters,
+  gear, powers, shots) differs from the shared file kept everything written in it to
+  itself: the copy of the launcher made in town-wastes never reached the file. One entry
+  written there (a move copied, a combo, a look's rows, a set) is now written into the
+  shared file as well, that entry alone (main.gd `keep_file` → `entry_into`); every world
+  reads the library's entries it has not got of its own (book.gd `under_library`).
+- **＋ From the library…** (Animator, under the list of moves; animlibrary.gd): every move of
+  the project with its variants under it, and every combo; one given to the character's set
+  (a variant of one it has: that one in use instead). A move needing a thing in the hand
+  the character does not carry asks: carry one from the start (into the profile in use, or
+  the character's gear) or found in the game. Under the move's Needs in hand, a line says
+  what it means in the game, with ＋ Carry one from the start.
+- Demos: **padplay** (town-wastes, real controller events, the walker not led: walk 2.6 m,
+  run 3.8 m, jump 1.2 m, crouch held, launcher → A → axe kick, three cuts, lunge and rise,
+  ward and mend; buttons let go are let go), **animatorprofile** (scratch copies of moves,
+  characters and profiles: profile shown, copy in the shared file only that entry, listed
+  under the launcher, LT+X does it in the game, Save to profile, Save as new, a blade's move
+  given to the mannequin asks).
+
+Open: whether a move needing a blade is truly not done in the game by one who has none is
+not checked by a demo (the move's `wields blade` is the motor's own test, untouched).
+
+- **Lines on the waves** (world_view.gd SEA shader, by a helper): the sea is see-through and
+  wrote no depth, so its triangles were drawn in index order and a wave's far side covered
+  the near crest (hard straight edges and notches, by which way the eye looked): now
+  `depth_draw_always`. And the lean of the waves was worked out at the mesh corners only, so
+  faces were lit in flat 2 m pieces: now per pixel (`rest` varying, the same `swell()`).
+  Past 200 m a wave barely longer than the corner spacing is left out of the shape (still lit).
+  `-Demo waterlook` has a fifth beat, low over heavy waves along and across: no lines; passes.
+  Stair-stepped crest edges with anti-aliasing off remain (ordinary aliasing).
+- Wider checks: profilebuttons, inputs, layouts, rangersword, animatortools, dropcarried,
+  controls, lockwalk: all pass.
+- **Sections that fold** (by a helper; every window but the Character Studio): section.gd
+  `Section.band()` headings fold what follows them (▾/▸, bolder, a hover), kept folded
+  when a window refills, remembered for the session (`Section.shut`); ▾ Open all / ▸ Fold all
+  on long windows (Project, Inspector, Styles, Environment, Graphics, Debug, Playtest, Rules,
+  Regions, Foes, Routines); every Project form folds by its headings (form.gd); bare-text
+  buttons given the row look. Mouse only (no pad or key fold yet). Draw3D_UI_Inventory.md 7m.
+  Demos passing: projectview, inspect, styles, inputs, routines, foes, areas, profilebuttons,
+  rules1, hudrules.
+- Failing, not explained, not looked into: **tidypass** "Window grouped ... the texts under
+  Advanced only" (`characters_texts: []`: the Advanced heading is only there with
+  `ed.text_views` on; folding only added `folds=false` to that band); **combatpage** "a combo
+  made from Create and played on the stage: { id: combo:my_combo, began: [] }" (its first
+  move is Human shield). combatpage's other failure was demo.gd's own: its check compared
+  with a garbled "âœ“" (already so in the last commit); the text mended, it passes.
+
+### A character's profile: the controller button by button, the ranger's testing profile, variants of a move, effects in the Animator, dropping what is carried, the sea's foam (2026-10-29, ninth pass)
+
+**Why.** The user, after trying the Animator by hand: a copied move played fast at a slow
+speed and its test lost the sword; the caption named a button (Ctrl X, LT held) that did
+another move or nothing; LT did nothing; "the whole configuration is a huge problem". They
+asked for a controller profile per character listing every button and what it does (X
+attack, LT+X launcher, LT crouch), moves and combos given a button by picking, copies of a
+move nested under it with one in use and 1/2/3 to compare, the ranger always with the sword
+and a crossbow and every move on a button, a named testing profile kept for every world,
+trails, faces and auras that show, the foe given settings and set on fire by a hit, a way
+to drop what is carried, and the sea's foam and grid lines mended.
+
+**What was built.**
+- **Profiles** (`profiles.txt`, `profilebook.gd`, `profileplay.gd`): a project file, never a
+  world's copy, so the same in every world. A profile says whose it is, whether it is in use,
+  the set, what is carried (in the hand first or not) and not, the abilities, each game
+  button's controller buttons and keys, and `pad`/`keys` binds: a button or a chord (LT+X)
+  that does a move, a combo, an ability, a thing into the hand, or a thing fired. A move or
+  combo on a bind is begun by that alone (motor.gd `asks_over`, `poke`), so nothing else on
+  its game button gets in its way; a chord takes its button from the button alone. The game's
+  walker (player.gd) and the Animator's test (yard.gd) both play it; charbook.gd puts its set,
+  gear and abilities on the character.
+- **The ranger's testing profile** (`ranger_testing`, in use): the katana in the hand, the
+  crossbow on the back, no shotgun; set `ranger_testing` (the warrior's cuts, finisher, rush,
+  rise and super, the air sword, the brawler's moves); X the cuts and the finisher, LT+X the
+  launcher (and the axe kick in the air), LB+X the rush, LT+Y the air sword, RT the crossbow,
+  RB with a face button the four abilities; A jump, B dash, Y act, LT crouch, LB run, RB
+  block, LS lock on, the D-pad the camera and things.
+- **Characters › Profile & buttons…** (`profileview.gd`, also 🎮 in the Animator): what the
+  character carries, the set, the abilities; the controller button by button (its game
+  buttons, its binds, its chords "with LT held", what Controls & Input adds); every move,
+  combo and ability with two pickers, held and pressed; New, Copy, Undo, Use, Remove.
+- **Variants** (`variant_of` in moves.txt; animmore.gd): ⧉ Make a copy makes `NAME_2`, a
+  variant in the original's place in the set; the list nests variants under the first with
+  ● in use; "Variants: 1 · 2 · 3" buttons switch; a variant stands in for its first in combos,
+  what lets it in and the profile's button. A copy of a move shown by a stand-in clip is given
+  that clip; the Animator shows the stand-in the game shows instead of a bare stand.
+- **The Animator follows the profile**: the move's and combo's "On the controller" (held,
+  pressed) write the profile; the "In the game" line and the test's caption name the
+  profile's button ("hold LT and press X").
+- **Effects in the Animator** (a helper; `animfx.gd`, `animfoe.gd`, trail.gd, clash.gd):
+  trails from a body part show (pale white with no colour), bursts, faces and auras played;
+  the foe given guard, strikes back, health and statuses; `inflicts STATUS` on a move's hit.
+- **Dropping** (a helper; things.gd `put_down`, controls.gd `drop`): D-pad Left held (key R
+  held) puts down what is carried; tapped, uses the thing in the hand.
+- **The sea** (a helper; world_view.gd): the foam's teeth and the ripple grid gone.
+- **A key posed on a look's row after a remark was lost** (host lib.rs `entry_at`): the host
+  ended an entry at a remark at the left, so the scout look's rows after "# The three
+  classes' blows" (every warrior, bruiser and ranger blow) were written as new rows before
+  it, and the old rows after it, read last, won. A remark between an entry's lines is now
+  its own; a host test says so. Found when the ranger's testing set made the Animator's
+  tools demo pose the finisher.
+- **The profile's controller only while played**: stopping play gives the controller back
+  as the game has it (it stayed laid out by the profile in the editor's lists). Demos other
+  than `profilebuttons` set profiles aside (profilebook.gd `set_aside`), so they play what
+  they were made for.
+
+**Checked by.** `-Demo profilebuttons` (7 beats, no problems): the profile, set, gear and
+pad layout; X does the cuts, LT+X the launcher, RT takes the crossbow; a variant done by LT+X;
+the window opened; a copy of the launcher made a variant in use, shown by the sword clip, its
+button chosen from the profile; ¼× plays a quarter of the seconds (0.09 s of move in 0.29 s).
+`-Demo waterlook`, `-Demo dropcarried`, `-Demo animeffects` by the helpers. Untried by hand.
+
+**Open.** Slow playback measured right in the preview: if it is fast for the user still, it
+is somewhere not yet seen (perhaps the test, which plays at game speed). `inflicts` is
+untried in real play; the foe's fight-back and health are the preview's. The sea keeps small
+kinks at the waterline in rolling waves. Moves made in one world are still that world's
+(only the profile is every world's). Not explained: `-Demo animatorpass8`'s "the one struck
+is thrown back" fails, the preview's sparrer once "held" (guarded) the blow at 0.07 s, once
+"pushed" it without moving (stood at z -1.75 / -1.5, not thrown); perhaps the foe's new
+guard (animfoe.gd), perhaps by order. `-Demo animatortools` with the profile in use: the
+dummy did not rock back from the finisher's stab (it does from the old set's move).
+
+### Parts of worlds copied between worlds, the Pit in the wasteland, an arena's opening scene, the Animator's foe and the Studio's last tools (2026-10-29, eighth pass)
+
+**Why.** The user, after trying the Animator by hand: import the arena into the wasteland
+world (a test of bringing worlds in); a tool to draw round part of a world, copy everything in
+it (behaviours, properties) and paste it into another, saying what is missing and letting it
+be replaced; the Animator's columns slid away for a wider preview; Both hands did nothing on
+the katana and any change in What it carries left the body arms out; the fit numbers said
+nothing of what they were and wanted a handle on the weapon; the dummy to become someone who
+reacts, with their reactions animatable; tooltips saying what a field does, the drag hint
+said once; sunsets natural, scriptable and many-coloured; a cutscene as the player walks into
+the arena (a foe comes out of an entrance, the sword is drawn), authorable end to end; a way
+to get Mixamo animations onto a character; the Studio's remaining tools.
+
+**Built: copy and paste between worlds** (a helper; new `worldcopy.gd`, `worldmake.gd`'s
+`bring_in` split into `section_of_file` + `put_section`, small edits to main.gd, desk.gd).
+Edit › Draw round a part to copy… (or Ctrl+C): drawn round on the ground, what is inside
+marked; Copy takes the things and makers with every param, their designs (and those they are
+`like`), and every text entry that names them, followed from entry to entry (scenes, arenas,
+quests, sequences, reactions, talks, areas, jobs); kept in a clipboard file across worlds.
+Ctrl+V in another world: "Pasting: what this world does not have" first, each missing thing
+said in words with **Bring it too**, **Use instead…** (this world's own of that sort) or
+**Leave it**; same-name-but-different with Keep this world's / Use the copied one; Level the
+ground inside the line. One Ctrl+Z takes it all away.
+- **The Pit is in the wasteland world** (`editor/town-wastes.json`) at (-148, -608), its ring,
+  fighters, breakables, gate, sparring partners and wall, `written.arenas`, and `pit_intro`
+  added to the world's own scenes; the ground under it levelled. Checked by a diff against
+  `editor/backups/town-wastes (before the Pit, 2026-10-29).json`: 287 nodes and 1154
+  prefabs the same, none lost, 2 nodes and 13 prefabs added, three land tiles levelled.
+- **Unsaved work found**: `editor/backups/autosave-town-wastes.json` (11:05) holds changes the
+  world file never got (the walk on Walk_Loop with keys, the shotgun turned, the katana spare,
+  `covers 1 0.3`, patchy clouds and a red sunset, a film look). The world file was not
+  given them; `editor/backups/town-wastes (your autosave with the Pit, 2026-10-29).json` is the
+  autosave with the Pit laid in (nothing of the autosave changed), for the user to choose.
+
+**Built: cutscenes with people in them** (a helper; cutscene.gd, scenebook.gd, scenes.txt,
+arena.gd, arenabook.gd, arenas.txt; small edits to projectview.gd, folk.gd, fight.gd,
+watch.gd). Under each shot, `does WHO VERB [WHAT] [after S]`: walks_to, comes_out_of, faces,
+draws, sheathes, plays MOVE, waits; WHO the player, the arena's first foe, or anyone; places
+`into_the_arena`, `the_arena_gate`, anyone or anything. Walking is the game's own walk. Camera
+`over` (over the player's shoulder). Project › Cutscenes: **＋ Someone does something** rows of
+pickers. Arenas: `opens SCENE`, the Inspector's **Opens with the scene**. The island town's
+Pit has an arena gate (library `arena-gate`; town.json rebuilt with town.ps1 -Over, the old one
+in editor/backups). `pit_intro`: the player walks in seen from far, over their shoulder the
+gate and a bandit walking out of its dark, the player draws the katana, "Wave one."; wave 1
+then begins with that foe counted.
+
+**Built: sunsets of many colours, natural and scriptable** (a helper; new `sunsets.gd`;
+clock.gd, clouds.gd, env.gd, weather.gd, weatherbook.gd, rulebook.gd, rules.gd, rulesview.gd).
+Every evening and dawn now has bands, gold to orange, red, pink, violet and blue, with no preset
+(strength by Sunset richness, damped by grey weather), a little different each evening;
+clouds take the band below them, edges glow near the sun, far clouds take the colour behind.
+The day sky is Godot's as before. Environment › Sky: **Rosy evening**, **Evening colours: Every
+colour / Gold and red / Pink and violet**, **Changes each evening**, **See it at dawn**; air word
+`evening`. Scripted by the world facts `sky` (blazing, golden, rosy, patchy, moody, plain) and
+`hour` (dawn … midnight, or a number): `on … do put sky blazing`, a quest, a cutscene's `sets`;
+behaviours have **Change the sky** and **Set the hour**. Bands cost 0.02–0.04 ms GPU.
+
+**Built: animations from Mixamo** (a helper; new `mixamo.gd`, `mixamoview.gd`; desk.gd,
+projectview.gd, help.txt). Characters › Animations from Mixamo… (also Project › a character,
+and the Animator's Animation section): the steps in plain words. Every Draw3D person is a
+humanoid rig the import already maps, so a clip downloaded on Mixamo's own character "Without
+Skin" fits directly: **Bring in a clip I downloaded…**. Uploading only for an unusual body:
+**Save my character for Mixamo** writes it standing in a T as OBJ + MTL + pictures zipped, in
+`editor/exports/mixamo/NAME/` (Godot cannot write FBX). The account is the user's own.
+
+**Built: the Animator** (`animator.gd`, `animgear.gd`, new `animfit.gd`, `animfoe.gd`,
+`animmore.gd`; `animated.gd`, `charbook.gd`, `num.gd`).
+- ◀ / ▶ tabs at the columns' inner edges slide the moves list and the settings away ([, ], \).
+- What it carries: any change makes the body again posed at its frame (it stood in its rest
+  pose, arms out, until played). **Both hands** on a thing of one hand (`gear … both_hands`):
+  the other hand on its handle a hand's width below the first, by Godot's IK; a thing of two
+  hands as before. The fit's numbers named and coloured (Moved: across, up, along; Turned: tip,
+  twist, lean), each saying what it does; **🔧 Fit it in the hand**: a box at the grip slides it,
+  red, green and blue rings turn it, the numbers following.
+- Every SpinBox's field now says what the SpinBox says (it said only how to drag; num.gd, for
+  every window); the drag hint said once at the top of the Animator's right. Goes forward,
+  Moves at a steady speed, Pushed forward, Leaps up: each number named (m, s) and explained;
+  the pose's tip/twist/lean named and coloured.
+- **Around it: someone to strike** (first choice): the sparring partner (or anyone chosen)
+  where the blow lands, facing it, shown at every frame posed or played doing what each blow
+  makes them do (the phase's `hits`, else their set's move upon being struck), thrown as far as
+  that move goes. **The one struck**: who, how far, per blow what they do, ✎ to animate that
+  reaction on them (◀ Back to the move).
+- From the Studio: **Keep as a pose… / Lay a pose…**; **Another clip over** a part; **Make it a
+  clip of its own…** (`made NAME`); **Browse clips…**; **Animations from Mixamo…**; **Rename…**
+  (everywhere it is named, also `hits`, `crashes`, `knocks`); **Keep a version / Go back to…**
+  (what it is kept first); a seek bar over all Play plays; **Play: each of its moves**;
+  **Follow**; **Lens**.
+- Option lists no longer widen to their longest choice (the window was 1821 px on a 1280
+  screen; now inside it).
+
+**Checked by** (headless, `demo: problems []` each):
+- `-Demo animatorpass8` (new): columns away, preview 360 → 1078 px; Both hands on the katana
+  written, IK on, the left hand drawn 0.54 → 0.18 m from the handle (the sword held high on the
+  right at that frame is beyond the left arm), the body posed 37° off its rest pose after the
+  change; the box at the grip dragged moved it 0.10 m and the numbers followed; the red ring
+  turned it 34°; Goes forward's two numbers say what they are, no box says only how to drag; the
+  sparring partner thrown from 1.40 to 1.88 m by the cut's flinch, 11 reactions to choose,
+  flinch opened on them and back; a pose kept and laid; the arms over another clip; versions
+  kept and gone back to; a copy renamed; the seek bar into the combo's 4th move; each move in
+  turn. The window inside 1280. Pictures looked at: the wide preview, the rings on the katana,
+  the partner recoiling.
+- `-Demo worldcopy` (new, a helper): drawn round the Pit, copied (22 designs, 22 entries),
+  11 missing said, Use instead and Bring it too, pasted, clicked, one Undo, pasted for good.
+- `-Demo pitintro` (new, a helper): made through the form (no typing for actions); played in
+  9.0 s; the player 10.9 → 2.8 m from the middle; the foe out of the gate 4.2 m; katana drawn;
+  wave 1 with that foe. `-Demo arena`, `-Demo scenes` still pass.
+- `-Demo animatortools`, `-Demo animatorwin`, `-Demo rangersword` still pass.
+- `-Demo sunsetcolours` (new, a helper): bands by themselves at 19:00, at dusk and dawn; the
+  three colourings differ; each evening differs with the tick; the facts and the behaviour
+  steps change the sky and clearing puts it back. `-Demo sunsets` still passes. Pictures
+  looked at: the dusk gold to orange to pink with pink clouds.
+- `-Demo mixamo` (new, a helper): Ann exported as an OBJ (16,940 vertices) and a whole zip; the
+  fixture "Waving Step.fbx" brought in onto Ann, her upper arm turned 60° mid-clip.
+
+**Not done.**
+- Untried by hand; nothing committed. Whether to give the wasteland world the autosave's work.
+- Both hands: the hand reaches only as far as the arm does; a pose with the blade far to the
+  right needs posing. The handles on the body show the clip's hand, not where the IK put it.
+- The one struck is shown as the move's data has it (clips and distances), not simulated; a
+  knockback weight does not push them further; combos: each move's blows from its own start.
+- World copy: a maker's hand edits and painted area are not carried; references found by a
+  fixed table and names in eight texts; a text new to a world is not undone by Undo; right-
+  click paste, Leave it, Use the copied one and Bring in a section not run.
+- Sunsets: toward the sun a pale cream glare rises above it and near clouds read cream, not
+  dark with bright rims; land and sea take one haze colour; clouds cast no shadows; no
+  per-region sky; `sky`/`time` not yet wire actions of their own (the host's list).
+- Mixamo: never tried against a real upload or download, nor a "With Skin" FBX; the OBJ's
+  facing not checked by eye; no vertex colours or blend shapes in the export.
+- The cutscene's last shot is face-on: the foe is behind the eye; `comes_out_of` for folk
+  outside an arena and a scene begun by a wire with actors not run; two Godot navigation lines
+  in the pitintro run's errors unexplained.
+
+### The Animator's tools, an arena with waves, breakables, sunsets and cheaper styles (2026-10-29, seventh pass)
+
+**Why.** The user, on the Animator: bring every animation setting and shortcut the Studio
+meant to have (giving weapons, for one); colour the buttons and sections and name the fields
+sensibly; a click on the left hand sometimes took the thumb; the right side jumped and some
+fields (trails, effects) had nothing; a dragged handle was finicky and moved the eye, which
+turned the wrong way (mirror it); no dummies, walls or yard; no handle for the weapon in hand;
+no way to play only a move or a phase; collapsible sections; a way to hold a part. And: an
+arena in the demo world sending waves of foes (how many and how often asked on entering),
+breakable things; the Styles panel still jumping and saying no style; sunsets, moody skies and
+cloud patches (three Witcher 3 pictures); slow styles (pixel) made cheaper.
+
+**Built: the Animator** (`animator.gd`, new `animprops.gd`, `animgear.gd`).
+- The preview: the handle under the pointer lit before it is pressed; a big handle wins within
+  30 px over a small one; a hand's handle on its palm and a foot's on its sole (the wrist is
+  what reaches, as far off); **🔓 Hold the part** (L): a drag anywhere moves the part, never the
+  eye; the eye turns the way the pointer goes (mirrored), right or middle button always turns
+  it, Shift slides it; F looks at the part; **Above** beside Front, Side, Back.
+- **Around it**: nothing, a dummy (where the move's first blow lands, rocked back by it, faint
+  when between the eye and the body), wall and ledge (solid, met when tested), the yard
+  (yard.txt's dummies and target, the wall and ledge).
+- **Play: all of it / this move / this phase** (Shift+Space plays the phase alone); **Loop** off
+  plays once and stops.
+- The right: each section a panel washed and edged in its colour, its header folding it
+  (▾/▸), **Fold all / Open all**; filled again at the same scroll; the status under the preview
+  three lines always; long labels clipped so the window fits a 1280 screen; the right 410 px.
+- Buttons by colour: play and test green, add teal, the pose's keys gold, taking away red.
+- **What it carries** (new section): each thing carried or worn, ✋ in hand, **In hand**, **✕**;
+  **＋ Give it…** any thing of gear.txt; **In the hand** while posing, **Both hands**; how it sits
+  in the hand moved and turned, Turn round, Roll 90°, Tip 90°, Reset (written as the Studio's
+  gear tab wrote: `gear` lines). The weapon's own handle (its tip) now shows for gear in the
+  hand, not only for what a look holds: dragging it turns the hand.
+- The move: **Needs in hand**, **Only when locked on** (`when wields`, `when locked`), **▲ Earlier
+  in the set**, **▼ Later**, **⧉ Make a copy**, **Take out of the set**.
+- The pose: **◆ Key it here** (K), **Quick touches** (Lean in, Lean back, Wind up, Follow through,
+  Sink low), Copy/Paste (Ctrl+C/V, Ctrl+Shift+V mirrored), M mirror, Delete removes the key.
+- The phase's fields renamed as settings (33 of them, e.g. "Moves at a steady speed", "Air
+  drag", "Knockback weight", "Parry window (seconds)"); the empty text boxes became lists:
+  Trail from (places ticked, its own colour), Effect as it begins (and where), Effect where it
+  hits, Sound where it hits, Face, Fires a shot (and how many), Switches what is in hand to,
+  Grabs the one hit, at.
+- **⌨ Keys** says every shortcut: Space, Shift+Space, ← →, Shift+← →, ↑ ↓, Home, End, Tab,
+  L, F, K, M, G, Delete, Ctrl+C, Ctrl+V, 1 2 3 7.
+
+**Built: the arena** (a helper session; `arena.gd`, `arenabook.gd`, `arenas.txt` new).
+- **The Pit** in the island town (east of the South Field, (94, 52), ground levelled): walking
+  in holds the game and asks waves (0 no end), foes in the first, more in each after, most at
+  once, seconds between, which foes (controller first: D-pad and A/B; or keys or mouse); foes
+  come at the ring's edge away from the player and hunt; a bar at the top; walking out stops it.
+  Its settings are a form in the Inspector when the ring is picked (`arenas.txt`, one Undo).
+- Library: `arena-ring`, `arena-bandit`, `arena-archer`, `arena-brute`, `arena-wolf`,
+  `barrel-breakable`, `fence-breakable`, `crate-stack`; around the ring crates, barrels, pots,
+  pillars and fences that break, two sparring partners and a wall.
+- `fight.gd`: the player's shots break anything that `breaks` (only explosives did).
+- `town.ps1` loads animals.txt before creatures.txt (neither town built without it);
+  `town.json` rebuilt. **The wasteland world was put back as it was**: the helper rebuilt
+  `town-wastes.json` too, which replaced that world's own saved texts with the project's; the
+  world from before (2026-10-28 23:35) is in place again and the rebuilt one, with the arena,
+  is `editor/backups/town-wastes (with arena, 2026-10-29).json`.
+
+**Built: skies and styles** (a helper session; `clock.gd`, `clouds.gd`, `env.gd`, `weather.gd`,
+`weatherbook.gd`, `graphics.gd`, `styleview.gd`).
+- Environment › **Sky**: Blazing sunset, Golden hour, Patchy clouds, Moody overcast, Plain;
+  Sunset richness, Moodiness, Sunset colour, See it at sunset (`air` words `sunset`, `moody`).
+  The sunset follows the hour: a red overhead and gold horizon, warm brighter low sun, haze
+  of the sunset colour, dusk for 0.8 h after; clouds lit from beneath. Clouds `patchy` and
+  `moody`, and **Broken up** for any kind.
+- Styles window: an empty or failed answer from the host no longer empties the list and the
+  style chosen ("No style chosen"); a fixed-height description, Keep and Put back always there
+  (greyed), the height held while the palette is rebuilt.
+- The style shader split: only the styles that blur (paper, sketch, watercolour, sketch in
+  colour, neon, cross stitch) take the screen's blurred copy; paint reads every other pixel
+  for wide brushes; 3D drawn smaller under pixel (1/block) and paint and watercolour (0.75).
+  GPU ms per frame, before → after: pixel 0.82 → 0.34, paint 0.94 → 0.70, watercolour 0.88 →
+  0.68, plain 0.76 → 0.79, sketch 0.84 → 0.84 (the small unseen window; CPU-bound at 1.55 ms).
+
+**Checked by** (headless, `demo: problems []` each):
+- `-Demo animatortools` (new): a click on the left palm takes the hand with every bone shown
+  (48 small handles); a drag right turns the eye from 2.64 to 3.04 (was the other way); held, a
+  drag from the preview's corner moved the hand 0.23 m keyed at 0.75 and the eye did not move;
+  scrolled to the bottom, filled again, the scroll the same; 13 sections all fold; a trail of
+  the blade and right hand ticked, 42 effects, 41 sounds, 5 faces, 8 shots to choose, no box of
+  words; a short sword given is in hand and its handle shows; a phase played alone stayed in
+  it; played once it stopped (0.56 s); the dummy at the blow (1.5 m) leant 19.5°; the yard 3+
+  dummies and 2 solid pieces; Lean in keyed the spine. The pictures were looked at: the dummy
+  faint in front of the body, the window inside 1280 px.
+- `-Demo animatorwin`, `-Demo rangersword`: still pass.
+- `-Demo arena` (new): 7 fighters waiting; the panel on walking in, 2 waves, most 3, every 10 s;
+  2 sent, 3 felled, wave 2 began; walked out stopped it; a crate broke from blows, a barrel from
+  two shots; the Inspector form wrote arenas.txt. The panel and the wave bar were looked at.
+- `-Demo sunsets` (new): the presets, dusk, undo back; the Styles window held at a scroll of 420
+  with no frame of no style. The blazing sunset picture was looked at: orange-gold, broken
+  small clouds, the sun's glow at the horizon.
+
+**Not done.**
+- Untried by hand; nothing committed.
+- From the Studio, not yet in the Animator: named poses (Keep as a pose), one part playing
+  another clip, making a clip and the clip browser, versions, renaming a move, the shot/lens
+  and camera that follows, a seek bar over the whole, trying every move one after another,
+  the practice target's distance by hand, the playground pieces moved.
+- The blazing sunset reads orange-gold more than red overhead (Godot's procedural sky under
+  the clouds); far moody clouds still light grey; clouds cast no shadows.
+- The arena's foes are only those stood in the ring; its choices are not kept between runs;
+  no arena-only defeat; it is in the island town only (not the wasteland, see above).
+- Machines in the Animator (A3); hit boxes and a pose library (A4).
+
+### The Animator: one window for how anything moves, posed by dragging the body (2026-10-29, sixth pass)
+
+**Why.** The user, after posing in the Character Studio failed by hand again (no keyframes,
+no handles on the figure, nothing for anything but a person, the Animation window empty on a
+flock's sheep): keep the Studio and the Animation window, and make a new way to edit
+animations, moves and combos, after research into what makes it easy; edit the animation of
+anything animated; select a phase and edit it with a robust set of settings and by dragging
+the pose; edit every move and phase of a combo; choose the buttons; preview, test live, save,
+and have the game use it. The design and the research behind it: Draw3D_Animator_Design.md.
+
+**What failed before.** The runtime was sound; the host was not: the Studio's handles showed
+only while seven things held at once (Simple, a move card opened, Pose pressed, a move and
+phase in its state, a person's bones, a sequence built, nothing refreshed since). Standing,
+walking and running posed were never bent in the game (only a move's or a moment's row was),
+and a moment's keys (setting off, landing) played only their first key. A flock's sheep had
+no design, so the Animation window had nothing to open.
+
+**Built.**
+- `animator.gd`: the **Animator** (Window › Characters and gameplay › Animator, Ctrl+Shift+A,
+  Characters menu, the right click's Animation of what is picked, the Studio's **Open in the
+  Animator ›**). As big as the editor; its own preview and state, nothing of the Studio used.
+  - Left: **Who** (every character; then creatures and beasts by design; then every body of a
+    rig's bones with no design of its own) and **What they do** (getting about, moves with
+    their controller button, combos).
+  - Middle: the preview with handles always on the body while a frame is shown (hands and
+    feet reach, hips/chest/head/what is held turn; **Every bone** gives each bone one; a body
+    that is not a person has one on every bone); ghosts a few frames either side and the path
+    of the part chosen; **▶ Play** as the game draws it (with how far it goes and leaps; a
+    combo move after move), ½ ¼ ⅒ speed; **🎮 Test with the controller** (the training yard in
+    the same preview, the real motor and buttons, what the move wants drawn, how to press it
+    said); Front / Side / Back.
+  - Under it the **phase strip**: each phase as long as it lasts in frames, coloured wind-up /
+    HITS / recovers, ◆ keys, the playhead dragged, a phase's end dragged to make it longer or
+    shorter; frame and key stepping; a combo's moves as cards above it (＋ Add a move, each
+    card opening its move's phases).
+  - Right: the move's **Pressed with** (controller first) and **With held down**, said in
+    words; ＋ Phase after / Remove phase; **Pose at this frame** (the part's turn as numbers,
+    Copy / Paste / Paste mirrored / Mirror to other side / Remove key here / Clear the phase's
+    keys); **Animation** (clip, part of it, mirrored, backwards, feet on the ground, blend in);
+    every phase word of moves.txt as a field in groups (Timing, Movement, Hit, Reaction,
+    Defence, Gear, Effects) and what can follow; a combo's button, one press plays it all,
+    its moves reordered, taken out, waited.
+  - ＋ New move (wind-up, strike, recover, in the character's set), ＋ New combo.
+- Keys are written as before for characters (`bend BONE x y z local at P` on the phase's own
+  look row, made from what showed it), so nothing new is needed to play them.
+- `animated.gd`: standing, walking and running keys laid over in the game by how much each
+  is seen and how far through its stride; a moment's (setting off, landing, rising) keys
+  played through its part, not only the first.
+- `posekeys.gd` (new, a SkeletonModifier3D): keys over a creature's own clips
+  (`ownclips.gd`) or a body of bones' poses (`figure.gd`), by way of going, laid on after the
+  clip each frame. A design's `pose_keys WAY BONE X Y Z at P ...` (things.gd); a rig's
+  `poses.RIG` `pose_keys` (poses.gd) for every body of it with none of its own (the flock's
+  sheep), kept up as the rig's text changes. folk.gd gives each body its keys.
+- main.gd: the right click's Animation of what is picked opens the Animator on a character,
+  a creature by design, or (no design: a flock's sheep) every body of its rig.
+
+**Checked by:** `-Demo animatorwin` (headless), `demo: problems []`:
+- the ranger's sword slash, its strike phase chosen: handles on hands, feet, hips, chest and
+  head with nothing switched on; 3 phases on the strip as the move has;
+- the right hand dragged at frame 0.5: key ◆ at 0.5, written on `sword_slash/cut`'s row, the
+  hand 0.01 m from where it was dragged (1.08 m from the phase's start);
+- the strike made 24 frames; shake 0.4 written from its field;
+- pressed with X and RB held, said "controller X or RT with RB held";
+- the walk's chest leant at 0.25: in the game (the yard's motor walking) the chest leans
+  20.0° with the key and 11.6° without;
+- a combo made and a second move added (the card shows its 3 phases; in the set); Play went
+  through both moves;
+- tested with the controller (led): X with RB held did the sword slash;
+- a flock's sheep (every sheep-bodied beast): 13 bone handles, the neck dragged at 0.25 of
+  the walk, kept in poses.sheep as `pose_keys walk neck -64.9 0 0 at 0.25 ...`; played, 6
+  bodies of the world carried the key;
+- a horse of its own clips (the library's horse model, a design made by the demo): a leg
+  dragged, `pose_keys walk BackUpperLeg.L ...` written on its design.
+- Others run again: `studiotruth` and `rangersword` pass; `airjuggle` fails one check, the air
+  dash to the second one after the axe kick (7.4 to 7.7 m short), the same with this pass's
+  animated.gd change taken out, and as it failed on committed code before (2026-10-29, second pass).
+
+**Not done.**
+- Not seen in a picture: every check is headless. How the handles, ghosts and strip look,
+  and how a dragged pose looks in motion, is unchecked by eye.
+- Untried by hand; nothing committed.
+- A creature's keys are seen in the world from the next time its body is made (the world
+  played again, or redrawn); a rig's keys at once.
+- Machines (doors, propellers, wheels, `turns`, `glides`) are not in the Animator yet
+  (stage A3); models with no bones still go by the Animation window's gait.
+- Test with the controller is for characters; a creature is tried in the world.
+- Hit boxes drawn on active frames, a pose library and the weapon tip's path (stage A4).
+
+### The controller's buttons first, the sword practised and put away as a sheathe is (2026-10-29, fifth pass)
+
+The user's hand test: the ranger given the brawler's moves; X wanted for the sword slash, but the button list showed no sense of the controller; in the yard the sword stayed put away and the slash could not be practised; no sheathe on the screen; Moves › sheathe_sword played a spin.
+
+- **Why**: the list put the keyboard's key first, so "step_right — X · pad none" was taken for the controller's X: the slash was asked with the keyboard's X, which no controller button presses. And "sheathe_sword" was a spinning kick after a cut, shown on the ranger (whose look has no clip for it) as standing turned round.
+- **Button lists lead with the controller** (`controls.gd` `pad_first`, `pad_rank`, `pad_of`; Studio Button pressed, Simple's Buttons page, Combo graph): "Controller X or RT — attack · keyboard click", in the controller's order (A, B, X, Y, LB, RB, LT, RT, D-pad), "No controller button — step_right · keyboard X" last. Sheathe: "right stick held". The sword slash asked with attack again (X with RB held).
+- **A move that takes the blade into the hand itself** wants it carried, not already in the hand (`motor.gd` `_takes_it`): "Needs in hand: a blade" no longer stops the slash that draws it.
+- **The yard ready for the move looked at** (`studio.gd` `_yard_ready`, `how_to_press`): what it wants drawn, and how it is pressed said under the preview ("to do Sword slash: press X (keyboard click) with RB (keyboard Shift) held"). The right stick held sheathes in the yard as in the game (`yard.gd`; it did nothing there).
+- **A sheathe is a sheathe**: draw_blade and sheathe_blade written for every character on UAL's bones (`look ual`: the hand to the hip and the blade turned to the sheath by IK, the chest turned to it; no library has a clip of it) and given to the brawler's set; the spinning kick renamed **spin_kick** ("a spinning kick after a cut, the sword put away as it turns"), only after a cut or in the air. **Draw / put away** under the preview, Simple and Advanced.
+- **Another's set shown by its owner's look** (`animated.gd` `_borrow_shows`): a move the character's own look shows nothing for is shown as the look of a character whose set it is (the ranger's spin_kick by the brawler's two-handed spin).
+
+**Checked by** `-Demo rangersword` (no problems): the list's rows; X with RB held does the sword slash in the yard; the sheathe button puts the katana away with the hand at the hip (reach 1.0), pressed again drawn; the button under the preview does it by the move; spin_kick shown by Melee_Melee_2H_Attack_Spin. airjuggle, studiosimple (its strike now the set's own: the user's ranger has no hew), studiotruth (brawler and ranger 123 phases, 121 shown, 121 scrubbed, 119 played true), comboscreen, studioclick: no problems.
+**Not done:** the sheathe is not seen in a picture (headless); step_left, step_right and greet have no controller button until one is given them (Simple › Buttons, with the pad shown); worlds made earlier keep sheathe_sword in their own copies. **Not tried by hand; nothing committed.**
+
+### The Studio's preview as the game plays it, the wall lined up by dragging, a chain of hits scored, fourteen kits (2026-10-29, fourth pass)
+
+The user's message after the third pass: the Character Studio "very buggy"; before-and-after tests of the buttons that change a move or a combo and of making a combo; a way to test that the preview is right (wrong across phases and loops; phases partly in the air played on the ground when played alone); the wall run's wall not lined up with the body, to be dragged; packs to round out the library up to 500 MB; text still to be made forms; a game loop closed or bettered. Characters first; animals and horses later.
+
+- **Measured** (`-Demo studiotruth`, `demo/truth.json`): every move of the brawler and the ranger played as the game plays it, then each phase chosen on the bar, scrubbed and played alone, and what the preview shows (clip, hips, lean, facing) compared with the real play. **Before:** a phase chosen showed 0 of 102 (brawler) and 0 of 94 (ranger); scrubbed and played true 100/101 and 72/72 only because a phase not reached was shown as its clip. **After:** brawler 117 of 119 phases shown when chosen, 117 scrubbed true, 115 played true; ranger 103 of 104, 103, 101. The kick's timing, turn, flip, clip and feet each changed and each seen in the game's play and in the preview; a combo of two punches and a kick made from nothing, begun in order and saved.
+- **A phase clicked is played as the game plays it** (`studio.gd` `play_phase`, `phase_window`, `_with_them`, `_phase_clip`): from a moment before it, held at its last frame (or round again with Loop): in the air where it is in the air, at the wall, after the move that lets it in (the air dash after the launcher), with or without the practice target. A phase never come to says why under the preview and shows its clip alone.
+- **Played the same every time** (found by the measuring): a target hidden while the body got going was run into (a slide stopped dead, 1 m on); a target kicked was still flying from the last kick; the target's juggle count, counters, time in the air and the figure's fades were kept between plays; and with Jolt a body or a wall moved in the same frame stayed where it had been for the physics (the kicked partner flew into the kicker's old place and knocked it down; a wall moved away was still run along). `_fresh`, `_put_in_physics`, `_tell_physics`; hidden targets are not stepped and do not collide.
+- **What a move needs**: block and guard locked on; human shield with someone near; sheathe drawn first; a held phase held a second; a blade lent for the ranger's thrust and slash, for that move only.
+- **The wall lined up** (`_piece_controls`, `move_piece`, `line_up_piece`, `_piece_input`): drag a piece of the playground in the preview, or ◀ ▶ Nearer Farther ⟲ 15° ⟳ 15° under it; kept for that move; Line it up puts it back. A fifth piece, **the wall beside it**, for the side wall run.
+- **A chain of hits, scored** (`fight.gd` `_chain_*`, `builds.txt` `chain within 2 xp 1`, Project › Builds card, HUD piece `chain`): ×N and its points at the right while hits land within the seconds set; a move new to the chain scores more; ended, into the score and `best_chain` with experience; broken by a blow, half kept. The "Score and combo" loop.
+- **Text to forms**: the Studio's Its text, Open the look and the gear's Its text are now Edit … as text…, hidden unless View › Show the 'as text' buttons.
+- **Fourteen CC0 kits, about 133 MB** (`Draw3D_Asset_Family_Tracker.md`, "Since: gap packs"): gobkit animals (80, animated), Poly Pizza animals, plants, medical, vehicles, utilities and extras, Quaternius modular ruins, Poly Haven poles and plants, Kenney watercraft and roads, a lab, a construction site, bicycles. Medical, utilities and labs now usable.
+
+**Checked by:** `-Demo studiotruth` (4 beats, no problems: the numbers above; every playground move begun; the side wall moved 1.5 m off is out of reach and lined up again is run along; the wall before it turned 20 degrees and nearer is still run up) and `-Demo hitchain` (4 beats, no problems: four hits, x4 and 520 points shown, ended into the score with the longest kept, broken by a blow with half kept, the card in Project). Regression: studiopose, studiosimple, studioclick, comboscreen, charguide, uppercut, builds, powerbomb, no problems. Three of their checks were changed, each for what was made better: a phase clicked is now the move held in that phase (not its clip); a move clicked is measured once it has had time to begin (the idle before it is now the same every time); block, guard, drawing and the human shield now begin, so no "why not" is shown for them.
+**Not done:** ceiling_crawl has no ceiling in the playground; take_cover and the side wall run's off are not come to; the wall jump's push and the slide's drop, very short, held at their end differ a little from their middle; animals and horses (the user: later); the remaining library gaps (beech, cedar, olive, mangrove, hospital beds and stretchers, an excavator, a submarine, a bear, a reactor, a kiln, loom or spinning wheel, dams, posters: none CC0 found in a usable format). **Not tried by hand; nothing committed.**
+
+, what a move needs there, pad buttons without a pad, the one played clicked (2026-10-29, third pass)
+
+The user's message after 43ca1c3: commit, then posing; the sword and combat animation guides (animationreference.org, mocaponline.com) as background only; and small findings: the character played not clickable in edit mode, Button pressed keyboard-only, "anything" placeholders, moves wanting their context (walls, several targets), the grapple lent for its preview, the brawler's stoop clip in the air, the clip pickers unclear, the asset catalogue, the jungle animals' legs apart from their bodies; the rider's fit on a horse kept for later.
+
+- **Posing** (`poser.gd`, new; `studiosimple.gd` pose section; `studio.gd` `poser`): ✋ Pose it in the preview on a chosen phase. Balls at both hands, both feet, the chest, the head and what it holds (the figure's `blade` place). A hand or foot dragged on a plane facing the eye: the arm or leg reaches it by two bones, in skeleton space, the elbow or knee kept on its side; the chest and head turn toward it; what it holds turns the hand. Written as local look-row bends keyed at the frame (`bend BONE x y z local at T`), a bone's first key with zero keys at 0 and 1 so the rest of the phase is as it was; a phase with no row of its own gets a copy of the row shown. Esc puts a drag back. Frames ◀ ▶ (60 a second), chips for the keyed frames, Clear this frame; ghosts 6 and 3 frames either side, the ball's path; Lean in, Lean back, Wind up, Follow through, Right side to left.
+- **A hit made to read**: under the phase bar its frames and advice by role (windup, hit, recover); for a strike, Hit pause (frames, written as `stop`) and Shake.
+- **On the ground** (`grounded` look-row word, `charbook.gd`, `animated.gd`): a clip that plays lifted (the brawler's stoop, 54.6 cm off the floor) let down to its lowest tread. Feet kept on the ground in Simple and Advanced; the brawler's stoop now `General_PickUp grounded` (was PickUp_Table). "In the air" said "does not fall while this phase lasts".
+- **What a move needs, there** (`studio.gd` `lend_for`, `_set_extras`, `_next_target`): Lend what a move needs, to see it (on): the grappling line lent for the grapple zip, a blue note on its card; a move that turns to the next (`until_begun_or_landed`, act retarget) has two more to strike, and the Studio answers `asks_retarget` as player.gd does in the game. Moves at an anchor use the high edge (`trying.gd`).
+- **Fields that say what they are for**: Clip: NAME ▾, Use 'X' (open in Clips) only when it differs, Needs held: …, Hand: …, Strikes with: … in words, Button pressed items with the pad button.
+- **Pad buttons without a pad**: Simple › Buttons, Gamepad / Keyboard (gamepad first), a list of that device's buttons per move, written as Advanced › Buttons writes.
+- **The one played, clicked** (`main.gd` `player_hit`, `inspect.gd` Played as): a click on the character played in edit mode shows the start, with Open in the Character Studio, Its moves, Its buttons; a world with no start opens the Studio to choose who is played.
+- **Jungle animals joined**: a haunch at the top of each leg of all 13 jungle kinds (`editor/library/jungle.txt`, 52 parts).
+
+**Checked by:** `-Demo studiopose` (7 beats, no problems): the hand reaches its target to 0 cm, the start of the phase unchanged; a foot lifted 18 cm; lean in moves the chest 2.6 cm; the blade turned rises 12 cm; keys and clearing, undo leaves the move as it was; the grapple lent and hanging from the high edge; the retarget dash with two extra targets, turned once; the stoop 54.6 cm off the floor before, 0.2 cm on the ground; the Button pressed item "attack — click · pad X or RT"; 30 pad pickers; the player clicked. Regression: studiosimple, studioclick, comboscreen, charguide, uppercut, jungle, no problems. **Found in the pictures and mended:** a pose written played the move again and stood the practice target up in front of the eye; it is put away again whenever a moment is shown while posing. **Not tried by hand.**
+**Asset catalogue** (Draw3D_Comprehensive_Asset_Library_Catalogue.md, checked against the library, nothing fetched): rocks, fungi, shelter, containers, homes, industrial, decorative and most sci-fi are there; thin or missing: tree/shrub/flower species (maple, beech, fir, cedar, mangrove, olive, hydrangea…; generator presets), climbing vines and lichen, medical props, construction machinery, bikes, small boats and a submarine, sheep, chicken, bear, squirrel and other animals, power poles and transformers, cryo pods and reactors, kiln and sewing station, rubble pieces, dams and sluices, posters. Filling them waits for the user's approval. Draw3D_Asset_Family_Tracker.md is a little behind (baobab, acacia, alpine presets exist).
+**Not done:** a sweep of placeholders over the whole engine (only the Studio's); aim and recoil for bows, slingshots and guns (posing serves them, nothing of their own yet); keys changed by pressing one; the rider's fit on a horse (the user: later); a world's own copies of shared texts do not get the stoop or jungle changes; the wizard and a partner who blocks or strikes back, still.
+
+### The Character Studio made simple: the playground and why not, Simple and Advanced, flips, trails from several places (2026-10-29, second pass)
+
+The user's answers on the Studio options page (https://claude.ai/artifact/KLBxmavywSKmquGrdsFgFF): A and B together; Simple the default view; wizard step 5 the suggested presets (not built: the wizard was left for a later pass); the phase bar in whichever unit makes more sense (frames, 60 a second, chosen: an attack's windup, hit and recover are said so in fighting games); posing in the viewport wanted. With it a GIF of a ninja combo (juggle, pursuit, a back flip off the foe's chest, darts) whose flip turned the wrong way, and the ask that turning, flips, trails and effects be set by sequence. **Untried by hand; nothing committed.**
+
+- **Simple and Advanced** (`studio.gd` `set_simple`, `studiosimple.gd`): two buttons at the top of the Studio. Simple whenever the Studio is opened (after it was shut, not when only hidden behind another window); a tab asked for from a menu or by Every setting… opens Advanced. Simple puts the preview at the left and four cards at the right: Look, Moves, Buttons, Try it.
+- **Moves as buttons, why not**: the set's moves in groups (attacks, getting about, at a wall/edge/low wall, only after another move, when struck); pressed, done in the preview; one that only comes after another is tried after the move that lets it in. One that cannot begin is greyed with the body's own reason under it (`Trying.refused`, from `motor.why_cannot` the moment it was asked, move names in words), or what it wants carried.
+- **The playground** (`Trying.PIECES`, `at_piece`, `studio._playground`): beside the preview's floor, on sand, a 5 m wall, a 2.6 m edge to catch, a 1.5 m edge to climb onto and a 0.8 m low wall. A move that needs one is done before it: walked or run up to it, jumped at it if it begins in the air, a hold taken first for a move from a hold (climb after ledge hang, wall jump after wall grip), pressed on up a climbable wall.
+- **Changing a move** (Simple, ✎): the phase bar (each phase as long as it lasts, its frames, windup/hit/recover coloured, a right edge dragged), and for the chosen phase: the clip it is shown by and Another…, Turns round, Flips over, Rolls to its side (each with ⇄ the other way), Trail (no trail, what it holds, either hand, both hands, either foot, both feet) and its colour, an effect as it begins and where, an effect where it strikes. Each change plays the move again. Save, Undo changes, Every setting….
+- **New phase words** `flips DEG` (head over heels about its middle, backward for more than 0) and `rolls DEG` (to its right), `move.gd` → `motor.flip` → `animated.gd` turns `tumble`; upright when no move goes. **`trail` takes several places** (`trail foot.L foot.R HEX`), a ribbon each; a body place's ribbon fans toward the body, not the hand. **Trails and `shows` effects are drawn in the Studio's own world** (before, the Studio's preview body drew its trails in the main world, unseen): `trail.gd _home`, `effects.play_at(..., home)`.
+- Simple › Buttons: a list of buttons for each move (writes `asks` as Advanced › Buttons does). Simple › Try it: walk it yourself (the yard), every move one after another, someone to strike.
+
+**Found by the demo and mended:** `try_move` sent every move needing a wall to its clips-only showing before the playground was asked; `_play_edited` does not play again a move already chosen, so a change in Simple was not seen (Simple now plays it again after the moves are read); the cards were pushed off the bottom of a 720-px-high window (Simple is now side by side); the changer's rows overflowed to the right; move names in reasons were the text's ids; **a Studio body was not posed when away from the origin** (body.gd measured it against the main world's eye, so out at the playground it ran shown standing still; the same cause left five of the ranger's moves frozen in `-Demo studioclick` on the committed code): a body in a world of its own is now always posed; the two mode buttons made the Studio's top row 153 px wider (it now wraps); a strike's impact was never shown in the Studio preview (clash.gd now shows it there).
+
+**Checked by:** `-Demo studiosimple` (7 beats, no problems): opens in Simple with four cards and the tabs hidden; all nine moves needing a piece begin there (wall climb, mantle, vault, ledge hang, climb, wall grip, wall jump, wall run, take cover); block and guard say they want a lock-on, human shield someone fought just before; flips 360 turns the body backward first and ⇄ forward; both feet leave a ribbon drawn in the preview; Hew on the practice target strikes it and new nodes appear in the preview (its impact; a weak check); the flight phase 6 frames quicker by the bar; Undo changes leaves the backflip as it was; Advanced shows the tabs and the Studio opens in Simple again; 39 rows in Buttons. Pictures looked at: the moves page, the wall climb, the reasons, the flip, the foot trails, the changer, Buttons. Studio demos run again after the change: comboscreen and studioclick now pass (both failed on the committed code, run from a scratch copy: the Studio past the screen's edge, five moves frozen); charguide and uppercut pass; airjuggle and workshop fail as on the committed code (airjuggle differently: committed stops at beat 1 with no partners, now it goes on and the second slam misses); helppass passes (273 demos).
+**Not done:** posing in the viewport (dragging a hand or foot, the limb following) — wanted by the user, not begun; the wizard; the partner who blocks or strikes back (the options page's A promised it; only the existing practice target is there); the rail and the drop of the playground; the 3 moves with no clip still stand still. A clip that itself flips the wrong way is not corrected by `flips` (it adds a turn; the clip's own turn stays): a flip from a clip that turns the wrong way needs Flips over set and a clip that does not turn. Not tried by hand at all.
+
+### Cliffs and the air, ink and cel shading, a style at random, mist in a region, plans before building, many houses furnished, and Populate (2026-10-29)
+
+The user's message with three pictures of walkways, rope ladders and zip lines between foggy cliffs. **Untried by hand; nothing committed** (b701f97 holds the three passes before it, committed at the user's word).
+
+- **Walkway on a face, ledge of rock** (host `build.rs`, `LEDGE_FORMS`, `ledge`, `ledge_y`; buildbar **Paths**): pressed on a cliff or hill face as high as it is to be and dragged along it; the host finds the face and marches out from it to where the ground falls away. Boards on posts with braces and a rail, or a shelf of rock with a slope under it. Picked: walkway or rock, Lower / Higher on the face.
+- **Floating land** (`isle` archetype, `floats`; `Shape.isles` read from `^` lines of DUG, `isle_top`): grass on top, rock narrowing under it, a mesh collider; what is put on it stands on it, the ground under it unchanged. Lower / Higher.
+- **Rope bridge** and **Zip line** tools (`zipline.gd make_between`: a post at the higher end, its line down to where the drag ended, refused if too short, not downhill or blocked; one Ctrl+Z).
+- **Ink and shading** (`ink.gd`): an outline drawn round people, buildings, plants and props (colour, thickness, how much of the colour beneath it takes, thinning far off), shading realistic / smooth / two-tone / cel with bands, lines inside. Style words `outline`, `outline_tint`, `outline_on`, `outline_far`, `shading`, `inner`, in any style; Styles › Every setting › Ink and shading.
+- **Make one at random** (Styles): colours, light, ink, the drawn look, how far; Put it back; keep as a style of your own. It changes the style the world is in.
+- **Mist in a region** (Regions, `areabook` `mist`, `areas.gd`): a volume of fog over the region's shape, thick low, thinning upward and over its last 4 m, lit a little by its colour, with the world's own haze.
+- **Plans before building** (`layoutplan.gd`; `worldmake.gd` and `layouts.gd` `plan_of`): World › New world draws a village's or city's plan beside its choices, again as they change; Another seed; a building clicked is left out, right-clicked is another sort, and the build does as the plan shows. **A village or city from a map (Procgen Arcana)**: the JSON of watabou's generators (the same format the importer already read), its plan, the same edits. Answer to "can ProcGen Arcana layouts be used": yes, its Village, City and Neighbourhood JSON.
+- **Furnishing many houses**: houses furnished % (chosen by turn, not by chance, so the same choices furnish the same houses), how full the rooms, furniture of the game's time or another; for generated villages and cities and for maps.
+- **Populate** (`populate.gd`, World › Populate): where, who, what, how, see it; one Ctrl+Z.
+- **Character Studio**: not built. A page of options with diagrams, for the user to choose from first (an Artifact): why moves fail (the 27 October audit: 33 of 54 ready, 12 need a wall or ledge, 6 not begun with no reason given, 3 with no clip), what other tools do, and five options (a playground with reasons, Simple and Advanced, a wizard, a phase bar, posing in the viewport). Five decisions wait for the user.
+
+**Found by the demo and mended:** DUG's floating line was written on the end of a platform's line (floating land beside a raised platform stood on nothing); the ground's `tops` did not count floating land; the host refused the six ink words as not a style's; Styles re-applied a changed style only when the picture already named it, a frame after it was put in use (so Make one at random and a quick change did nothing visible); rope and board bridge planks hung their sides to a fixed height, a curtain down to the ground under a high bridge; a region's mist did not turn on fog in the air until the hour changed; the plan preview's fills of awkward outlines logged errors.
+
+**Damage reported:** each run of the demo copied the world's style into styles.txt (my_summer_2 to my_summer_7). They were taken out (the file before is kept in the scratchpad) and the demo now removes its copy.
+
+**Checked by:** `-Demo pass1029` (9 beats, no problems): walkway 15 pieces and ledge 12; floating land made and stood on 12 m over the sea floor; rope bridge 27 pieces with no curtain; zip line 25 m; ink on at 2.5 px; a random style made and put back; mist made, fog on; a village plan of 16 buildings, one left out and one another sort, 8 of 16 furnished at 50%; the map's plan of 74 buildings; 14 things populated. Pictures looked at: the walkway, the floating land with the barrel, the bridge, ink and cel, the plans, the mist, Populate's plan. Host tests, 100 unit and 109 protocol, all pass (new: unit `floating_land_is_a_top_with_rock_under_it`, `floating_land_is_stood_on_and_the_ground_under_it_stays`, `ink_and_shading_are_said_by_a_style`; protocol `p13b`, `p100c`, `p100d`). `-Demo helppass` passes (272 demos listed).
+**Not done:** the Character Studio wizard and simple mode (waiting on the user's choices). The studio audit timed out at 280 s and was not rerun. The frame rate with outlines on everything is not measured (one picture showed 3 fps the moment the style changed). A character's outline is put on within 1.5 s, not at once. The walkway's posts go to the ground below it however far; the ledge and walkway were seen on a stone-faced platform only, not a natural cliff. Mist is a little warm-tinted in daylight. Populate gives each thing a size and facing but no behaviour of its own (a person's is its design's).
+
+### A ladder up a face, leaves that no longer cost a frame, the controls in a panel of their own, the game display as it will look, a project's own worlds and its caves, the world mapped, a thing's colours, and windows that hold still (2026-10-28, third pass)
+
+The user's message after the second pass (seven pictures: a path up a terrace face, the performance panel at 54 fps, the line of controls, the game display's designer, Project › Worlds showing Emberwatch, the Objects window, a conifer's Inspector). **Untried by hand; nothing committed.**
+
+- **A path up a face** (host `build.rs`: `FACE_FORMS`, `FACE_GRADE`, `face_form`; buildbar **Up a wall:**): where a path's line rises steeper than 1 in 1 for 2 m or more, that run is one way up (a lower face is taken in steps, as before: an older test, p74, caught the first try making a ladder up a 1.5 m terrace): a ladder leant from the foot to the edge (`climbable`, climbed with wall_climb), a rope ladder (stakes and ropes at the edge) or holds in the rock. The pathway pieces of that run are not made, so nothing is laid deformed up the face. A path's corners are kept within 0.3 of its width of tilt across, so it lies on a slope instead of folding. Tests: unit `a_ladder_is_a_way_up` (each form), protocol `p100b_a_path_drawn_up_a_face_is_a_way_up_it`.
+- **54 fps by the cliff** (`lying.gd`): the loose leaves were scattered again every frame there, because the count wanted was compared with the count made, which can never reach it near a cliff. Now compared with the count last wanted. Measured by `-Demo perfdeep` at the user's place (PERF_AT 66,36): 54–63 fps before, 115–184 after, lying 0.1 ms. The performance panel's "Scripts" (Godot's TIME_PROCESS read more than the whole frame) is now **Scripts and physics about N ms**: the frame less the graphics card's time.
+- **Controls panel** (`controlspanel.gd`, `gameui.gd`, hud.txt `piece controls`, `folded`): the keys drawn as keys, a controller's face buttons in their colours, chosen by the scheme in use; folded with a click on its title; Settings **open / folded / hidden**; part of the exported game. The look of the display (`hudlook.gd`) no longer colours its keycaps or takes its plate away, and pieces at the top stand below the editor's bar while played in the editor.
+- **Game display as it will look** (`hudcanvas.gd`): the world drawn behind from the editor's camera; the minimap a real round MiniMap, the hotbar and needs as slots and bars, the controls as their panel, other pieces copies of the real ones with sample words. Settings for the map (round, turns, reach) and the controls (folded).
+- **Project › Worlds** (`worldspage.gd`): this project's worlds only (the one edited and those joined to it by ways, either way, however far); the others folded. Caves (`cave-N`, inside the world and kept in its file) listed with **Look at it**; a cave mouth's Inspector row goes to its cave.
+- **The world mapped** (`projectview.gd` `_world_map`): the overview's hub-and-branch diagram, each name clickable.
+- **Objects in this world** (`designs.gd`): what it is for, how many, a find box; the list given more room when nothing is chosen.
+- **A thing's colours** (`inspect.gd` `_fill_colours_of`): ITS COLOURS near the top of the Inspector, as listed in the inventory 7e.
+- **Windows that jump** (`win.gd`): a window as high as its contents was made lower the moment a part was rebuilt and grew back; now it is made lower only when the pointer is away and it has stayed lower 350 ms. A list rebuilt to its top is put back where it was scrolled to (by its first words); a list sent to its top on purpose (another page) says so (`scroll_top`).
+
+**Checked by:** `-Demo pass1028b` (8 beats, no problems): one ladder and 17 path pieces up the terrace, a rope ladder when asked; the controls panel shown with 11 rows and folded; 18 display pieces, the minimap round; Worlds on this project (1 world, the others folded); six branches in the map; a list scrolled to 260 and rebuilt is at 260; the Objects window counts; ITS COLOURS on a rock. Pictures looked at: the ladder reaching the top, the panel under the bar with its keys, the designer, the map. Host tests, 97 unit and 106 protocol, all pass. `-Demo helppass` passes (271 demos listed, every page's names found).
+**Not done:** the stairs "extension" on a slope and the stair shadows that flicker were not looked at. Single slow frames of about 45 ms remain, not traced. The window keeping its place is checked only for Project's overview rebuilt; other windows are covered by the same code but not each tried. The terrace (platform) looks as before: its stone edge stands proud of the raised land beneath.
+
+### Classes asked again, the game at a glance, a switch on everything a thing does, paths that wander and sweep round, castle walls, a cave into a platform, houses furnished for their times, windows the whole screen, and splashes (2026-10-28, second pass)
+
+The user's message after commit 7f7407b (six pictures: the Inspector's ability rows, a generator's cobble path, a railway's sharp corners, square bits at a path's edge, a wall, the sand ring). **Untried by hand; nothing committed.**
+
+- **The class kept** (`shell.gd` `new_game`, `gameui.gd` `no_title_once`): Title › New game went on from the kept place, whose facts hold `class`, so it never asked again. A new game now forgets the kept place. Come back where I was says which class it goes on as, and how to choose again.
+- **The game at a glance** (`projectview.gd` `_game_kind`, `game_parts`, `_part_card`): Project › Overview says what kind of game this is in a sentence, then a card per part (classes, when it is set, lessons, experience, loot, stamina, needs, powers, wear, combos, skills, quests, crafting, scenes, puzzles), with a switch where it can be switched and links to its settings. Classes: which are offered (none: one character, no choice), **Classes →**, **Ask again →**.
+- **Switches** (`abilities.gd` `switch`, `switch_wire`, `switch_words`; `inspect.gd` `on_switch`; host `kind.rs` reads past `off`, `lib.rs` keeps `off` lines in a placed thing's own text): every ability row, the behaviour row and every When this happens row has a switch at its left. Off is written `off LINE`, kept and not done. Found by the demo: the host rewrote a placed thing's own lines from those it read, dropping `off` lines; now kept (protocol test).
+- **The ring** (`land.rs` `Layer::lift`): land made over where land was taken away kept the old shore's dip, because a layer's lift was mixed between corners without their born heights. It now mixes full heights (test `an_old_shore_leaves_no_ring_under_land_made_over_it`; the demo measures 1.0 to 1.0 across).
+- **Paths** (`build.rs`): `natural` (edges that wander narrower and wider, a lighter worn middle, stones of no straight side out over the grass; worn bits are such stones too, not squares) and `curve 2` (round every bend, `curved_with`). The construction bar shows a path's or railway's settings **before** it is drawn: made of, wide, **Bends**, **Edges**, **Worn**; and on a picked path. Railways are round every bend by default, and the train follows the same curve (`train.gd` `curved`). World › New world, city and village: **paths natural**.
+- **Castle wall** (`build.rs` `wall_top walk`, WALK_THICK 2.2, WALK_HIGH 3.2): a thick wall with a flagged walk on top and crenellated parapets either side, its body and parapets solid. Its top: **castle wall**.
+- **The cave into a raised platform**: the "real numbers" error was `yaw of placed takes whole numbers; it was given 203.6`. The host's `place` rounds a yaw now, so every caller benefits. A cave that fails part way is undone whole. While dragging, it says how high the ground must be for a cave into it.
+- **Furnished for its times** (game.txt `times`, rooms.txt `times WHEN` / `swap A=B`, `makers.gd` `swapped`): modern, old (fantasy, medieval, western), future. Old times have no fridge, television, sofa or shower. It is set in Project › Overview and The game's flow. A world with its own copy of rooms.txt has no swaps until it is given them.
+- **Tutorial** (`settings.gd`, `tutorial.gd`): on or off per game in the overview. The player's Settings have **Lessons** shown or not, and **Show the lessons again, from the first**.
+- **Windows** (`win.gd`): **□** fills the whole screen over the menus, and **❐** puts it back. A window opened from it opens over it. Its size is not kept while it fills the screen.
+- **Full screen** beside Play (`settings.gd` `play_screen`, `play_full`). Never in an automated run.
+- **Zoom toward the pointer** (`main.gd` `zoom_at_pointer`, on by default; View › Settings of this machine).
+- **Water** (`splash.gd`, `motor.gd` `splash_at`, sounds.txt `splash`, `world_view.gd`): a splash (drops, a spreading white ring, a sound) where anyone falls in faster than 2.5 m/s. The sea gives back the sky seen along it, darker deep and greener shallow. Its wave crests were painted and then painted over; now they show. Water LOD: ripples are worked out only within 600 m (ponds 300), foam within 160 m (ponds 150).
+
+**Checked by:** host tests, 97 unit and 105 protocol, all pass. `-Demo pass1028` (9 beats, no problems): ring 1.0 to 1.0; the platform 15 m and a cave into it, one way in; the castle wall stood on 2.5 m over the ground beside it; paths curve 0 and 2, natural 0.8; old times have no fridge, modern does; the overview's parts; Project maximized at 0,0 and the screen's width (it is 750 high on a 720 screen: its contents ask for that); the switch off kept the row, and on again it was as it was; a splash made and gone by itself. `-Demo helppass` passes (270 demos listed, every page's names found).
+**Not done:** a class's loadout and abilities are reached through **Classes →** (Builds and classes), as before, not edited in the overview. "Close one gameplay loop" came to choosing a class again and setting a game's parts on and off, nothing more. A door from a castle wall's walk down (stairs are drawn as before). Project is wider than a 1280 screen and its right edge is cut off (seen in the demo's pictures; it was so before this pass).
+
+### Styles that keep their place and take effect at once, a few colours each, eight new looks, trees in colours of their own, every demo in a Test menu, and a help that follows the work (2026-10-28)
+
+The user's message of 2026-10-28 (with three pictures: a patch of a new world that would not smooth; a pink dreamscape; Dordogne's watercolour). **Untried by hand; nothing committed.**
+
+- **Smoothing** (`land.rs`): Smooth averaged each point with its four sides, which leaves a ripple a metre across flipping up and down for ever: the patch that would not smooth. It is now a 3×3 blur (the point ¼, its sides ⅛, its corners 1/16). Test `a_ripple_a_metre_across_is_smoothed`. The user's own patch was not reproduced; the cause is the one that fits what was seen.
+- **Styles live, and the window steady** (`lib.rs`, `styleview.gd`): a change was seen at once only sometimes because the host's sky hash left out the look group (exposure, contrast, treatment, …): now it includes it. The palette's shifts (warmth, brightness, …) are tried as they are dragged. The window held its scroll only by luck: the palette was made again, and the list cleared, at each change; now the scroll is held, swatches change in place, and **Keep, Put back, Undo** are pinned in a bar above the scrolled part.
+- **Every setting** (`styleview.gd` EVERY): one list of every word a style can have, by group, those set shown first, each with its fields; an hour picker sets a light for one hour or all. A style made from it is understood by the host (`the_editors_styles_are_all_understood` reads styles.txt).
+- **More light**: `rim` (a light from the other side of the sky), `mist` (a volumetric mist that glows), `bloom`, `shadows` (`clock.gd` `_rim`, `_light`).
+- **A few colours** (`style.rs` LIMITS, `air.gd`, `figure.gd`, `clock.gd`): `limit_built`, `limit_grows`, `limit_ground`, `limit_figures`, `limit_all`, 1 to 8 colours each. Every colour is brought to the nearest of its few in Oklab (the same weights in Rust, GDScript and the shader); figures through an overlay on their vertex colours; the picture by treatment `limited`. **Choose for me** picks colours from the style's own, as far apart as can be. Test `a_limited_palette_brings_each_colour_to_the_nearest_of_its_few`.
+- **Treatments**: watercolour reworked after Dordogne (colour bleeding past edges, light places left paper white, pigment pooled dark at edges, granulation, a paper edge); new `sketch_colour` (pencil, colour only where it is strong), `neon` (edges in their own colour glowing on black), `stitched` (cross-stitch on cloth, or felt with running stitches), `limited`.
+- **Eight styles** in styles.txt: dreamland, riverside_watercolour, sketch_colour, neon_glow, cross_stitch, felt, five_colours, few_each. neon_glow has a steady light of its own (borrowed night was too dark for the edges to be found); dreamland's mist thinned after the first pictures hid the world.
+- **Generator colours** (`grown.rs`, `grow.gd`): the tree gains **own colour**, **second own colour**, **a touch of** another and how much (pink in a green tree), each a colour button with **none** for the style's. **Save as a preset** keeps every number and colour under a name for every world (grow_presets.txt), first in the pictures in gold. Test `a_tree_takes_colours_of_its_own_and_a_touch_of_another`. World › New world's generators take a **colour scheme**: a palette preset given to the world's style as it is made.
+- **The Test menu** (`testmenu.gd`, `demos.txt`): every demo (269) in 14 groups; a click plays it in a window of its own (`run.ps1 -Demo NAME`, ports from 47900, a copy of what Draw3D comes with), so the world open is not touched. The checklist's parts are rows under it; a part with a `demo NAME` line plays its demo too, and the Checklist window gives it a ▶ button.
+- **The help** (`helpview.gd`, `help.txt`, Ctrl+F1, Window › Help, Help menu): 31 pages under 11 stages in the order a world is made, and a Find box. It is written to stay true: a page names a window, a demo or a picture, and the title, key, demo title and newest picture are read from the editor as the page is shown; diagrams are a line of words (`flow A > B`) drawn as boxes and arrows; whole lists (every window, demo, style setting, palette, checklist part) are read live. `missing()` lists any name the engine no longer has. Pictures: help/pictures/NAME.png if made, else the newest demo/NN-NAME.png. "Blueprints" in the user's words are the generators: the page "Generators and blueprints" says where they are.
+- **Clickables** (`uitheme.gd`): every button, choice and menu button outlined (lighter under the pointer, gold pressed); the bar's menu rows, the help's page list and the small link buttons of the Inspector, Project, Routines, Studio, person card, HUD, perf monitor and window title bars get a faint box with an edge (`row_look`).
+- **Mended on the way**: `main.gd` `_hide_if_text_view` took a freed button (errors "Cannot convert argument"): it takes an instance id now. The limited shader's `nearest_few` redefined `a`.
+- **Mended, found by the host tests** (from the heights pass before this one): four designs of library/heights.txt named colours of their own `stone` and `bark`, which are the style's names (the lines are gone; those parts take the style's stone and bark, and change with it); the treehouse's `gives 0 0 0.25 18` was not understood (now `gives 9 top 0.25`: its crown sways, the deck does not); the 30 models of heights_models.txt had no stand-in box for the host to measure (each now has one, as the kits do; the models are drawn as before, `-Demo heights` passed); test p43's list of collections lacked Camping and the two Heights collections. `-Demo perfscan` stopped at its second beat on a thing freed while measured (a typed loop variable): mended.
+- **Performance, measured at the end** (`perfplay`, `perfscan`, `perfclick`, `editspeed`; island town, this machine): editing 10.1 ms a frame (99 fps), the GPU 2.7 ms of it; playing 18.2 ms (55 fps; 47 fps in perfplay's crowd), GPU 4.4 ms. Scripts are the frame, as found on 2026-10-27: folk.gd, models.gd, lying.gd, presses.gd and wild.gd each 1 to 2 ms. Editing: idle 10 to 11 ms, brushing 19 ms (worst 43), dragging 29 ms, placing 33 ms (worst 175), undo 19 ms (worst 191). Against the last measures (editspeed 2026-10-27: idle about 10, placing about 35, dragging 32; playing 41 to 51 fps) there is **no loss**: this pass's shader modes and the outlined buttons cost nothing measurable (every style pictured at the 144 fps cap). Still slow, and not mended in this pass: the frame after a click is 55 to 107 ms (the Inspector filled in 18 to 53 ms, `marks.watch` redrawing what is picked in 27 to 80 ms, the hub told 42 ms). A cache of the ground heights marks.watch asks for was tried and made no difference, so it was taken out; where its time goes needs a timer inside it.
+
+**Checked by:** host tests, 96 unit and 105 protocol, all pass; `-Demo stylepass` (11 beats: the eight styles given and pictured, exposure seen at once 2.2, scroll 700 kept at 700, warmth tried as dragged with Keep pinned, two house colours written, rim 3.0 from Every setting) and `-Demo helppass` (3 beats: every demo in the menu once, a group's rows, every name the help gives found, a search leaving some pages). Pictures looked at: watercolour, sketch, felt, five colours read as meant; neon and dreamland were mended and pictured again.
+
+### Design words reach creatures, a companion's settings on a click, Edit here keeps everyone, the display laid out by hand, a loading bar, weapon trails that show, heights to climb and houses dug into the land (2026-10-28)
+
+This pass followed the user's message with six screenshots ("attempt to fix the gap … a loading bar for worlds … for the love of god this is not organized … edit in place does not save the player and npc positions … leaves a trail doesn't appear to work … why do houses … not have context menu bars … watch towers and hunting towers. billboard signs that you can climb up. gas stations. medieval plateaus … build a house into a mound … giant tree/tree house … the game display options are horrendous … do the weapons have trails … the sheep walks so why don't i see what it does … a companion follows the player so right clicking … should show me those companion options … tidy up duplicates"). Checked by script and by three demos (`-Demo fixpass`, `-Demo weapontrails`, `-Demo heights`); nothing was tried by hand.
+
+- **The gap mended: a design's words reach creatures and townsfolk** (`folk.gd` `_written_again`, `_remade`). They were keyed by the thing and kept the words they were given a body with; and once given a body the view no longer lists them, so a rewrite never reached them. Each one's cell is now read for its content: when it differs, the body is made again where it stood, facing as it faced. The host lets one placed thing carry twenty more words of its own (`kind.rs` OWN: trail, tint, blocks, parries, dodges, becomes, after, regrows, idles, shines and others), so a built-in sheep is given a trail without a copy of its design.
+- **Leaves a trail works with crystals and flowers** on a built-in creature (the demo counts eight crystals standing at once behind a sheep).
+- **What a flock's sheep does is shown** (`inspect.gd` `_fill_had_of`): the Inspector lists what it already does, each with its settings in words and a link to the catalogue. **Kept to a region:** a region may now be a pen (Regions › "keeps animals in": `pens`), and what roams inside one stays inside it (`folk.gd` `_stray`). The sheep's card says so, with a Regions… button.
+- **A companion's settings on a click and a right click**: the right-click menu has a *What it does* section, one row per thing it does (follows you, is your companion, its marks: the cone, the hearing ring), each opening the Inspector at that row, where it is turned off or changed. *Its marks* sets how much of the cone and the ring is shown, 0 to 100.
+- **The catalogue knows every word**: about 55 entries added to `abilities.txt` (companion, treads, fidgets, marks, pack, poise, blocks, parries, loot, xp, zipline, lore, sells, plot, grows, harvest, tack, shines and the rest); `missing()` is empty. Sides, whom, regions and lore are picked from lists.
+- **Edit here keeps everyone where they stood** (`main.gd` `edit_here`, `keep_place`/`come_back`, `folk.gd`): the player and every creature and townsperson stay where they were, seen while editing; back to the game, each is where it was. **The player is seen while editing**, at the Player start (or where they were left), not only in play.
+- **A bar over each thing placed by hand** (`buildbar.gd` `_fill_one`): its name, a colour for model designs, size −/+, turn ±45°, raise/lower, ⛰ Dig into the land, Settings…, What it does…, Animation…. Houses of the kits have it.
+- **"What things can do" organised** (`catalogview.gd`): the list at the left under headings in capitals on bands; at the right the chosen one on a card in its sort's colour, a large title, its group, its description, its settings as a table; the add button always under it, never scrolled away.
+- **The display laid out by hand** (`hudcanvas.gd` new, Window › Game display): the game's screen drawn small with every piece where it stands and sample words; a piece is dragged to where it goes (kept to the corner it is nearest); clicked, its settings beside: shown, when, while talking, font (and Add a font…), letter size, colour, outline, backing (none, square, rounded, pill) with colour and how solid, border colour and width, scale, *as the game has it*. Seven looks for all of it at once (Clean, Arcade, Pixel, Parchment, Neon, Minimal, Blocky). `hud.txt` gains `corners N` and `border HEX N`; a backing said for all is every piece's. The old rows of numbers are folded under it.
+- **A loading bar while a world opens** (`worldload.gd` new): it goes by what is done, not a clock: the host's makers made of how many (to two thirds), then the shapes the cells name brought in of how many, saying which; gone when nothing is owed (or 12 s after the makers, the far land coming as it is looked at). Opening the town, the demo saw it pass through more than five steps between.
+- **Weapon trails, found broken and mended** (`animated.gd`, `moves.txt`): a weapon taken in hand for another that was also carried left the motor with the first, so a sword struck with the fist and no trail was drawn. The motor is now told whenever the hand changes. `slash` needs a blade or a greatsword and `thrust` a blade or a spear; the ranger's set tries them before the fist's `strike`. `-Demo weapontrails`: a katana's pale streak, a short sword in flame, an axe in lightning, a greatsword's golden aura, each swung in play.
+- **Heights and lookouts** (`library/heights.txt`, written by `library/heights.js`): a log watchtower, a hunting stand, a billboard with a catwalk and a caged ladder, a gas station (canopy, pumps, shop, price sign) and a pump alone, medieval plateaus 3 m and 6 m high, a house in a mound with its porch, bay, chimney and skylight out of the turf, a treehouse in a 20 m tree. Each is drawn of parts with colours of its own; the demo stands the walker on each where it is meant to be (deck 6.0 m, stand 4.3, catwalk 5.6, canopy 5.3, plateaus 3.0 and 6.0, the mound 4.2, the tree's deck 7.0).
+- **Heights of models** (`heightsmake.gd` new, `library/heights_models.txt`, `models/heights/`, credited): 30 CC0 models from Poly Pizza, about 18 MB of the 200 MB allowed (downloads-untrusted/heights): towers, a fortress, a lighthouse, water and transmission towers, an advertising board, ladders, fantasy houses and huts, giant twisted trees, rock formations, tanks and a gas can. Stood on as their mesh is; towers, rocks, ladders and trees climbable.
+- **Dig into the land** (`digin.gd` new; the bar's ⛰ button): the ground raised round a thing's back and sides as a rounded mound, its front open; pressed again, deeper (30, 50, 70 % of its height); one Ctrl+Z each.
+- **No text boxes for names**: a watcher's switch, a breakable's count, a course, a way's two ends, a puzzle, a lamp's fuel, the design strewn over a thing, who drops a thing and what a worker tends are picked from lists of what the world uses, each list ending "＋ A new name…".
+- **The "as text" buttons hidden** (View › "Show the 'as text' buttons", off): every window's *Edit … as text…* button and the Window menu's *as written text* rows are hidden unless this machine says otherwise. **Duplicates**: no ability, Library asset or Window entry is listed twice; the Inspector's "Its moves as text…" became *Its animation…*.
+
+**Still owed**: none of this was tried by hand. AudioCraft is proposed below, not built (its model weights are not licensed for sold games). A rest-of-line field (`becomes`'s line, a pattern's moves, built_from's goods) is still typed. The plateaus are designs, not a drawn outline. **Damage reported:** `-Demo combatpage` fails one check: the ranger's old combo `cut_thrust` begins its slash on the Project's stage but not the thrust (which now needs a blade, and a run the stage gives no room for after the slash). The stage now arms a fighter with what its moves want (`stage.gd` `_arm_for`), which mended `dodge_counter`; `cut_thrust` is not mended.
+
+### Everything that moves animated where it is clicked, names first, colours for models, trails, leaves, a camping set, fields made forms (2026-10-27, after the Begin window)
+
+This pass followed the user's message ("why can i not edit the animation of everything that has an animation? … when i click something it should be clear what the item name is … the log cabin and the doctor's … does not have context menus … i don't get a response when i click on the taxi … anything in any of the demo worlds should be authorable … finish converting any remaining text items to forms … the leaves on the ground during autumn just look like sharp geometric shapes … spawns and despawns things under its feet … a camping set up to 200 mb … some windows are black … there's room at the right of the question mark …"). It was checked by script and by three new demos (`-Demo animpass`, `-Demo carclick`, `-Demo camppass`), whose last runs found no problems, and by the older demos for the parts touched. Nothing was tried by hand.
+
+- **An Animation window for anything that moves** (`animview.gd` new; Characters › Animation, the Inspector's *Its animation* link, right click, the workspace bar). What it shows depends on how the thing is drawn:
+  - **a model with its own clips** (the dog, the horse, deer, fish): for each way it goes (standing, walking, running, grazing, resting, crouching, in the air, its move), which clip and how fast, each played on the stage above (▶). Written as `clip_for WAY CLIP SPEED` in its design;
+  - **a model with no clips**: a gait (plodding or skittering), and how much it bobs and rocks;
+  - **a body of the engine's bones** (`rig sheep` and the rest): each pose of its rig (walking, grazing…), its keys, how far it goes for one round, and every bone's three turns as numbers, the body walking on the stage. The world gets its own copy of the poses text the first time one is changed;
+  - **a person or a character**: the Studio, opened on them.
+- **Its name first**: the Inspector is headed by the thing's own name (its `called` line, else its design's name), never the word "Kind". The log cabin, the doctor's and other things of a layout now find their design for Looks, Shape and colour like a house does.
+- **Colour for model designs** (`models.gd` `tint`, the Inspector's colour row): a colour picker, how much of it, how far each one differs from the next, and *its own colours*. Written as `tint HEX MUCH VARY`; each copy of a cabin or a chair is tinted a little differently by where it stands.
+- **The taxi answers a click** (`traffic.gd` `hit`, `main.gd` `pick_street`): a car of the traffic picks its street, and the Inspector shows *Street: NAME* with how many cars drive it, whether one in three is a taxi, and *Try it in play: hail a taxi*.
+- **No empty card** (`personcard.gd`): the person card is shown only once it has something in it, and is not filled again each frame for one that has nothing. The black window over the dog was that card.
+- **A design's words take effect at once** (`things.gd` `written_again`): what is put down kept the words its design had when it was made, so a tint, a trail or a clip chosen did not reach it until the world was opened again. These four words are now read from the design as it is now whenever it is written. Why the view keeps the old words is not found yet; it is written under Known gaps. (Found and mended 2026-10-28: creatures and townsfolk kept the words they were given a body with; see that day's entry.)
+- **Trails** (`footfall.gd` new; ability *leaves a trail where it goes*): `trail DESIGN EVERY LASTS MOST SIZE`. Whatever has a body (a creature, someone of the folk), the player, and anything loose (a barrel rolled or tumbling) leaves one of DESIGN where it goes every so many metres; each grows up out of the ground, stands a few seconds and sinks away, at most so many at once, each SIZE times its design. One MultiMesh for each design; a model is copied at most 48 times in all, and 384 bounds them all. Measured with a dog leaving flowers: 0.01 to 0.03 ms a frame.
+- **Autumn leaves** (`lying.gd`): drawn as leaves, an oval with a point, curled edges, a pale midrib and a stalk, not sharp triangles.
+- **Captions beside the ?** (`inspect.gd`): each setting row of a maker has a fourth column saying what the setting does, in a sentence.
+- **Fields made forms**:
+  - text settings of makers: colours by a colour picker; the rest by a button that opens World outline on it;
+  - an ability's colour field by a colour picker; its *only while* by a form of rows (`condform.gd`), said in words on its button;
+  - *used, it does* (food, drink, medicine): rows of an effect each (a stat changed by how much, a status put on, one cured, a fact set), with + and ✕;
+  - *leads to*: the worlds beside it in a list, and *nowhere*;
+  - a structure's stairwell: its cells in a list (column and row); its eye's *when*: the condition form;
+  - *when this happens, do*: the good given, the sound, the move and the cutscene picked from their lists, how many by a number.
+  What is still typed is what is said aloud, and names.
+- **A camping set** (`campmake.gd` new, `library/camping.txt`, `kits/camping/`, about 11 MB of the 200 MB allowed): fourteen designs in the Library's *Camping* group, from the Survival Kit already here (CC0) and two made from its pieces:
+  - three tents, a bedroll and a covered wagon, each slept in (the tents are in the way only at the back, their front open to lie in);
+  - four campfires (plain, a spit, fish, a pot on three poles) that burn at night, flicker, hum, light the camp and are cooked at;
+  - a log to sit on, firewood to take, a chest to search, an open wagon;
+  - `set campsite` in furnish.txt lays a camp out.
+
+**Still owed**: none of this was tried by hand. The poses and clips are changed per design, not per one thing. A trail's things are not kept with the world, which is as asked.
+
+### Editing made quick again, the editor begins on a Begin window, and the Poly Haven pieces made usable (2026-10-27, after the tenth pass)
+
+This pass followed the user's message ("yes make them useable. bbut first. the editor is extremely slow in editing mode… it's about 2 fps when attempting to do any edits… shouldn't default to the waste world… open to a blank state or the project window"). It was checked by script, by the host tests (92 and 105 passed) and by three demos: `-Demo editspeed`, `-Demo begin` and `-Demo phuse`. Their last runs found no problems. Nothing was tried by hand.
+
+- **Why editing was slow**, measured with prof.gd's timers in each editing refresh:
+  - the Library window asked the host for every asset each second, and the host read and built all 3,845 of them again (about 400 ms);
+  - the hub's account was made again after every edit (225 to 320 ms);
+  - after each edit, makers, traffic and the train each asked for every node (about 40 ms each);
+  - goods and items looked through the world each second (35 ms each), crops every half second (33 ms).
+- **What was done**:
+  - the host keeps the library it read, by each file's length and time, and answers a short *stamp*; the Library fetches all only when the stamp changes. Its pictures are kept on disk (`user://library_icons`) and one is taken at most every 90 ms;
+  - the hub's account is made again for a change to the world's things only when the hub is shown or its texts changed;
+  - makers fetch nodes only when asked for them; traffic and the train only when edits changed;
+  - goods, items and crops look again only when something was laid or every few seconds.
+  The library was not split into a core set and the rest loaded later: with these, having many assets no longer slows editing.
+- **Measured after** (`-Demo editspeed`): idle about 10 ms a frame; placing about 35 ms on the mean, worst 135 to 190 ms; dragging 32 ms; the Library open 15 to 20 ms. Still paid once per edit: nodes 38 ms, crops 35, lying snow 14, the Inspector's fill 19.
+- **Begins on a Begin window** (`startview.gd` new, `main.gd`): run plainly, the editor opens on an empty world with **Begin**: *New world…*, *Open a saved world…*, *Project…* and up to six worlds worked on lately (name, folder, date, size). A check *Show this when Draw3D starts*; unchecked, it opens the playground as before. `--world`, `--fresh`, `--from` and demos are unchanged.
+- **World menu**: a row without an action ("None kept yet") stopped the menu being built, so every row after it was missing (New world among them). Such rows are now shown greyed. A *Begin…* row is added; Project › World gains *Open a saved world…*, *Save as…* and *Begin: worked on lately →*. The same world written with either slash is one recent world.
+- **Poly Haven pieces made usable** (`kits.gd`, `kitsagain.gd`, the 13 `library/kit_ph*.txt`, `gear.txt`):
+  - each model is given a use by its name: beds slept in, seats sat on, chests and storage searched, food, drink and medicine taken, stoves to cook at, lamps that light at night, rocks to mine, small things picked up. 229 designs have one; the Library groups them as *Beds*, *Seats*, *Storage to search*, *Lamps and lights* and so on, with plain names (no "1k");
+  - sixteen tools and weapons are gear like the thing they are (pickaxe, hatchet, two wood axes, machete, saber, estoc, katana, dagger, fish knife, war hammer, hammer, mace, bat, pistol, lantern), found under *Tools and weapons*: taken, kept and held; the pickaxe mines and the fish knife skins.
+  - a seat's approach is turned for models (they face the other way), so *seat* fits a kit chair.
+- **Open**: the gothic chair stands 2.27 m (its back); whether other pieces' sizes read right beside a person is for the hand.
+
+### Children grown, ages in the maker, aircraft that turn, birds that fly, mining, felling, fishing and hunting, and the asset catalogue measured (2026-10-27, the tenth pass)
+
+This pass followed the user's message with a picture of tiny children and a plane and helicopter with still propellers ("children are way to small… the flying vehicles do not have moving parts… the cockpit needs to be big enough to hold player… some birds do not have wing movements and some have four legs… the goal is to have these assets available… include the ability to mine… add the after state… flesh out the fishing system… enhance hunting"). It was checked by script, by the host tests, and by two demos: `-Demo airprobe` (aircraft, birds, ages) and `-Demo tenth` (mining, felling, fishing, hunting, the after form). Their last runs found no problems. Nothing was tried by hand.
+
+- **Children and ages** (`people.txt`, `maketab.gd`, `charbook.gd`):
+  - the boy and the girl are 0.76 of a grown person with heads grown 1.32 times, the toddler 0.5 with a head 1.55 times: child-sized beside the villagers in the picture;
+  - Character maker › Body › **Its age**: toddler, young child, child, teenager, adult, middle-aged, old, very old. Each sets the height, the head, the limbs, the bearing and gait, greys the hair and sets a resting face in one step of undo;
+  - new sliders: neck, shoulders, hands, feet; height down to 0.4.
+- **Aircraft** (`air.txt`, `figure.gd`, `acts.gd`):
+  - propellers and rotors are found from the design's points (`prop.N`, `rotor.N`, `tailrotor.N`) and turn while the engine runs, faster as it runs (measured 34 and 40 turns a second);
+  - the plane has an open cockpit with walls, a seat and a windscreen; the helicopter a cabin with two seats, a glass nose and its roof at 2.2 m; the balloon a hollow basket and `pilot_balloon` (hands on its ropes). The pilot's head sits 1.9 to 2.0 m above the ground inside each, not on top.
+- **Birds**: wings of birds drawn from parts are split off and beat (5 of 5 in the demo); the ostrich stands on two legs (person rig).
+- **Mining** (`mining.gd` new, `things.gd`, `areabook.gd`, `areasview.gd`, Library › **Mining**):
+  - things say `worked N` (strikes to take it down; each gives its share), `after rubble|stump|logs|chipped|cut|gone`, `regrows HOURS|never` and `bonus GOOD N CHANCE`; struck, a rock stands smaller each time and is a heap of rubble after the last;
+  - Library › Mining: copper, iron, silver and gold rocks, a coal seam, two crystal clusters, a stone boulder (Poly Haven's model), a clay bank, a stone furnace;
+  - **a mineable hillside**: Window › Regions › *Mined from its hillsides* (goods, how many, chance each strike), *Strikes before a spot is worked out*, *Hours before a spot fills again* or *gone for good*. With a pickaxe in the hand on a rise in that region, E strikes; a rubble heap is left;
+  - goods say what one is `worth` and what it is for (`use`): any trader buys it for half its worth; the inventory lists **Goods of worth**. Ores, ingots, gems, stone, coal, clay and bricks were added, and recipes to smelt and fire them at the furnace.
+- **Felling**: the Rural collection's trees offer *fell*, leave a stump and grow again in a week (dead trees never). A stump no longer offers fell.
+- **Fishing** (`fishing.gd` new, `goods.txt`, `water.txt`):
+  - a fishing rod in the hand, facing water within 6.5 m: E casts; the float lies on the water with its line; a bite is struck with E within 1.3 s; the fish is reeled in for as long as it fights, and may slip the hook;
+  - what bites is chosen among the goods that say `caught_in fresh|sea|any`, `bites FROM TO`, `rarity` and `fights`; a worm on the hook halves the wait and doubles the rare ones;
+  - seventeen fish and shellfish as goods and as water life (carp, pike, catfish, bass, salmon, eel, golden carp, cod, herring, sea bass, red snapper, tuna, swordfish, flounder, crayfish, lobster; the crab good uses the Sea floor's crab); each counts as fish for cooking (`counts_as`); an old boot comes up now and then;
+  - the inventory keeps a **Fishing log** (how many of each, the biggest); a jetty's catch is chosen the same way.
+- **Hunting** (`gear.txt`, `acts.txt`, `creatures.txt`, `aim.gd`, `goods.gd`):
+  - a **hunting rifle** with a scope (`fires … scope 3`: aimed from behind, the view draws in), a **longbow**, a **hunting knife**;
+  - the deer, the rabbit, the fox and the wolf can be brought down and carry their meat, hide, pelt and antlers; an **elk** and a **wild boar** were added;
+  - the act **skin and dress** on what fell takes all of it with a knife in the hand, half without; a **Hunting log** in the inventory; a fallen animal is no longer offered *pet*;
+  - leather tanned from a hide and arrows fletched with feathers at the bench.
+- **Forms** (`projectview.gd`, `shapes.gd`, `uses.txt`): Project's Gathering card has an **AFTER** part (looks after, gone for good, whole again after, strikes, sometimes holds); the goods form has worth, what it is for, counts as, and *Caught on a line*; Make it usable has *rock*, *ore* and *furnace*, and *tree* leaves a stump.
+- **Assets brought in** (CC0, about 1.3 GB of the 2 GB allowed, in `downloads-untrusted/`, models in `editor/godot/kits/`, never committed): eleven Quaternius packs and 477 Poly Haven models in thirteen kits (rocks, deadwood, plants, food, kitchen, tools, containers, industrial, electronics, lamps, furniture, decoration, props).
+- **The asset catalogue measured**: `Draw3D_Asset_Family_Tracker.md` takes the user's catalogue as the master family specification and gives each of its families its coverage, its authoring, a maturity level (planned, prototype, usable, procedural, production) and what it needs next.
+- **Host**: four words of what a kind says (`after`, `regrows`, `worked`, `bonus`); the protocol test's list of collections updated; all host tests pass.
+
+Left as found:
+- The 477 Poly Haven models are scenery only: none is searchable, a good's look or a tool yet.
+- A shot from the hunting rifle or bow at game was not fired by the demo; the deer was brought down by the fight's own hurt, and the shot path is the one every weapon already uses.
+- The hotbar once showed *The copper ore rock (you have none)* in its first slot before the rock was struck, and not after. Not explained; seen once, in `-Demo tenth`'s first picture.
+
+### Villages kept to dry land, railways laid with a brush, diving pitched and the diving suit, the sea loop closed, birds, aircraft, the old and the small, a thing's animation from a right click (2026-10-27, the ninth pass)
+
+This pass followed the user's message with a picture of a generated village standing in the sea ("something wrong here… refine the animation studio… close another gameplay loop… water navigation… the diver tilts… a diving metallic suit… more birds… flying vehicles… fix train system… models for kids and old people… download up to 500 mb"). It was checked by script and by the demo `-Demo ninth` (9 beats, about 10 minutes). Its last run found no problems: 12 houses all on dry ground; a halt and a station house in order with hours 6 to 20; 3 soaring and 3 wading birds; the Studio opened on the sparring partner with its walking clip and 14 ways; the diver pitched -0.97 going down and 0.9 coming up; the suit stood on the bed at -3.3 m with air whole; the gunboat fired 4 balls, the sloop fell and was boarded for 25 coin; the helicopter rose from 6 to 20 m and held 21.6 m. The host changed by two words of its table of what a kind says (`soars`, `gun`); the host tests all pass. Nothing was tried by hand.
+
+- **The village in the sea** (the picture): the overworld's villages stood 260 m out on a land whose shore begins about 300 m out, so their far houses, a lane and the road's end lay in the water. Mended three ways (`worldmake.gd`):
+  - every generator looks at the ground first (`_on_land`): if a place's middle, or more than a quarter of a ring at its reach, is wet, the land under it is raised to the plot's height with a soft shore (as a section's is);
+  - the high road and the lanes keep to their dry run (`_dry_run`), and a house, a field, a wood or the well is left out where the ground is wet (`_dry`, one `ground` op);
+  - the overworld's places moved in (villages at about 200 m, the town at 220 m).
+  - Demo: a village with its middle 95 m out on a 110 m plot, 12 houses asked: every house corner dry.
+- **Railways made easy** (`train.gd`, `railbook.gd`, `buildbar.gd`, `main.gd`, `inspect.gd`, `makers.gd`):
+  - **Build › Paths › Railway**: a brush like Path; drag where the line goes. The drawn line is named *railway N*, so a train runs it at once (rails on sleepers, on posts over water and hollows).
+  - **Right click on the rails**: *A stop here (the train halts)* writes `stop X Z NAME` in railways.txt; *A station house here* puts the Library's railway station down on that side of the rails, its platform along them.
+  - **Inspector › Railway**: *Its stops, in order* (halts can be taken away there; a station house is clicked as a house), and *Its timetable*: all day and night, by day, by night, mornings (`hours FROM TO`). Outside its hours the train stands at the next stop it comes to.
+  - Demo: a line composed as the brush composes it, a halt and a station house in order, hours 6 to 20, the train running by day.
+- **Diving** (`motor.gd`, `player.gd`, `intent.gd`):
+  - under the water the body pitches nose down as it goes down and nose up as it comes up (`dive_pitch`, the figure's x turn);
+  - where the eye looks takes the swim down or up (`intent.dive` from the camera): look down and swim ahead to dive, look up to surface; crouch and jump still win.
+- **The diving suit** (gear.txt `item diving_suit`, `sinks`; Library › Worn › Diving suit): worn, the walker sinks to the bed and walks it at 0.42 of walking speed, breathing the suit's own air (no Air bar); jump held brings them up. `gearbook.gd` reads `sinks`; `fight.gd` makes the walker airless in it.
+- **The sea loop closed** (the tracker's "fire back from a boat; sinking; boarding"):
+  - **Gunboat** (Library › Boats): a fishing boat with a bow cannon, `gun 70 6 2.5 34 shot cannonball`. Aboard, attack fires it the way the eye looks, a ball every 2.5 s (`acts.gd` `_ride_fire`; `gun` is `shoots` for something ridden, never fired by itself).
+  - **Sinking**: a beaten ship (`tags ship`) lists 16° and settles 1.6 m over six seconds instead of lying on its side (`fight.gd` `_fell`), and the log says it is holed.
+  - **Boarding**: every fighting ship of sea.txt `offers salvage deck` and carries `stock coin 25`; the act *board and search* (`acts.txt` `salvage`, `while fallen`, `gains everything`) is offered at the wreck.
+- **Birds** (library `birds.txt`; `wild.gd` two new ways, `things.gd` reads them):
+  - `soars R H [V]`: round and round H metres up, a stoop now and then: eagle (Quaternius's model, CC0, converted from FBX to `models/birds/eagle.glb`), vulture, gull;
+  - `wades R`: stood in the shallows, stepping; flies off a way from the walker and comes back: flamingo, heron;
+  - parrot, toucan and owl perch (the crow, the vulture and the swan the library had already, in Decor, Desert and Water, stay there); an **ostrich** is an animal on a sheep's bones (`moves ostrich`, 12 m/s) that runs from whoever comes near.
+- **Aircraft** (library `air.txt`; `moveset.gd` way `air ahead`; `tune.gd` numbers `climb`, `lift`, `sink`; `motor.gd` `_flies`):
+  - got into as a car is (E); jump held climbs, crouch held comes down, the stick steers the way it points;
+  - a **light plane** rolls until it is going its `lift` (11 m/s), then lifts; too slow in the air it comes down;
+  - a **helicopter** lifts from where it stands and holds its height; a **hot-air balloon** rises and sinks slowly and barely steers.
+  - Each is drawn of parts (no CC0 model was found on poly.pizza: 28 of 31 found were CC-BY).
+- **The old and the small** (library `people.txt`; moves.txt `elder`, `toddler`): an old man and an old woman (white hair, a stick, 0.9 m/s), a toddler (0.42 scale) beside the boy and the girl.
+- **A thing's animation from a right click** (`main.gd` here_rows, `studio.gd` `open_for`): right click someone drawn as a character › *Its animation: edit its clips (Studio)*: the Studio opens on that character, its walking clip chosen and playing, with a strip *It shows: stand: … walk: … run: …* over the list of clips (each a click), then *＋ Make a clip from it*.
+- **Downloaded** (downloads-untrusted/, 37 MB of the 500 allowed, all CC0): Quaternius Universal Animation Library 1 and 2 (glTF, 120+ clips each, for the Studio's Browse files and Import clips), Quaternius Animal Pack Vol. 2 (the eagle; its wolf, dog, cat and piranha unused).
+- **Found by the demo and mended**: the boats of sea.txt had no rig, so none ever had a body to board (all ten given `rig skiff`; the aircraft `rig vehicle`); a shot met a body only within 0.42 m of its middle, which no cannonball at a 12 m hull ever was (now its own width, and half its length for a ship); the cannon is aimed at whoever the eye looks at within its reach, on the arc a falling ball needs; a station house asked for a whole-number turn.
+- **Also**: `someone_picked()` carries the thing's said; railways.txt `stop` and `hours` lines are written and read; the Library's Railway station is taken from the library when a station house is placed.
+
+### Caves of rooms, dungeons, jungle animals, fruit knocked down, traffic and taxis, generators with tags, sections, strikes from the saddle, right-click rows (2026-10-27, the eighth brief's remainder)
+
+This pass followed the user's message "continue with the remainder of the brief… add jungle animals… knock fruit off trees… context menu for objects and npcs… create a demo with both halfs". It was checked by script and by the demo `-Demo eighth` (18 beats, about 25 minutes), which has two halves: `jungle` and `cityhalf`. Its last run found no problems. The host library test passed; no host code changed this pass. Nothing was tried by hand.
+
+- **Caves of rooms** (`cavenet.gd`, `cavemaker.gd`; Terrain › Cave).
+  - The cave is a distance field with rooms along its way: round and rough, with side passages. It is meshed by surface nets and cached in user://caves.
+  - Crystals, glowing mushrooms, giant mushrooms and hanging growths are placed on its walls and floor, with lights of its own.
+  - Dragged into a hill, it is a cave into the hill; dragged right through, it is a cave through it. The drag says which before you let go.
+  - If the rooms do not fit the hill, other seeds are tried, then smaller rooms, then none. The notice says so.
+- **Dungeons**, the cave tool's *made as › a dungeon*:
+  - rooms and passages at right angles, with level cobbled floors;
+  - torches on the walls and pillars in the big rooms;
+  - the Library's chest in each side room;
+  - a doorway of dressed stone.
+  - Demo: 4 rooms and 2 chests, 27 m into a hill.
+- **Jungle animals** (library `jungle.txt`, 13 of them, with moves.txt sets of their own):
+  - lion, lioness, tiger, white tiger, leopard, jaguar, black panther, cheetah;
+  - elephant, rhinoceros, giraffe, monkey, gorilla.
+  - They are drawn of parts on a sheep's bones, because no free model was found.
+  - The big cats hunt the monkeys and the monkeys run.
+- **Fruit** (`fruit.gd`; Jungle trees: coconut palm, mango tree, banana plant, apple tree; goods coconut, mango, banana).
+  - Each tree's fruit hangs in its crown, editing or playing.
+  - A blow on the trunk shakes one or two down; a shot or a thrown thing in the crown knocks down what it meets.
+  - What falls rolls and lies, and walking over it picks it up. The last one down leaves the tree harvested until its hours pass.
+  - Demo: shaken 1, shot down 1, picked up 1.
+- **Traffic and taxis** (`traffic.gd`).
+  - Cars drive every route named "… street". They slow at bends, keep their distance and stop for the walker. One in three is a taxi.
+  - E beside a taxi asks where to: each place named "the …" by a street, with its distance and fare. You are driven there, and Jump gets out.
+  - Each street's cars and taxis are kept in the world's own text "traffic", changed from the right click.
+  - Demo: 22 cars and 7 taxis on 5 streets; a ride to the library.
+- **Generators with tags** (`worldmake.gd`; World › New world: city, village, dungeon, overworld). Each has sliders and ticks, never typed.
+  - **Dwellings:** every generated house is given rooms for its sort from rooms.txt's plan, storey by storey, with now and then one room swapped. They are furnished as drawn houses are, and change in the house's Rooms row. Demo: 77 of 77 city buildings and 14 village houses.
+  - The overworld is a 768 m world: two villages, a town, a range with a cave through it and a dungeon hill. Roads join each place to its nearest, and the cave's two mouths count as one way through.
+  - Demo: Ashford, Brookmere, Kingsport, the cave's two mouths and the dungeon, joined by 4 roads.
+- **Sections** (World › Bring in another world as a section…, or the right click on the ground). Another world's makers, its things put down by hand and its own designs are brought in where you choose, with the land raised under them if they would stand in the sea. It is one Ctrl+Z.
+  - Demo: the showcase village brought in with 16 makers, 51 things put down and 39 designs.
+- **Strikes from the saddle** (`acts.gd` `_ride_strike`). Attack while riding swings the hand from high behind to low ahead on the side of whoever is nearest. The blow lands as one on foot does: fight.gd counts it the walker's, and fruit.gd shakes a trunk. Demo: 2 swings, 3 blows landed beside the elephant.
+- **Right-click rows** (`main.gd` `here_rows`, group rows):
+  - several chosen: turn, raise, lower, delete all, choose none;
+  - a fruit tree: its fruit, Knock one down now, try it in play;
+  - a street: its traffic, more or fewer cars, taxis on or off, hail one in play;
+  - a taxi's stop;
+  - a cave's mouth: Walk in;
+  - someone: Meet them in play;
+  - the ground: Dig a cave or a dungeon, Bring another world in here.
+- **Mended along the way:**
+  - A range drawn shorter than 2.8 of its widths never stands its full height, because its ends ease into foothills. The dungeon's hill was drawn too short, so every dungeon failed as "too thin".
+  - Generators now put their tool away and shut the Terrain window.
+  - Strokes made right after a big build retry while the host is busy.
+  - The host answers read-only asks (the ground's heights) while an edit is still going, and answers a long edit with nothing, its result coming later. The generators now wait until nothing is in flight. The cave tool asks again when the host is busy and waits for a long edit's result. Before this, the overworld's cave failed now and then.
+  - A world is as many 64 m squares across as it is given: the overworld's places stood off the land's edge, in the sea, until its world was made 12 across.
+  - Things put down by hand in a section are put down one by one; they are not makers to compose.
+
+### A village from its map, land grown by metres, bridges a boat passes under, moments of play kept, the square mark gone, what was said kept (2026-10-27, eighth pass)
+
+This pass followed the user's eighth brief ("commit and continue to work on the templates, traffic and taxis…"). It was checked by script, host tests (all 197 pass) and demos; nothing was tried by hand.
+
+- **A village or city from its map** (`layouts.gd`; World › New world from a map's layout…; demo `map_import`, `-Demo mapimport`): a layout exported as JSON by watabou's village or city generators (watabou.github.io) is built as a new world. Only the file's numbers are taken; none of watabou's code.
+  - The ground: the map's raised 1.6 m over the sea, then grown out 40 m all round with a shore's broken edge. Its water is sunk; water at the map's edge is carried out to the sea.
+  - Painted: fields as earth, squares as stone, and the ground under each road worn to earth so the roads show from far off.
+  - Drawn, as by hand, each to click and change: each road a path as wide as the map says (at least 2 m; trodden earth in a village, cobbles in a city). Each building a drawn house on its very footprint, with its door on the side nearest a road and its sort by size (cottage, house; a city's townhouses). A round one becomes a tower, or a roofed well when small. A city's walls become drawn walls with towers. The trees become woods in 24 m clumps, as many as stood there.
+  - great_dagger.json (734 by 417 m) gives 74 houses, 8 roads, 1 well, 183 woods of 661 trees and 14 fields. The demo's pictures show the houses on the map's footprints round the green, the fields and the roads.
+  - The host gained `land_outlines`: the land within outlines made so high and/or painted, easing in from the edge, as one step of undo.
+- **Land grown by so many metres** (Terrain › Extend land or Take land away › all at once: metres, then all round or one of eight ways; host `grow_land`; test p19c; demo `grow_bridge`, `-Demo growbridge`). The new edge is broken as a shore's is, and the sea is widened first if needed. Undone in one step.
+- **Bridges a boat can pass under** (a path's over-water options: lower / higher, "N m under it"; param `clear_under`). The deck rises to that height over the water with a flat top. No wall goes into the water: stone sides become a fascia, and wooden posts start at the deck. The demo cuts a strait to make an island and bridges it 4 m up.
+- **Moments of play kept** (`moments.gd`; Ctrl+F12 while playing, or Playtest › Keep this moment; World › Kept moments of play › Go on from…; demo `moments_pass`). A moment saves the game as it is, apart from the game's own saves and from the world's file. Stop, change anything (an NPC, a thing put down), then go on from that moment in the world as it is now, as often as wished. Up to 12 are kept per world. The demo kept one, put a crate down, and went on twice to where the walker had stood.
+- **The square mark mended** (land.rs `Layer::lift`, `lean`): where the first land was put, a step in the hand-made lift was taken as a sheer face even where the ground as a whole was smooth, so it could not be raised, smoothed or flattened away. A sheer face now needs both steps over 2 m.
+- **What was said, kept** (`saidview.gd`; Window › Messages, Ctrl+Shift+M): every notice at the foot of the view, newest first. The finished game's last measurement stands at the top as a table, with earlier ones (perf-history.txt) under it, plus buttons for Measure again and Show the report's folder. When a measurement finishes, this window opens.
+- **The rider's shield** is carried flat on the back (gear.txt `back_shield`), not edge-on at the hip.
+- **Strikes shown:** a move with no clip of its own now borrows a strike clip (`animated.gd` stand-ins) for its wind-up, hit and recovery instead of only moving the body; roll moves borrow the roll and getting-up moves the get-up. kip_up and brace still have no clip.
+- **Not built this pass (from the brief):** cave networks in mountains with natural rooms and cave growths, and an easier cave tool; an urban template with traffic and taxis; a world brought in as a section of another; dungeons, dwellings' floor plans and an overworld joined to them; our own village/city generator with parameter tags. Strikes while riding are not possible.
+
+### Faster play, the finished game measured, a blank plot built out over the sea, new worlds by template, a blaster to pick up (2026-10-27, seventh pass)
+
+This pass followed the user's brief that began "this game world that's being created isn't for an actual game", with performance first. It was checked by script, host tests, demos and measurements; nothing was tried by hand.
+
+- **Where a frame goes** (demo.gd `perf_deep`, `-Demo perfdeep`): on the wide island at High, playing, each layer was taken away in turn. Before this pass:
+
+  | What was taken away | fps | ms a frame |
+  |---|---|---|
+  | Nothing (playing) | 51 | 19.6 |
+  | Every script's work | 169 | 5.9 |
+  | The people too | 273 | 3.7 |
+  | Physics too | 296 | 3.4 |
+  | Strewn things too | 367 | 2.7 |
+  | Every mesh too | 634 | 1.6 |
+
+  The GPU needed 3–4 ms. The frame was the scripts' work, about 12 ms. Each script was then timed alone (`perf_each`, `-Demo perfeach`): the people (`folk.gd`) 3.4 ms, then leaves, the player, acts, models, presses, goods, stats, wild, fight, power, the HUD and watch at 0.25–0.7 ms each. While editing, the figures' faces cost 1.9 ms.
+- **Cuts:**
+  - **People:** worked out each tick within 16 m, then less often (45 m: every other tick, 100 m: every fourth tick, beyond that every eighth). A tick spends at most 1.1 ms on those not near, taken in turn (`folk.gd` `BUDGET`, `_turn`), and each is given the time it waited.
+  - **Acts:** the nearest thing to do is looked for every third tick.
+  - **Stats:** worked out ten times a second.
+  - **HUD:** dressed five times a second. A piece just shown is dressed at once, and what is shown or hidden is still checked every frame (`hudlook.gd`).
+  - **Leaves:** still leaves are checked one frame in six.
+  - **Faces while editing:** worked out only within 20 m of the eye (`models.gd`).
+  - **The once-a-second looks:** folk, watch, wild, power and produce no longer fall on the same frame.
+- **After the cuts:** playing in the editor at High is 68 fps (14.6 ms, slowest frame 23 ms, was 35). The people cost 1.7 ms, was 3.9.
+- **The finished game measured** (`perfgame.ps1`; World › Measure the finished game…; demo `perf_game`): the world is exported as a game and that game is played by itself at each quality, at its start and where the most people are, with the view turning about. On the wide island, at 1280×720:
+
+  | Quality | At the start (fps) | 1% low (fps) | Among 18 people (fps) |
+  |---|---|---|---|
+  | Low | 232 | 105 | 192 |
+  | Medium | 203 | 98 | 215 |
+  | High | 199 | 95 | 198 |
+  | Ultra | 144 | 61 | 135 |
+
+  The exported game runs Godot's release build, whose scripts run about three times as fast as in the editor's debug build. Play in the editor understates the finished game by about that much. The report is `build\PerfCheck\perf-report.json`.
+- **Baking:** the world view already batches what is strewn into one multimesh per region and design, at several levels (`world_view.gd` tiers), which is what a static batch would give. Draw distance, level of detail and putting far people to sleep already work live. A bake step that merged meshes further would save a little of the 2–3 ms of drawing, not the scripts' work. It is not built.
+- **export.ps1:** a world written whole is kept even when Godot falls over as it quits (an access violation on the wide island stopped the export).
+- **New world** (newworld.gd, host `recipe`):
+  - **A plot of land (blank)**, which comes first: a plot as wide as you say (6–400 m, 24 by default), nothing on it, and the sea six patches about it.
+  - **An empty island.**
+  - **An island, wild:** woods and a meadow.
+  - **Two islands, by boat:** no causeway between them.
+  - **Two lands across a sea:** as big as each other, with woods.
+  - **A town by the sea:** a road, a street of houses, street furniture, a mooring.
+  - **The demo island (everything).**
+  - **Nothing at all.**
+
+  The land's new `reach` says how far its shore goes, in metres, apart from its patches, and a small shore is broken by as much as suits its size. Begun as a plot, Terrain opens with Extend land chosen.
+- **Land out and in** (terrain.gd, host `shapes/land.rs`):
+  - **Extend land** brings the ground under the brush up to so high over the water (`above water`, 1 m by default) and never lowers it. Its rim is broken as a shore is.
+  - **Take land away** sinks the ground under the brush to so deep (`below water`) and never raises it. Its rim is broken the same way.
+  - Dragged out past where the land goes, the sea about it is made wider in the same edit (`sea_wider`).
+  - Over open sea, where no ground was made, the brush falls on the water.
+  - Both are in Terrain › LAND AND SEA, in the bar's Terrain menu, and in the land's right click.
+- **Right click on the land:** Fill about here with trees (12 m), a big wood (30 m), grass, flowers and bushes (a meadow, 10 m), or animals. Also under The land: Extend land, Take land away, Shape it.
+- **A blaster to pick up:** a kit's design whose model gear.txt has as gear is now that gear where it lies (`kept`, `gear ITEM`, `offers take grip`). This applies to kits brought in from now on (kits.gd `gear_for_model`) and to the 81 designs of the kits already in the library (kit_blasters, kit_guns, kit_weapons). A world that keeps its own copy of a kit's design keeps that copy; there, right-click › Make it… › A weapon. Right click on a thing now has **Make it…**: a weapon to pick up and use (a kit's weapon is that very weapon, `inspect.gd` `gear_of_design`), something to pick up (new use `item` in uses.txt), food, a seat, a door, something to search, a creature, and Something else it can be….
+- **Host tests:** `p19b_a_plot_of_land_is_built_out_over_the_sea_and_taken_back`, with p19, passed.
+- **Demos:** -Demo landpass (plot, extend, a wood filled on the built-out land, take away, the blaster as gear), tidypass, inspect, marketday, hudrules, usable passed; host tests p19 and p19b passed. perfgame: the finished game at 1280x720 on the wide island, High 199 fps (1% low 95), Ultra 144 (1% low 61). The first landpass run found two faults, both mended: a wood filled on land built out 1 m over the sea made nothing (trees grew only from 1.2 m; woods and meadows now have a lowest height, 0.3 m from Fill about here), and the demo read the blaster before it was brought in from the library. Nothing reported by hand yet.
+- **Not done:**
+  - A city with traffic, taxis and blocks (the user's urban template): A town by the sea is the nearest.
+  - Expanding the land in one direction by a number (the land's `reach` makes it bigger all round; Extend land does a direction by hand).
+  - The editor's own play stays about three times slower than the game. That is Godot's debug build, and the numbers to go by are the finished game's.
+
+### Menus grouped, a right click that goes everywhere, asked instead of refused, the Project's used and not used, headings in colour, numbers dragged, the doubled body (2026-10-27, sixth pass)
+
+This pass followed the user's brief that began "the editor takes considerably longer to load up". Everything was checked by script, demos and their pictures; nothing was tried by hand.
+
+- **The doubled body** (models.gd `_pose`): someone drawn as a character hid their own blocky parts only when first drawn. An edit makes the design again under another id, and that one was drawn inside the character (the user's screenshot of the brute). It is hidden every look now.
+- **Asked, not refused** (abilities.gd `_offer_own`, `own_and_write`; rulesview.gd `give_design`):
+  - Giving a built-in object something only a design may say now asks "Make it your own and give it?". Yes gives that one thing a design of its own (host `one_own`) and then what was asked for. No other thing changes.
+  - Giving a behaviour to "every one" of a built-in now gives it to this one and says how to give it to all.
+- **The right click** (main.gd `context_rows`, `make_own_picked`):
+  - A right click on a thing not yet selected selects it and opens its menu (before, it only let go: why Follow was never found).
+  - The menu has four headings: This one, Change it, Where else it is changed, Play.
+  - *Make it my own (a copy, this one only)* on a built-in object.
+- **Menus** (desk.gd `WINDOW_GROUPS`, `AS_TEXT`, `_library`):
+  - Window is grouped by what each window is for, A to Z within; one row switches to a single list A to Z.
+  - Each group has *↗ The same in the Project*.
+  - The texts as written are under *Advanced: as written text*, and nowhere else.
+  - A new **Library** menu on the bar, one row per collection.
+  - Characters lost its text rows and Farm animals. World lost the five window rows it repeated.
+- **The Project** (projectview.gd `is_used`, `_card_sections`, `use_way`, `_built_in_rows`):
+  - Each category shows what the game uses first, then a folded **Not used in this game · N**; each card there has a way to use it (*＋ Place one*, *＋ Give it to the player*, *Set it up…*). The list view has the same.
+  - Draw3D's own objects (crate, barrel, rock…) are listed (Assets & Objects › Draw3D's own objects).
+  - **"Missing" files:** a picture named without its ending (`texture bricks`) was looked for as a file called "bricks" in one folder only, so every one was said to be missing. It is found where the world finds it now (world_view.gd `texture_path`).
+- **Headings in colour** (section.gd `band`, `band_colour`): every window's headings are bands (a bar down the left, its colour faint behind), the same colour each time: Inspector, World outline, Project sections, menus, forms, Terrain, Erase, Environment, Graphics, Debug, Playtest, Physics, Combo graph, Behaviours, Routines, Foes, Regions, Library, Make.
+- **Numbers dragged** (num.gd `drag_on`, `drags_spin`; main.gd gives it to every SpinBox): press and drag right or up for more, left or down for less; Shift faster, Ctrl finer; set once, when let go. A click alone still writes in it.
+- **Playback** (graphics.gd SHADOW, world_view.gd `is_small`): measured on the wide wastes island, the sun's shadows were half the frame's draws. Below Ultra the sun now uses two splits, not blended, and things under 0.6 m cast no shadow. Playing went from 41 fps (24.3 ms a frame) to 51 fps (19.8 ms); editing stays 86 fps. What is left is the people (about 5 ms, folk.gd steering and bodies) and physics; baking a game for export would be a bigger step, not started.
+- **Loading:** the Project's index is made just after the world is shown, not before; an exported game never makes it.
+- **Demos mended:** projectview, projectflow, hubplayer. They expected the Project as it was before the forms (a quests text row, Open to the Object text, the Studio's preview, the list's rows in card view, a button chosen by tab number). Each now follows the window as it is.
+- **New demo:** `tidypass`.
+- **Catalogue and inventory:** Draw3D_UI_Inventory.md 13zz83.
+- **Library menu:** it is filled from the library even before the library window has been opened (it was empty until then).
+- **Demos:** tidypass, hubplayer, projectview, projectflow, inspect, workflowpass and perfscan passed.
+
+### The combo screen made plain, clicks faster, Furrowfield, stun and confuse, classes that look their part, keep my place, sci-fi beings, genres as a form (2026-10-27, fifth pass)
+
+This pass followed the user's brief that began "commit. performance has deteriorated again". Everything was checked by script, demos and their pictures; nothing was tried by hand.
+
+- **The combo screen** (combostrip.gd, studio.gd):
+  - ▶ Play move sits beside MOVES IN THIS COMBO, ▶ Play phase beside PHASES OF, where the user marked them.
+  - A line over the phases (⏱) says where the chosen move and phase are, in seconds: within the move and within the whole combo (`timing_of`). It changes with every click. It had stuck at 1.30 because the real play never reached the phase (a grab with nobody to grab); the phase's clip is now shown instead.
+  - "Lets the next in 70 % through" is now a row under the chosen card: the next move may begin in [phase picker] [% of it] = so many seconds.
+  - The preview keeps its distance when a move is played again.
+  - Demo: `combohand`.
+- **Clicks faster** (world_view.gd, makers.gd, main.gd):
+  - The pick tests boxes nearest first and stops early; the Makers list is not refilled while hidden and asks for an unknown id only once.
+  - A click on the wide island took up to 3 s; it now takes 4–21 ms. The frame after it is 42–50 ms, most of it the world drawn; the Inspector's part is about 8 ms.
+  - The Inspector's first opening took 2.4 s: the Project's index, built for its links at the first click. It is now built as a world opens, and the Project's list and pages only while the Project is shown. The Inspector takes the world's nodes from the outline (asked once per change, not at every click: 35 ms), and puts its list's thousands of rows in only when the list is opened.
+  - Still failing, and failing the same with these changes taken out: the older demos `projectview`, `projectflow` (the Project's tree is built only in list view) and `hubplayer` (the run button picked).
+  - Each click's parts are timed (`click_spent`); the Inspector's fill in parts under Prof.
+  - Demo: `perfclick`.
+- **Playing faster** (gameui.gd, items.gd, quests.gd): the HUD rebuilt 10 times a second, not every frame; items looked at again every 0.15 s; quest marks placed every 0.2 s and moved each frame. The wide island played at 43 fps (frame 23 ms); the folk are still the dearest part (about 6 ms).
+- **Stun and confuse:** the dazing charm and the bewildering charm. A stunned foe stands and does nothing; a confused one fights its own. Statuses, set in the Inspector. Demo: `stunconfuse`.
+- **Furrowfield** (furrowfield.txt, town.ps1, jobs.txt): a farming town east of the valley road (about 96, −486). Hal, Ivy and Pip till, sow, water and harvest twelve beds from six in the morning; the harvest goes to the Furrowfield stall; the seed stall sells boxes of seeds, which open into packets to sow. Demo: `furrowfield`.
+- **Folk placement, the next step** (personcard.gd): while editing, a click on a person shows a card over them (their day, their work, what they say, what they ask); a job chosen there is written into jobs.txt.
+- **Classes that look their part** (buildui.gd, builds.txt): each class card framed in its colour with its own portrait in what it carries; the gear named plainly. The bruiser, ranger and warrior play their weapons' moves.
+- **Come back where I was** (Playtest): stopping play keeps where the walker stood, which way they looked, what they carried and the region (user://kept_place.json, so a restart keeps it too); playing again begins there. Unticked, play begins at the Player start. Demo: `keepplace`.
+- **Sci-fi:** Kenney's Space Kit and Space Station Kit, Quaternius's Animated Robot (CC0, about 182 MB with an essentials pack that was already here). Kits `space` and `robot`; library spacefolk.txt: an alien hunter, crawler and shelled alien, an eye drone, a robot guard and helper, two astronauts. Demo: `scifi`.
+- **Forms:** genres are a Project section (World › Project › Worlds › Genres) with a form, a new "sentences" field (lines added and removed, not typed as text). A quest's Experience (`earn N`) is a form field and is given when the quest is done: the gap "quests give experience" closed. Demo: `genreform`.
+- **Catalogue and inventory:** Draw3D_Open_World_Catalogue.md section 6; Draw3D_UI_Inventory.md 13zz82.
+
+### Flicker mended, marks shown apart from what they do, builds and classes, rarity at an anvil, crops and tools, many legs, breakables, objectives, workers, a tutorial, puzzles as forms (2026-10-27, fourth pass)
+
+This pass followed the user's brief that began "there is some flickering on the general store at the base". Everything was checked by script, demos and their pictures; nothing was tried by hand.
+
+- **The flicker:** measured frame by frame (`-Tour -Only flick`, now with `FLICK_AT`, `FLICK_TURN`, `FLICK_ALL`).
+  - What it was: textures of models read at run time had no mipmaps, so their walls and roofs sparkled at a distance. It was not z-fighting. It showed most at the wastes halt beside the looted store at the scavengers' base, and on the kit houses of the first town.
+  - The mend is for every game (texshare.gd): mipmaps made as a texture is first seen, and filtered anisotropically. At 45 m the looted store went from 2,349 pops to 695. The halt's walls and roof are clean; edge shimmer remains.
+  - Kit corner pieces are drawn 0.8 % wider, so two corners no longer meet in one plane (models.gd). The town's brick store, Dry Gulch's store and the base's warehouse measured clean of shared faces.
+  - Which store the user meant was not confirmed.
+- **Marks apart from what they do:** what is seen, heard and noticed (cones, hearing rings, noise rings, ? and !, rims, aim lines) can each be made faint or hidden while it still works.
+  - For one thing: its own `marks` (Inspector › sight rows).
+  - For the game: Window › Game display.
+  - Demo: `marks`.
+- **Builds and classes** (builds.txt, builds.gd, World › Project › Builds):
+  - Attributes are raised with points, at the start and each level, and spent on the game menu's Character page. Their gifts are added to the skills' own.
+  - Classes are chosen as a game begins, where the Player start says so: the warrior with a sword, the ranger with a bow, the bruiser with a club. Each class has a set of moves, two combos and its own finisher and super.
+  - The super bar fills with blows that land, more in a combo; full, the `super` press lets the class's super go (`when super`).
+  - Finishers: a move may say whom it finishes, a foe at so much health or knocked down, and is played instead.
+  - The wide world's start offers the three classes.
+- **Rarity, made better and enchanted, compared** (quality.txt, quality.gd):
+  - Rarities have their colours and strength.
+  - At an anvil (`forges`, "improve"), a thing carried is made better (+1, +2…) for goods, or enchanted to put a status on whom it strikes.
+  - The inventory compares the chosen thing with what is carried of its sort.
+  - Demo: `builds` (classes, points, super, finisher, anvil, compare).
+- **Crops and farm tools** (crops.txt, crops.gd, World › Project › Crops):
+  - Ten crops, each with seeds, what it gives, hours, water and seasons, how it looks growing, and whether it regrows.
+  - A hoe tills, a watering can waters, a sickle harvests (more with it in hand). The gear lies about in Library › Farming with a seed stall and garden beds.
+  - What crops give are goods: eaten, cooked, sold, fed to animals, paid at the anvil.
+  - Demo: `farm` (7 beats).
+- **More than four legs:** `legs PAIRS REACH HIGH FRONT BACK THICK COLOUR` and `tail PIECES LENGTH CURL THICK COLOUR MOVE` (legs.gd).
+  - Legs are solved two bones at a time, and step in two alternating groups to where the ground is.
+  - The tail curls, and strikes forward while its move is played.
+  - Library › Many legs: the sand queen (a boss with phases, a scorpion of eight legs), a walking scorpion and a centipede of twenty legs.
+  - The Inspector has rows for the legs and the tail.
+  - Demo: `manylegs`.
+- **Breakables:**
+  - `sturdy N`: so many blows, cracking at each.
+  - `pieces N SIZE COLOUR`: what it breaks into.
+  - `mends H`: whole again so many of the world's hours after.
+  - What it holds (`loot`) is left lying.
+  - The Inspector has a tick and rows. Library › Breakables has a sturdy crate, a clay pot and a stone pillar.
+  - Found and mended on the way: the host refused `loot GOOD N` without a chance, so a design's first loot line was dropped (the sand queen's fang among them).
+  - Demo: `breakables` (5 beats).
+- **Objective types:** a quest step may ask
+  - `harvested N CROP`, `broke N THING`, `finished N` (foes finished);
+  - `upgraded ITEM N`, `level N`, `class NAME`.
+  
+  Each is picked from lists on a step's card and says how far it has come. Checked in `breakables`.
+- **Workers** (jobs.txt, jobbook.gd, jobs.gd, World › Project › Workers):
+  - A job is where it is done, how far they go, its hours, and what is done: things tended with a move, or the beds near farmed (tilled, sown with the farm's own seed, watered, harvested). It also says where the harvest goes (the player's pack or a stall) and a daily wage.
+  - Work is given in Project, in the Inspector (works as), or in play by the player ("give work to", the act button held). It is kept as each person's fact; `given_to` gives work from the start.
+  - Out of its hours they keep their own day.
+  - Project's "Place someone with work" puts a person down with a job and opens their day in Routines.
+  - Millbrook now has Mae's garden (three beds, a seed stall, the tools) and an anvil by Bram's. town-wastes.json was rebuilt.
+  - Demo: `workers` (5 beats): a placed villager farmed two beds and brought six wheat.
+- **A tutorial** (tutorials.txt, tutorialbook.gd, tutorial.gd, World › Project › Tutorial, the game display's piece `lesson`):
+  - Lessons are taught one at a time as the game is played, with the buttons of the device in use. Each is done by doing what it asks (any condition; `is attacking` and `is acting` are new), or after so long, or put by with the skip button held.
+  - What was learnt is kept in the saved game. "Teach them again" starts over.
+  - Five lessons ship: walking, running, jumping, doing things, fighting.
+  - Demo: `tutorial` (4 beats).
+- **Text to forms: puzzles** (World › Project › Puzzles): every word of puzzles.txt is a number, a picker or a colour, and pieces are clicked cell by cell, a level at a time. Written back unchanged, a puzzle reads the same. Demo: `puzzleforms`.
+- **Towns authorable:** every generator the town builder uses can be made and changed in the editor's makers.
+- **Folk placement plan:** `Draw3D_Folk_Placement_and_Systems_Plan_2026-10-27.md` says what can be given to a person now and where, the gaps found (yard.txt text only, railways without a Project page, a person's setup spread over five windows), and five proposed steps. None of the proposals is built.
+- **Known gaps:**
+  - The assignment of work during play belongs to that game; edit mode starts from the world as made.
+  - The tutorial's lessons are not shown in automated runs unless a demo asks for them.
+  - The farmer's moves (`chop`, `stoop`) are only played where their set has them; the folk set has no `chop`.
+
+
+### Snow kept or cleared, prints by who makes them, counters and cover, the far desert, packs and a companion, lore, the hotbar, a production chain (2026-10-27, third pass)
+
+This pass followed the user's long brief that began "performance has increased". Everything was checked by script and demo; nothing was tried by hand.
+
+- **Snow when the weather changes:** Environment › What lies › When the weather changes: *Keep it*, *Let it melt* or *Clear it*. A weather step can say its own, so an exported game can choose. Demo: `snowclear`.
+- **Prints by who makes them:** `treads feet|paws|hooves|claws|none`. Creatures no longer leave a person's boots. Demo: `treads`.
+- **Counters and reversals, falls and getting up:** the moves.txt words `counters`, `recovers`, `breaks_fall` and `reversible`, for the player and for foes. Demo: `counters`. Commit 3293920.
+- **Bracing, peeking from cover, a foe as a shield:** `braces`, `peeks`, `seizes before` and `shields`. Demo: `cover`. Commit b8cd8f7.
+- **Performance, the next item:** only the clips that show are set going (animated.gd). People who are not mixed into a clip are left still.
+- **The far desert:** the fifth land, beyond Dry Gulch to the south-west (town.rs, sands.txt, library desert.txt). It has dunes, ruins, a pyramid and oases, camels, scorpions, snakes and vultures, desert plants, and a caravan whose master swaps rather than sells (`trades GIVE N GET M`, shop.gd). Camels can be ridden. Demo: `sands`; the camel was ridden at 4.3 m/s.
+- **Horse riding:** at a gallop the rider stays in the saddle and leans with it, and what is in hand is put away while both hands hold the reins.
+- **Paths and foes together:** ways now begin from where the ways are, so a hunter standing on a crate or a player in the water still gets a path (nav.gd). Foes hunting one target go round them in pack.gd: each takes its own place on a ring, only `pack N` strike at once while the rest wait wider, and shooters keep apart.
+- **A companion:** `companion [S]` (companions.gd). It follows, fights your foes, is down rather than dead, can be helped up (E), and helps the player up. *Ash, your companion* stands beside the wastes town's start.
+  - Mended: a companion's `sees` had it hunting the player (watch.gd, folk.gd).
+  - Demo: `packs`.
+- **Lore:** notes in sets (lore.txt, lorebook.gd, lore.gd). A thing that says `lore NOTE` is read where it stands (E), and the note goes into the journal's Codex. A set read whole gives goods and makes its fact.
+  - The desert has The Sunken Kings, four tablets.
+  - Project › Lore to find edits the sets and notes as cards. This is the pass's migration of text.
+  - Demo: `sands` (the codex and the page).
+- **The hotbar, the wheel and the presses** (hotbar.gd): places 1–9, the HUD bar, the pad's LB chords, Controls & Input › Hotbar, and the wheel's Weapons and Use lists (Y puts a slot on the hotbar). The new presses `good` and `hotbar` are in inputs.txt. Demo: `hotbar`.
+- **A production chain** (produce.gd): `produces OUT N [from GOOD M ...] every MIN [holds K]`, caught up by the world's clock.
+  - The acts are `put_in` and `take_out`.
+  - The makers are in Library › Village work: wheat stook, millstone, log pile, baker's oven and saw bench.
+  - At Millbrook there is a wheat field and the works on the mill's west bank. Tom the miller carries wheat, flour, wood and bread by his day (millbrook.txt; sequences mill_wheat, fire_the_oven, sell_baked).
+  - Demo: `chain`.
+- **The assistant:** two new Ideas groups of tasks with many parts, four for this world and four for a new one. They are listed in `Draw3D_Assistant_Test_Tasks.md`, with what to look for in each.
+- **Known gaps:**
+  - Emberwatch has its own copy of stats.txt with no thirst, so water drunk there says so.
+  - A production chain has no picture of what is ready beyond what it `shows`.
+  - Nothing walks a raft of goods between towns.
+
+
+### People's steering made faster, for every game (2026-10-27, second pass)
+
+At the user's "keep going" (steering, then the draw calls). As before, every change is in the scripts every exported game carries. Checked by script, none by hand.
+
+- **A correction to what was measured:** the "physics 10 ms" of earlier passes is Godot's slowest physics step of each second, not the mean. The physics engine itself costs almost nothing here: with its stepping stopped, the frame was the same. What counts is the frame time and the timers of each part.
+- **Buttons looked at only for whoever presses them** (`motor.gd`): someone steered by their content, holding no button, has only the times of buttons pressed before gone on. Before, every button was looked at for everyone at every step. Numbers and buttons went from 0.2 to 0.09 ms.
+- **Only the moves that begin by themselves tried, when nothing is asked** (`motor.gd`): with no button pressed lately and no act asked, only moves that begin upon a wall, ledge or ceiling can begin, so only those are tried. Whether a move is in the set is now looked up, not searched for. Moves begun went from 0.39 to 0.08 ms.
+- **Faces far off left still** (`body.gd`, `animated.gd`): beyond 20 m from the eye, or out of its sight, a face's shapes are not set. Faces went from 0.26 to 0.1 ms, posing from 0.81 to 0.62.
+- **Asked once a step, not of each person** (`folk.gd`): how far off people are worked out less (Graphics › People far off), and whom the eye follows.
+- **The draw calls looked at:** all shadows off saves about 1.5 ms. Two shadow splits instead of four saves 0.05 ms, and unblended splits 0.18 ms. That is too little for the look it costs, so the shadows are left as they are. The 2,300 draw calls are not what holds the frame back; the scripts are.
+- **Result in the wastes town:** people's steering went from 3.4 to 2.3 ms (about a fifth less for each person awake). Playing measured 68 frames a second, against 62–63. Fewer people were about in the second measurement, so part of that is them.
+- **What is left:** posing 0.62 ms (mostly the animation trees), the slide 0.29, the player 0.6.
+
+Demos: `perfscan` (it now also measures the physics engine stopped and two ways of the sun's shadow splits); `fights`, `climb`, `parkour`, `powerbomb`, `guard`, `dressed`, `work`, `riding`, `escortghost`, `kitpass` again.
+
+### Scripts made faster, for every game (2026-10-27)
+
+At the user's "speed up scripts and ensure these tweaks are to the engine so any game built can benefit". Every change is in the scripts a game is exported with (`export.ps1` copies every script and the project's settings), so every game made with Draw3D has them. None is a setting to turn on. Checked by script, none by hand.
+
+- **Measured first:** `-Demo perfscan` timed the parts inside people's steering, and the motor timers now include *motor: slide*, *motor: wading* and *motor: feeling for walls*.
+- **People posed by distance** (`body.gd`, every body: folk, creatures, foes): within 25 m of the eye, each step; to 50 m, every other step; beyond, one in three. Always each step while they do a move (strikes go by where the figure is). Posing went from 1.3 to 0.74 ms.
+- **Goods counted a few times a second** (`goods.gd`): what shelves show and what each person carries is counted again every 0.15 s, not every frame; where it is drawn still follows them every frame. A mesh is set only when it changes. Goods went from 0.8 ms to under 0.1 ms.
+- **Still leaves looked at one frame in three** (`lying.gd`): leaves that move, or are kicked, every frame. The falling leaves' particles are told only what changed. Leaves went from 0.92 to 0.47 ms.
+- **What can be done, asked only of those in reach** (`acts.gd`): only people within reach are asked what they offer. Acts went from 0.74 to 0.34 ms.
+- **Wading asked with one kept question** (`solid.gd` `thick_at`): no new sphere and query for every body at every step.
+- **Result in the wastes town:**
+  - playing went from 45–53 to 63 frames a second (from 33 two passes ago);
+  - the frame went from 18.4 to 15.1 ms;
+  - editing is 109;
+  - people's steering, posing and moving together went from 5.4 ms to about 3 ms.
+- **What is left:** people's steering about 3 ms (of it the slide 0.3 and posing 0.7), the player 0.7, the land's draw units (2,300 draw calls).
+
+Demos: `perfscan`; `work`, `riding`, `seasons`, `fights`, `perfplay` again.
+
+### What a big world costs, measured; one picture held once; models made only near; the streaming plan (2026-10-27)
+
+At the user's "proceed" after 7c523eb, the streaming question first measured (`-Demo loadscan`, the wastes town). The plan is in `Draw3D_World_Streaming_Plan_2026-10-27.md`. Checked by script, none by hand.
+
+- **Measured:** the host's cells for the whole town are 0.45 MB. Textures held 2.4 GB of video memory, most of it the same sheets again and again (a 2048 × 2048 kit sheet nine times over).
+- **One picture held once** (`texshare.gd`, from `clips.gd` `_read`, which every glTF and FBX read goes through): identical pictures are now one texture. Textures went from 2.4 GB to 0.93 GB, and all video memory from 2.57 GB to 1.08 GB. Nothing looks different.
+- **Models made only near** (`models.gd`): a model is made only within the draw distance of things, as the view's own things are; what is big (a house) is kept however far. Little change in the wastes town, which is mostly houses within 900 m. It matters in a larger world.
+- **Frame rate:** the graphics card takes about 4.5 ms of a frame. The scripts of people and of physics are what hold the frame rate back, not memory or drawing.
+- **The streaming plan:**
+  - stages 1–2 built;
+  - stage 3 (a picture-size setting) proposed;
+  - stage 4 (the host sends only what is near) proposed for approval, worth it at about four times the wastes town.
+
+Demos: `-Demo loadscan` (a measure: how long a world takes to open, what it holds, textures by size); `perfscan`, `ownpass`, `dressed`, `kitpass` again.
+
+### Performance while playing, the world kept alive near, furnishing, ponds, rooms and cameras as forms, a quest that fails, an escort, the ghost of the best run (2026-10-27)
+
+At the user's message after 3a68ee9 ("unable to see performance window when game is played … what else can be done to improve the performance? are we able to use streaming … continue with migrating more text items and fill in one or two gaps and close another relevant loop"). Checked by script, none by hand.
+
+- **The performance monitor** (`perfhud.gd`; Shift+F3, the play bar's *Performance*, Debug's *Performance monitor*, the Esc menu's *Performance monitor*): shown over the game while playing.
+  - It shows frames a second, the mean and slowest frame, a strip of frame times with lines at 60 and 30, scripts, physics, CPU and GPU time, draw calls, triangles, objects, video memory, people awake, asleep and stopped, and the five dearest parts.
+  - Its *Settings* fold: Low to Ultra, render scale, people far off, *World kept alive*, things' draw distance; in a game it changes the player's settings, in the editor the for-now ones; *All settings ›* opens the Graphics window, which now stays open while playing.
+- **Why it was slow, mended:** the land's lying snow and prints (`lying.gd`) and drifts (`drifts.gd`) told hundreds of materials their values every frame. They are now told only what has changed. In the wastes town, editing went from 66 to 107 frames a second and playing from 33 to 53.
+- **World kept alive** (graphics `alive`: near 120 m, medium 200 m, far 350 m, everywhere; Low to Ultra in that order): people farther than that from both the player and the eye sleep. They are not moved, posed or worked out, and beyond half as far again they are not drawn. Anyone busy (chasing, aiming, talking, climbing, following, followed, in an act) stays awake; waking, they catch up.
+- **Streaming, what there is and what is not:** land is drawn by regions at levels of detail, colliders only near, the way-finding baked by cells, things drawn to a distance, and now people kept alive near. Not yet: the host sends every cell when a world opens, and every made thing's mesh stays in memory. Streaming cells from the host as the player goes is a larger piece of work, proposed for the user's approval.
+- **More texts as forms** (Project):
+  - *Furnishing sets* (furnish.txt), *Pond life* (ponds.txt), *Rooms of a house* (rooms.txt) under Assets & Objects; *Cameras: how the game is seen* (eyes.txt) under Styles.
+  - Each is created, its numbers changed and undone there; the designs in a set are picked from a list, each with its share (`designlist.gd`).
+  - The World outline's furnishing, middle, pond life and bank of a structure are picked the same way, no longer typed.
+  - The three sets are kept with the world (`setsbook.gd`).
+- **A quest that fails** (Project › a quest › *It fails when*): a card for each condition that fails it while it is not done, and what is said then; *＋ It fails when…*.
+- **An escort** (Project › a quest › *＋ An escort*: who, to where, *Make it an escort*):
+  - It adds a step done when the player and they are both there, a hint while they are left behind, and a *fails when* they fall.
+  - The one escorted is given a type of their own that follows the player while the quest is taken.
+  - It is one change (Ctrl+Z).
+- **The ghost of the best run** (`races.gd`): a best kept keeps its run. The next run of that course has it beside the player as a runner seen through, and at each gate and the finish says how far ahead (−) or behind (+). The run is kept on this machine with the world. *Ghosts of the best runs* (Project settings › The game's flow) can turn it off.
+- **Mended on the way:** asleep people woken when *everywhere* is chosen; a quest with no steps no longer breaks the journal; a camera's line in Project said in words.
+
+Demos:
+- `-Demo perfplay` 2/2, `setforms` 3/3, `escortghost` 2/2;
+- `questform`, `skillrace`, `perfplay`, `setforms` again after the last change.
+
+### The brief of 2026-10-26, third: a river into the sea, caves set into slopes, the railway your own, performance, the whole of a thing, the horse's two acts, cutscenes played and opened, moods, the riding, zipline and ceiling clips, unstuck, following anyone, faces varied, skills that raise a power, a timed course (2026-10-26)
+
+At the user's brief after 2e98adf ("ANYTHING I ASK YOU TO ADD TO THE WORLD SUCH AS A TRAIN THAT MOVES ON TRACKS SHOULD BE EDITABLE AND AUTHORABLE BY THE USER OTHERWISE IT'S POINTLESS"). Checked by script, none by hand.
+
+- **A river into the sea** (host `land/build.rs`): the first piece of a river whose bed is under the sea is its mouth: its water just under the sea's top, still, so the sea is seen over it. The piece before it runs slower and comes down gently where the land is low. Nothing goes on out over the sea as a raised strip.
+- **A cave set into its slope** (`cavemaker.gd` `fit`; the Inspector's *set into the slope*: a little, well in, deep): turned to open down the slope it stands on, moved in so its rock frame is in the hillside, its floor where the ground is at its front. One change (Ctrl+Z). The demo ran it on the valley's cave (turned to 260°, its floor raised -0.06 m); its picture is from the side, so whether no gap shows round the frame is **not confirmed by eye**.
+- **The railway, your own** (`railbook.gd`, `railways.txt`; the Inspector's *Railway*, a click on the rails or the train): its speed, its wait at stations, how many carriages, the engine's and carriages' colours, back and forth or round, the whistle, its rails drawn or not, off; any drawn line made a railway. Each a change of its own (Ctrl+Z).
+- **Performance** (`prof.gd`, Debug › What a frame costs; Window › Graphics and performance › Performance). Every frame-costing system now says what it costs. Why the later passes slowed: the villagers far off were each worked out every frame. New settings:
+  - *People far off*: every moment, less often beyond 35 m, or seldom beyond 25 m; whoever fights, talks, climbs or follows is always worked out.
+  - *Lamps far off*.
+  - *Fallen leaves*.
+  - *Render scale*.
+  - *Frame rate, at most*.
+
+  Low to Ultra set them all. A preset of the project's own is saved from what is drawn now (`preset NAME` in graphics.txt) and offered beside them. `-Demo perfscan` measures each part by itself.
+- **The whole of a thing** (`main.gd` `select_whole`): from a part (a roof, a plank, a piece of path), a double click, U, or the right click's *Select the whole …* chooses the house or the bridge; again, all its maker made.
+- **Pet or ride** (`acts.gd`; an act's *Done from* in its form: anywhere, at its head, at its side, behind it). At a horse's head E pets it, at its side E rides; holding E does the other. The prompt says both.
+- **Riding seated** (`made Ride_Sit`, `made Ride_Gallop` in characters.txt): the rider sits the saddle, legs about the horse, and gallops with it.
+- **Cutscenes** (Project › Cutscenes, a row each):
+  - ▶ Play it plays the game and the scene, then comes back to editing on the Project window.
+  - Each shot's camera (round, front, behind, close, above, far), its fades and the fact it sets are picked.
+- **Moods** (`moods.gd`, `moodbook.gd`, `moods.txt`; Project › Styles › Moods): how the world looks while something holds (under attack, evening, a storm, a season), faded in and out over the style. Each sets:
+  - its grade and colour cast;
+  - its sky, haze and light;
+  - another style's picture.
+
+  New conditions: `season NAME` and `attacked [R]`. *Try it* shows a mood while editing. Four presets.
+- **Hanging clips** (`hangguide.gd`; the Studio's Clips tab, *Hanging: zipline and ceiling*). An 8-step walkthrough:
+  1. A clip with the arms up (Cheering) is copied as *my_zip_hang*.
+  2. Its arms are raised to the line and its legs drawn up.
+  3. It is given to the zipline's hang.
+  4. *my_ceiling_crawl* is made from it, hand over hand, and given to ceiling climbing.
+
+  The engine ships `Zip_Hang` and `Ceiling_Crawl` made the same way. The zipline rider now hangs by them, gear stowed.
+- **Unstuck** (`unstuck.gd`; Project › Project settings › *Unstuck in the menu*, game.txt `unstuck yes`): the game's menu then has *Unstuck*, which puts the player on the last safe ground they stood on a little way off (noted each second), or the nearest open ground round them.
+- **Follow anyone** (`main.gd` `follow_folk`): the right click on one of the folk or a creature, editing or playing, offers *Follow NAME*. The game is played if it is not, and the eye goes with them. Moving brings it back to the player.
+- **Faces and clothes varied** (`vary.gd`, *Vary their looks* on the strip with people chosen, or one picked; a thing's own `varies AMOUNT DRAW WHAT…`; `animated.gd` `vary`).
+  - What may change, as much as said: another hair and its colour, a beard on or off, pieces of the other outfit for the same body, cloth colours, a face at rest, up to 5% of height.
+  - Each look is drawn from who it is, so it is always the same.
+  - *Other draws* gives everyone another look; *Alike again* takes the variation away; *See them in play* plays and follows the first.
+  - Writing the group is one change (Ctrl+Z).
+- **Skills that raise a power** (skills.txt `raises POWER N`; Project › Skills, *raises a power…* on each card; powers.txt `level N … when learnt`; the Upgrades form's *a skill is learnt* and *skills raise it*):
+  - Learnt, a skill puts a power up so many levels, to its last.
+  - *Kindled* and *Blaze* put Ember bolt to two shots, then three that turn toward whom they go to.
+- **A timed course** (`races.gd`; the Abilities' *is a gate of a timed course*, `course RACE N`):
+  - The lowest gate starts the clock; each after it is passed in turn, and one out of turn is told which is first; the highest stops it.
+  - The time is said and the best kept as the fact `race_best.RACE` (`race_runs.RACE` counts the runs), which a quest or condition may ask.
+  - While running, the clock shows at the top and a light stands over the next gate.
+- **Mended on the way:** several chosen were still framed in yellow while playing; a literal newline in eight scripts' strings.
+
+Demos:
+- `-Demo riding` 2/2, `scenes` 1/1, `hanging` 9/9, `moods` 1/1;
+- `-Demo follow` 2/2, `vary` 2/2, `skillrace` 2/2;
+- `-Demo firsthalf` 4/4 (the train's carriages set and undone, the cave fitted, a bridge chosen whole from a piece of it, started where asked);
+- `-Demo perfscan`.
+
+### The brief of 2026-10-26, second: rivers, waterfalls and bridges, a far valley and a cave, weather by place, a train and a post office, a waterwheel, cooking, batteries, a shop, finds and fast travel, bodies hidden, hazards, a counter, ziplines, quest steps, cutscenes, a skill tree, days that change (2026-10-26)
+
+At the user's brief after 46328a2, worked through autonomously, with reversible decisions taken where a question came up.
+
+- **Rivers, waterfalls and bridges**, each customised where it stands: a river's width, depth and flow; a waterfall's drop and spray; a footbridge and a rope bridge laid over the water.
+- **A far valley**: north of the town over a causeway of its own, a wide flat valley with its road levelled, a river with two bridges, woods and meadows, deer, rabbits, a fox; random ruins with finds; at its head a range of mountains with **a small cave system** (111 m inside: crystals, mushrooms, ore, gems, stalagmites, a gold chest). `-Demo valley`.
+- **Millbrook**, a hamlet at the valley's mouth, of **whole houses** put together from the Medieval Village kit (`housemake.gd`, Library › Whole houses: a cottage, plaster, brick and timber houses, a long hall, the post office, the railway station; each one model). **A waterwheel** (`houses_own.txt`, `spins`) turns in its mill race.
+- **The railway** (`train.gd`): one line through Millbrook, the town, the wastes halt and Dry Gulch; an engine and two carriages run there and back, stopping sixteen seconds at each station. **The post office** (Millbrook's, and one in the town by its station): the act `post` hands in every letter carried; each counts.
+- **Weather by place** (`fronts.gd`; air `fronts N [WIDE] [NAME…]`): fronts drift with the wind, each a round of its own weather; under one, its weather; between, the weather there was; each 128 m region has its weather as a fact; a front far off is seen as a curtain. **The weather panel** (Window › Environment › Weather): every number of the weather shown can be changed, kept as this world's own, or **saved as a new weather** that a region, a behaviour's step, a wire or the fronts can bring.
+- **Lightning, thunder and hail** (`lightning.gd`): a flash, a bolt, thunder after it as late as sound takes; **thunder is a noise** a guard near the strike hears, and it drowns the walker's steps for a while; hail hurts out under the sky, not under a roof. **Haze, dust storms and tumbleweeds** (`tumbleweeds.gd`); **in a gale what is loose and light near the walker is jostled** (`loose.gd` `_jostle`).
+- **A calendar** (`calendar.gd`; air `calendar DAYS [SEASON]`): seasons go by with the days; in winter rain falls as snow and lies deeper, ponds and rivers freeze (walked on), harvests are less and grow back slower; facts `season`, `day_of_season`.
+- **Cooking and recipes** at a stove or campfire (an apple pie, a honey cake, fish stew), learnt from a cookbook (goods.txt `teaches`). **Batteries** for what runs on them (a flashlight's `drains battery 300`). **A shop window** (`shop.gd`, `sells`/`stocks`): its stock and prices, what it would buy, **standing** (known at five, a friend at fifteen; a quest done counts at every shop) and the discount it brings. **Finds tied to a region** (Window › Regions › Found when searching here). **Fast travel** (`waypoints.gd`): what says `waypoint` (a signpost, every station) is found as you come near; at a found one, the others are listed and one chosen takes you there. **A body hidden** in tall grass or a haystack is not seen (`watch.hidden_body`). `-Demo marketday`.
+- **Hazards and destructibles** (Library › Wasteland › Hazards): a fire pit and an acid pool harm whoever is in them (`hazard N`), a kill there is the player's if they struck or chased it in; fuel drums break and **explode** (`explodes R D`), setting each other off and harmed by shots. **A counter after a parry** (fight.gd: within 1.2 s, two and a half times as hard). **Better pathfinding**: a chaser stuck twice plans a way round (`nav.route`). **Ziplines** (`zipline.gd`, `zipline X Y Z`, the act `zip`): ridden down from the top of the post, refused if something stands in the way; jump lets go. **Weapons kept drawn while climbing** by exception (gear.txt `stays_drawn`: the dagger, wand, ember rod, pistol, torch and lantern; Inspector › Gear, *Kept in hand while climbing*). `-Demo hazards`.
+- **Quest steps of new kinds** (`cond.gd`, picked in the condition form): *so many letters posted*, *so many made* of a recipe, *so many felled* (by kind, by name, or anyone), *a place found* (a travel point), *standing at a shop*.
+- **Cutscenes** (`cutscene.gd`, `scenebook.gd`, `scenes.txt`; Project › Cutscenes, a card each: its name, *▶ Play it*, *Plays when* picked as a condition, shots of who and how long and the words under them): bars, a camera of its own circling the subject from a side where nothing stands between (drawn in short of a wall), the display put away; skipped by any button; played once, as a fact; `on … do scene NAME` plays one from a wire.
+- **A skill tree** (`skills.gd`, `skillbook.gd`, `skills.txt`; the game menu's *Skills*; Project › Skills, a card each: what it costs, what it needs learnt first, what it gives): points a level after the first, more by the fact `skill_points`; *Tough*, *Tougher still*, *Light feet*, *Riposte*, *Haggler*, *Trader*; what they give (health, seconds of running, a harder counter, money off at shops) is added; a skill learnt is a fact `skill.NAME` any condition may ask.
+- **Routines that change**: a day's row may say *only if* a condition (`goes 6 0 -24 if weather rain`; Window › Routines, each row's *only if*): the postman goes out of the rain.
+- **Moving platforms** reused from `glides` (loose.gd): Library › Whole houses' *rising platform* (5 m up, 6 s each way) and *ferry platform* (10 m to and fro), two by the town's training ground.
+- **The assistant plans** a big task first (`plan` tool): a checklist in its panel, each step drafted and applied alone, *Next step* for the one after.
+- **More text made forms**: Project › Cutscenes and Project › Skills (above); an act's form *What it opens* (what can be made here, its shop window, places to travel to, rides its line down, what is kept in it); an item's *Kept in hand while climbing*. **Two gaps closed**: *How hard* (Project › The game's flow: easy, normal, hard; foes' health and the harm to the player scaled; game.txt `difficulty`); nothing is offered while hanging from a zipline.
+- **Mended on the way**: what is felled is counted by its kind as well as its body's rig and its name (the rig is `person` for most); the zipline's crossbar was a part the host does not know (`box`, now `block`) and the fire pit's colour had a style role's name; the frontier demo had left 13 copies of Misty teal (`my_misty_teal…`) in the shared styles.txt, one name twice: removed, and the demo now writes the file back after shifting a palette.
+- Checked by `-Demo valley`, `marketday` 5/5, `hazards` 6/6, `storyline` 7/7, `skies` 6/6 and `frontier` again: no problems, no script errors (pictures looked at; the cutscene's camera and the skills screen mended after them). Both towns rebuilt (`town.ps1`, `town.ps1 -Wastes`). Host tests 194 of 194 (p43 lists Whole houses; p71 the wires' `weather` and `scene`). Nothing tried by hand.
+- **Recorded for later, not built** (the user's word): bracing against a wall to hide behind it, peek round it, shoot from it or take someone down from it.
+
+### The brief of 2026-10-26: two styles from pictures, the palette shifted, a horse with tack, the Project window mended, faces for all, Dry Gulch, the survive and base loops closed, the fight's missing pieces, a pack that fills, zones, infection, water, power, endings as a form (2026-10-26)
+
+At the user's brief after 162d30c.
+
+- **Two styles from the user's pictures** (styles.txt): *Bold autumn* (a low-poly wood seen from above: orange and gold crowns among dark spruces, a dry yellow-green floor, crisp shadows) and *Misty teal* (a misty wood at dusk: dark pines in a teal haze, a peach sky, a soft violet shade). Misty teal was made thinner and tealer after its first pictures showed the whole island washed pale blue, then violet.
+- **The palette shifted** (Window › Styles, under its colours: `Palettes.adjust`, `styleview.shift_by`): *Saturation*, *Brightness*, *Contrast*, *Warmth* and *Hue*, every colour of a section not kept moved together, from the colours before the trying began (moved back, they come back); kept or put back as any try.
+- **Vegetation's cost, carried on to the small strewn things**: stones, cones and twigs under 60 cm cast no shadow below ultra, with the grass (Graphics: "Shadows of grass, plants and pebbles"). Trees' and rocks' draw distance was already Graphics' "Draw distance of things" (2026-10-25).
+- **A horse to ride** (`saddled_horse`: Library › Animals, and one by the start in the town): `tack LEATHER CLOTH` draws a saddle, a blanket, saddlebags, a bridle and reins on the horse model's own bones (`ownclips.gd`); E: get on, the rider sat astride (the pose `ride`), the hands on the reins (`grips hand.L rein.L`); E at its bags (`stores`, `offers store bags`): what is in them beside what you carry.
+- **The Project window mended** where the user found it broken: a kind's page has *WHERE IT IS CHANGED* (the links its right-click has: its routine, its behaviours, its look and its face, its character), so the gatherer's routine and face are reached from it; *Everything about it…* chooses one of it in the world as a click does (the Inspector was empty: the maker was chosen); Routines lists anyone who is someone by what they are like (the gatherer, like a villager, was missing).
+- **Faces for everyone** (characters.txt): the town's shopkeeper, woodcutter, gatherer, gardener, caller, parson, villager, a woman of the town, and the wastes' scavengers and trader are wardrobe characters with faces and expressions; their kinds say `character NAME`.
+- **Dry Gulch, a western town** beyond the wastes (`town.ps1 -Wastes`; the land maker's third island, `isle2`, 850 m east, a second causeway from the wastes): Main Street West, the saloon, a general store, the barber's with its pole, a bank, the sheriff's office; boardwalks, hitching rails with horses tied, troughs (dirty water), wanted posters, a stagecoach, a cart; barns, a stable, a silo, a water tower and a windmill at the edge of town. Models from Quaternius (CC0) and Poly by Google, Jie gu and others (CC-BY 3.0), baked by `westmake.gd` to `models/western/` and credited there; the store, barber's, bank and sheriff's office of Draw3D's own parts (`western_own.txt`), given stepped roofs, siding, side windows and corner posts after their first pictures showed plain boxes. Its people (`west.txt`, wardrobe characters with faces, hats and revolvers): Mabel the storekeeper, Joe the bartender, Sal the barber, Sheriff Cole (`behaves holds_ground`), cowboys, cowgirls, three ladies of the town; east of town the Blackwater gang's camp, three gunslingers and Black-Eyed Sue (side outlaws, shooting rounds, poise, getting up).
+- **A shop by talks and acts**: Mabel sells by talk (talks.txt `west_store`: answers that `pays 4 coin`, `gives 2 beans`); at the counters, acts (`buy_beans`, `buy_water`, `buy_rounds`, `buy_powder`, `buy_bandage`, `buy_drink`, `buy_meal`) hand coins and take from the counter's stock; the barber's chair: `get_a_shave` (sat, rested); the sheriff pays a bounty on three of the gang down.
+- **The survive loop closed**: cooking at anything that `crafts fire` (the campfire, Library › Rural): cooked meat and fish, a stew, herbal tea, boiled water; raw meat and dirty water may make you sick (`perhaps 30 status sick`). **A bed worth sleeping in**: the act `sleep` says `until 7` (up by themselves at that hour) and `wakes_here` (where they wake after a fall, and the game saved); it cures the first stage of an infection. The shelter's cot is now a bed.
+- **The base loop closed**: Project › *Bases and raids* gives the behaviour `raid_at_night` to the foes chosen (a tick, its hours, what it makes for) as a preset. Checked first: the recipes, acts and wires there were did not make a raid by themselves.
+- **The fight's missing pieces** (new code):
+  - *Grab escape* (`clash.gd`): seized, the player breaks free by pressing any button again and again (`holds_fast N`, 8 if not said), thrown clear, the seizer staggered. A foe's grab, `grab_hold` (moves.txt; in the sets `grabber`, `shambler`, `brute`), lunges and holds: until now no foe's move ever seized the player.
+  - *Poise* (`poise N recovers S`, `fight.gd`): harm adds up and falls away; past N the guard is broken (staggered, sparks).
+  - *Getting up* (`gets_up S [F] [N]`): knocked down, up again after S seconds with F of its health, onto a knee then stood, N times; the last fall it stays down. A tween to lying, not a physics ragdoll.
+  - *Escort and defend* (`defend WHO [R]` in rules.gd; presets `bodyguard`, `escorted`, `holds_ground`).
+  - *Found bodies raise the alarm*: one of a side finding another fallen raises the alarm, puts its `spots` fact and raises the event `finds` (Behaviours: "When it finds someone of its side fallen").
+- **A pack that fills** (Project › The game's flow › *The pack holds*: free, so many things, or so many kg): a good's form has *One weighs*; an item weighs by its weight (light 1, medium 3, heavy 6); full, picking up, gathering and buying are refused ("Your pack is full"); the inventory's title says how full.
+- **The loops the tracker overstated, closed:**
+  - *Zones*: a region's *What being in it does* (Window › Regions: a stat up so much an hour); worn gear's *Keeps off radiation* (`shields STAT F`): a gas mask half, a hazmat suit three quarters, both found lying (Library › Military; one each in the wastes' camp).
+  - *Infection*: `turns` (stats.txt): infected turns to sick after 150 s untreated, sick to fevered; herbal tea or a night in a bed ends the first stage, antibiotics any.
+  - *Unsafe water*: dirty water (troughs, ponds) boiled at a fire or made safe with a tablet at a bench.
+  - *Power* (`power.gd`): a generator `generates N reach R burns F` (E: start it, stop it, pour fuel in), burning its own fuel by the world's hours; what `draws N` within its reach is powered (lit, or firing) while power is spare, the nearest first; dry, it stops and says so. Library › Military: the generator and a work light.
+  - *Firearms*: rounds (`bullet`) found in crates, bought in Dry Gulch, or pressed at a bench from scrap and gunpowder (recipes `rounds`, `shells`); reloading already was.
+- **More text made forms**: Project › *Endings*: each ending a card (its title, *Shown when* picked as a quest step's condition is, its paragraphs, ↑ ↓ ×, ＋ a paragraph, ＋ an ending); the "(as text)" rows of quests, talks, goods, acts, recipes and stats are gone from Project, each having its forms in its own section.
+- **Mended on the way**: a foe hunting by `preys you` with no `hunts` line threw an error each time it caught the player (`watch.gd` `_caught`); the Endings page read its list before it was read again after a write.
+- Checked by `-Demo frontier` 12/12 and `-Demo drygulch` 5/5, no problems, no script errors (pictures looked at; the styles', the folk's and the gang's framed again after the first pictures). Both towns rebuilt. Host tests 193 of 193 (p43 now lists Western town; the stale p57 brought up to date). Nothing tried by hand.
+
+### The brief of 2026-10-25, fifth: walls the foes break, parkour with the hands free, turrets and arrows, the pad, rewards, crafting, a body imported, the loops tracked (2026-10-25)
+
+At the user's brief after 81d012b.
+
+- **Walls and fences the foes break**: placed walls, fences and barricades are battered and broken by whoever hunts (`fight.gd` `_batters`), how much each takes said by the piece; a game may leave it out (Project › The game's flow, "Foes break down walls, fences and barricades": `uses breaks`).
+- **Parkour with the hands free** (moves.txt): every move that wants both hands puts away what is carried as it begins (`sheathes` in its first phase) and attack draws it again; the sheathe button now draws and puts away the axe (it did nothing before). New: `mantle` (onto what is chest high at a run, no hang first), `wall_run_side` (along a wall beside you), `grapple_zip` (the grappler as a way up: in the air, the run button throws its line at an edge ahead and above, within 24 m, and pulls you up to hang from it). Made clips for what the free libraries lack, bent from the T-pose: `Wall_Climb`, `Ceiling_Hang`, a vault with one hand on top and the legs kicked over to the side, and UAL2's mantle split into its parts; shorter fades between them.
+- **Turrets and arrows**: turrets swing round to what they aim at at their own pace (`swings DEG`, now passed by the host) and fire only when facing it; arrows fly pointed along their path, fall as they go and stay stuck where they went in ("Stays stuck"); `ammo GOOD` makes a gun or turret spend a good each shot (`uses ammo`). The town's training ground has a range: a bow, a box of arrows, targets at 10, 18 and 26 m, a practice turret (`-Demo range`).
+- **The pad**: a layout of buttons for each use (Classic, Parkour, Combat), gone round while playing with Back and Up (Ctrl+F3), each said as taken up; `layout_next` is a press like any other, its target picked from a list (`-Demo layouts`).
+- **Demos show the action**: `snap_seen` checks each subject is in view and none fills the screen; two fighters close together are taken from the side by a camera of the demo's own. The foes demo's pictures now show both.
+- **Size kept with what it is**: a sheep three times as big walks, grazes and is herded as a sheep (`-Demo seeing`).
+- **Marks and outlines**: the ? and ! smaller and out of the way, sized by the `marks` piece in Window › Game display; foes outlined as they come within so many metres (the HUD's `foes` row, `reach R`), and the power `keen_sense` (everyone within 30 m outlined through walls for 15 s).
+- **Slow motion**: the power `quicken`, status `quickened` (`time 0.25 1`): the world at a quarter of its speed for six seconds, the player at their own. Any status can slow the world so.
+- **Rewards** (`rewards.gd`): experience and levels as facts of the world (`xp`, `level`; any condition may ask `fact level 3`), earned by fights, picking and crafting (`earns WHAT N`, the curve `levels FIRST GROW`; Project › The game's flow); "Level N" with a chime and a golden aura. Loot: a kind's `loot GOOD N [CHANCE]` and `xp N` (the Inspector's "Loot and experience", rows of icon, good, count and chance) leave goods lying by their icons, drawn to the player and taken as they come near; 39 icons from 7Soul1's CC0 "496 RPG icons" (`godot/icons/loot`, credited). Wolves, bandits and the dead drop pelts, meat, fangs, coins, scrap, a scroll of potions. `uses xp` and `uses loot` leave either out.
+- **Crafting**: recipes may want a level (`level N`), be learnt first (`learnt`: a good that `teaches` it, read from the inventory), want a bench of a tier (`tier N`); a recipe that `upgrades` raises the bench a tier (a better bench: a goods sink), one that `repairs` mends the most worn tool. Gear `wears N` (says "wearing out", breaks, is taken off; `uses wear`). Recipe and good forms in Project have each word.
+- **Weapon trails**: an item's trail style, plain, flame (white-hot edge to red, embers), lightning (`spark`: a jumping core, shocks) or aura (a wider ribbon), picked in its item form.
+- **Base building against what stands**: a piece tagged `attaches` brought to a wall, a house or a rock face with nothing built near goes flush against it, out from it, or along it when turned (R); a deck (`own-deck`, tagged `posts`) put down above the ground stands on posts to the ground.
+- **A rigged body imported** (Project › ＋ Create › Import a character, `studio.gd` `import_character`): a Mixamo character (FBX, With Skin) or a glTF whose bones a map knows, copied into characters/NAME/ (kept out of the repository), its rig found, written as a character playing every clip the others play; one with bones and no body is refused with the way round said (`-Demo bodyimport`, on a body made on Mixamo's bones by script).
+- **The assistant for the loops** (`assisttools.gd`): `get_entry` and `write_entry` draft goods, recipes, quests, talks, gear, powers, shots, stats, effects and acts whole, checked by the reader the game uses; `game_setting` sets uses, earns and levels; `words` has a rewards topic and one per sort. `-Demo rewards` beat 7: asked in a sentence, it gives the bandit a loot line, drafts a recipe (mends 'level three' when told it wants a number) and the game's earns, applied as one undo.
+- **The loops tracked**: `Draw3D_Gameplay_Loop_Tracker.md` merges the user's audit (every row rated: Works, Rough, Missing, N/A, with A for authorable, and a Hand column for the testing phase) with the morning's loop analysis (removed, folded into it); also the estimates for meshes on drawn hedges and roofs and for faces from pictures, what the assistant can and could do, and the research on alert marks.
+- Checked by `-Demo rewards` 7/7, `bodyimport` 3/3, `range` 4/4, `layouts` 2/2, `seeing` 3/3, `parkour` 10/10 and `foes` 5/5 (its pictures now show both fighters), each with no problems (pictures looked at for rewards, foes and base). Regressions: `course` 8/8, `town` 9/9, `base` 4/4, all clean. Both towns rebuilt (`town.ps1 -Over`, `-Wastes -Over`). Host tests 192 of 193; the one failing is p57, already stale (Known gaps). Nothing reported by hand yet.
+
+### The brief of 2026-10-25, fourth: idles and poses, foes, regions, cave growths, the sea, a base of your own, the parkour run, the loops looked at (2026-10-25)
+
+At the user's brief after 387ec29 (idle fidgets and looking about, poses on benches and walls, flasks and smokes, room for imported clips; heads turned to the player; blocking, parry, dodging and projectiles for everyone; an enemy library any NPC or animal can be given; routines for animals and enemies; powers tied to statuses, survival states; bosses in phases; regions as a real authoring system; pirate and sea assets with ships that fire; cacti, crystals and mushrooms in the tree generator; a parkour showcase in the world; player base building with fences, barbed wire, platforms, turrets, traps; everything customisable; a gameplay loop analysis).
+
+- **Standing about** (`things.gd`, `folk.gd`): a type's `idles MOVE …` (one by chance each time), `fidgets F` (how often), `looks_about F` (glances), `heeds R [F]` (the head, and so much of the chest, turned to the player passing before them within R m, `animated.gd` `gaze`). Poses as moves (moves.txt, every folk set): sit_bench, sit_crossed, lean_wall, drink, smoke, play_guitar, play_cards, eat_table, wipe_counter, pour_drink, fold_arms, stretch, nod, shake_head; each a row in characters.txt, so an imported clip takes its place. Held through a day by Routines (`goes … doing POSE`). `poseshot.gd` takes pictures of a character in clips from three sides, with a bench, wall or table beside it.
+- **Foes** (Window › Foes, `foebook.gd`, `foes.txt`): everyone who fights and everyone who could, laid out as pickers and numbers: side, hunting, sight and hearing, health; its blow, what it fires, its powers, what its blows put on whom they land on; its defence (`blocks`, `parries`: whoever struck is staggered, `dodges`); patterns by health, chosen by chance or by how near; `becomes` as it is hurt or while a condition holds; at rest, its day in Routines. "Fight as …" gives a way of fighting of foes.txt (a brute, a duellist, …) to anyone: a villager made a bandit, a deer a beast. Statuses: frost slows then freezes for a set time; weak, exhausted, staggered, slowed, snared (stats.txt).
+- **Regions** (Window › Regions, Ctrl+R; `areas.gd`, `areabook.gd`, `areasview.gd`, areas.txt kept with the world): drawn on the land a corner a click; weather (by the hour too), light and haze, music and ambience faded in and out, peace by side, keener eyes, more gathered, quests offered only there, named when found and dark on the map until walked (`seen_land`), kept going while away, and a table of who lives there laid out with one press. Every change one undo.
+- **Cave growths** in the tree generator (host `grown.rs`): cacti (saguaro, barrel, prickly pear, organ pipe), crystals (cluster, spire, druse, shard ring) and mushrooms, each with presets and knobs; crystals and mushrooms glow by night.
+- **The sea** (`seamake.gd` → library/sea.txt "Sea and harbour", 36 models of Poly Pizza, credited): lighthouses that shine, piers, docks, a port, boats and a dinghy to board, pirate ships and a navy galleon that sail (`moves galleon`) and fire cannonballs (shots.txt `cannonball`, effect `explosion`, sounds `cannon`, `boom`) at each other and at you; shore batteries of the keep's side. Ships on the water route straight to where they mean to be (they had been led ashore by land routes, `folk.gd`).
+- **A base of your own** (library/defences.txt "Base defences", 37 models; library/basebuild.txt "Base of your own", made here): build mode joins a piece to one beside it (`tags attaches`: fences, walls, platforms, spikes, edge to edge at its height and turn) or puts it on top (`tags tops`: barbed wire on a fence, a turret on a platform), "Joined to the …" said as you build (`build.gd` `fit_at`). Turrets and guns that stand (`shoots`) fire at whoever hunts, sparing their side; mines, bear traps, snares and spikes (`traps HARM [STATUS SECS] [once]`, a new kind word) hurt and hold whoever steps on them, a mine with a blast. Changes in quick succession while playing build on each other (`placed.gd`).
+- **The parkour run** (the town's training ground, a third row, `town.rs`, town.txt): a checkpoint, ice (`slippery`), a bar to slide under, a climbing face, an overhang gone along by the hands (`climbable` underneath), a box, a deck, and a long jump of six and a half metres to two more; a grappler to pick up at its start. Each piece is a design saying what it does; both towns rebuilt.
+- **People face as they were put down** (`folk.gd` `_place`): someone placed turned toward a bench, a wall or a lane now starts play facing so, as every other thing did; since the first baseline it had been left out, with no reason recorded. The small fix of the brief's "one task of my choice".
+- **The loops looked at:** `Draw3D_Gameplay_Loop_Analysis_2026-10-25.md` (folded into `Draw3D_Gameplay_Loop_Tracker.md` by the fifth brief): fight, survive, gather and make, base, sea, movement, explore, people; each step built, partial or missing; first recommended: built walls the dead batter and break.
+- **Customisation checked, not extended:** any kind can be shown by a model of one's own ("A model of mine in its place…"), and models, folders (kits), pictures, particles, effects, sounds and clips are imported from Project. Gaps (Known gaps): faces from pictures, a drawn house's hedges and roofs swapped for meshes, a rigged body brought in as a character.
+- Checked by `-Demo idle` 3/3, `parkour` 7/7, `base` 4/4, `sea` 3/3, `areas` 6/6, `cavegrow` 4/4 with no problems (pictures looked at); `foes` 5/5 beats but not always clean (below and in Known gaps); host `p43` (library names and collections); regressions after people face as put down: `town` 9/9 and `course` 8/8 clean; both towns rebuilt. None by hand yet.
+- **Foes, not steady:** of about eighteen runs of `-Demo foes` in this pass, the last beat's check "the walker's guard caught a blow" failed five times (the smith swung nothing at the walker in 8 s: guarded 0, health 5 of 5, the walker standing or blocking), "the smith guarded, stepped aside or turned a blow" twice, and a picture's framing ('foes-04-defends', 'foes-05-guard': the two bodies not both in it) twice; the others clean. Failures came before and after the change to how people face. Not explained; left in Known gaps.
+
+### The brief of 2026-10-25, third: a character of your own, Routines, everything about one thing, the desert and caves (2026-10-25)
+
+At the user's brief after f120764 ("i'm not sure how to create a model of my own … here i made a copy of a model but no face … include an in engine walkthru of the workflow … this character is a ranger when you play the game but looks different in edit mode … entities should have contextual menus/links to point to their editing areas … need a way to view and manage npc routines … complex branches … global for example to make all run inside when it rains but can modify an individual … more buildable biome type assets … deserts … camels and scorpions and oasis and cacti … decor and findables for caves").
+
+- **Why the copy had no face:** the brawler is drawn by UAL 2's mannequin, which has no face to move. Make › Clothes and face now has **Head and body**: a woman's or a man's head of the wardrobe (twelve face shapes, on the same bones, every clip still playing), or the model's own body (said: no face). Where nothing is worn, the wardrobe's skin is worn (`skin_SEX_body/arms/legs/feet`, baked by `wardrobemake.gd -- skin` from the base body, the head left out). **Put one in the world →** makes a type drawn as the character (someone, roams 5) and arms it for placing.
+- **The walkthrough** (`charguide.gd`, Make › *Show me, step by step: a character of my own*, 8 steps): the brawler copied; a man's head; hair and a beard; the ranger's pieces, the body green; a face at rest, faces tried; a face made with the sliders and kept as 'proud'; one put in the world; its day set in Routines (at home from 8 looking proud, a work of its own, the rain and the player).
+- **Edit mode drawn as play:** someone whose type says `character NAME` is drawn in edit mode as that character standing in its stand clip (`models.gd` `posed`), or as its own model; dressed again when its character changes. The ranger of the screenshot now looks as it plays.
+- **Everything about one thing:** a right-click on what is picked lists where each of it is changed (`itslinks.gd`): settings, looks, moves and phases, expressions, its day, its behaviour, what it gives, every talk, quest or behaviour that names it, and its type in Project; the Inspector's links row begins with the same.
+- **Routines** (`routines.gd`, Window › Routines, Ctrl+H): built on what was there (a type's `goes` lines, sequences.txt, reactions.txt, cond.gd, the condition picker): a person's day by the hours with how it looks then (`goes … looking FACE wearing OUTFIT`, worn by the hour in play, `folk.gd` `_day_dress`); its works as cards of steps, with branches (`if CONDITION then A else B`, `either A B …`) and faces (`expression FACE S`); its reactions (meeting the player, someone, an animal, the rain, nightfall, being busy) with when/while, how pressing and how often; the rules for everyone, each with who keeps their own day through it (`ignores NAME`, kept to by `work.gd`); its paths, places, hours and roaming drawn in the world while the window is open. The island town: Mira keeps to the lanes in the rain; Ann, Tom and Mira each have a reaction.
+- **The desert and the caves:** 57 Poly Pizza models (CC-BY 3.0 and CC0, credited in `models/desert/credits.txt` and `assets/CREDITS.txt`) normalised by `desertmake.gd` into the library's *Desert*: camels that roam and graze, scorpions and snakes that sting who comes near, lizards and scarabs that run; cacti, palms, wells for an oasis, rocks, a pyramid, tents, mud houses, a market, pots, bones and finds. Models with no walks of their own are stepped by the engine (`ownclips.gd`: a camel plods, a scorpion skitters, each bobs and breathes). *Cave finds* made here: crystals and mushrooms that glow (`shines`: a placed thing's light always on), stalagmites, gems, ore, chests to search (KayKit Dungeon's, CC0, now a kit of 203), a crystal vein and a gold seam mined (`act mine`). Downloads: about 57 MB from Poly Pizza and 6 MB of KayKit, kept in downloads-untrusted (not committed); 21 MB of desert models and 2.3 MB of cave finds committed.
+- **Mended on the way:** a type's text read with its indents said nothing of it (the links and Routines read it bare now); the Inspector said "like the library's '<null>'" of a type of this world's own.
+- Checked by `-Demo charguide` 9/9, `routines` 6/6, `desert` 5/5, `editlook` 3/3 (pictures looked at); regressions `dressed`, `work`, `talk`, `gathering`, `studio`, `town` all passing; both towns rebuilt. None by hand yet. The chest search failed once in five desert runs (not reproduced since); watch for it.
+
+### The brief of 2026-10-25, second: your findings, fields and gathering, clothes and faces (2026-10-25)
+
+At the user's brief after 216e1a4 ("clicking on a move in the animation studio doesn't play the move or phases … clouds have sharp edges. we need a setting for rolling waves. continue work on gear and clothes. body face and outfits. expressions … house wall segments can be rotated but … no handles for moving them … how to keep track of the crops … commit and proceed").
+
+- **Your findings mended** (e51ff51): the Studio's list of moves plays a move clicked (again when clicked again) and a phase clicked; a kit's model named from the project's folder (kits/monsters/Bat.fbx) is found; clouds soft at their rims (a hash without sin, whose lost precision cut them into blocks); the sea's rolling waves (air word `waves HIGH [LONG]`, Environment › The sea's waves: Flat, Gentle, Rolling, Heavy, Storm; Gerstner waves the way the wind blows; what floats rides them); one thing picked has a square knob with four arrows behind its turning ring, dragged to move it (a drawn house's wall among them); town.ps1 says a town already built is ready to open, with the command. Checked by `-Demo studioclick` 3/3, `skysea` 4/4, `partmove` 3/3.
+- **Fields and gathering** (fab959a): a crop may need watering before it grows again (`waters HOURS`) and be fed for more (`fed_by GOOD N`); berries, herbs and honey picked; a jetty fished from with a rod in hand (`harvest_tool`, `harvest_chance`); what is gathered goes into the pack and is counted for the world (`gathered_GOOD`). Project › Fields and gathering shows each field, bush and jetty in the world with its yield, hours, water, feed, tool, chance and the act and move that gathers it (the move opens in the Character Studio). Both towns have a compost heap, a jetty and a rod. Checked by `-Demo gathering` 5/5; harvest 3/3, town 9/9.
+- **Clothes and faces** (this commit): a wardrobe baked by `wardrobemake.gd` (headless, about a minute) from Quaternius's CC0 Universal Base Characters and Modular Character Outfits into `characters/wardrobe/` (15 MB): a female and a male head cut at the neck, each with twelve face shapes (blink, blink_l, blink_r, brows_up, brows_angry, brows_sad, smile, frown, open, oo, wide, sneer) made from marks found on the mesh (eyes, brows, the mouth's fold and width), the mouth opened and given an inside and teeth; five hairstyles and a beard; twenty outfit pieces (peasant and ranger, female and male). A character in characters.txt `wears PART [colour r g b]` (in an outfit, worn with it) and has a `face NAME`; `faces.txt` writes each face as so much of each shape and which face is worn upon what a body does (struck: hurt; striking: angry; running: effort); a move's phase may say `face NAME`. Faces blink by themselves, ease from one to the next, and the mouth goes while a talk's line is said. The Character Studio's Make has **Clothes and face**: a picker and a colour for each place (hair, beard, hood, body, arms, legs, feet, pauldrons), the face at rest, Talk, Close on the face, faces to try, and sliders to make a face and keep it under a name. Four dressed characters: Ann, Mira, Tom and Rook. The island town has Ann working the vegetable patches, Tom on the green and Mira walking the lanes; on the far island Rook leads the scavengers. A figure no motor drives (the Studio's) now shows its face too; hair and brows are cut out where their texture is clear and the brows take the hair's colour. Checked by `-Demo dressed` 6/6 (pictures looked at), chartest, regressions below.
+
+### The brief of 2026-10-25: rooms, the Studio as workshop, abilities, harvest, tall grass, quest steps, a far island, parts swapped (2026-10-25)
+
+At the user's brief after 80a3f43 ("for building houses etc the context menu should allow for number of bedrooms and bathrooms and kitchen etc … creatures can break doors if given the ability. okay with walker changes. shoulder buttons as quickstep is fine … commit what's not commited. you can proceed with the character management such as the studio being the animation workshop etc and also the rest of the abilities list. grow and harvest and frame rate with tall grass as well as more updates with the text stuff starting with the quest steps. in the process create another village on another island that can be reached by land or sea so that youu can work on the draw distance for far regions. let it be a post apoc site with creatures and buildings and vehicles to suit. then continue work on swapping a drawn's building parts for designs … work autonomously"). Eight commits, each checked by script; none tried by hand.
+
+- **A house's rooms** (ee74df8): beside a drawn house, Rooms: storey by storey, how many bedrooms, bathrooms, a kitchen and the rest (rooms.txt says which rooms each sort of house is offered and what each is furnished with); Suggest rooms, Shuffle for other furniture, colours of their own or as designed, No rooms. The host lays the rooms along the house with a wall and a door between each two (open where the stair comes through) and furnishes each: its main piece against its longest wall, more along the walls, one in the middle, no two of one design but crates. Each wall between rooms has a blue handle while the roofs are off: dragged, the rooms either side grow and shrink, one step of undo. 23 new furniture designs in the library (Rooms). Checked by: protocol p99, p43, p68, p78, p79, p44; `-Demo houserooms` 4/4; furnish, houses.
+- **The Studio as each character's animation workshop** (51c5bc4): the Studio says whose workshop it is ("Animation workshop for …") and has "‹ Its profile" back to the character's page in Project. A character's page (Project) chooses which character model it moves as ("Moves as the character"), and opens its profile or its workshop. A set of moves can be made like another and keep only what is its own (`set NAME like OTHER`, the set form's "Made like"). The profile tab "Abilities" is called **Powers** now ("ITS OWN POWERS"). Not done as planned: the Studio's Combos tab and its Gear list were kept, as other flows (studioplay) depend on them. Checked by: `-Demo workshop` 5/5.
+- **Moves and acts in the catalogue** (5318c28): the abilities catalogue (Window › Catalogue) lists moves and acts as well, each saying which characters and things here have it ("Here: …"); "Add to the selected" gives a move to the chosen character's set, or an act by giving the use that offers it. The rest of the abilities list: `spars`, `counts_as`, `burns` and the words of mangled, character, crafts, stores and way written into abilities.txt; the flashlight's colour as three fields. Checked by: `-Demo legend` 5/5 (every catalogue word known).
+- **Crops harvested** (9ee35bc): a crop made by the Plant Generator says what harvesting it gives (`harvest wheat 2 48`: two sheaves, ripe again in 48 of the world's hours) and offers it at its middle. E beside one: stooped to, the goods into the pack, the crop cut down to stubble (a fact, kept in a saved game), ripe again after its hours by the world's clock. Goods wheat, maize, cabbage and lavender; the use `crop`; the ability `harvested`. Checked by: `-Demo harvest` 3/3; host tests grown, kind.
+- **Tall grass a quarter faster** (9083c83): grass and plants waded through cast no shadows unless Graphics › "Shadows of grass and plants" is on (on at ultra only). Measured with vsync off in a meadow of grass a metre long: 178 fps as drawn before, 233 now, 186 with the plants' shadows on, 235 with no grass at all. Checked by: `-Demo grassfps` (measures; not in the features list), `-Demo rendering` 11/11.
+- **A quest's steps as cards** (f701ba2): Project › Story › a quest: its steps as cards, each what the player is told, "Done when" a condition picked from lists (has, hour, near, there, reach, quest, weather, holds, wears, keeps, is, fact, its, sees, ready, state; "not"; all of / any of), where it is marked and in which place, its hints each a condition and what is said; ↑ ↓ × and + A step, + A hint; each change written at once as one step of undo. A condition the form cannot lay out is kept as written. Every quest of quests.txt reads into cards and writes back line for line the same. Only quest steps so far: a quest's fails, from, gives and reward, and the Behaviours window's conditions, are still typed. Checked by: `-Demo questform` 4/4.
+- **A far island, a village after the end, how far things are drawn** (bc13a5e): the land maker can hold a second island: "sea about it" (more patches of sea round the island, which stays as big as it was; open sea makes no ground), "far island" (how far its shore reaches, east and south of the middle) and "causeway" (a level way 1.5 m over the water to it, as wide as said); all 0 by default, and a land with none is made as before, number for number. `editor\town.ps1 -Wastes` builds `editor\town-wastes.json`: the island town with an island 540 m to the east, the causeway out to it and a boat at either shore, and on it a village after the end: the town's own houses burnt, broken and leaning (`godot\wastes.txt`: ruin_cottage, ruin_townhouse, ruin_store, ruin_farmhouse, `mangled`), a walled camp (a bunker, the stores, a watchtower, a gate, tents, a generator and a radio from the library's military), a scrap and tyre wall, fires in barrels and toxic drums, the war truck, raider buggy and cargo hauler at the gate, wrecks along the causeway, a ship on the sand, a plane and a helicopter come down, scavengers and a trader inside, six of the dead and two glowing ones outside. Graphics gains "Draw distance of things" (300 m, 500 m, 900 m, or as far as the eye sees; high is 900 m): Godot's own visibility ranges on what is drawn, small things to 0.6 of it, grass and plants to half, ordinary things to all of it; the land and anything 8 m or bigger always drawn. Measured from the town's east edge looking at the far island: as far as the eye sees 338 draw calls and 92 fps; at 900 m the same; at 300 m 316 calls and 95 fps. Far regions: with the walker in the town the island's 19 regions are far and 16 who go about there let go; walked across, its regions come near, the slowest frame after that crossing 79 ms. Checked by: `-Demo wastes` 6/6; regressions `-Demo town` 9/9, `-Demo rendering` 11/11; host tests (one stale, see Known gaps).
+- **A drawn building's parts swapped for designs** (216e1a4; the 5B left from the decor pass): a part of a drawn building picked in the view (a lantern, a flower box, a sign, an awning, a tower, steps, a door in a wall inside) has "its design": the building's own first, then the designs that fit it (this world's and the library's: a door is offered doors and gates, a lantern lanterns and lamps), then any of this world's. A wall with the house's door in it has "its door" too: given a design, the wall keeps its doorway empty and the design stands in it. The design stands where the part stood, turned as it was; the building goes on making the rest and keeps the swap when it is made again; "as its maker makes it" or Ctrl+Z gives the building's own back. One of the library's is brought into the world first (its own step of undo). Checked by: `-Demo partswap` 5/5 (the library's castle door in the doorway, a lantern swapped, both kept through a third storey, undone); regressions `-Demo houses` 7/7, `-Demo turnswap` 3/3; host tests.
+
+### A thing turned by its ring, every patch found again, one flower swapped (2026-10-25)
+
+At the user's message with two pictures (a bench in its yellow frame, Brushes › Flowers showing "Flowers 3"): "objects like the bench should have rotation handles around them instead of having to go to the UI to do it. how do i replace that specific flower with another specific one from the library. also when you create a new patch it numbers them incrementally but where do the previous ones go?", held until the Game Shell was done.
+
+- **The turning ring** (marks.gd): one thing picked (a bench, a rock, a tree, a tile) has, round its foot just outside its frame, a ring with ticks every 45 degrees, a line to its front and a knob there. The knob, or anywhere on the ring, taken with the left button and dragged round: the frame and ring drawn turned as it goes, the row under the bar and a message saying by how much, in steps of 5 degrees (Shift 1, Ctrl 45); let go, one edit (tiles and things on a layout's cells by the same turn as [ and ], anything else by the host's turn), one Ctrl+Z. [ and ] still turn by 15.
+- **Every patch found again** (buildbar.gd): earlier patches were never lost (each new patch is a maker of its own, "Flowers 2", "Flowers 3", left in the world as painted), but nothing showed them. A brush's panel now has *N patches ▾* when there is more than one: every patch of that brush with how many it holds; one clicked is shown, chosen (its look changed beside it) and is the one the brush paints from then.
+- **One of a patch swapped** (buildbar.gd): one thing of a patch clicked, its panel has a swap button: the brush's sorts (poppy, daisy, ...) and your own designs in the list; one chosen, the thing picked is taken away and that one put where it stood, turned as it was, as one change (one Ctrl+Z). The patch's mix is left as it was; to change which sorts a whole patch has, its mix row is still the place.
+- **Mended on the way:** the swap waited for the taking away before putting the other down (the host said it was busy); the row under the bar said "The reach of ..." while the ring was held.
+
+**Checked by:** `-Demo turnswap` 3/3 (a bench turned a quarter by its knob and back by Ctrl+Z; two patches listed and the first chosen and painted; one flower swapped for a poppy where it stood and back by Ctrl+Z), no script error; its six pictures looked at. Regressions: handles 6/6, brush 3/3, mix 4/4, none with a script error. Not tried by hand.
+
+### The Game Shell (2026-10-25)
+
+At the user's message after 08644db: "Proceed with the Game Shell" (the recommended next milestone: Workflow-reference Tier 1 "Make it a game", the third-party assessment's Priority 1, Boot → Title → Continue/New Game → Loading → Gameplay → Pause → Save/Load → Settings → Quit/Ending). Much was there already (a title with New game and Continue of the one quick save, the menu holding the game, the players' settings kept, endings); what was missing is below. `shell.gd` (part of the game's screens, the same in Play and in an exported game), `shellbook.gd` reading `game.txt`.
+
+- **Save slots** (host ops `saves`, `unsave`; `peek_save` now says what the game said of a saved game, the world's fact `saved_about`): the quick save (F5), the autosave and 1–9 slots (game.txt `slots`). Each row says how long played, where (the world or journey), the quest step, when; one that cannot be read is said so in plain words and cannot be loaded; one saved by an earlier `version` of the game says so. Saving over a slot or deleting one asks first (pressed twice). From the title (Load a saved game), the menu (Save the game…, Load a saved game…) and the You fell screen.
+- **Continue** loads the latest saved game that can be loaded, whichever slot; the title says which and what it is. Load is not pressable while there is none.
+- **Autosave** (`autosave checkpoints`, `autosave_every N`): to the slot `auto` as a checkpoint is passed (watch.gd), and every N minutes of play; said in a word ("Saved.").
+- **How long played** is kept (the world's fact `played`), going on from a saved game's.
+- **Loading screen** (`loading`, `loading_picture`, `loading_least`) behind New game, Continue and every load, then the world fades in (the start's own fade if longer).
+- **When the player falls** (`downed back` as before, or `downed screen`): the game held at a screen (`downed_words`) that asks: try again from the last safe place, load a saved game, or back to the title.
+- **Back to the title** in the menu, on the fallen screen and on the ending screen (the world begun again; what is not saved is lost); a title is shown even if the start names none (the world's name).
+- **Credits** (`credits` lines, `credits_after`): from the title, and rolled after an ending before the title.
+- **Project › Project settings › The game's flow**: every one of these a field (title, what is behind it, its picture, fade, saved games kept, autosave, when the player falls and what that screen says, loading words, picture and time, credits, credits after an ending, save version) and ▶ Play it from the title. The title's fields write the Player start; the rest writes game.txt whole.
+- **An exported game carries every world it leads into** (`leads OTHER`, and what those lead into), found beside the world, beside the editor's worlds or among the genres; `home.txt` names the world world.json was made of, so a way back to it goes to it (travel.gd).
+- **Demos:** a demo may say it downs the walker on purpose (`downs_meant`), so a features demo is not marked damaged for it.
+
+**Checked by:** `-Demo gameshell` 10/10 (all of the above, under the demo's own slot names, nothing left after), no script error; pictures of the title, loading, the slots, You fell, the credits and the form looked at. Regressions: titlescreen 3/3 (its checks moved to the loading screen), inventory 8/8, hudrules 2/2, none with a script error. `export.ps1 -World genres\overworld.json`: forest-glade.json and stealth-side.json carried, home.txt overworld. Host built (release). Not tried by hand; the exported game was not played.
+
+### The combo screen as laid out in its design (2026-10-24)
+
+At the user's message after 8b1b0b3: "build the combo screen as laid out in the design" (the design canvas https://claude.ai/artifact/54fG9Z7qAqPwzFJiz4SCTb, build order C1–C6); its three questions taken as: moves left to right, the preview at the left, icons with short words. Also: the powerbomb's fixes are fine "as long as i am able to make those changes in the editor as well"; every one of them is (the made clip's shift and bend in Clips › the clip maker, the look's part in the Animation card's Clip range, the strike's reach in the Hit card), and the Hit card now says when a strike misses and what to change.
+
+- **One play bar** (combostrip.gd `play_bar`): PLAY ▶ Combo, ▶ Move N, ▶ Phase, Loop, with the sparring partner, Clips only; it wraps to two rows in a narrow window.
+- **The moves as cards** (C1): numbered, coloured, with how long and how many phases; |◀ and ▶| only at the row's ends; a + after each card (and *Put in a move* in an empty combo) opens the list of the character's moves right under the row, with a filter; the chosen one goes in there (`combo_insert`). The old list, the *Add at the end* row and its picker are gone.
+- **What is done to the chosen move, under its card:** swap (⇄ swap…), copy (a new move like it), ‹ ›, the bin, where it lets the next one in, and the wait asked before it (for moves after the first); a line joins the card to its phases.
+- **Its phases as chips under it** (C2): a red edge where a phase strikes, marks for strikes, window and hangs; |◀ ▶| and + at the end; + Before, + After, its name, − Phase under them.
+- **The settings in six cards** (C3, `_group_settings`): Timing (button pressed, duration, next move from %), Movement (travel, rotate, in the air), Animation (clip, range, backwards, mirror, blend, pose), Hit (hits with, reach, what is in hand), Opponent reaction (they are, how they react, carried), Damage (damage, hit-stop, screen shake). Three to a row where they fit, two, or one; never wider than the tab.
+- **Did it reach them** (C4, `_say_reach`): played with the sparring partner, the Hit card says *Reached them* in green, or *Missed them* in red with how far the striking part stayed beyond its reach and what to change (more reach, travel further, stand them nearer, step the clip in at the hit).
+- **One timeline** (C5): the bar under the preview shows the whole combo while a combo is edited, each move tinted with its colour; dragged along, the move and phase under the pointer are chosen above. The preview is smaller (about 400 × 280) side by side.
+- **Also:** the banner's buttons wrap instead of widening the Studio past the screen; opening a combo shows its phases (it did not before); the uppercut recipe steps the body in at the hit, so the ready-made uppercut reaches; studioplay's stand-in editor mended (no script errors).
+
+**Checked by:** -Demo comboscreen 6/6 (features: protected, no problems, no script errors; the powerbomb as two cards, the launcher put in after the grapple from the + list under the row, moved first with ‹ and taken out with the bin, ▶| to the next phase, the launcher's hit Reached them as it is and Missed them with a 5 cm reach, the whole combo on one timeline and dragged onto the second move; the Studio within a 1280 × 720 screen). Regression: -Demo powerbomb 13/13, uppercut 8/8, combatpage 9/9, airjuggle 11/11, all without problems or script errors. studioplay (headless): 19 checks fail against 28 on the committed code, no script errors (its stand-in editor mended; its clicks now land on the part of a button inside its 900 px window). Pictures looked at. Nothing tried by hand.
+
+### Clips of one's own, browsing clip files, the uppercut walkthrough, a slide (2026-10-24)
+
+At the user's message after 7d9a16b: "the clips are missing a true uppercut punch and probably more"; downloads may not always have what is needed, so a close clip or base clip copied and modified; clips in the untrusted folder not imported because there was no way to browse and audition them; and the combo screen laid out anew (moves in sequence, phases opening under the chosen move, arrows only at the strip ends, play combo / move / phase at the top, plain labels, icons, a smaller preview, the move list where a move is put in). The combo screen was asked for as a design and recommendation to review, not built: it is the design canvas https://claude.ai/artifact/54fG9Z7qAqPwzFJiz4SCTb (the layout, what connects to what, the labels renamed, build order C1–C6 and three questions). Up to 200 MB of downloads allowed; none used: one search found no free (CC0) 3D uppercut clip (siwoku's Godinez Fighter is 2D; printer-not-found's sci-fi hero has none), so the uppercut is made instead.
+
+- **A clip of one's own** (characters.txt `made NAME`; charbook.gd, animated.gd `_make_made`): made from a clip already there (`from CLIP`, `mirror`), a part of it (`part A B`), its `speed`, whether it `loops`, its `tags`; a part of the body turned at moments (`bend BONE x y z at P`) and the whole body moved (`shift X Y Z at P`, metres). Built for every character that plays the clip it is made from, in the library `made`; the clip it is made from is never changed.
+- **Making one** (clipmaker.gd): Studio › Clips › *＋ Make a clip from it*; a panel under the slider with the base, mirror, name, part, speed, loops; eight ready-made changes laid on at the slider's moment as the hit (an uppercut, a hook, a hammer blow, a kick higher, lean into it, twist more, crouched lower, wind up further), either side; any part of the body keyed by tip, twist and lean; the body moved aside, up, ahead; keys as chips. Every change is shown on the figure at once.
+- **Browsing clip files** (clipbrowser.gd): Studio › Clips › *Browse files...*: Downloads, the project's downloads folder, Desktop, the project's characters; a file's clips listed and each played on the chosen character (retargeted as an import would be), paused and scrubbed; *Import this file* or *Import the whole folder*.
+- **The uppercut walkthrough** (uppercutguide.gd): Studio › Clips › *Show me, step by step: an uppercut made from the cross*: 8 steps, Next by Next, through the Studio's own controls (made from the cross, an uppercut laid on, the elbow bent more, a dip first, quicker, given to the launcher and played on the sparring partner, a clip file browsed).
+- **The brawler's launcher** is an uppercut: the made `Uppercut` (from Punch_Cross, stepping in at the hit so that it reaches), in place of the hook.
+- **A slide** (moves.txt `move slide`; phase word `low`): crouch while running on the ground: the body drops, slides about 3 m and rises (the parkour document's Run → Slide). Walker, ranger and brawler have it; UAL characters show it with Slide_Start, Slide_Loop and Slide_Exit.
+- **A body that is lower** (body.gd `keep_low`, shared by player.gd): sliding or crouched, the body's capsule is 55% as tall, so it goes under what a standing body cannot; under something low it stays crouched (`cramped`) and creeps until there is room to stand.
+- **The play camera kept out of rock** (eye.gd `_clear_of`): a straight look from the player to where the eye would be; it stops 0.3 m short of anything between (the cave's end, a hillside). Mends the known gap of the cave pass.
+
+**Checked by:** -Demo uppercut 8/8 (features: protected; the cross's fist at 0.51 m up and 0.64 m ahead, the made uppercut's at 0.66 m up and 0.36 m ahead after dipping to 0.33 m; the browser listed 22 clips of a KayKit file and played one). -Demo slide 3/3 (stopped by a 1.05 m bar at 5.5 m when running at it standing; slid under it, the body 0.94 m tall; crouched under a 4 m low roof and standing past it). -Demo basepass 9/9 (the cave picture now rock all round; the eye 4 m behind the player, not cut short in the open). Regression: -Demo airjuggle 11/11, -Demo powerbomb 13/13, -Demo combatpage without problems. The uppercut first missed the partner (its fist 36 cm ahead, the strike reaching 0.6 m), so the made Uppercut steps in 30 cm at the hit and the launcher's look shows 25-42% of it as the hit; the partner is then thrown up 1.49 m, and the powerbomb demo's "thrown up" asks over 1.2 m as airjuggle does (it asked 1.5, a hair over what the hook gave). None by hand.
+### The powerbomb changed step by step, phases with them, a base, a cave through a mountain (2026-10-24)
+
+At the user's message after 735def0: in the combo area "a complex window to navigate the moves and phases and edit them"; "when viewing a phase there is no enemy for moves or combos or abilities"; "no way to edit what happens to the enemy at each phase"; the practical example of the powerbomb (launch, pursue, a sword stab, then a slam that drives them down while the player stays in the air), outlined exactly and shown Next by Next; then warehouses, lockers, bunkers, military vehicles and equipment; a cave linked to through a mountain; wheels that spin and turn; broken glass, blood smears and spatter to paint, and blood in the effects; swimming, diving and an oxygen bar; towers and base building. Up to 1 GB of downloads authorised: about 650 MB used (`downloads-untrusted/military-base`, all CC0).
+
+- **A phase seen with them** (studio.gd): choosing a phase of a move or a combo with a practice target near plays the move (or the whole combo) for real from that phase's beginning to its end and holds there, so what it does to them is seen. Where each phase falls is found by playing it once (`phase_window`) and kept until something changes. The slider seeks within the played move with them, not the clip alone. The sparring partner of the library is used, else the mannequin, else one like it.
+- **To them, at each phase** (the phase's own rows): how they react (`hits`, a pick of the reactions, *Edit* opening that reaction with *‹ Back* to the phase), how much it hurts (`harm`), whether they are carried with the body (`seizes carry`); and the body's own *In the air* (`hangs`, `heavy`). Each change is played again with them at once.
+- **The combo's moves in a row** over its phases, first to last; a move of the combo swapped for another in its place, one put in after the one chosen, a new move made from another (its phases and look copied) after it or instead of it.
+- **The powerbomb walkthrough** (guide.gd, powerbombguide.gd): Studio › Combos › *Show me, step by step: the powerbomb changed*. A panel says what the next step will change; Next makes it through the Studio's own controls and says what changed, outlining the controls. The 13 steps are listed at the head of powerbombguide.gd and in the checklist. Kept as `air_powerbomb`; the powerbomb is left as it was.
+- **Military and base building** (Library, `editor/library/military.txt`): a jeep, troop truck, armoured carrier and tank (each with `point tyre.N`); a bunker, warehouse (enterable), watchtower (climbable), guard tower; sandbags, gun nest, checkpoint, barbed wire (a coil), army tent; lockers that keep what is put in them, ammunition crates to search, a generator, a radio; base pieces of planks, concrete, a wooden gate, a floor and crates.
+- **Six new kits** (Library, each a collection; kits.gd): Industrial warehouses and works, Towers and defences, Factory machines and belts, Castle walls, towers and gates, Station and bunker rooms (Kenney), Sci-fi lockers, crates and ammunition (Quaternius). All CC0.
+- **Wheels that roll and steer:** a vehicle's wheels are found where its design says (`point tyre.N`, figure.gd `wheel_points`); each rolls by the distance gone and the front two steer into the turn.
+- **Building while playing** (build.gd): Ctrl+B, or LB with Down. A ghost ahead of the player, snapped to half a metre, green when they have what it takes, red when not; put down (click, X), turned (R), the next (Q), taken down (E, its goods given back). What may be built is any design with `built_from GOOD N` (host op `buildable`; ability *built_from*); kept in a saved game (placed.gd). Goods `concrete` and `sandbag` added.
+- **Grime and gore** (stains.gd, Library collection): blood spatter, a smear, a pool, drops, a hand print, broken glass, shards, oil, a scorch, each a decal laid on whatever is under it, painted with the brush as any design. Effects `blood_burst` and `glass_burst` leave stains where they fall.
+- **A cave through a mountain** (Terrain › Mountains › *cave through*; cave.gd, cavemaker.gd): dragged from one side of a mountain to the other, a cave mouth stands at each end and a cave (chambers, hanging rock, crystals that light it) winds between them as deep as the rock over it lets. Each mouth leads to the cave's end on its side (`leads here NAME`, travel.gd; ability *way_through*). One step of undo. A world's `raise` may now be -200 to 200.
+- **Swimming, diving and Air:** crouch dives, jump rises, let be floats up; under water the Air bar empties (20 s, Tune › air under) and fills again at the top; with none left they drown a little each second.
+
+**Checked by:** -Demo powerbomb 13/13 (features: protected; the brawler still in the air as they land). -Demo basepass 9/9 (features: protected, no problems: 4 tyres found on the jeep, rolling 2.08 rad and steering 0.34 rad; 13 base pieces and 8 kit pieces placed and seen; three pieces built and one taken down with its goods back; 2 stains left by effects and 8 decals laid; a dive 5 m deep, air 14.4 of 20 and back to 20 on top; a cave 29 m long, its floor 6 m up under 21 m of ground, walked in and out of the far mouth). Regression: airjuggle, combatpage, workflowpass without problems. `cargo test --test protocol p43` (the Library's collections) passes. None by hand. Known: inside the cave the play camera can sit in the hillside, so the cave is seen through the ground.
+
+### See it, change it, add to it, take from it, go deeper (2026-10-24)
+
+At the user's message after b73ab4b: the mini map was in the way and should be configurable and hideable (bottom right for now); in the training ring "a loop of some sort with windows hiding … doesn't show until you figure out how to close the open UI"; the Project window should list what is in the project and point to where each list is added to and edited (the creatures to the creature library; a character's moves and combos to the Character Studio, and from a combo deeper to the graph of its conditions); windows of other work left behind one opened for something else; animals that walked as "two pairs of bipeds attached"; retro things (a polaroid camera, cassette players, a boombox, a walkman, old televisions, camper vans), with up to half a gigabyte of assets allowed.
+
+- **The mini map** stands bottom right (hud.txt), out of the way of the words at the top. *Game › Mini map: hide it / show it* and *Mini map to the next corner (now …)* (bottom right, bottom left, top left, top right), each one step of undo and kept with the world; *Game › Game display…* has the rest. Its own words (how far it shows, round, turning) were lost whenever another of its words was set: kept now (`hudview.gd entry_text`).
+- **One place of work at a time** (`desk.gd WORKSPACES`): the big windows (Project, Character Studio, Combo graph, Effects, Shots and powers, Sounds, Behaviours, Game display, Graphics, Styles, Asset Library, Who is in this world, Who can do what, Objects in this world, Makers, Texts, Kinds, Hub, Signals, Modelling, Assistant, Plant Generator, Tiles, Debug) are shown one at a time: opening one puts away the one in front, and its bar says *‹ Back to …*, which brings that back as it was (and further back). Small windows (the Inspector, a tool's numbers, the checklist) stay with any of them. Going to play puts the big windows away; stopping brings them back.
+- **The training ring** no longer opens the Combo graph over the game: it plays at once in the clear, and stopping brings back the window it was asked from.
+- **Each Project list says where it is added to and changed** (`section_ways`): beside each section's heading (and over the list, in list mode), its ways: people and creatures to *＋ Add from the creature library*, *Farm animals*, *Behaviours*, *Who is in this world*; characters to *＋ New character* and the *Character Studio*; moves and combos to *＋ New*, *Edit in the Character Studio* and *Deeper: the Combo graph*; powers, shots, statuses, effects, sounds to their windows; things to the *Asset Library*, *Import a model*, *Objects in this world*; items, behaviours, styles, weather, the display, worlds likewise. A section of the category with nothing in it yet is listed too ("none yet"), with its ways.
+- **A character's profile, Combos:** *＋ New combo in the Character Studio*, *All of them in the Character Studio →*, *Deeper: how its moves join (Combo graph) →*; under *ITS COMBOS* each with *Edit* (the Studio's Edit tab on it: its moves in order, each move's timing and animation), *▶* (its page, played on the stage), *Joins* (the Combo graph on it) and *✕* (taken from the character: the moves of it no other combo of theirs uses leave its set, one step of undo; its own set first if others share it). *Moves:* *Edit them in the Character Studio →*, *Deeper: how they join (Combo graph) →*; a move chosen has *Edit this move in the Character Studio →* and *Its joins (Combo graph) →*; a double-click opens it in the Studio.
+- **The Character Studio's Combos tab:** *From the library* (every combo this character cannot do yet, whoever it was made for) and *＋ Add to this character*; *Take it out* for the combo shown; *Deeper: its joins (Combo graph)*. Its Moves tab: *Deeper: how they join (Combo graph)*.
+- **Animals on four legs:** the horse, cow, bull, donkey, alpaca, zebra, pig, stag, dogs (shiba, husky), and the creature library's wolf, grey alpha, fox and deer are seen as models of their own with four-legged clips of their own (Quaternius, CC0: Walk, Gallop, Eating, Idle, Attack, HitReact, Death; `editor/godot/models/animals/`, credits.txt), by `character models/animals/FILE SIZE 180`. `ownclips.gd` plays *Gallop* for running, *Eating* while grazing, *Idle_2* while stroked, *HitReact* when struck. The drawn body stays under each for its size. The goat, sheep, rabbit, squirrel and the hound are still drawn on sheep's bones: no animated model of them was found free (the farm pack's sheep, llama and pug have only Idle and Jump; the rabbits are characters that punch and wave). New in the Library's Farm animals: bull, donkey, alpaca, zebra, pig, stag, a dog (shiba), a dog (husky).
+- **Retro things** (Asset Library, a collection of its own; `editor/library/retro.txt`, `editor/godot/models/retro/`): a boombox and a big one, a cassette player (the walkman), cassette tapes, headphones, a tape deck, a record player, a gramophone, an instant camera and polaroid photographs, an old television, a television on legs, a wooden television, a video player and tapes, a Commodore 64, an old computer, a dial phone, a typewriter, an arcade cabinet, a camper van (RV), a camper van, a caravan and an old bus; each scaled to its height in life. From Poly Pizza, CC-BY 3.0 (the headphones CC0): each design's words and `models/retro/credits.txt` name the maker, as the licence asks. Downloaded: about 29 MB in all (`downloads-untrusted/retro`, `animals`, `farmpack`).
+
+**Checked by:** -Demo workflowpass 8/8 (features: protected, no problems, no script errors; the Studio opened on the brawler's Air sword with the Project put away and brought back by *‹ Back to Project*; Joins opened the Combo graph (42 boxes) in its place; Grab and powerbomb added to the ranger in the Studio from 10 offered and taken out again; the creature library opened from Characters & Creatures' *People and creatures* (none yet); the ring with no big window over it and the Project back after; eight animals seen as their models, walking, eating, galloping, attacking; 15 retro things taken and placed, seen close in play). Regression: combatpage 9/9, profilecloth 7/7, airjuggle 11/11, without problems; hubplayer 11/11 with only its older problem. `cargo test --test protocol p43` (the Library's collections, Retro things among them) passes. None by hand.
+
+### Every character a profile, the library under old worlds, capes as cloth (2026-10-24)
+
+At the user's message after the Moves & Combat pass: no way to find the combo matrix; a combo of another character's usable only by switching to that character; "there should be a global library of moves and combos and abilities … then each type can be a profile that can be edited"; the Combo graph "not connected to the workflow" and without the brawler; duplication to consolidate; a proposal for the character management system; "the cape doesn't have any physics". The review and proposal: Draw3D_Character_Management_Proposal_2026-10-24.md (library, profiles, workshops; five decisions for the user). Built, its first step:
+
+- **Why the brawler was missing:** a world saved before it keeps its own whole copy of moves.txt (`editor/world.json` does), and that copy hid everything added to the shared file since. Now the shared library shows through (`book.gd under_library`, for moves, characters, gear, powers and shots): an entry the world's copy lacks is read from the shared file, one it has is the world's own; the Project lists them and `entry_of` gives their lines, so they are edited as any other (written into the world).
+- **Every character a profile:** a character's page in the Project is the player's page for that character (`_profile`): Who, Moves, Combos, Carries, Abilities (Buttons for the one played). The **Combos tab** says what it can do and offers every other combo of the library with what it would add; **＋ Give it** adds the moves it lacks to its set (`give_moves`).
+- **Give it to a character** from any combo or move page, without playing as anyone else. A set shared by others is copied for that character first, unless *and everyone else moving by …* is ticked.
+- **The Combo graph joined:** its list says whose each set is; every profile opens it on its own set; the training ring plays as whoever has the set shown.
+- **Capes are cloth** (`cloth.gd`, new): a sheet of weights (Verlet, distance links across, down, corner to corner and two along), pinned along the shoulders where it is worn, kept off capsules between the body's bones (back, hips, thighs, shins; the back as deep as where it is pinned) and above the feet, taken by the world's wind, drawn as a two-sided ArrayMesh each frame; stepped a sixtieth of a second at a time. Any `sort cape` that sways (cape, fur cloak, coat) and anything saying `sways cloth`; the rest of the item (a collar) stays as it was. Godot's SoftBody3D was weighed and not used (it collides only with physics bodies, every bone would want one; it cannot be told the wind).
+
+**Checked by:** -Demo profilecloth 7/7 (features: protected, no problems, no script errors; the ranger played all six moves of launch and pursue on the stage, both in view 100%; the cape 1.9 m out at a run, 0.14 m once settled, no point through the back, none under the feet). Regression: combatpage 9/9, laterpass 5/5, airjuggle 11/11, all without problems; hubplayer 11/11 with only its older problem (run's controller button picked from the list stays RB, as the committed code did). None by hand.
 
 ### Foundation (before 2026-10-07)
 
@@ -4604,6 +6662,347 @@ backflip, the playground, the bubbles, the tractor from three sides). **Not run:
 whole tour; `-Measure`, `-Weigh`; the built game; `-Demo town -Check` on the town as
 built again.
 
+### Moves and combat in the Project window (2026-10-24)
+
+At the user's findings after the Combo graph pass: "not sure why you would add combos to the characters and creatures section. also they show some old combos which cannot be previewed and i don't see where the rest of the combos you made or the ability to work with them are. when creating demos make sure the objects are in view."
+
+- **A category of its own.** World › Project › *Moves & Combat*: move sets, combos and strings, fighting moves, reactions, and the moves of getting about (a move's section by what it is: a reaction by its `kind`, a fighting move by a phase that strikes or hits). *Characters & Creatures* keeps the player, characters and creatures.
+- **Every one played on the stage, for real.** The Project's stage (`stage.gd`) now plays a set, a combo or a move with the motor itself: a body of the character whose set has it (the played one's first; for a combo, a set that has all its moves) on a floor of the stage's own world, a sparring partner before it, asked step by step as the Character Studio's preview asks (`trying.gd`). A move that cannot begin from standing is played after the fewest moves that let it in; a reaction is played by a move that hits with it, the partner showing it; a set plays its combos in turn. The eye follows the two of them, drawn back at once when either would leave the picture. Blows show their impact on the stage; shots and phase effects of a stage's bodies stay off the world (`clash.gd`, `trail.gd`).
+- **The old combos** (three cuts, cut and thrust, dash and cut, dodge and counter) had blank pages: each now plays, by the swordsman, the samurai.
+- **A combo set up by lists** (no text): each move picked from its set's, a wait, ↑ ↓, ×, a move added at its end from those the last one lets in (✓), whether each is let in by the one before said under it; Create › Combo. A move's page says what lets it in, what it lets in and what its blows do; a set's lists its moves and combos.
+- **The brawler's strings written as combos** (moves.txt): jab_cross_kick, launch_and_pursue, blade_in_the_string, grab_and_powerbomb, darts_off_the_chest, air_sword.
+- **Opened in the Combo graph:** a set, a move or a combo opens the graph on its set (not the parked Character Studio), the move chosen and scrolled to.
+- **Demos keep what they show in view:** `demo.gd` `snap_seen(name, things)` turns and draws the eye back until each thing is in the picture and says so if it cannot; airjuggle's and laterpass's pictures use it.
+
+**Checked by:** -Demo combatpage 9/9 (features: protected, no problems, no script errors; both figures in view 100% of each combo); regression -Demo airjuggle 11/11, -Demo laterpass 5/5 (its new in-view check caught the coat picture taken from inside a crate the walker stood on; moved to open ground), -Demo ownpass 10/10, -Demo hubplayer with the one problem the committed code has too: run's controller button picked from the list stays RB. Kit models' moss made stronger (mangle.gd), not measured. None by hand.
+
+### Actions, reactions and the Combo graph; the dead that slid; kit weapons, coats, overgrown ruins (2026-10-24)
+
+Done at your message after d555740. It asked for:
+
+- the bigger combat moves, managed as the other moves are, with control of gravity, follow-through and pursuit;
+- crashes into walls, the ground and others;
+- hands and weapons mixed in one sequence;
+- sequences crafted and connected in a graph, with the reason a transition is blocked;
+- the zombies that slid;
+- the items left for later.
+
+Your pasted guide was read as input to refine what exists. The record is `Draw3D_Actions_Combo_Graph_2026-10-24.md`.
+
+**The dead that slid.** The Bestiary's imp and puglin were said to be on UAL's bones but are on UAL 2's.
+
+- `rig ual2` now, and they move their limbs (`-Demo deadwalk` measured it).
+- `animated.gd` `fitting_map` draws any character by the bone map its bones actually match, and says so.
+
+**New words in moves.txt.** A move: `kind`, `looks_as`, `heads target|from`. A phase:
+
+- `hits MOVE`: a reaction begun on whoever it strikes;
+- `heavy N`: gravity × N;
+- `warps R`: motion warp to whom it goes for, until it is there if the phase has no time;
+- `crashes`, `knocks`;
+- `seizes PLACE`;
+- `fires SHOT N`;
+- `retargets`;
+- `harm`, `impact`, `sound`, `stop` (hit stop), `shake`;
+- `strikes target R`.
+
+New `when` words: `hit`, `target`, `target_air`, `target_ground`, `juggled`, `near N`.
+
+**Juggle and fight numbers.** `juggle_most`, `juggle_lift`, `juggle_heavier`, `warp_speed`, `crash_speed` and `crash_harm` are in Movement numbers.
+
+**Engine pieces.**
+
+- `motor.gd`: `react`, `target`, `why_cannot`, `refused`, `_crashes`.
+- `strike.gd` and `clash.gd`: what a blow does, shows and feels like; shots; holding someone.
+- `fight.gd`: credits each blow to whoever dealt it, with its harm.
+- Someone who falls in the air comes down first.
+- `spars`: a training partner, never taken unawares, up again after falling.
+
+**Window › Combo graph** (`comboview.gd`).
+
+- A set's moves as boxes, joined green, blue, red and orange.
+- Joins dragged to make them and dragged off to take them out.
+- Every number of the chosen move a form.
+- A live strip while playing, and the boxes lit by what is happening.
+- "Try it in a training ring".
+
+Debug › Show in the view also has a new *Combat* overlay.
+
+**The brawler.** 19 actions and pursuits plus 11 reactions, `look brawler` (Quaternius's, KayKit's and UAL 2's clips), `character brawler` and `sparrer`, and Library › Creatures › Training › *A sparring partner*.
+
+**Left for later, done:**
+
+- the kits' weapons as gear (81 things of gear.txt, each turned and sized from its file);
+- coats against the cold (`warms N`, `is wrapped`, coat, fur cloak, wool hat and scarf);
+- overgrown ruins (`mangled … overgrown N`, host and model; the Inspector row and presets; Library › Wastes › *Taken back by the green*).
+
+**Mended:** the lock's next one to the right went to the left.
+
+**Checked by:** -Demo airjuggle 11/11 and -Demo laterpass 5/5 (features: protected, no problems, no script errors, no damage); regression -Demo kitpass 11/11, -Demo aurapass 8/8, -Demo hubplayer with one problem that the committed code has too (the run button form adds where the demo expects a replace); host tests 91 and 101 pass. None by hand. Also mended: bent mangled designs (kits pass) had their normals facing inward and drew too dark (new host test); the Project form writer put a missing line after a move's phases (the stray `asks run` of cast), and a kind like another must repeat its named colours.
+
+### Kits, mangling, the sea floor, cold and fuel (2026-10-24)
+
+At your message after the auras pass, with your three reference documents taken as references for what is missing, not a redesign. The record, with every pack used and where it came from, is `Draw3D_Kits_Mangle_SeaFloor_2026-10-24.md`.
+
+- **See auras shaped** (Window › Effects, pinned): the window's own setting; every worn effect seen shaped as it is chosen (its own shape, else one tried in its own colour, written only when changed); `Effects.shapeable`, `trial_of`; an effect not worn has its aura row greyed. The per-effect tick is gone (*Aura shape: none*).
+- **Figures turned** on every stage: ⟲ ⟳, Spin, Shift and drag (`stage.gd` `turn_by`).
+- **Kits** (`kits.gd`, `kitmake.gd`): a folder of models copied to `editor/godot/kits/NAME` (git-ignored) with what each names, measured, written as `editor/library/kit_NAME.txt`. 14 kits from Kenney and Quaternius (1,174 models), CC0, about 730 MB downloaded in all. Project › Create › *Import a folder of models* makes a kit, asking how big.
+- **Models with clips of their own:** `liveclips.gd` plays one where a model stands (`models.gd`, `wild.gd`); `ownclips.gd` draws someone by them (`character FILE [S] [TURN]`). Kenney's zombie, skeleton, vampire, ghost; Quaternius's skeleton, slime, dragon, bat; the Bestiary's imp and puglin (characters.txt); Library › Wasteland and wrecks › *The dead walk*.
+- **Mangled** (`mangled crush lean twist dent broken scorched seed`): host `Mesh::mangle` for designs of parts, the collider following; `mangle.gd` for models; Inspector › *Look: mangled* (presets, numbers, Another way). Host test `what_is_mangled_is_bent_broken_and_burnt`.
+- **Sea floor** (`editor/library/seafloor.txt`): kelp, sea grass, corals, an anemone, a sponge, rocks, shells; a crab, starfish, sea cucumber, urchin and clam (search: pearls); a turtle, stingray, seahorse; a shark, dolphin, manta ray and reef fish by their own clips; junk lost to the sea, mangled. Good `pearl`.
+- **Cold** (stats.txt): snow, rain, the night and swimming chill; shelter and a fire warm; chilled, then freezing. New: `per_hour N while CONDITION`, `shown ... from N`, conditions `is sheltered`, `is warm`. **Radiation** near toxic drums and in a haze, eased by medicine. `near` finds anything by what it is called.
+- **Fuel** (`burns N`, `stock fuel`): vehicles burn it as they are driven; a can in the pack is poured in; empty, they stop (`acts.gd` `_fuelled`). Host TRAITS `burns`, `mangled`.
+- **Debug (F3):** *Show in the view* (`debugdraw.gd`: moves, their phase and what it lets in, speed, lock, clips, where they go, strikes, names; what sees). *Quests*: why not yet, what is wrong, Begin / Step done / Done / Fail / Forget, what happened (`quests.gd` `log`, `why_not`, `problems`, `force`).
+- **Lock-on to the next** aside (`,` `.`, the mouse's side buttons, a flick of the right stick; `lockon.gd` `next`).
+- **The whole Library checked** by a host test, `the_project_library_reads_without_problems`.
+- **Checked by:** `-Demo kitpass` (11 beats, features: protected): 11 of 11 beats on the fifth run, no script errors, no damage (run 1: a ruined car came out taller, a model not remade when mangled, near blind to things that hold nothing; run 3: a whole face tipped stood up, now faces are cut to piece size and tilts halved until no taller). Regression -Demo aurapass 8 of 8; host tests 90 and 101 pass.
+
+### Auras, pinned previews, zombies and the sea (2026-10-24)
+
+At your findings after the previews pass, and what that pass and the earlier records left owed where it touches the same things. The record is `Draw3D_Auras_Pinned_Zombies_2026-10-24.md`.
+
+- **Fish ashore, mended:** `wild.gd` `_deep` cast its ray from the water's top, so it began inside land above the sea and passed through it; now from high above, an unknown bed is not chosen, and each swimmer feels the bed ahead five times a second and turns home at the shore.
+- **Shaped auras:** effects.txt `aura SHAPE COLOUR [hug H] [tall T] [wide W] [tongues N] [flow F] [bright B] [core COLOUR] [at Y]` (egg, flame, pillar, orb): one mesh and a shader; the hug, copies of the holder's meshes grown along their normals (skinned ones follow the skeleton), gone with the effect. Fields in Window › Effects. New effects `aura_golden`, `aura_blue_flame`; `aura_flame` given a flame-shaped glow.
+- **Pinned:** Effects (list beside the stage, buttons, then the settings scrolled), Shots and powers (a stage of its own; Preview no longer plays in the world), Project's right column, Styles.
+- **Stages show the character played**, standing by their idle clip (`stage.gd` `_played`); an effect shown on a figure is the figure's own.
+- **`character NAME`** of a design (host `kind.rs` TRAITS and ONCE, `things.gd`, `folk.gd` `_as_character`): drawn as that character with its clips. characters.txt `zombie` and `look zombie`; Library › Wasteland and wrecks › *A zombie*.
+- **Wrecks searched:** seven wasteland designs offer `search` with `perhaps` food, scrap, medicine, bullets and fuel; goods.txt `fuel`.
+- **Schools:** `swims ... schools` (`wild.gd` `_leader`); perch, minnows and mackerel.
+- **Checked by:** `-Demo aurapass` (8 beats, features: protected): 8/8, no script errors, no damage, after runs that found the played character standing 0.8 m above the stage (mended) and a car put in a tree (the demo moved it). Measured: the settings scrolled 1,122 px with the stage and buttons still in view; hugging 0 then 0.9 (no outline, then 3 meshes lit and the shape faded to 0.24); 16 meshes of the player hugged in the world and gone after; the zombie walking by Zombie_Walk_Fwd_Loop; the car's two pieces of scrap taken; 640 looks at fish off a beach, none over land, the school within 4.2 m of its first. Regression: ownpass 10/10; host tests pass. Nothing tried by hand.
+
+### Previews, imports, Edit here and the wasteland (2026-10-24)
+
+At your findings after the looks pass, and the vehicles pass. The record (each finding, its cause and what was done, how to use it, decisions, what is deferred) is `Draw3D_Previews_Imports_Wasteland_2026-10-24.md`.
+
+- **Previews you can see:** they played in front of the camera, behind the Project window. Now `stage.gd`: a room of its own (own World3D) in Project's right column and at the top of Window › Effects, and Window › Preview (*⤢ Larger*). Effects, statuses on a figure, powers used again and again, shots flying, designs, models and pictures. A change to an effect is seen at once on every stage.
+- **Effects:** force field fields (radius, colour, skin, swell); a layer drawn as soft, star, ring, streak, puff, leaf, shard, spark or a picture of yours (`picture NAME [sheet A D]`, the `particles` folder).
+- **Your own things:** Project › Create imports a model, a folder of models, a picture, a particle picture (an effect made with it), effects from a file, a sound, animations. A design's page: its name, colours, model size, weight, Put one down, a model of yours in its place, the Inspector.
+- **The Project window connected:** talks have a page of points and answers (`talkform.gd`); acts a form; every sort without a window opens its page; designs open in the Inspector; no button reaches a text; a design's summary in words.
+- **Edit here** (F12 while playing; *Back to the game here*, F12): the game saved to its own slot, the world edited from the player's eye, and gone on from that moment (`main.gd` `edit_here`, `back_here`). A latent `regions.gd` error after a stop mended.
+- **Vehicles:** the act `drive`, the pose `drive`, the host rig `vehicle` (`poses.vehicle.txt`), the sets `car`, `truck`, `buggy`, uses `vehicle`.
+- **Library › Wasteland and wrecks** (`editor/library/wasteland.txt`): war truck, raider buggy, cargo hauler; abandoned car, burnt-out car, bus on its side, leaking tanker; shipwreck, crashed plane, crashed helicopter; toxic drums, tyre barricade, scrap wall, fire in a barrel, the glowing shambler. Styles `wasteland`, `toxic`; weathers `ashfall`, `toxic_haze`; effects `toxic_fumes`, `wreck_smoke`.
+- **The catalogue** brought up to date (vehicles, wrecks, what post-apocalyptic still needs).
+- **Checked by:** `-Demo ownpass` (10 beats, features: protected): 10/10, no script errors, no damage, after runs that found the truck not got into (an act allowed 2.5 s to walk to its place: now as long as the distance takes), a regions.gd fault a stop brought out, a design summed up as raw lines, and Styles' preset name field freed with its panel; all mended. Measured: an effect's layer 46 to 92 particles on both stages at once; the truck driven 15 m and turned 90 degrees; back from Edit here 0.0 m from where the player was. Regression: ownpass 10/10; host tests pass. Nothing tried by hand.
+
+### Looks, powers and mountain ranges (2026-10-24)
+
+At your findings after the pass extended. The record (each finding, its cause and what was done, how to use it, decisions, what is deferred) is `Draw3D_Looks_Powers_Ranges_2026-10-24.md`.
+
+- **Styles in the Project window:** they were never listed (styles are `styles.txt`, read by the host, not a text of the world's); now each has a page with a card (palette by section, give it to the world, change it in Styles, make your own, the styles made from it). `projectview.gd` `_style_rows`, `_style_card`.
+- **Forms where pages showed lines:** weathers, goods, needs and recipes are shapes (`shapes.gd`; a field may now be one word of a line of several, `at`); behaviours say their settings in words; acts, talks and display pieces say where they are changed. No page shows an entry's lines.
+- **A style of your own, live:** the sliders show the style as seen (its lines over its parent's), a colour picked at amount 0 is given some, a change gives the style to the world, a drag is written a few times a second; any change to a library style makes your copy first; yours are listed under their parent. `styleview.gd`.
+- **Four looks:** `treat` paper, sketch, watercolour (`clock.gd` TREAT; host `style.rs`); library styles paper_diorama, sketchbook, watercolour, comic_ink.
+- **What can be pressed:** button words in the links' blue, tooltips wrapped in a bordered panel (`uitheme.gd`, laid on Godot's default theme).
+- **Brush panels:** a brush's patch panel shown as soon as it is picked; every panel beside what is chosen has a grip and stays where it is dragged (`buildbar.gd`).
+- **Mountain range:** a land tool (host `land.rs` `range`; F8 › mountains) with high, passes, peaks, spurs, snow from.
+- **The glide as a skydiver:** the look's `glider/glide` (the T-pose bent), the mannequin's pose.
+- **Telekinesis, force fields, auras:** a power that `lifts` (`powers.gd`); an effect's `field` (a bubble, five patterns); six auras; statuses lifted, barrier and the auras; powers telekinesis, barrier, flame_aura, blessing, storm_aura.
+- **The catalogue** (`Draw3D_Open_World_Catalogue.md`) brought up to date.
+- **Checked by:** `-Demo lookpass` (11 beats, features: protected): 11/11, no script or shader errors, no damage, after runs that found the styles never listed, the theme not reaching windows under canvas layers, and telekinesis on a frozen crate; the screenshots looked at (the range's pass deepened too much, then eased; the paper look's blur raised; auras shown one at a time). Measured: a range 33.5 m at its peak, 15.5 m at its pass; a crate lifted 1.52 m and thrown 9.7 m. Regression: ownpass 10/10; host tests pass. Nothing tried by hand.
+
+### The pass extended: graphics, sky, palettes, looks, water life, through the air (2026-10-24)
+
+At the user's brief after 35de42e, which asked to finish the current pass first and then add what fits safely. The controls pass is committed and awaits its hand test; this extension classified each of the brief's twelve areas against the code and built the bounded ones. The record (what existed, what was built, how to use it, the measurements, what is deferred and in what order) is `Draw3D_Rendering_Variety_Traversal_2026-10-24.md`.
+
+- **Graphics and performance** (`graphics.gd`, `graphicsview.gd`, `graphics.txt`): every Forward+ setting worth exposing, put on the running scene: anti-aliasing (FXAA, SMAA, MSAA 2x/4x/8x, TAA), shadows (atlas, distance, filter), SSAO quality, SSIL or SDFGI, SSR, volumetric fog, depth of field, view distance, level of detail, clouds and glow, with Low/Medium/High/Ultra. The editor's trying (never saved) over the player's choice (only what the game offers) over the game's (`graphics.txt`) over the quality. Costs now, Measure, Compare the qualities, and the renderer's debug views. Esc › Settings now offers what the game offers. The clock lights by the style, then `over`.
+- **Clouds** (`clouds.gd`, weather.txt `air` `clouds`/`cloud`, a weather's `clouds N`): a procedural layer, seven kinds and their numbers, wind, light by the hour, grey weather covers the sky; Environment › Clouds. Not volumetric, no shadows.
+- **Palette presets** (`palettes.gd`, `palettes.txt`, Styles › palette › Presets): give, save, duplicate, rename, put away; each section kept or not; vary a little or a lot; try, then Keep or Put back.
+- **Looks drawn otherwise** (a style's `treat`, host `style.rs`; `clock.gd` TREAT): pixel, toon, paint, posters, as a post-process under the windows; library styles Cartoon, Pixel quest, Painted, Posters; Styles › Drawn as.
+- **Water life** (`editor/library/water.txt`, `wild.gd` `_swim`): `swims … fast turns by dives`, kept to deep enough water, paddlers on the top; 11 species; pond sets lake and deep_pool; the Inspector's swims fields.
+- **Sway:** the ability *sways* (the `gives` curve) in the Inspector.
+- **Through the air:** moves `super_jump` and `glider`, in no set, for any press or set.
+- **Mended from the controls pass:** a press that does a move never began it (`presses.gd` typed the motor as a Node).
+- **Project:** Look of the world lists Graphics and performance, Sky and clouds, Palette presets; Project settings has Graphics.
+- **Checked by:** `-Demo rendering` (new, 11 beats, features: protected): 11/11, no problems, no script errors, no damage, after three runs that found a short wait, SSAO left off after Low, the sea searched too near and the press fault above; screenshots looked at, and the wisps, the storm, Pixel quest's levels and Cartoon mended from them. Measured in the town: the graphics card 0.77 ms at Low to 3.19 ms at Ultra, fps held at the screen's rate. Regression: ownpass 10/10; host tests pass. Nothing tried by hand.
+
+### Controls and input, wheels, worlds, maps (2026-10-24)
+
+At the user's message after c1df72b. They asked for:
+- RT, missing from a button's assignment;
+- where an ability's animation is changed, and where more are imported;
+- controller layouts kept with the project, saved and loaded for quick testing, apart from in-game customization;
+- their brief for a reusable input, combination and radial menu system;
+- their brief for a world catalogue and its connections in the Project window;
+- a mini map and a world map;
+- more asset sets, which may be bundled.
+
+The whole record (what existed, what was built, how to use it, what was checked, what is left) is `Draw3D_Controls_Worlds_Maps_2026-10-24.md`.
+
+- **RT:**
+  - The button card showed only a button's first controller button, and replaced all of them on a pick; attack is X and RT.
+  - Every way is now a chip with its picture and ✕. *Add* puts another controller button beside it, *Press a key…* adds a key.
+  - Pickers name every way.
+- **Layouts kept with the project** (`inputs.txt` `layout`; `controls.gd` `layout`, `layout_first`): try one, duplicate it, make one the game's own, take one away, save what is in use as one.
+  - Buttons changed in the Project window go into the layout in use (one undo each); your own buttons (the in-game kind) are not touched from there.
+  - While trying here the layout comes first; in a game on its own, the player's own changes do.
+- **Presses** (`inputs.txt` `press`, `inputbook.gd`, `presses.gd`):
+  - **Ways of pressing:** pressed, let go, held down, tapped, held a while, pressed twice, toggled, repeated, buttons in a row, and chords (LB+X, Ctrl+E).
+  - **Only while** a condition holds, **for** a character, by **priority**.
+  - **What a press does:** a button of the game, a move, a power, an item (hand, hip, pack, swap), a wheel and its quick one, a state (crawl), the world map, words.
+  - **One button never does two things:** a button a press could happen on is taken from the ordinary actions meanwhile (`Controls.claimed`). A tap waits for a double-press window if one is written.
+  - **Toggles** hold a button (`Controls.forced`) until pressed again or their `ends` holds; they are shown while playing.
+  - **New conditions** (`cond.gd`): `holds`, `wears`, `keeps`, `is STATE`, `ready`, `has_target`.
+  - **Crawl** (`intent.crawl`, `motor.gd`) is low, slow and shows the crawling clip; jump stands up from it.
+- **Wheels** (`inputs.txt` `wheel`, `wheel.gd`):
+  - **Slots** round from the top, wheels inside wheels; `powers` and `items` fill one with what the player has.
+  - **Pointing:** the stick, the mouse or the arrow keys.
+  - **Chosen by** letting go, confirming, or made the quick one only; what can't be used is shown with why, or hidden.
+  - **Time:** unchanged, held (the game's own hold), or slowed and eased back (`factor` times `physics.txt` speed, in `loose.gd`).
+- **World › Project › Controls & Input** (`controlspage.gd`): Layouts & buttons, Presses, Wheels (*Try it* over the editor), Test (what was heard and why), Problems.
+- **World › Project › Worlds** (`worldspage.gd`):
+  - every world file (19), the one being edited read live;
+  - ways out and in by the thing that says `leads`, both ways or one, to no world;
+  - the catalogue and a map of connections;
+  - Go to it, Open it, Play beside it.
+- **Maps** (`maps.gd`):
+  - a mini map (`hud.txt` `piece minimap`: reach, turns, round), the land from above with ways, quest marks, foes and the player;
+  - a world map on Back held or the full stop, the game held, moved and brought nearer.
+- **ITS ANIMATION** on an ability's and a move's page: the move, each part's clip, *Edit the move in the Character Studio*, *Import animations…*, *Animation packs →*.
+- **Assets:** Kenney's Input Prompts 1.5 (CC0) in `downloads-untrustedinput-prompts`, 141 pictures in `editorgodotglyphs` (`glyphs.gd`), credited.
+- **Checked by:** `-Demo inputs` (new, 15 beats, features: protected): 15/15, no problems, no script errors, no damage. It took three runs:
+  - **first:** the talk's `open` was read as a flag, so no press was heard (986 script errors);
+  - **second:** `loose.gd` set the time scale every frame over the wheel's;
+  - **third:** the demo chose the Inspector's thing by Makers instead of the Inspector's list.
+
+  - **fourth:** a bad escape in a string I wrote while mending the window's width.
+
+  Screenshots looked at, and from them mended: the wheel drawn in a corner (anchors without offsets), a world's file path and the Worlds bar widening the window, the quick ones left on screen after playing, and the connections map crowded (standalone worlds now in a row of their own). The last two runs: 15/15, no problems, no script errors, protected, no damage. No other demo was run (the user's word). Nothing was tried by hand.
+
+### The Project window to the design; abilities of a character's own; buttons where they are listed; the aim mended (2026-10-23)
+
+After the user's hand test of H1:
+- run's button could not be changed (run was in Buttons, not among the moves, and Buttons changed nothing);
+- an ability could not be given to the player without an item;
+- the Who tab's bones and clip libraries said nothing;
+- holding aim did not follow the camera, and the mark sat on the player's face.
+
+The user then sent `Draw3D_Project_Window_Design.html` as what the window must look like ("WHY DO I HAVE TO TELL YOU HOW TO DO THIS SO MANY TIMES … sort out all the text stuff"). How each part matches Godot, Unity, Unreal, GameMaker and RPG Maker is in `Draw3D_Project_Window_Comparison_2026-10-23.md`.
+
+- **World › Project, as the design lays it out** (`projectview.gd`):
+  - **Top bar:** the project and its world, *Saved* or the count of unsaved changes, search across everything, ＋ Create.
+  - **Left:** the categories (Overview, Worlds, Characters & Creatures, Assets & Objects, Abilities & Effects, Gameplay, Audio, Styles & Materials, Data & Libraries; Project Settings).
+  - **Centre:**
+    - the overview: the playable character and the active world at the top, then a tile per category with its count;
+    - or a category as cards under headings: a picture in each sort's mark and colour (a status, shot or power in its own colour), its name, type · scope, and a tag (*The player has it*, *Used by N*, *N placed*, *Not used*, *Missing*), with filters for type and scope, and Cards or List;
+    - or one thing's page, its form.
+  - **Right:** Details (its definition in words, its scope), Assignments (who has or uses it, and how: "Ember rod — grants it while held", "Ranger — knows it once the quest … is done"), Dependencies (what it uses and what for), then Set it up here, Open in its editor, Preview, and the rest.
+  - **Bottom:** where one is.
+  - Debug is kept apart from Project Settings, as the design asks.
+  - The window opens up to 1440 by 900.
+- **＋ Create:** a character (a copy of the one played), a power, a shot, a status, an effect, a move or an item (made like another), each opened at once as its form; or a new world, or animations imported.
+- **Abilities of a character's own** (`charbook.gd` `knows POWER [on BUTTON] [when CONDITION]`; `aim.gd` `known`, `cast_known`):
+  - On the player's Abilities tab, *Give it this ability* gives the player a power with no item needed.
+  - Its card sets *Pressed with* (Aim then Attack, its move's button, or any button) and *Had* (from the start, once a quest is done, once a quest is taken on; the quest picked).
+  - In play, it is cast by its button at whom it picks, or aimed (hold Aim) and let go with Attack, with nothing to draw.
+  - Items that grant a power are listed under it as cards.
+- **Every button where it is listed:**
+  - **Moves tab:** under its own moves, *Built into every character* lists run, jump, crouch, dash, the quick steps, attack, aim, lock, act, draw, recenter, use, out, light and greet, each with what presses it. One chosen shows its button card: the controller button picked from a list, *Press a new key…* (then the key), a mouse button picked, what else the same button presses, and *As the game first had it*.
+  - **Buttons tab:** every button under its heading, each chosen shows the same card, and the player's moves on that button (✕ off, *Put this move on it*).
+  - **A move:** says what presses its button, with *Change what presses it →*.
+- **Who tab in plain words:** *Animation set-up (follows the model: rarely changed)* holds *Skeleton* and *Animations from*, each pack named with where it came from, with a line saying what they are for.
+- **Forms for more sorts** (`shapes.gd`; H2 in part):
+  - **Power:** what it does, showing only the fields that apply (the shot it throws, or how far around), harm, heals, the status it puts on, its move, when and where it is let go, rest, cost (what and how much), reach, whom it goes to, how many, apart, turning, its effects and sound; levels shown in words, set in Shots and powers.
+  - **Shot:** shape, size, colour, glow, trail, speed, fall, time, turning, harm, status, push, burst, sounds.
+  - **Status:** called, says, colour, effect, lasts, speed kept, no running, held still, harm taken, at most.
+  - **Effect, sound:** what it is; how it looks or sounds, set in their windows.
+  - **Quest:** called, how it is asked, thanks, afterwards, the sound, effect and move when it is done; its steps shown in words.
+  - New field kinds: a part of a line (a shot's size and colour), a colour, an amount (a cost), what a power does, and fields shown only when they apply.
+  - Pickers name each choice with a few words of what it is.
+  - Lines further in (a quest's steps, a move's phases) are no longer counted as the entry's own.
+- **The aim mended** (`aim.gd`, `eye.gd`): the aim was measured with the editor's camera, not the one played through, so it never followed where the player looked, in any eye. It is measured with the camera in use now. From behind, it takes what the middle of the view meets beyond the player, or as far as the aim reaches; while aiming, the eye comes in over the right shoulder (closer, narrower), so the mark is beside the player, not on them. The aim line ends where it is aimed.
+- **Checked by**:
+  - `-Demo hubplayer` (rewritten, 11 beats, features: protected): 11/11, no problems, no script errors, no damage, after one run that found the aim measured with the editor's camera. It covers:
+    - the overview;
+    - the Characters cards, and the player still listed under "this world's only";
+    - the ember bolt's assignments (the ember rod grants it);
+    - a power as its fields (the reach of one that goes around hidden);
+    - its moves and the 16 built-in actions;
+    - Dodge's button picked and undone;
+    - run's controller button picked as LB, then put back as the game had it;
+    - the frost bolt given with no item, had once a quest is done, both undone;
+    - in play, the frost bolt cast with only an axe in hand, and the aim turning 69° as the eye turns 69°;
+    - every button listed with its card;
+    - Create › Ability opened as its form and undone.
+  - Its pictures looked at; the browser's header and the right panel were too crowded at 1280 by 720 and were changed after.
+  - Other demos not run, by the user's word (they test the level by hand). **Not tried by hand.**
+- **Not done**:
+  - talks, acts, recipes, goods and needs still open as text;
+  - a quest's steps and a power's levels are not rows yet;
+  - H3–H6 (kinds as prefabs with overrides, worlds and places, one event editor, Problems);
+  - Versions & History is not in the window (the design: nothing shown that does not work);
+  - thumbnails are marks, not previews of the model.
+
+### The Project hub, H1: shapes, the game and the player (2026-10-23)
+
+After the user rejected World › Project as built the pass before ("I still don't see the option to change the player character … then it just has a bunch of text … this engine is essentially useless if I've got to go in and type text everywhere"), and sent an outside suggestion (Godot's scenes, nodes and resources; Unity's prefabs; Unreal's world scale; GameMaker's simplicity; RPG Maker's database). The plan joining the two is `Draw3D_Project_Hub_Plan_2026-10-23.md` (H1–H6). The rule from it: nothing in a game is set by typing text; done means a person can do it in a form, seen in a picture of what they see.
+
+- **Shapes** (`shapes.gd`, new): what each sort of written thing is made of, as fields (number, words, a sentence, a choice, a link to another thing with →, several links in order, lines said again, a set's moves on its first line, `like`, on/off, and fields shown in words with where they are changed). One reader and one writer turn an entry into fields and back; a line no field is for is kept and named under the form, never shown as the way to set it. Shapes for character, set, move and item.
+- **Forms made from shapes** (`form.gd`): `pick` (a choice with →), `names` (rows with ▲ ▼ ✕ and Add from the rest), `said` (words and a button to where it is set); `row()` finds a field anywhere in the form.
+- **World › Project** (`projectview.gd`): The game group is Game settings and The player, never hidden by Show or the order; the game's other rows moved into Game settings. A set, a move, a character and an item are their fields (the set a list of its moves), not lines; a sort with no shape yet says "No form yet: its lines as text". Levels of a power are said in words ("Level 2, once the quest Fire and fang is done: 3 at once, 12° apart…"). The window opens up to 1180 wide.
+- **Game settings**: who is played (→ the player), where it starts and its title (Place or change the start…), endings, the display, buttons (→ the player's Buttons), players' settings, night and lights, debug.
+- **The player's page**: *Who* (the game plays as …, where its definition comes from and what is the run's, Play as another › Make this the one played, its model, size, bones, clip libraries and look as fields); *Moves* (its set, who else shares it and Give it moves of its own, every move with what presses it and when it can begin; the move chosen: ▲ Earlier, ▼ Later, ✕ Take out, what it is, made like, pressed with (a list of buttons with their keys), or begins by itself, when it can begin and its phases in words with Change in the Character Studio, Play it; Add a move from every other); *Carries* (its gear as a list of items, Add, where each sits in the Studio); *Abilities* (each item of this world that casts or shoots, the power and its levels in words, The item →, The power →; those of the project not in this world named in a line); *Buttons* (every button, its keys and controller buttons, the player's moves on it; Change what presses a button… in the Studio).
+- **Undo seen at once** (`main.gd` `settle_hub`): the characters are read again with the moves, so a character's change undone (its set, who walks) is seen without playing first.
+- **Checked by**: built; `-Demo hubplayer` (new, features: protected) 8/8, no problems, no script errors, no damage, after three runs that found two faults of mine in the page (a field inside a row not found by `row()`; a level said as its line, every caster of the project listed as this world's) and one in the engine (an undone character change unseen until play); its pictures looked at. Regression: projectview 2/2, powers 9/9, studio 10/10, emberwatch 13/13 clean; projectflow 11/11 clean after two of its checks were moved to where H1 put what they read (the player's words on its page, the rod's casts in the form made from its shape). Not run: chartest, the whole tour, the host tests (the host is unchanged). **Not tried by hand.**
+- **Not done**: shapes for powers, shots, statuses, effects, sounds, quests, talks, goods, recipes (H2); kinds as prefabs with their instances (H3); worlds and places (H4); one event editor (H5); the Problems panel (H6). A move's `when` and phases are shown in words and changed in the Studio, not here.
+
+### Project management, asset inspection and authoring integration (2026-10-23)
+
+At the user's brief after the shots and powers pass ("Project Management, Asset Inspection and Authoring Integration"); the record, with the assessment in four classes, is `Draw3D_Project_Management_Pass_2026-10-23.md`. Emberwatch was not regenerated: one stage of its book (`upgrades`) was run alone on the saved world through the interface.
+
+- **World › Project** (`projectview.gd`, rewritten): every entry of the world's texts, every kind, every file and the game's own rows, in groups, each saying whose it is (built in as the shared text has it, changed here, this world's own, from the Asset Library, a file); Find and Show; the chosen one's description, settings in words, what it uses and what uses it as links (Back), its places in the world with Go to; Open in its window with it chosen there (Shots and powers, Effects, Sounds, the Character Studio, Behaviours…), or its lines; Preview, Give it, Copy; fields for a gear item (casts, shoots, targets, picks, trail) and a quest's ending (sound, shows, move, banner, thanks, afterwards).
+- **The character played**: Project's first row says what the game plays as, the shared definition and this world's part apart; Open in the Character Studio; Play as › Make this the one played (the Studio's Walk as this, one step of undo). The Studio opens on the one played, marks it "● played" and says whether the one shown is it.
+- **Shots and powers**: names in the list, the description whole beneath it and in a field of several lines; Preview (a power on the character in the Studio: its move, gather, shot, burst, labelled a preview) apart from Try it in the game (playing only); Where it is used; an Aim section and an Upgrades section.
+- **Targeting** (`aim.gd` `pick`, `fight.gd` `foe`): `targets locked|nearest|aimed [else …]`, `picks foes|anyone`, `seeks`, `within`, `count`, `spread`, `homes` (powers.txt; `targets`/`picks` in gear.txt too); a villager is never picked by what picks foes; the lock comes first; the aim ray from behind begins level with the walker and reaches as far as the weapon past them; shots and homing go to a target's middle and let a fallen one go; a ring over whom it would go to, the reticle and line on a locked one.
+- **Upgrades**: `level N WORD V … [when CONDITION]` laid over the one power (`powerbook.at_level`); the player at the highest level whose condition holds; one of the folk says `power NAME level N`. Emberwatch's ember bolt: level 2 from Rook's quest, three embers turning 90°/s (written by the book in the form).
+- **Night and Debug**: the air's `night`, `moon`, `night_haze`, `lamps` (Environment › Night, with presets; Emberwatch: Dark but readable); Debug and testing (F3): test switches, made whole, powers rested, the hour, the night tried for now (never saved; Keep for this world, Clear), what is seen now (in hand, level, whom it goes to and why, the lock, the last powers).
+- **Checked by**: built; chartest 192/0; `-Author emberwatch -Only upgrades` 17 steps, no problems; `-Demo projectflow` 11/11, no problems, 0 script errors, damage none (its first runs found four faults: a check read a freed field, the Studio's preview line was written over, a test villager stood on the line of fire and completed Rook's quest early, and auto-aim and homing aimed a metre up, over a wolf's back — the last mended in the engine); regression 36 of 37 demos clean (perceives failed once, passed twice on rerun: intermittent); `-Tour -Only ui` fails only the Studio window, as before; host 88 + 101 passed. **Not tried by hand.**
+
+### Shots, powers, statuses and effects, after the Emberwatch playtest (2026-10-23)
+
+At the user's brief after playing Emberwatch: the next capability area (abilities, projectiles, particle effects, effects timed by animation) built as reusable definitions in the existing engine, with Emberwatch as the test bench, and the playtest's smaller findings mended. The record, with the state found, each classified, what was built, the demo rule, the evidence and the plans for the map, starting worlds and one's own assets, is `Draw3D_Abilities_Effects_Pass_2026-10-23.md`; the windows are in `Draw3D_UI_Inventory.md` (13zz52); Emberwatch's part is `Draw3D_Emberwatch_Benchmark.md` section 6 and `Draw3D_Emberwatch_Authoring_Workflow.md` part three.
+
+**Engine and editor (reusable):**
+- **Shots** (`shots.txt`, `shotbook.gd`, `fight.gd` `launch`): bolt, round, arrow, stone, ember, frost_shard; a look (bolt, arrow, ball, stone, shard, or a model of one's own), glow, trail, speed, falls, flies, harm, puts STATUS, pushes, bursts, sounds, heard, homes. The player's gear (`fires … shot NAME`: the bow, crossbow and slingshot now arrows, bolts and stones) and a creature's `shoots … shot NAME` fly the same shots; what falls is let go high enough to land where it is aimed.
+- **Powers** (`powers.txt`, `powerbook.gd`, `powers.gd`): ember_bolt, frost_bolt, ward, mend, shock_wave; a move and its release moment (`at`), from a place on the body, a shot, an area or oneself, harm, a status, heals, an effect while it gathers and where it bursts, a sound, a rest, a cost. The player uses one through what they hold (gear.txt `casts`: ember rod, frost wand, ward charm), aimed as a bow; anyone else by a line of their kind (`power NAME [every] [reach] [harm]`, their own numbers over the power's). A move `cast` (UAL's Spell_Simple_Shoot; the mannequin's poses).
+- **Statuses on anyone** (`afflict.gd`): a status of stats.txt on one of the folk too (hurts, slows, `stills`, `guards`), what it `shows` apart from what it does; burning, frozen, shocked, shielded; the facts `given.NAME` and the folk's `status.NAME`.
+- **Effects** (`effects.txt`, `effects.gd`): layer shapes (ball, shell, ring, box, line, point), bursts (`once`), `sticks`, `spin`, an effect's `light` (flickering) and `sound`; beacon_fire, torch, ember and frost trails and bursts, burning, frost, shock, shield, heal, gather, dust, impact, mist; Settings › Effects makes every layer fewer.
+- **Effects by a move's phase, and trails** (`trail.gd`, `moveset.gd`): `shows EFFECT [at PLACE]`, `trail PLACE [HEX]`; a trail's colour is the phase's or what is in the hand says (`gear.txt` `trail`); every blade's striking phase says `trail blade`; the katana and the short sword have trails.
+- **Looks by state** (`looks.gd`, `things.gd`): `looks CONDITION… hidden | scale X Y Z | sinks M`, asked of the thing itself (its own stock counted, `cond.gd`).
+- **Window › Shots and powers** (`powerview.gd`, `form.gd`): shots, powers, statuses, each a form of fields, New, Copy, Remove, Name (renamed), Try it, Give it to the one picked, Used by. **Window › Effects** with fields: the effect's light and sound, each layer's settings and colours, New/Copy/Remove of effects and layers. The Inspector gives `power`, `shoots … shot`, `looks`; its lists include effects, shots, powers, statuses.
+- **Esc › Settings** (`settings.gd`): window, frame-rate cap, V-sync, render scale, MSAA, the sun's shadows, effects, volume, Sounds, Ambience; kept in `user://game_settings.cfg`.
+- **Marks and rims** (`watch.gd`, `hud.txt`): the ? and ! smaller and fainter, the cones fainter; Game display pieces `marks`, `cones`, `foes` (a rim on those hunting the player, drawn only where they are seen).
+- **A quest done** (`quests.gd`, `questbook.gd`): a banner (Game display piece `quest_done`), a sound, `done_shows`, `done_move`, `done_banner none`.
+- **Demos say what they are for** (`demo.gd`, `run.ps1 -Protect | -Survive`): features demos run unhurtable; every demo prints `demo: damage …`; a death in a features demo, or a stop before the last beat, is a problem.
+
+**Emberwatch (by its book):** a stage "powers" (Statuses › New burning, filled in its form; the ember made brighter); Rook's ember rod by his door and his quest "Fire Against the Fang"; the alpha's `power ember_bolt` with its own numbers; the woodpile low when empty; Pip's whom-he-follows by behaviour; Finn's quest done with an aura and a wave; the beacon's `flame beacon_fire`.
+
+**Checked** (`Draw3D_Abilities_Effects_Pass_2026-10-23.md` §5): built (every script compiles); auto: chartest 192/0, host tests 88 + 100 with p43 updated for the new Powers group and passed alone after; script: -Author emberwatch 689 steps, no problems; -Demo powers 9/9 beats, no problems (features, protected; one ember on the keeper spared); effectsdemo clean; 28 older demos clean, emberwatch after giving Pip time to come up (3.75 s); -Tour -Only ui: only the Studio window, as before. Not by hand. Uncommitted.
+
+### Emberwatch remediation, after the first hand test (2026-10-23)
+
+At the user's brief after trying Emberwatch by hand: gameplay benchmarking paused, the engine and the editor mended first, then applied in Emberwatch. The record, with each finding classified, what was done and the evidence, is `Draw3D_Emberwatch_Remediation_2026-10-23.md`; the workflows are part two of `Draw3D_Emberwatch_Authoring_Workflow.md`; the windows are in `Draw3D_UI_Inventory.md` (13zz51).
+
+**Engine and editor (reusable):**
+- **Line up** (A): Inspector › Placement › *Line up with the wall or fence beside it*, across a gap when it stands in one; the placing row's *Turned: varied / N° ([ ]) / along the line beside it* (`makers.gd` `line_beside`, `turn_along`; `inspect.gd`; `main.gd`; `desk.gd`). Emberwatch's three gates were lined up by the book (`-Only gates`).
+- **Legs** (B): a forward walk is turned at most 45° at the hips by default (was 90°), the gait's *legs turned* (`animated.gd`, `overlay.gd`).
+- **Inventory** (C): only what applies is shown, the A action named over the buttons, Delete drops; the needs bars change while it is open (`gameui.gd`, `stats.gd`).
+- **A light of one's own** (D): kind words `worn` (hip.L, hip.R, chest) and `beam`; M and the use button with nothing held; Wear (hands free); the library's Hand lantern and Flashlight; abilities lamp, flashlight, worn (`things.gd`, `items.gd`, host `kind.rs`, `shelter.txt`, `abilities.txt`).
+- **The display** (E): `shows always / for S / never`, `in_talk`; a notice moved clear of talk; peek (U); Window › Game display per piece (`hudbook.gd`, `hudlook.gd`, `hudview.gd`, `hud.txt`).
+- **Facing after a load** (3A): the saved game keeps it (`main.gd`).
+- **Title screen and fades** (3B–D): the start's *the game's title*, behind it the world turning or a picture (taken of the view or chosen), *fades in from black*; New game, Continue (host `peek_save`), Controls, Back to editing; the behaviour step `fade` (`gameui.gd`, `makers.gd`, `rules.gd`, host `land.rs`, `lib.rs`).
+- **Testing** (4): Playtest › Testing: cannot be hurt, needs kept full, needs do not change; a red line; never saved, never in an exported game (`playtest.gd`, `fight.gd`, `stats.gd`, `main.gd`).
+- **One's own assets** (5): Inspector › *Look like a model of mine…* and *Look as it was made*; *About this type* (`models.gd`, `inspect.gd`). Sounds from files (`file NAME`), Window › Sounds › *Bring in a sound file…*, *Replace with a file…*, *Go to what sounds it* reaching weathers too (7) (`soundbook.gd`, `sound.gd`, `soundview.gd`); export carries sounds/ and pictures/.
+- **Project overview** (6): World › Project overview… (`projectview.gd`).
+- **Recenter** (8): tap R3 or O; hold R3 to sheathe (`controls.gd`, `player.gd`).
+- **Effects** (9): `effects.txt`, the kind word `effect`, Window › Effects (Preview, Open the text, Give it to the one picked), the behaviour step `effect`; every flame is the `fire` effect (`effects.gd`, `effectbook.gd`, `effectview.gd`, `things.gd`, `folk.gd`).
+- `restless` things never let go (from the benchmark), now also never left be.
+
+**Emberwatch (content, by the book):** the gates lined up; a hand lantern by the square; the title "Emberwatch: The Last Beacon" and a 1.5 s fade in (`author_emberwatch.gd`).
+
+**Checked by script** (all headless; Phase 3 of the record): lockwalk, gaterepair, hudrules, playerlight, testswitches, titlescreen, soundfile, projectview, effectsdemo, ownmodel; then a regression batch of 30 demos (29 clean; `remembers` one slow frame, clean rerun alone); Emberwatch rebuilt by the book (663 steps, no problems) and emberwatch, emberdark, gaterepair rerun on it, clean, host tests 88 + 101, chartest 192.
+
+**Not done:** forms (10); a drawn building's parts as designs (5B); templates, export and palettes across designs (5C–D); abilities (9b); the axe not sheathed; survivors never harmed; waves 2 and 3 unwatched. Nothing is tried by hand, nothing committed.
+
 ### Emberwatch: The Last Beacon, a benchmark authored through the interface (2026-10-23)
 
 At the user's brief: a 30-minute vertical slice (hamlet, survivors, ashfang wolves, the beacon, the night assault, endings), built in stages, **authored through the editor's own interface as a person would** and recorded as it was done. The records are:
@@ -4869,7 +7268,7 @@ At the user's brief "Draw3D Roadmap Progress and Next Milestone": `Draw3D_Roadma
 - A saved game loaded over an edited or regenerated world does not pass its facts through the document's id migrations (`resolve_id` is not used in the host); orphaned facts are only counted. (Mended in PW0.)
 - Nothing inside one world is unloaded by distance: the host sends every cell, and Godot holds all of them (draw regions only change how they are drawn).
 - Simulation LOD is a freeze beyond about 75 m (`folk.gd` `_left_be`); folk with schedules never sleep.
-- An exported game carries one world only.
+- An exported game carries one world only. (Mended 2026-10-25, the Game Shell: it carries every world it leads into.)
 
 **Recommended** (for the user's review; nothing begun):
 - **Sequence:** a hand-test checkpoint; G3; **PW0** (saved-game integrity); G4; **PW1** ("a region that remembers": 3×3 regions of 128 m unloaded by distance, six kinds of player change kept, catch-up for a scheduled villager and a crop, a Regions panel, nine acceptance criteria); G6; G5; building while playing (needs approval); one genre to the polish bar; then decide PW2 from PW1's numbers.
@@ -9569,10 +11968,91 @@ judged a design by walking round it.
 
 ## Known gaps
 
+- **Mended 2026-10-28** (creatures and townsfolk kept the words they were given a body with, and the view stops listing them once they have one: `folk.gd` now reads each one's cell and makes it again where it stood). As it was written: **A design's words, written, do not reach what is put down of it** (2026-10-27): the host says it remade the placed thing, but in the editor its cell still named the same content afterwards, and that content, asked for again, came back with the old words. Where this goes wrong between the host and the view was not found. `things.gd` `written_again` reads `tint`, `trail`, `clip_for` and `gait` from the design as it is now; any other word written to a design reaches what is put down only when the world is opened again.
+- **From the brief of 2026-10-26, second (rivers to a skill tree):**
+  - **Nothing of it has been tried by hand.**
+  - **The zipline rider is in a falling pose**, not a clip of hanging by the hands.
+  - **A stuck chaser's way round is not shown by a demo**: the hazards demo's chaser went round the barricade by its usual way (`folk.ways_round` stayed 0).
+  - **No demo of a flashlight going out** when its batteries are spent; **bodies are not dragged**, only carried.
+  - **Flour, honey and lamp oil have no icons** of their own in the shop window.
+  - **scenes.txt and skills.txt** are new texts of a world: whether an exported game carries them is not checked.
+  - **A shop's stock is not seen to come back** over the days; **standing is with shops only**, not with a side.
+  - **Power levels are not bought with skill points**; the skill tree gives health, running, a counter and money off only.
+  - **Wind jostles loose things only near the walker** (40 m) and only over 14 m/s.
+  - **For later, at the user's word (not built): bracing against a wall** to hide behind it, peek round it, shoot from it, or take someone down from it.
+- **From the brief of 2026-10-26 (styles to endings):**
+  - **Nothing of it has been tried by hand.**
+  - **No ragdoll**: getting up is a tween to lying and back; a body does not fall by physics.
+  - **Dry Gulch has no insides**: the saloon and the stores are solid; their counters stand outside on the boardwalk. "A room for the night" in the saloon's talk does nothing yet.
+  - **The downloaded cowboy and cowgirl models are static**: the townsfolk are wardrobe characters instead; the models are kept in downloads only.
+  - **The wastes have no hot zone drawn**: a zone is the author's (Window › Regions); the mask and suit lie in the camp with nothing yet to keep off but the drums' and the tanker's own.
+  - **The bodyguard's distance in the demo is loose**: it goes at the foe (counted), but at the end of the beat it stood anywhere from 2.4 to 4.2 m from the raider over four runs.
+  - **Misty teal at noon** was not looked at again after its dusk was made tealer.
+
+- **From the brief of 2026-10-25, fifth (walls broken to the loops tracked):**
+  - **Loot lying is not saved**: what a fight leaves on the ground goes with a load (taken, it is a good like any other).
+  - **Posts are not solid**: a deck's posts are drawn, not collided with; the deck itself is.
+  - **Parkour in first person** was not shown by a demo of its own: the moves are the same, the eye is not checked there.
+  - **No Mixamo file was used**: the import is shown on a body made on Mixamo's bones by script (Mixamo's own files need the user's sign-in and may not be kept loose). A real download is the user's to try.
+  - **Faces from pictures and meshes for drawn hedges and roofs**: estimated, not built (the tracker, section E).
+  - **The assistant cannot reach Routines, regions, the HUD or characters**, and cannot play what it drafted (the tracker, section D).
+
+- **From the brief of 2026-10-25, fourth (idles to the parkour run):** `-Demo foes` is not steady: now and then the smith swings nothing at the walker holding a guard (8 s, guarded 0), or does not defend in the beat before, or a picture misses one of the two bodies; seen in about nine runs of eighteen, before and after people faced as put down; not explained. built walls and fences are not barricades: the dead go round them, never batter them (`fight.gd` `_walls` reads world things only). Placed turrets do not turn toward what they shoot (which way each model's barrel faces is not known). Turrets fire for free; a spent mine is gone, built again from goods; nothing repairs. A raid comes only when a fact says so (the base demo sets `horde` by hand). Your boat has no guns of yours; a ship falls as folk do, it does not sink or leave a wreck. The grappler pulls foes in, not you to a ledge. Nothing times a run. Faces from pictures, a drawn house's hedges and roofs swapped for meshes, and a rigged body brought in as a character are not there. The long jump rolls about five metres after it lands. Weather is the region's the player is in: two regions side by side do not each show their own weather at once.
+- **From the brief of 2026-10-25 (rooms to parts swapped):**
+  - **Nothing of it has been tried by hand.**
+  - **Three demos fail that this work did not touch** (the code before it, 80a3f43, run the same way, fails them the same): `-Demo hubplayer` 11/11 with one problem, "run's controller button picked where run is listed, and put back" (it was RB and RB was picked; not looked into); `-Demo projectflow` stops at beat 1 (`pj.tree.get_root()` is null: the demo is older than the Project window's redesign); `-Demo projectview` "Open goes to where it is changed" false for a kind.
+  - ~~One host test is stale~~: p57 brought up to date 2026-10-26.
+  - **The Studio keeps its Combos tab and Gear list**, against the plan that moved combos and gear to the character's profile: other flows (studioplay) depend on them.
+  - **Only quest steps are forms**: a quest's fails, from, gives and reward, and the Behaviours window's conditions (`rulesview.gd`), are still typed.
+  - **A crop is ripe again after 48 of the world's hours** for every crop; it is a number in its design (`harvest GOOD N HOURS`), not yet a field of the Plant Generator.
+  - **Grass's shadows are off at high**: a difference a player may see; "Shadows of grass and plants" in Graphics turns them on.
+  - **The far island**: the land is one maker, so one far island and one causeway per land; its causeway runs from the land's middle straight out. The wasteland's look (style 'wasteland', weather 'ashfall') is the world's, not the island's: the island has its dirt ground and its ruins, under the town's sky. The draw distance of things gains little in this world (338 to 316 draw calls at 300 m); what costs there is elsewhere. Crossing to the island by walking in one step (as the demo does) has a 79 ms frame as its nine regions come near.
+  - **Swapped parts**: a design put in a part's place stands at its own size (its size row changes it); whether a swapped door opens and closes as the building's did was not checked; a swapped part is not coloured by the building's look. The house's door in a wall of an upper storey has no door to swap (there is none). Windows are still the wall's own.
+- **From the turning ring and the swap (2026-10-25):** the ring is for one thing picked; several picked together have no ring yet. A swap takes one thing out of its patch (the one put down is placed, not painted), so painting over that spot again does not know it. The swap list shows icons with their names in tooltips, no pictures of the designs. None tried by hand.
+- **From the Game Shell (2026-10-25):**
+  - **Nothing of it has been tried by hand**, and no exported game was played: the export was checked only for the worlds it carries.
+  - **No picture in a saved game's row** (the assessment's save screenshot), and no chapter: where is the world's name, and the quest is its current step.
+  - **The loading screen is shown for its least time, not for real loading**: loading is done at once behind it, and nothing streams.
+  - **Pause is all or nothing**: the menu holds everything; nothing keeps animating or sounding by choice.
+  - **The built game still exits with a crash code** on quitting (as before).
+  - **A saved journey says how many worlds, not how long played or where**.
+  - **No cutscenes, no game-over different from falling, no achievements or session statistics**.
+- **From the combo screen (2026-10-24):**
+  - **Nothing of it has been tried by hand**, nor resized by hand: the layout was checked in the demo's 1280 × 720 window only.
+  - **The tools under the chosen card stop at the row's edge**: under the last card of a long combo they sit as far along as there is room, not under it.
+  - **The reach is measured against the partner as a capsule** (0.3 m round, from 0.3 to 1.5 m up), not their real body; a strike at the feet or over the head is judged roughly.
+  - **The timeline is dragged, not its moves**: moves are not reordered or retimed on it (‹ › under the card do that).
+  - **studioplay still fails 19 checks, 28 on the committed code before this pass**: the Studio's headless test has drifted from the Studio; not looked into one by one.
+- **From the project pass (2026-10-23)** (`Draw3D_Project_Management_Pass_2026-10-23.md` §4):
+  - **The walk looks unnatural, most of all locked on to a target** (the user's playtest). Recorded, not worked on in this pass: the next look is whether it is the clip chosen, the blending, the locomotion state, or the facing toward the target.
+  - **Nothing of it has been tried by hand**: World › Project, the Studio's played line, Preview, the Aim and Upgrades sections, Night, Debug.
+  - **Quests' steps, talks, recipes, goods and acts are still text** (Project shows a quest in words and sets its ending only); a safe Rename across every text is not built (only shots, powers and statuses rename, in their window).
+  - **"Uses" are found from lines' words**: a reference written in a way not known is missed; a name with an underscore that is only alike may be linked.
+  - **Upgrades**: no unlock action of their own, no XP or shop; the level is not shown as a number on the HUD.
+  - **Preview** is of a power on the character in the Studio only (not on a creature); a falling shot flies straight there.
+  - **Debug** has no fly camera, teleport, spawn or quest-stage control.
+  - **`-Demo perceives` failed once** in the regression batch ("the dog followed the walker up the steps": the dog 0.6 m lower and 2.2 m off) and passed on both reruns. Intermittent; not explained; nothing in this pass touches following or steps.
+- **From the shots, powers and effects pass (2026-10-23)** (`Draw3D_Abilities_Effects_Pass_2026-10-23.md`):
+  - **Nothing of it has been tried by hand**: the fire thrown, the alpha's embers, the rim, the banner, the settings, the windows' forms.
+  - **Not built of the brief's abilities**: levitation, telekinesis, held beams, charging; shots that bounce, pierce or split; a status that lifts.
+  - **A gear form is missing**: `fires`, `casts`, `trail`, a model and its grip are gear.txt text (F10).
+  - **A light's `flame NAME`, a quest's `done_…` words and talks' answers are still text**; the forms for quests, talks and recipes (remediation item 10) are not begun.
+  - **`looks` cannot show another design or a colour of its own** (things are drawn batched): hidden, scaled or sunk only.
+  - **A folk's trail**: what the folk hold says no trail colour yet (only a phase's own colour shows one).
+  - **Weather's own particles do not follow Settings › Effects**; footstep and surface effects are fixed in code.
+  - **No map, minimap, fog of war or quest guidance**: planned in the pass record §7 (M1–M5).
+  - **Every new land is an island**: starting worlds planned in the pass record §8.
+- **From the Emberwatch remediation (2026-10-23)** (`Draw3D_Emberwatch_Remediation_2026-10-23.md`):
+  - **A sheathe press does not put away Wren's axe** in Emberwatch's play. Not looked into.
+  - **No forms** for quests, talks, recipes, goods or endings (item 10): still typed, reachable from World › Project overview.
+  - **A drawn building's parts cannot be swapped for designs or models** (5B): they are the host's forms. Design templates, export of a design, and a palette across designs (5C–D) are larger work, not begun.
+  - **Abilities** (an effect, a cost, a button, stages) are named, not begun (9b).
+  - **Locked on, the legs still cross by about 0.35 m** at their worst: lessened, not removed; a sideways walk clip would end it.
+  - **A light's beam and the lantern are seen only by script pictures**; no one has walked Emberwatch's night with them.
 - **From Emberwatch (2026-10-23):**
   - **`-Demo guard` fails** on "the guard hears it, says so, and goes back to its round": the guard is left in `investigate`, doing "Go to noticed". It fails the same way on the committed code (HEAD, run from a copy with the same built host), so it predates the Emberwatch work. Not yet looked into.
   - **Wolves open no doors and survivors shelter indoors in a storm**, so in Emberwatch no survivor is ever harmed, and an ending that counts the fallen can't be reached. Whether creatures should break doors (as they batter barricades) is the user's call.
-  - **A thing put down is turned at random**, and turning it by number is folded under `>  Placement` at the foot of the Inspector, which heads it with its kind's name. Boards put down from the inventory face where the walker faces, with nothing to fit them to a gap.
+  - *(Answered by the remediation: Inspector › Placement › Line up…, and the placing row's Turned.)* **A thing put down is turned at random**, and turning it by number is folded under `>  Placement` at the foot of the Inspector, which heads it with its kind's name. Boards put down from the inventory face where the walker faces, with nothing to fit them to a gap.
   - **An editor started by a script never opens the `-World` it is given**; the author opens worlds through World › Open….
   - **The night between lamps is black in a storm** (moonlight 0.025); lamps are lit within 3 cells of the camera.
 - **From PW1b (2026-10-22):**

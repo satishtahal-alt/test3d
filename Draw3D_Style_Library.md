@@ -37,6 +37,8 @@ A style is one entry of `styles.txt`, kept with a world as eight parts. Each par
 | ground | `grass cliff sand seabed dirt` | the terrain's colours |
 | air | `day water moon at HOUR sky sun fog fill` | lighting, sky, haze and fill light by the hour |
 | **look** (new) | `tone grade cast glow shade film figures` | the picture: tone mapping and exposure; saturation, contrast and brightness; a colour cast; bloom; ambient occlusion; vignette, grain and flicker; a colour over characters |
+| **form** (2026-10-30) | `form simpler uneven bolder face_tint form_on` | how things are *made*: as made, or in few faces by design (faceted, soft, angular), how simple, uneven and exaggerated, how much each face's colour varies, and for which sorts (rocks, trees, plants, buildings, props, the ground's facets, water). Read by the host's realizers; see `Draw3D_Low_Poly_Advanced_Style_2026-10-30.md` |
+| look, added 2026-10-30 | `surface water_tones faceted`, `treat tilt` | how surfaces take the light (rough, glint, how much of the pictures show), the water's two colours by depth and how clear, the land drawn in facets, a model seen close (tilt-shift) |
 | **about** (new) | `says after tags yours` | what the style is, what it is after, what finds it, and whether a person made it |
 
 **Combining styles:** `takes PART from NAME` takes one part as another style has it, for example `takes air from silent_reel`. The rest stays the style's own, so two styles combine part by part, not as a blend that muddies both.
@@ -144,6 +146,21 @@ Five more, each after a kind of game rather than one game, for the mechanics bui
 | `last_light` | survival of day and night | a long amber dusk, colour drained, the edges closing in; siege's buildings (`takes build from siege`) | survival dusk amber abandoned bleak apocalypse |
 
 Verified: nothing to verify (they are after genres, in words). Checked: the host's style tests read `styles.txt` whole with them in it.
+
+### Low poly, a family (2026-10-30)
+
+Low poly as an art direction, not the world flattened: things made in few faces by design, clean colours, soft coherent light. All of them are after stylised low poly game worlds and dioramas in general, not after anyone's art. Window › Styles › Low poly gives them with one press each. The full record is `Draw3D_Low_Poly_Advanced_Style_2026-10-30.md`.
+
+| Style | What it is | Tags |
+|---|---|---|
+| `low_poly` | faceted: lumpy crowns, stacked-cone pines, chunky rocks, slab roofs, each face its own clean colour, land facets of 4 m, turquoise water, a warm sun and cool shade | lowpoly faceted flat polygon diorama vibrant natural clean stylised |
+| `low_poly_soft` | the same rounder, shaded smoothly, pastel colours, gentle light and soft shadows | lowpoly soft rounded pastel gentle toy calm cosy |
+| `low_poly_angular` | big sharp uneven faces, muted earthy colours, land facets of 8 m, distance layers | lowpoly angular sharp earthy muted hazy wide landscape |
+| `low_poly_cartoon` | bold saturated colours, chunky exaggerated shapes, thin dark ink | lowpoly cartoon bold saturated playful chunky |
+| `low_poly_diorama` | the faceted world as a model seen close: tilt-shift, rich colours, dark corners | lowpoly diorama miniature model tilt-shift toy |
+| `low_poly_sunset` | the faceted world in a long warm evening: orange and pink sky, purple shade, gold water | lowpoly sunset evening warm orange pink golden dusk |
+
+Their four colour schemes are palettes too (`lowpoly_vibrant`, `lowpoly_pastel`, `lowpoly_cartoon`, `lowpoly_earthy`), for any style. Checked: host tests `low_poly_styles_say_how_things_are_made`, `a_style_s_form_makes_things_in_fewer_flat_faces`, `a_design_says_how_a_style_makes_it`; `-Demo lowpoly`.
 
 ### The other 22
 

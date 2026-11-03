@@ -1,6 +1,6 @@
 # Draw3D — inventory of the editor's interface
 
-Written 2026-10-11 and kept up since (last: 2026-10-14, mechanisms: 8.5 and 13za), from the code as it stands on branch `m2-stable-terrain` after the
+Written 2026-10-11 and kept up since (newest change: 7r, 2026-10-30, low poly as an art direction; last: 2026-10-14, mechanisms: 8.5 and 13za), from the code as it stands on branch `m2-stable-terrain` after the
 consolidated pass of that day, and **brought up to date the same day after the
 capability-exposure pass** (sections 13b and 14 say what that pass added and what the
 engine can do that the editor still does not reach). It is a reference to review,
@@ -76,6 +76,8 @@ bar's headings, the toolbar and the row under the bar are new.*
 | **View v** | menu, section 5: what is shown, and this machine's settings | | New 2026-10-13 |
 | **Characters v** | menu, section 6 | | |
 | **Window v** | menu, section 7 | | |
+| **Test v** | menu, section 7a: every demo by group, each played in a window of its own; the checklist part by part | this machine | New 2026-10-28 |
+| **Help v** | menu, section 7b: the help's pages by stage of the work | | New 2026-10-28 |
 | **Undo** / **Redo** | Back, forward one step (Ctrl+Z, Ctrl+Y) | the world | Also in Edit, and in Quick place |
 | **Play (Tab)** / **Play as NAME (Tab)** | Starts walking in the world from the green flag, or from where the view looks | the game being played | |
 | **Checklist** | Opens the list of what to try by hand | this machine | |
@@ -295,7 +297,442 @@ view looks*.
 
 The orbit choice, what is shown and the selection colours moved to **View**.
 
+## 7a. Test menu (new 2026-10-28) — `testmenu.gd`, `demos.txt`
+
+| Entry | What it does | Scope |
+|---|---|---|
+| **Demos, by what they show** (band) | 14 groups, each with its number of demos and a **›**: The latest work; Building and construction; The land, water and nature; Towns, villages and worlds; Characters, animation and the Studio; Moving, climbing and riding; Fights, moves and combos; Creatures and companions; Things, items and what they do; The look: styles, light and drawing; The editor and its windows; Measuring speed; Early stages, one thing each; Probes (checks, not demos) | |
+| a group | The list becomes that group's demos: **‹ Every group** first, then **▶ NAME** for each | |
+| **▶ a demo** | Plays it in a window of its own, begun as `run.ps1 -Demo NAME` on another port and a copy of what Draw3D comes with; the world open and the library are not touched. Its log is build\demo-NAME.log. Closing its window ends it | this machine |
+| **The checklist** (band) | **Open the checklist**, then one row per part of checklist.txt; a part with a `demo NAME` line says "(and its demo)" and plays it too | this machine |
+
+The groups and their titles are demos.txt (every demo of demo.gd is in it once; `-Demo helppass` checks that).
+
+## 7b. Help menu and the Help window (new 2026-10-28) — `helpview.gd`, `help.txt`
+
+| Entry | Key | What it does |
+|---|---|---|
+| **Open the help** | Ctrl+F1 | Window › Help |
+| a stage (band) and its pages | | The help opened at that page |
+
+The Help window (Window › Project, testing and help › Help): **Find in the help…** at the top left and the pages under their stages (Start here; 1. Shape the land and water; 2. Grow nature; 3. Build; 4. Furnish and decorate; 5. People and creatures; 6. Make it play; 7. The look; 8. Generators and blueprints; 9. Test, play and share; Reference). The page at the right: its title banded, paragraphs, numbered steps, tips in a gold box, diagrams drawn as boxes and arrows, pictures, and under **Open it, see it done** a button for each window (its title and key read from the editor) and each demo (**▶**), and links to other pages. **‹ Back** returns to the page before. Reference pages list every window, every demo, every setting of a style, the palette presets and the checklist, read from the editor each time.
+
+
+## 7c. Changed 2026-10-28 in other windows
+
+| Where | What is new |
+|---|---|
+| Styles window, top | A bar pinned above the scrolled part (`styles_pin_bar`): what was just tried, **Keep**, **Put back**, **Undo**. It stays in view however far down the window is scrolled |
+| Styles window, palette | Warmth, brightness and the other shifts are tried on the world as they are dragged (not only when let go); the swatches change where they are, and the window keeps its place |
+| Styles window, **Few colours** (part) | A row per part (houses, what grows, the ground, people and creatures, everything): a tick, how many colours (1 to 8), the colours as swatches each to pick again, **Choose for me** (picked from the style's own colours, as far apart as can be) |
+| Styles window, **Every setting** (part) | Every setting a style can have, by group (the light; what is built and grows; the picture; …), those the style sets first; each with its fields. The hour picker sets a light for one hour or for every hour |
+| Styles window, Treatment | New: sketch in colour, neon, stitched (cross-stitch, felt), few colours; watercolour reworked (colour bleeding, paper white, dark edges) |
+| Styles window, Light | New: light from behind (rim), mist that glows, bloom, shadow darkness |
+| Tree Generator, colours | **own colour**, **second own colour**, **a touch of** (each a colour button and **none**), **how much is the touch** |
+| Tree Generator, under the numbers | **Save as a preset**, **Put this preset away**; your presets first in the pictures, in gold, for every world |
+| World › New world, each generator | **colour scheme**: the style's own, or one of the palette presets |
+| Every button, choice and menu button | An outline, lighter under the pointer, gold pressed. Rows of the bar's menus, the help's pages and the small link buttons of the Inspector, Project, Routines, Studio and the window title bars: a faint box with an edge |
 ---
+
+## 7d. Changed 2026-10-28, the second pass
+
+| Where | What is new |
+|---|---|
+| The bar, beside **Play (Tab)** | **Full screen** (a tick): Play fills the whole screen; back to editing, the window as Settings › Window says |
+| Every window's bar | **□** (the whole screen, over the menus too) and **❐** (back as it was), between **-** and **x** |
+| View menu, Settings of this machine | **The wheel zooms toward the pointer** (on by default) |
+| Inspector, every ability row, behaviour row and When this happens row | A switch at its left. Off: the row greyed, "switched off: not done, its settings kept" |
+| Project › Overview | **What kind of game this is**: a sentence, then a card per part (classes, when it is set, tutorial lessons, experience, loot, stamina, needs, powers, wear, combos, skills, quests, crafting, scenes, puzzles), each with a switch where it can be switched and links to its settings. Classes: **Classes →**, **Ask again →**, a tick per class. When it is set: **Modern**, **Old times**, **Any** |
+| Project › Project settings › The game's flow | **When it is set** (any, modern, old, future) |
+| Settings (the player's, while playing), for a game with lessons | **Lessons (the tutorial)** shown / not shown; **Show the lessons again, from the first** |
+| Construction bar, a path or railway about to be drawn | **Drawing a path: set it before you drag**: Made of, Wide, **Bends** (sharp corners, gentle bends, round every bend), **Edges** (neat, a little natural, natural, wild), **Worn** |
+| Construction bar, a path picked | The **bends** fold: Bends and Edges |
+| Construction bar, a wall picked, Its top | **castle wall** |
+| Terrain › Cave, while dragging | Says how high the ground must be over where it began for a cave into it, and how high it is |
+
+## 7e. Changed 2026-10-28, the third pass
+
+| Where | What is new |
+|---|---|
+| Construction bar, a path about to be drawn or picked | **Up a wall:** ladder, rope ladder, holds in the rock (pictured). What a path is where it meets a face too steep to walk |
+| While playing, top left | **CONTROLS · keyboard / controller**: a panel, the keys drawn as keys and a controller's buttons in their colours; its title folds it. Below the editor's bar while played in the editor. Replaces the line of controls that was written under the clock |
+| Settings (the player's) | **The controls on the screen**: open, folded, hidden |
+| Window › Game display | The world behind the pieces (from where the editor looks); each piece drawn as in play: the minimap round, the hotbar its slots, the needs as bars, the controls as their panel. **The map**: round, turns, reach. **Controls**: folded at the start |
+| Project › Worlds | Shows **This project's worlds** by default (the one edited and every world joined to it); **Other worlds on this computer (N)** folded under them. The filter has **Every world on this computer**. The edited world's card: **N caves inside**; its details: **CAVES INSIDE IT**, each with **Look at it** |
+| Project › Overview | **This world, mapped**: the world on the left, a line to each branch (people and creatures; things and props; built and grown; caves; ways to other worlds; quests, talks and items in play); each name a button to its settings, **All →** for the whole list |
+| Window › Objects in this world | A line at the top says what it is for (the objects this world is built of, yours and built in) and where else they are (Project › Assets & Objects); how many there are; a box to find one by name |
+| Inspector, anything picked | **ITS COLOURS**: what this one drew; **Another colour**, **Its design's own colours**, **Back to the mix**; **How all of '…' vary in colour →**. An own kind: **Its parts' colours ↓**. Draw3D's own: **The style's colours →**, **Make this one my own to colour it…** |
+| Inspector, a cave mouth | **the cave it leads into: look at it** |
+| Every window | Made lower only once the pointer has left it (it still grows at once); a list made again stays where it was scrolled to |
+| Performance panel (Shift+F3) | **Scripts and physics about N ms**: the frame less what the graphics card took (Godot's own count read more than the frame) |
+
+## 7r. Changed 2026-10-30 (last): painting generated trees, eye colour
+
+| Where | What is new |
+|---|---|
+| Objects brush | Put down with one sentence when its design has gone (undone or taken out), before a stroke and after Undo/Redo |
+| Notices from the engine | "There is no design 'X': did you mean 'Y'?" in place of every name |
+| Character Studio › Make | **Eyes**: swatches (browns, hazel, green, grey, blues; pale, yellow, red), a colour of your own, 🎲, ↺ |
+| Library | The Pit's stacked crates are **crate-stack-breakable**; **crate-stack** is the crates to search |
+
+## 7aa. Changed 2026-11-02 (tenth pass): the open-world generator, the Terrain bar, far land merged, turf, sway — `worldgen.gd` (new), `terrainbar.gd` (new), `world_view.gd`, `graphics.gd`, `terrain.gd`, `icon.gd`, `main.gd`, `desk.gd`, `inputwords.gd`, `inspect.gd`, `makers.gd`, `buildbar.gd`, `sorticon.gd`, `motor.gd`, `watch.gd`, `moves.txt`; host `land.rs`, `land/world.rs` (new), `lib.rs`, `style.rs`, `shapes.rs`, `grown.rs`, `grown/plants.rs`; core `build.rs`
+
+| Where | What |
+|---|---|
+| World menu | **Open-world generator…** |
+| Open-world generator | Basic / Advanced; World, Landmass and geography, Water, Biomes (each on, coverage, height, heat, wet, transition), Vegetation per family, Wildlife, Routes, Settlements, Decoration, Layer seeds and locks, Quality; *Not yet*; the map with its eight layers and region grid; a region's Lock / Unlock / Make again; Make a new world; Make again (what); presets; history; the cost line |
+| View menu, Window › Build the world, toolbar's Terrain list | **Show the Terrain bar** (Shift+F8, Start) |
+| Terrain bar | 32 tool pictures in six groups; radius, number, choice; No tool, Block shape, Terrain window, Put the bar away |
+| Graphics › Performance | **Far land merged** |
+| Makers / Inspector: woods, meadow, painted | **sways in the wind (0 still, 1 as grown, 2 wild)** |
+| Brushes › Grass | **Thick turf, short and close** |
+| Terrain › Block shape | "its edge broken" renamed **the block: organic edge (m)** |
+| Inspector, a generated maker | **Made by the open-world generator: layer, biome, region** |
+
+## 7z. Changed 2026-11-01 (ninth pass): the editor's log, hands full, no magnet, tips at the side, smooth letters, Keep close, Blocks the way, sculpting brushes and strokes, any world a diorama — `edlog.gd` (new), `keepclose.gd` (new), `main.gd`, `marks.gd`, `terrain.gd`, `editpad.gd`, `world_view.gd`, `icon.gd`, `acts.gd`, `actbook.gd`, `player.gd`, `notice.gd`, `folk.gd`, `inspect.gd`, `tutorial.gd`, `presses.gd`, `hudlook.gd`, `hudbook.gd`, `hudview.gd`, `hudcanvas.gd`, `hud.txt`, `gameui.gd`, `travel.gd`, `aim.gd`, `hitmarks.gd`, `motor.gd`, `move.gd`, `strike.gd`, `fight.gd`, `watch.gd`, `moveset.gd`, `tune.gd`, `comboview.gd`, `moves.txt`, `arena.gd`, `solid.gd`, `models.gd`, `blockshape.gd`, `makers.gd`, `layouts.gd`, `worldmake.gd`, `newworld.gd`; host `land.rs`, `lib.rs`, `kind.rs`, `shapes.rs`, `grown/plants.rs`
+
+| Where | What is new |
+|---|---|
+| Editing, bottom left | **The log**: one line folded (✓ ! ✕), the last 60 open; Log ▴ / Fold ▾, L, pad right stick pressed |
+| Terrain, Tool part | rows **fill in / scrape / texture** and **carve: gully / sharpen ridge / pinch**; **recent** row; **kept** row with **Keep this brush…**, rename, remove |
+| Terrain, Its numbers | **hardness**; **deep, m** (gully); **texture** pattern, each m, deep m; **only on** (+ from m, to m, on the land); **stroke** Drag / Steady / Dots / Box / Spray, **steady**; **size it by dragging**; **mirror** None / East ↔ west / North ↔ south / All four, **through** The land's middle / A point I click |
+| Terrain, square brush | its knob: Shift holds the square, drag to turn and size |
+| Terrain, a brush with the pad | A held paints, X stroke, B mirror, Y keep, D-pad brushes, LT/RT size |
+| Terrain › Block shape | **Make this a diorama** / **Make it open land again**, size Round the land / 32 / 64 / 128 m |
+| World outline › the land | **a diorama** row, the same button |
+| New world › a layout | **seed**, Another seed |
+| Inspector, How it is done | **with the hands full: offered** (instead of "stops you before it") |
+| Inspector, physics | **Blocks the way**: as its design says, no, at its trunk only, by its own shape, a box, a ball, a post |
+| Combo graph, top | **Keep close** (0–3) |
+| Combo graph, a move that strikes | **After its blow: kept close**: Sends them away, Its own pull and its slider |
+| Library › Training | heavy and light sparring partners |
+| Game display | Every piece: font (Smooth, pixel fonts), letter size, outline, shadow, backing; Tips › how many kept; pieces race clock, crossing, time of day; in the world: crosshair, hit numbers (show, colour, how big) |
+| Settings | **Tips (the tutorial)**, Show the tips again |
+| Playing | tips at the right; D-pad up held: got it; Back with D-pad down: no more tips; the error screen leaves with B or Start |
+
+## 7y. Changed 2026-11-01 (eighth pass): settings in plain words, Block shape in Terrain, adjusters, the porch, the square brush turned, button words — `settingwords.gd` (new), `blockshape.gd` (new), `inputwords.gd` (new), `editpad.gd` (new), `inspect.gd`, `makers.gd`, `terrain.gd`, `marks.gd`, `line.gd`, `buildbar.gd`, `icon.gd`, `form.gd`, `projectview.gd`, `controls.gd`, `talk.gd`; host `rim.rs`, `land.rs`, `build.rs`, `lib.rs`
+
+| Where | What is new |
+|---|---|
+| Inspector, a maker's settings | Each row in plain words with what it does under it; lists and strokes as words ("2 grown, 0 cut: change…") opening the tool that makes them; the ? says what would change |
+| Terrain › **Block shape** (folded) | Half width, half depth, sides go down, round, hexagon, sea all round, broken edge, corners, lean, hang, layers, middle east, middle south |
+| Terrain, square brush | **turned, °** knob; the outline turns with a tick at its front (`,` `.`, LB/RB, Shift+wheel) |
+| Build bar, bottom | **Adjusters**: All, Few, None (H, pad Back); Few by default |
+| Look, a house | **Its porch**: None, Front, Around; **Roofed** |
+| Details › Porch | **Roofed** toggle |
+| Project, fields of words (quests, steps, talks, lines, lore, reactions, lessons, scenes, endings) | **＋ a button…**: a button's name put in, shown to the player for their device |
+| Playing, every prompt, lesson, quest note, talk | The keyboard's keys or the controller's buttons, whichever was used last |
+
+## 7x. Changed 2026-11-01 (seventh pass, after the user's hand test of Islandbound): the HUD's panels, the Animator's In this world, cutscenes directed, the style's finish, brush pictures — `hudlook.gd`, `hudview.gd`, `gameui.gd`, `quests.gd`, `tutorial.gd`, `hud.txt`, `animator.gd`, `animworld.gd` (new), `cutscene.gd`, `scenebook.gd`, `scenes.txt`, `projectview.gd`, `finish.gd` (new), `finish.txt` (new), `styleview.gd`, `sorticon.gd` (new), `icon.gd`, `buildbar.gd`, `terrain.gd`, `acts.gd`, `overlay.gd`, `folk.gd`, `world_view.gd`, `weather.gd`; host `land.rs`, `lib.rs`
+
+| Where | What is new |
+|---|---|
+| Playing, top right | **QUEST / QUESTS**: the quests followed, in a dark rounded panel with a heading (it was white words on the sky) |
+| Playing, top middle | **NEW QUEST / QUEST UPDATED / QUEST COMPLETE / QUEST FAILED**: a panel with the quest's words, up at least 6 s and longer for more words, then fading; one after another, none lost |
+| Playing, bottom middle above the E prompt | The lesson's panel: its heading and what to do, the keyboard's keys when no controller is plugged in ("Hold Shift"), the controller's when one is ("Hold RB (Shift)"); redrawn when the device changes |
+| Window › Game display, each piece | **Corners**: square, a little rounded, rounded, round ends (beside the plate) |
+| Animator, left | **👤 Who / 🌍 In this world** tabs |
+| Animator › 🌍 In this world | How many; **Search**; **Everything / You / People / Creatures / Things**; every animation the world uses grouped by who has it; ◀ **Play/Pause** ▶; why it can or cannot be edited; **✎ Edit this**; a button to the window that changes it (Inspector, Animation, Routines, Time and weather, Project). Pad: ▲▼ steps, A plays, Y edits, LB with ◀▶ the sort. One that cannot be edited is greyed, "· play only", and says why (made by code, baked into an imported model, swayed by the wind) |
+| Project › Cutscenes, a scene | **Letterbox**: wide, thin, none |
+| Project › Cutscenes, a shot | **The camera**: the move (hold, pan, glide, push in, pull back, crane, track, orbit), to whom or what, from which side, how far, its turn from and to, easing (smooth, in, out, none), a cut or a dissolve into it. **Over it**: a title card, who says the words, speed (slow motion), shake, focus on the subject, a sound |
+| Styles › Finish | **Finish shown** (a tick to compare); sliders for brush grain, settled (low parts darker), lit edges, colours drawn together, warm and cool, shade in corners, the backdrop's gradient, cliffs as one face; each with **As the style it is like** |
+| Brushes ‹ a patch › What is in it, swap one, decor sets, tree mixes | Each sort drawn as its own picture (each flower, crop, tree, bush, rock, animal), not one shape in different colours |
+
+## 7w. Changed 2026-10-31 (the Islandbound benchmark, and the pattern tool): patterns from a seed, platforms shaped like the land, quests one after another, the crossing, waterfalls and flocks — `terrain.gd`, `aim.gd`, `gearbook.gd`, `powerbook.gd`, `powerview.gd`, `shapes.gd`, `gear.txt`, `profiles.txt`, `travel.gd`, `quests.gd`, `questbook.gd`, `projectview.gd`, `cond.gd`, `waypoints.gd`, `maps.gd`, `areas.gd`, `wild.gd`, `things.gd`, `fishing.gd`, `main.gd`, `worldspage.gd`, `sounds.txt`, `effects.txt`, `goods.txt`, `recipes.txt`, `quests.txt`; library `survival.txt` (new), `birds.txt`; host `land.rs`, `land/build.rs`, `kind.rs`, `lib.rs`
+
+| Where | What is new |
+|---|---|
+| Terrain, group **from a seed** | **pattern**: one click covers the brush with a pattern worked out from its seed. Row **makes** (craters, spires, pods, ridges, dunes, the shore, the block's edge) and **new seed**; numbers **rise** (under 0 sunk), **how many**, **size**, **seed**, **twist**, and for dunes their direction. The same seed makes the same land; one Ctrl+Z |
+| Terrain › pattern › the block's edge | Clicked over a diorama's side: lobes grown and bites taken out of the block by the seed. Clicked over a platform's edge: the same to the platform's outline |
+| Terrain › the block › grow it / cut it, pressed on a platform | The platform's outline grows or is cut where the brush goes (round, square or organic), not the block. One Ctrl+Z. A platform's top is raised, lowered and smoothed by the shape brushes as land is |
+| Project › Gameplay › a quest | Heading **Offered**: **After** (another quest: not offered until it is done; none, at once) and **Until then** (what whoever asks it says meanwhile). Written `needs quest OTHER done : WORDS` |
+| Playing, a way to another world (a boat, a door) | The crossing: the screen fades to the sea at dusk, a sailboat rocking over the waves, the name of where it goes and "setting out across the water", the surf heard; at least 1.8 s, then the world there. Quests, skills, what was caught, felled, made and found go too |
+| Playing, a landmark found (`waypoint`) | "Discovered: NAME." and a banner; on the world map a gold ★ with its name |
+| World map, a world whose regions say `fog` | Dark wherever not walked, inside named regions too (before, a named region without fog of its own showed through) |
+| Library › Island survival (new shelf) | Tall fibre grass, a berry bush, driftwood, loose stones, shells (each E to gather, grown back); a lean-to (Ctrl+B: 5 wood, 3 stone, 3 fibre) and a fallen shelter frame; the Driftwood Beacon, the Pinewatch Tower and the Mistfall Stones (landmarks); a hidden supply cache; a boat to cross in; a drying rack, a fishing net |
+| Library › Birds | **gull flock** and **finch flock**: a flock that wheels, lands and pecks, and flies up when the walker comes near (`flocks N R H` in a design) |
+| Recipes at a bench | fishing rod (2 wood, 3 fibre), stone spear, rough bow (3 wood, 4 fibre), stone-tipped arrows (six for a wood and a stone), rope |
+| Sounds | splash (plunge, bubbles, spray, drops), plop, a big splash, paddle, thrash, flap; loops surf and falls. What lands in water splashes by its size |
+| A river falling off a block or a cliff | Spray at its foot (`falls_spray`) and the sound of falling water (a stream's over a small drop) |
+| Worlds page | Lists the worlds under `editor\dioramas` too |
+| Inspector › a thing that fires (gear) and Project › Powers › **May go to** | A third choice, **foes and wild animals (never a person)** (`picks game`): what it fires goes by itself to a deer or a rabbit as to a foe, never to a villager. The bow says it |
+| The Profile window, the castaway | A new profile, **castaway_survivor** for the castaway: LT aims the bow, RT looses, X strikes, Back the map |
+
+## 7v. Changed 2026-10-31 (the toolkit rounded out, after the user's hand test of the dioramas): land shaped by the tools, water grown out, generators and rivers on a block, its edges and settings — `terrain.gd`, `main.gd`, `desk.gd`, `env.gd`, `weather.gd`, `weatherbook.gd`, `clock.gd`, `mist.gd`, `compass.gd`, `makers.gd`, `buildbar.gd`, `inspect.gd`, `marks.gd`, `lying.gd`, `player.gd`, `styleview.gd`, `grow.gd`, `testmenu.gd`, `world_view.gd`, `run.ps1`; host `land.rs`, `land/build.rs`, `tileops.rs`, `lib.rs`
+
+| Where | What is new |
+|---|---|
+| Terrain, group **shape** | A second row: **terrace** (number **step, m**), **slope** (a ramp from where the drag begins to where it ends, the brush's width), **roughen** (number **bumps, m**) |
+| Terrain, group **stamp** | A second row: **hill**, **crater**, **mesa** (each one click, as high as **rise** says) |
+| Terrain, group **the block** | **grow water** (between **grow it** and **cut it**): dragged beside the block, the block grows there as water, its floor as deep as **below** says |
+| Terrain › the block, row **the sea** (2026-10-31) | **Inside the block** / **To the horizon** (`block_sea_0`, `block_sea_1`): the water only inside the block, a true diorama, or the sea all round it to the horizon; the land's `block_sea`, lit as it is; one Ctrl+Z |
+| Terrain › the block › grow it, row **what is made** (2026-10-31) | the land as it is there / land, level with where I begin / water, as deep as 'below water' / **land only: the water held back from it** (`dry`) / **water only: nothing under it** (`water_alone`) | `block_fill_*` | land grown without water in it, or water grown without land under it; how the water keeps to it is the next row |
+| Terrain › the block, row **held water** (2026-10-31) | **Held where it was put** / **Flows as water does** (`water_held_1`, `water_held_0`) | held: land grown 'land only' stays dry however low, a wall of water round it, and water grown 'water only' stands off the block's edge; let go: the water fills what is low inside the block and the water alone is gone. The land's `water_loose`; one Ctrl+Z |
+| Terrain, group **its sides** (2026-10-31) | **dress the sides**: dragged along a diorama's edge; row **dress with**: vines, ivy, moss, roots, flowering vines, stones, crystals, clear (take it away) | `side_dress`, `dress_*` | hanging from the top, over the face or in its bands; the land's `side_dress` |
+| Terrain › the block, row **its layers** (2026-10-31) | Earth, as it was / Granite / Sandstone / Clay / Chalk / Basalt / Slate / Limestone / earth over granite, … | `layers_pick` | what the block's sides are made of, band by band from the top; the land's `block_layers`; one Ctrl+Z |
+| Terrain › paint, its surfaces (2026-10-31) | concrete, asphalt, paving, cobbles, brick (after rock, grass, sand, dirt, snow) | `surface_*` | the town's ground painted as the land's is |
+| Terrain › extend land, grow it, grow water | Over the water past the land: a yellow ring as wide as the brush (round, square or lobed) and a cross at its middle, where it will come |
+| Terrain › paint | Row **grain on the ground** (how much, how fine): written into the world's own style (a copy made of a library style) |
+| Terrain, any land tool, in a world with no land | The first press adds the sea bed for the tools and says so (one Ctrl+Z) |
+| View menu | **Down to the sea bed** (tick: the sea not drawn, the view goes under it); **Colour behind the world…** (opens Environment at that row) |
+| Environment › the sky › Behind the world | A second colour button, **by night:**, and **The same by night** |
+| Environment › The sea's waves | Row **The water drawn:** **As its style has it**, **Smooth**, **Facets** |
+| World outline › the land › How it makes its things | Tick **the walker kept on the block** (in play, no step out over the block's edge) |
+| The compass | Smaller (50 px), fainter, in the top right under the bar |
+| Test menu, a demo | Opens where the editor window is, the editor put down while it plays and brought back when it ends |
+| The river's bar | **m deep** says 0.25 on a diorama's block (what is dug there), 0.8 elsewhere |
+| Test › the latest work | **shaping**, **edges** |
+
+## 7u. Changed 2026-10-30 (the diorama toolkit, after the user's proposal): water that behaves, the block's form, a compass, what is behind the world, grain, sea life, flotsam, the island in the sky — `terrain.gd`, `env.gd`, `weather.gd`, `weatherbook.gd`, `clock.gd`, `compass.gd` (new), `main.gd`, `hudlook.gd`, `hudbook.gd`, `hud.txt`, `desk.gd`, `makers.gd`, `buildbar.gd`, `styleview.gd`, `air.gd`, `world_view.gd`, `styles.txt`, `rural.txt`, `author_dioramas.gd`
+
+| Where | What is new |
+|---|---|
+| Terrain (left bar), group **land and sea** | **fill with water**: a click in a hollow fills it to its brim, a pond whose shore follows the land. Land dug from the shore below the sea fills with the sea by itself |
+| Terrain › extend land, take land away, grow it, cut it | A row **brush**: **Round**, **Square**, **Organic** (lobed, as land is) |
+| World outline › the land › How it makes its things | Rows **the block: its corners rounded (m)**, **the block: its sides lean in**, **the block: hangs under it (m)** (to a point of rock, a floating island), **the block: each layer of earth (m)** |
+| Environment › The sea's waves | **Over the shore** (0 the waves die down at the beach and stop there; 1 they wash up over low land) |
+| Environment › the sky | Row **Behind the world:** **As its style has it**, **The sky**, a colour button; a tick **A small sky round it** (a bubble of sky about the world only, its edge broken as cloud is) |
+| View menu | **Show the compass** (tick; N, E, S, W turned as the view turns, top right). Under Lens: **Seen from: above**, **three-quarters**, **level** |
+| Window › Game display | A piece **compass**, hidden until shown; while playing it is the same dial |
+| Window › Styles › a style's look | Row **Grain on the ground** (how much, how fine): sand, grass, dirt and rock speckled lighter and darker |
+| Brushes › Life | Each set's button its own creature (butterfly, moth, robin, frog, deer, raven, wolf, fish, whale, octopus); three sets for the sea: **shoals**, **the deep**, **the sea bed** (fish, dolphins, whales, turtles, rays, jellyfish, octopuses, squid, crabs, kept to the water) |
+| Objects › decor | **Driftwood afloat**, **Crates afloat**, **Barrels afloat**, **Planks afloat**, **Buoys**, and a set **Flotsam**: on the sea they ride the swell |
+| Window › Styles, the list | **low_poly_skyisle** (an island in the sky, a pale sky behind) |
+| Test › the diorama scenes | **skyisle**, the benchmark: two tiers, a temple, stairs, a village, a river over the cliff and off the edge, the rock hanging to a point, a small land floating over it (`-Author dioramas -Only skyisle`) |
+| In the world | No flashing in the sea while sculpting; snow goes when the weather clears in the editor; sand stays sand when raised; the swell lies flat under the land; no light lines down the water's cut side |
+
+## 7t. Changed 2026-10-30 (dioramas to build on, after the user's try): the block grown and cut, its shape, the brush by the wheel, a part saved as its own world — `terrain.gd`, `makers.gd`, `main.gd`, `worldcopy.gd`, `desk.gd`, `models.gd`, `inspect.gd`, `motor.gd`, `loose.gd`, `weather.gd`, `world_view.gd`, `author_dioramas.gd`
+
+| Where | What is new |
+|---|---|
+| Terrain (left bar), a new group **the block** | **grow it** (drag past the block's edge and it grows there, its earth sides with it) and **cut it** (drag over it and it is cut away down to its foot). Under grow it: **grows as** (*the land as it is there*, *land, level with where I begin*, *water, as deep as 'below water'*) and **all at once** (metres, with buttons **all round**, **north ↑**, **north-east ↗**, **east →**, **south-east ↘**, **south ↓**, **south-west ↙**, **west ←**, **north-west ↖**) |
+| World outline › the land › How it makes its things | Rows **the block a hexagon** (tick), **the block: its edge broken (m)**, **the block: its middle east (m)**, **the block: its middle south (m)**, **what grows may go past the block** (tick; off, woods, meadows and painted things stay on the block) |
+| Any brush (terrain, paint, strew) | **Ctrl + mouse wheel** makes the brush wider or narrower; the width is said at the top. The paint brush's hint says so |
+| Edit menu, under the copy and paste of a part | **Save what is drawn round as its own world…** (greyed until a part is drawn round) |
+| The bar while a part is drawn round | A button **Save as its own world…** between Copy and Draw again: a small list **A square block…**, **A round block…**, **A hexagon block…**, then a file window *Write the part drawn round as a world of its own*. What is inside is written with the land a block round it; this world is not changed |
+| Inspector › Pick the part… | A design shown by a model of several parts (the farm kit's tower windmill) offers the model's own parts; a part given **spins** turns in the world |
+| New world › Nothing / An island | No window opens by itself: the screen is the world alone |
+| In the world | Rain rings on the sea and on ponds; things dropped in water splash and float; the walker climbs out of the water onto a bank; a thing on a slope is let down into it (a tree's foot touches the ground), but not a flight of steps; houses, huts, cabins, stairs, docks, fences and crates under a low poly style keep their flat faces (windows and doors seen) |
+
+## 7s. Changed 2026-10-30 (dioramas after the user's pictures): blocks of land, the view's lens, a clean picture — `newworld.gd`, `worldmake.gd`, `makers.gd`, `desk.gd`, `styles.txt`, `author_dioramas.gd`
+
+| Where | What is new |
+|---|---|
+| World › New world, what it begins as | **A diorama: a block of land**, with its choices: **width, m**, **depth, m**, **sides, m** (how far the earth goes down), **round** (tick), **sea all round** (tick), **hills**, **seed**, **colour scheme** |
+| World outline › the land › How it makes its things | Five more rows: **a block of land: half its width (m)** (0: no block), **the block: half its depth (m)**, **the block: its sides go down (m)**, **the block round** (a tick), **the sea all round the block** (a tick). Rows that are switches are ticks now, not numbers |
+| View menu, under Lens | **Lens: Normal (75°)**, **Lens: Narrow (35°)**, **Lens: Model, from afar (18°)** (the one in use ticked); **A clean picture: the world alone** (every bar, panel and readout hidden; any key, click or pad button brings them back) |
+| Window › Styles, the list | Seven more low poly styles after the pictures: **low_poly_meadow**, **low_poly_castaway**, **low_poly_lake**, **low_poly_pond**, **low_poly_isle**, **low_poly_islet**, **low_poly_tiles** (dark ground), **low_poly_dusk** (an overgrown city at dusk). Each has a backdrop colour (the sky and fog about the block) |
+| Window › Styles, the list | **low_poly_strange** (2026-10-31): a strange world for the pattern tool's spires, pods and craters: rust-red ground, lilac plants, a violet sky with a pale sun, heather-coloured haze |
+| In the world | A block's sides are earth in bands with a ragged foot, square or round; water inside it is seen through its sides in the style's water colours; a river run off its edge falls as a waterfall; with the sea all round it the sea is drawn everywhere and a dock out over it stands on posts in the water with its boat; things from the kits are scaled with the rest (`grown`) |
+| Test › the diorama scenes | `editorun.ps1 -Author dioramas [-Only NAME]`: meadow (picture 8), castaway (1), lake (2), pond (3), isle (4), islet (5), farm (a tile of 15), city (20); each saved as `editor\dioramas\NAME.json` to open and change |
+
+## 7r. Changed 2026-10-30 (low poly as an art direction): how things are made — `styleview.gd`, `styles.txt`, `palettes.txt`, `abilities.txt`
+
+| Where | What is new |
+|---|---|
+| Window › Styles, a new folding part **Low poly** (under "Its light, look and colours") | Buttons **Faceted**, **Soft**, **Angular**, **Cartoon**, **Diorama**, **Sunset** (each gives the world that library style). Row **Colours**: **Vibrant natural**, **Pastel**, **Saturated cartoon**, **Muted earthy** (palettes tried on, Keep / Put back in the bar), **Custom ↓** (to the Palette). **Shapes, surfaces, water ↓** (to Every setting › Low poly), **Light and shade ↑** (to the style's own light controls). The picked thing's design: a line naming it and how it is made, then **As the style says**, **Kept as made**, **Faceted**, **Soft**, **Angular** |
+| Window › Styles › Every setting | New first group **Low poly: how things are made (any style)**: **Things made** (As they are made / Faceted / Soft / Angular), **Made so** (ticks: rocks, trees, plants and bushes, buildings, props and models, ground facets, water), **Simpler**, **Uneven**, **Bolder**, **Face colours**, **Land in facets** (was "Low poly"), **Surfaces** (rough, glint, pictures), **Water colours** (shallow, deep, clear). The group "The screen and low poly (any style)" is now **The screen (any style)** |
+| Window › Styles › Drawn as | **A model seen close (tilt-shift)** |
+| Window › Styles, the list | The library's **Low poly** reworked; new **Low poly, soft**, **Low poly, angular**, **Low poly, cartoon**, **Low poly, diorama**, **Low poly at sunset** |
+| Inspector › What it does › Add something it does… | **is made its own way under a low poly style** (field *how*: no, faceted, soft, angular) |
+| Checklist | A part's **▶ Play its demo** button wraps its title (it had made the window as wide as a long demo title) |
+| In the world | Under a Low poly style: trees as a trunk and a few lumps, pines as stacked cones, rocks as chunks, roofs as slabs, each face its own colour; models brought in painted in their average colours, matt; the water in two colours by depth |
+
+## 7q. Changed 2026-10-30 (particles): modules, meeting the ground, letting go
+
+| Where | What is new |
+|---|---|
+| Window › Effects, a layer | The layer's rows in five bands, each with a switch: **EMISSION** (*How many*, *Each lasts*, *Bursts once*; switch **Rate, bursts and swells**: *So many a second*, *Bursts of*, *A burst every*, *Its flow changes over*, *Flow at first*, *Flow midway*, *Flow at the last*); **HOW EACH BEGINS** (*Begins in* and its sizes, *Speed as it begins* (was *Rises*), *Spread*, *Size*, *Drawn long along its way* (1 round; rain 12–16, a spark's dash 3), *Colour as it begins*, *Drawn as*, *Bring in a picture…*, *Glows*, *Sticks to it*; switch **Aimed, and each its own**: *Goes* (up, down, forward, back, left, right), *Sizes differ*, *Colours differ*, *Lives differ*); **AS EACH AGES** (*Pulled*, *Drifts*, *Spins*, *Size as it begins*, *Size midway* (three sizes or more), *Size at its end*, *Colour midway*, *Colour at its end*; switch **Wind, swirl, drag, fading, turning**: *Blown by the wind*, *Swirls*, *Eddies across*, *Slowed by the air*, *Fades in over*, *Fades out over*, *Turns over its life*); **WHEN IT MEETS SOMETHING** (switch **Meets the ground**: *Then it* bounce/stop/die, *Bounces back*, *Rubs*); **WHAT IT LETS GO** (switch **Lets another layer go**: *Lets go* (a layer), *When* (as it meets something, as it ends, while it lives), *How many* / *So many a second*, *With its speed*). A layer let go by another says so under EMISSION (*Let out — only by the layer '…'*, with *Show '…'*). *How many* goes to 5000 |
+| Window › Effects, the stage | Has a floor particles meet (sparks bounce on it) |
+| Window › Effects, its layout | Side by side, 960 wide: the list, the stage, what it is and the buttons on the left; the settings the whole height on the right, a band **THE WHOLE EFFECT** over the effect's own rows, and **▾ Open all** / **▸ Fold all** at their top (every band folds) |
+| Time and weather, rain and storm | The rain's streaks splash where they land near the eye: drops leap up and a ring spreads where each comes down, as bright as the hour |
+| Window › Graphics and performance, Performance | **Particles** (simple, full): full draws effects by the graphics card (meeting the ground, letting go, swirling, thousands); simple by the processor as before. Low quality: simple |
+| Effects (effects.txt) | New: spark_bounce, muzzle_flash, bullet_trail, arrow_trail, blood_splatter, sword_slash, explosion_sparks, rain, snow, falling_leaves, dust_motes, fog, drifting_clouds, energy_beam, glowing_trail, fireball, teleport. Changed: sparks bounce, blood_burst's drops stay where they land, explosion's earth lands and it has debris that glows hot as it flies (orange, cooling to dark), smokes where it strikes, and hot sparks drawn as dashes. rain is drawn as streaks; spark_bounce's sparks as short dashes. A world's own copy of effects.txt reads new effects under it |
+
+## 7p. Changed 2026-10-30 (shots): streaks, recoil, hit feedback
+
+| Where | What is new |
+|---|---|
+| Window › Shots and powers, a shot | **Streak behind it**: **Streak** (none, ribbon, line, stretch), **How long it is**, **How wide**, **Its colour** (with its clearness), **Fades toward its end**, **How bright**. **Recoil (when the player fires it)**: **Kicks the view up**, **And aside, at most**, **Settles in**, **Shakes the view**, **The weapon kicks back**. The stage's preview flies the shot pointed along its way, with its streak |
+| Project › an item that fires | **Recoil**: the same five numbers, each "(its shot's)" until set on the weapon |
+| Project › Project settings › The game's flow | **Hit feedback**: **Mark on the crosshair**, **Its colour**, **For one brought down**, **Its size**, **The one hit flashes**, **Sound of a hit**, **Sound of one brought down**, **Numbers** |
+| In play | A hit of the player's shot: an X over the crosshair (over the one hit when not aiming), a larger X in a ring for one brought down, the one hit flashing white, a tick (hitmark) or a knock (killmark), a rising number if ticked. A weapon emptied loads itself again from what it uses (the ammo line says *loading…*) |
+
+## 7o. Changed 2026-10-30 (later): looks, mist, lightning, quests and the Pit, idles, the character maker
+
+| Where | What is new |
+|---|---|
+| Window › Styles | Styles **Pixel lantern**, **Pixel lantern, green**, **Low poly**; Every setting › **The screen and low poly (any style)**: **Low poly** (off, flat, 2/4/8 m), **Three tones** (three colour pickers and how much), **Dark edges** (how dark, how far in), **Lines of an old screen** (how dark, how far apart) |
+| Window › Game display | Top row **A look for all of it…** (amber riveted, green riveted, plain); a piece's backing **riveted dark metal** |
+| Brushes shelf | **Mist** (new icon): its panel **Mist N**, **Paint mist** / **Erase mist** / **New mist**, sliders **Thickness**, **Height (m)**, **Drifts with the wind**, **Thins by day**, **Soft edges**, **Colour**, **Lies** (every hour, night and early morning, mornings, evening and night, by day), **Brush (m)**, **Remove this mist**, **Close**; a click on the ground under a mist opens it |
+| Time and weather | **Thunderstorm now**, **Lightning strike now**; a storm's form: **Lightning nearest (m)**, **Lightning farthest (m)**, lightning colour |
+| Inspector, an arena ring | **Prizes and ranks**: a good picker and number for each wave, XP, **+ A prize**, **+ A rank** (waves, title, gift), × |
+| Journal | Section **Arenas** (runs, best, rank, the next); quests say **from Rook** / **from the trader** |
+| HUD in play | The Pit's title (Pit rat, Brawler, Veteran of the Pit, Champion of the Pit) |
+| Routines (Ctrl+H) | How it stands about: tick boxes for the 48 idles by group (about the place, to themselves, eating/drinking/resting, with someone, on guard, in the wastes), tooltips saying what each holds; **… and watches anyone else going by** |
+| Animator | **Idles (48)** by group and plain name ("Boil water (with mug)"), greyed when outside the character's set |
+| Journal (J), under the text (2026-10-31, sixth pass) | **Put two together: press two of what you found**: a toggle button per note found that may still be worked out; under them what came of it (green: worked out; orange: do not fit) |
+| Project › Lore to find, each set's card | **WORKED OUT FROM TWO OF ITS NOTES (N)**: its title, **×**, **From** [note] **and** [note], what it means, **Makes the fact**; **＋ Something worked out** |
+| Character Studio › Make (2026-10-31, fifth pass) | **▾ Open all**, **▸ Fold all** at the top; every heading folds (Start from, Body, Colours, A whole look at once open first); **Head: See-through head** (a tick) under Colours; rows of buttons wrap |
+| Animator, middle bar | **👁 Showing ▸/▾** folds **Ghosts**, **Path**, **Loop**, **Follow**, **Lens**, **⌨ Keys**, **Every bone** into a row of their own |
+| What things can do (catalogue) | A section **Characters (what one can be made)**: 17 entries; under one, **Open the Character Studio's TAB tab** |
+| Character Studio (characters list) | **lowpoly_blocky**, **lowpoly_cubehead**, **lowpoly_chibi**, **lowpoly_lean**, **lowpoly_retro** (2026-10-31): low poly people; Make's model picker lists their models; Make › Colours by surface: **skin**, **hair**, **shirt**, **trousers**, **shoes**, **eyes**, **belt** |
+| Character Studio › Make | **A whole look at once**: **From** (a sort of place), **🎲 Random**, **A woman**, **A man**, ten archetype buttons, **🎲 Hair / Face / Build / Skin / Clothes**, **Keep as an archetype**, **Keep in the library**, **Give to**, **Put one in the world**; **Skin** (12 swatches, picker, 🎲, ↺); **Build** (8 presets, weight, muscle, hips); **The face as made** (8 presets, 15 sliders); 23 places to wear in layers, each a picker with pictures, colour, **Worn**, 🎲, ↺ |
+| Populate › How | **People each look different** (on) |
+| Notices | A list longer than about ten names is shown as eight and **and N more** |
+
+## 7n. Changed 2026-10-30: the controller sheet, colours, water, village water
+
+| Where | What is new |
+|---|---|
+| Project › Controls & Input | A first tab **The character played** (opened first): **PLAYED NOW: NAME**, the profile in words, **Change it in Profile & buttons…**, **Try it in the Animator**, the check (duplicates and conflicts), then a table **Press / What it does / When** grouped (Moving and the eye, Fighting, Shooting and abilities, Things and menus), combos and chains step by step. The next tab is **Game buttons & layouts** (was Layouts). Problems no longer list a press a profile puts on a button |
+| Profile & buttons window | At its head **Checked: duplicates and conflicts** and **What each button does, and when** (the same table). A profile line may hold a button (**hold X**), aim (**LT … out and aimed while held**), fire (**RT … fired**) or one of the game's presses (**LS click**, **RS click (tapped)**, **D-pad down (held)**) |
+| Animator, a move | **On the controller** under a move that is a step of a combo says **Step N of the combo '…' on X**; a hit-confirmed window says so in why-not |
+| Animator, the clip picker | A group **Brought in**: clips imported (Mixamo Strafe, Great Sword Strafe), marked as imported, assignable as a way's clip |
+| Inspector, a tree or other made thing | **COLOURS**: a swatch for each part (Trunk, Leaves; fruit, flower, rock, roof…), a click opens a picker and changes it at once; **This tree only** / **Every tree in '…'**; **Back to how it was**, **Another random colour**, **How '…' varies in colour →**, **The style's colours →**. Titles never say "own own". **Look: worn, broken or overgrown** (was "mangled") |
+| Styles window | **+** / **−** on a colour row change that row only: the window, its scroll and its choice stay. The copy's name hint says "a name, or left as '…'" |
+| Construction bar, a bridge picked | **Narrower** and **Wider** (1 m, 0 to 60 m) beside **Lower** / **Higher**: "N m wide under it" or "as wide as it allows" |
+| World › New world, a map layout | **Furniture style** (old, medieval, modern, western, sci-fi, your own) with names; **rivers**, **how wide**, **which way they run** (west to east, north to south, corner to corner), **lakes**, **how big**, **ponds**, **how big**; the plan shows the water |
+
+## 7f. Changed 2026-10-29
+
+| Where | What is new |
+|---|---|
+| Construction bar, Build | **Floating land**: click round it, Enter ends it; 12 m up at first. Picked: **Lower**, **Higher** (2 m each) |
+| Construction bar, Paths | **Walkway on a face** and **Ledge of rock**: press on a cliff or hill face as high as it is to be, drag along it. Picked: **Along a face:** walkway or ledge of rock, **Lower on the face**, **Higher on the face** (0.5 m each). **Rope bridge**: drag from one high place to another. **Zip line**: drag from its higher end to where it comes down (a post put at the higher end, one Ctrl+Z) |
+| Styles window, Every setting a style has | A group **Ink and shading (any style)**: Outline (colour, how thick), how much the outline takes the colour of what it is round, Outline round (ticks: people, buildings, plants, props), Outline far (thins from, gone at), Shading (realistic, smooth, two-tone, cel, and bands), Lines inside (how strong, how sharp) |
+| Styles window, above Every setting | **Make one at random**: ticks for colours, light and picture, ink and shading, the drawn look; **how far** (a slider); **Make one**, **Put it back**; a name and **Keep it as a style of my own**. It changes the style the world is in |
+| Window › Regions, a region | **Mist lying in it**: its colour and how thick; with a mist, **How high the mist reaches (m)** and **How the mist glows** |
+| World › New world, a village or a city | The plan from above beside the choices, drawn again as they change: roads, buildings in the colour of their sort, fields, woods, the well. Click a building: left out (crossed), again: put back; right-click: another sort. **Another seed**. A line under it: how many buildings, furnished, roads, fields, woods. New choices: **houses furnished, %**, **how full the rooms**, **furniture of** (the game's own or a time) |
+| World › New world, a new beginning | **A village or city from a map (Procgen Arcana)**: **Choose the map…** (the JSON from watabou's Village, Medieval Fantasy City or Neighbourhood generators), its plan beside, the same edits and furnishing choices. World › New world from a map's layout… now opens this |
+| World menu | **Populate: people, creatures and things…** (Window › Populate): five steps, one at a time, **‹ Back** and **Next**: Where (round where the view looks and how far; anywhere on the land; in a region), Who (designs with bones, how many of each, a find box), What (every other design, how many of each), How (how far apart, in clumps, sizes varied, seed, turned any way, only on dry land), See it (the plan from above with a key, **Another seed**, **Populate: put them down**, one Ctrl+Z) |
+| World › New world, every generator | The island's seed, hills and size are hidden for a generator (its own seed and sizes are among its choices) |
+
+## 7m. Changed 2026-10-29: sections that fold — `section.gd`
+
+Every heading drawn as a band (a bar of colour down its left, the colour faint behind,
+its words heavier) now folds what follows it, up to the next heading: click the heading;
+an arrow in its band points down while open, along while folded. A heading with nothing
+under it has no arrow and does not fold. Each window remembers, while the editor runs,
+which of its headings are folded (by the window and the heading's words), so a window
+filled again stays as it was left; everything begins open. Not folding: a menu's
+headings, the Help page's title, the Character Studio. Buttons that were bare words
+(a form's list rows, the condition ×, Foes' and the person card's links, Expand all /
+Collapse all) now have the faint box every pressable row has.
+
+| Where | What folds |
+|---|---|
+| Project (World › Project) | Each section of cards (its heading and its ＋ ways), every card on a page (In a fight, Its steps, Its moves, Its endings …), the small headings of pages and the side panel (Quick actions, Project info, Definition, Its colours, Gathered, After …), Not used in this game. **▾ Open all** / **▸ Fold all** over the cards and at the top of a page; in the list view they fold the list's headings too. The categories at the side do not fold |
+| Project › Controls & Input, Worlds | Each card (Layouts of buttons, Press —, Wheel —, The hotbar, On it now, What is heard), Ways out / Caves inside it / Ways in, In use, Problems |
+| Every form (Game settings, Powers, Effects, every book of Project) | Each band heading of the form folds its rows |
+| Inspector (F7) | As before (its parts and Placement, Physics, Advanced), now with ▾/▸ arrows; Placement, Physics, Advanced banded like the rest; Its colours folds. **▾ Open all** / **▸ Fold all** under the list of nodes |
+| World outline (Makers) | As before, with ▾/▸ arrows |
+| Styles window | Its light, look and colours (new heading), Palette of …, Limited palettes, Make one at random, Every setting a style has; Open all / Fold all at the top |
+| Environment, Graphics, Debug, Playtest, Behaviours and rules | Each heading; Open all / Fold all at the top |
+| Regions, Foes, Routines | Each heading on the page (with its line of what it is for); Open all / Fold all at the top of the page |
+| Physics, Combo graph's side, Library's detail, Help pages, the construction bar's shelf, Tiles (The tile picked, Tiles in no cell), Profile & buttons, the person card (Their day, Their work, What they say …) | Each heading |
+| The land by hand (F8), Erase | As before, with ▾/▸ arrows |
+
+## 7l. Changed 2026-10-29, eighth pass
+
+| Where | What |
+|---|---|
+| Characters menu | **Animations from Mixamo…**: opens the Animations from Mixamo window on the Studio's character (or the one played) |
+| Project › a character › Who | **Animations from Mixamo…** beside Open in the Character Studio: the same window on that character |
+| Animations from Mixamo window (mixamoview.gd) | **Character:** a list (every character); the steps in plain words, two ways: **The quick way: no upload** (download on Mixamo's own character: FBX Binary, Without Skin, 30 fps, In Place for walks) and **Uploading your character: only when you need it** (an unusual body, or to see it in Mixamo's preview); buttons **Save my character for Mixamo** (OBJ + MTL + pictures in a .zip, standing in a T, into editor/exports/mixamo/NAME/, the folder opened), **Open the saved folder** (greyed until saved), **Bring in a clip I downloaded…** (a file window on Downloads, .fbx, several at once), **See it in the Animator**, **Close**; a line under them says what happened |
+| Help › Animations from Mixamo | A page of its own (people stage), linked from Characters: the Studio; demo **mixamo** |
+| Environment › Sky | New sky **Rosy evening** (every colour, scattered clouds); **See it at dawn** beside See it at sunset; a row **Evening colours:** **Every colour / Gold and red / Pink and violet** and a tick **Changes each evening** (the air's `evening KIND changes|same`). **Sunset richness** now says sunsets come by themselves every evening and morning and it only says how strong. sunsets.gd |
+| The sky at sunset, dusk and dawn | Drawn in bands (gold, orange, red, pink, violet, blue; warm toward the sun, rose and violet away), clouds lit beneath by the band below them, glowing edges near the sun; every evening and dawn without a sky chosen. By day the procedural sky as before. Demo **sunsetcolours** |
+| Behaviours and rules, a step | New steps **Change the sky** (a list: blazing, golden, patchy, moody, plain, rosy) and **Set the hour** (a list: dawn, morning, noon, afternoon, sunset, dusk, night, midnight) |
+| World facts | `sky` (a sky's id; cleared: the world's own) and `hour` (a named hour or a number) change the sky and the hour while they are put: for wires (`put`), quests, cutscenes |
+| Project › Cutscenes, under each shot | Rows **then [who] [what they do] [where / which move] after [s] ×**: who is a list (**the player**, **the arena's first foe**, anyone put down); what is a list (**walks to**, **comes out of**, **turns to face**, **draws their weapon**, **puts their weapon away**, **plays the move**, **stands still**); where is a list (**into the arena (near its middle)**, **the arena's gate**, the player, the arena's first foe, anything put down), or for a move the player's own moves; **after** a number of seconds into the shot; **＋ Someone does something** adds one (the player walks into the arena). Nothing typed (scenebook.gd `does`) |
+| Project › Cutscenes, shot camera list | Also **over the player's shoulder, at it**; the shot's "on" list also has **the arena gate** and **the arena foe** |
+| Inspector, an arena ring picked | **Opens with the scene** (a list: no scene, or one of the world's cutscenes; arenas.txt `opens`, one Undo); a line saying how many gates are put down for it; **Cutscenes in Project →** (opens Project on that scene) |
+| Library › Arena | **An arena gate**: a stone block with a dark doorway, put by a ring's edge, opening toward it (`tags arena_gate pit`); the island town's Pit has one to the north |
+| Playing, an arena with an opening scene | Start the waves: the scene plays first (letterboxed, the editor's bars hidden while it plays), then the first wave goes on with the scene's foe in it; any button skips the scene. Demo **pitintro** |
+| Animator, column edges | A slim **◀ / ▶** tab between each column and the preview slides the moves list (left) or the settings (right) away and back; keys **[**, **]**, **\\** (both) |
+| Animator, middle bar | **Around it: someone to strike** (now the first choice): the sparring partner, or anyone; **Play: each of its moves**; **Follow** (the eye goes with the body); **Lens: normal / wide / long** |
+| Animator, under the strip | A **seek bar** over all that Play plays (a combo, move after move) |
+| Animator, right, top | One line: how numbers are dragged or written, said once; each number, pointed at, says what it does |
+| Animator, right, The one struck (new) | **Who stands in** (a list of characters), **Stands (metres ahead)** with **Where it lands**; per phase that strikes **When 'PHASE' lands, they** (their own, or any reaction move) and **✎** to animate it; the move box then has **◀ Back to …** |
+| Animator, right, The move | **Rename…**, **Keep a version**, **Go back to… (n kept)** |
+| Animator, right, Pose at this frame | **tip / twist / lean** named and coloured beside their numbers; **Keep as a pose…**, **Lay a pose…** |
+| Animator, right, What it carries | **Both hands** works for a thing of one hand too (the other hand below the first); the body stays posed after any change; **Moved (cm): across, up, along** and **Turned (°): tip, twist, lean** named and coloured; **🔧 Fit it in the hand**: a box at the grip and three rings on the thing in the preview |
+| Animator, right, Animation | **Over [part] … plays [clip]** with ✕ per part; **Make it a clip of its own…**; **Browse clips…** |
+| Every window's number boxes | Pointed at, the box says what its number is (it said only how to drag it) |
+| Edit menu, new group "A part of a world, copied and pasted" | **Draw round a part to copy…** (Ctrl+C with nothing drawn): hold the left button on the ground and go round; let go, the line closes (yellow), what is inside is marked (yellow posts on things put down by hand, blue rings for what a wood or meadow reaches). **Copy what is drawn round** (Ctrl+C; greyed until something is drawn round). **Paste the copied part here** (Ctrl+V; where the view looks; greyed until something is copied). worldcopy.gd |
+| While a part is drawn round: a bar low in the middle | Says how many things put down by hand and makers lie inside; **Copy (Ctrl+C)**, **Draw again**, **Put away (Esc)** |
+| Right click on the land › Another world | **Paste the copied part here**: the copied part about the place clicked |
+| Window "Pasting: what this world does not have" (opens on paste when anything is missing) | A line of where it came from and how many; one row per thing the copied part needs that this world has not (a design, a mesh, an entry of a text: an arena's settings, a cutscene, a set of moves, a character, goods, an act ...), in plain words (who needs it and why); per row **Bring it too** / **Use instead…** + a list of this world's own of that sort / **Leave it** (and what then stops working). A row for what this world has of the same name but otherwise: **Keep this world's** / **Use the copied one**. Footer: **Paste**, **Bring everything missing**, **Cancel**, tick **Level the ground inside the line drawn**. Demo **worldcopy** |
+| World › Bring in another world as a section… | Unchanged on screen; now made by the same path as Paste (worldmake.gd `put_section`): a thing put down keeps everything set of it (what it says of itself, size, colours, height) and its name |
+
+## 7k. Changed 2026-10-29, seventh pass: the Animator's tools, skies, the arena
+
+| Where | What |
+|---|---|
+| Animator, middle bar (wraps) | **▶ Play** and **🎮 Test with the controller** green; speed; **Play: all of it / this move / this phase**; **🔓 Hold the part** (gold; L); **Around it: nothing / a dummy / wall and ledge / the yard**; **Front**, **Side**, **Back**, **Above**; **Ghosts**, **Path**, **Loop**; **⌨ Keys** (every shortcut) |
+| Animator, preview | The handle under the pointer lit before it is pressed; hands' and feet's handles on the palm and sole; held: a drag anywhere moves the part; the eye turns the way the pointer goes (mirrored); Shift or Ctrl+middle slides it; a dummy where the first blow lands, rocking when struck, faint when in the way; the yard's dummies, target, a wall and a ledge (solid when tested) |
+| Animator, right | Every section a coloured panel with a ▾/▸ header that folds it; **Fold all**, **Open all**; kept where it is scrolled when filled again |
+| Animator, right, The move | **Needs in hand**, **Only when locked on**, **▲ Earlier in the set**, **▼ Later**, **⧉ Make a copy**, **Take out of the set** (red); ＋ Phase after (teal), Remove phase (red) |
+| Animator, right, Pose at this frame | **◆ Key it here** (K), Copy pose / Paste / Paste mirrored / Mirror to other side (gold), Remove key here / Clear the phase's keys (red); **Quick touches**: Lean in, Lean back, Wind up, Follow through, Sink low |
+| Animator, right, What it carries (new) | Each thing carried or worn (✋ in hand, 🗡 put away, 👕 worn), **In hand**, **✕**; **＋ Give it…** (weapons and tools, then worn); **While posing: In the hand, Both hands**; **Sits in the hand: moved (cm)**, **Turned (degrees)**, **Turn round**, **Roll 90°**, **Tip 90°**, **Reset** |
+| Animator, right, phase fields | Renamed to plain settings (e.g. Moves at a steady speed, Air drag, Knockback weight, Parry window, Grabs the one hit, at); Trail from: places ticked, **Its own colour** and a colour; Effect as it begins (and where), Effect where it hits, Sound where it hits, Face, Fires a shot (and how many), Switches what is in hand to: chosen from lists (were empty text boxes) |
+| Window › Environment | **Sky** section (above Clouds): Blazing sunset, Golden hour, Patchy clouds, Moody overcast, Plain; **Sunset richness**, **Moodiness**, **Sunset colour**, **See it at sunset**; Clouds: kinds **patchy** and **moody**, **Broken up** |
+| Window › Styles | The description box a fixed height; Keep and Put back always there (greyed when nothing to do) |
+| The island town | **The Pit** (an arena ring east of the South Field): walking in asks waves, foes, more each wave, most at once, seconds between, which foes; a bar at the top while waves come; its settings in the Inspector when the ring is picked (arenas.txt); crates, barrels, pots, pillars and fences about it that break; sparring partners, a wall |
+
+## 7j. Added 2026-10-29, sixth pass: the Animator
+
+| Where | What |
+|---|---|
+| Window › Characters and gameplay | **Animator** (Ctrl+Shift+A), first in its group; also Characters › **Animator…**, the Studio's **Open in the Animator ›**, and the right click's **Animation of what is picked…** on a character, creature or a flock's sheep |
+| Animator, left | **WHO** (characters; *Creatures and beasts*; *Every body of bones of a sort*), **WHAT THEY DO** (Getting about, Moves (N) with [pad button], Combos (N)), **＋ New move**, **＋ New combo** |
+| Animator, middle bar | **▶ Play** / **⏸ Stop**, speed (1×, ½×, ¼×, ⅒×), **🎮 Test with the controller**, **Front**, **Side**, **Back**, **Ghosts**, **Every bone** |
+| Animator, preview | Handles: right hand, left hand, right foot, left foot, hips, chest, head, what is held; small handles on every bone (always, for a body that is not a person). Drag to orbit, wheel to zoom, Esc puts a drag back |
+| Animator, under the preview | The status line; a combo's cards (1. MOVE → 2. MOVE, **＋ Add a move…**); the phase strip; **⏮ ◀ ▶ ⏭ ◆◀ ▶◆** and the frame said |
+| Animator, right | **The move** (Pressed with, With held down, how it is pressed in words, **＋ Phase after**, **Remove phase**); **Pose at this frame** (part chosen, Tip/Twist/Lean, **Copy pose**, **Paste**, **Paste mirrored**, **Mirror to other side**, **Remove key here**, **Clear the phase's keys**); **Animation** (Clip, Part of the clip, Mirrored, Backwards, Feet on the ground, Blend in); **Phase 'NAME'** groups Timing, Movement, Hit, Reaction, Defence, Gear, Effects; **What can follow**; a combo's **Pressed with**, **One press plays it all**, ◀ ▶ ✕, Waits after its window. A creature: **Its clip for this** (Clip, How fast) or **Its poses** |
+| Animator, right, a character with a profile in use | **The move** and **The combo** have **On the controller** in place of Pressed with / With held down: a list **nothing held / LT / RT / LB / RB held** and a list **no button / A … Right**, written to the profile; the line under it: "In the game: hold LT and press X … Played with the profile '…'", or which game button does it when it is on none |
+| Animator, list | A move's variants nested under its first: **↳ NAME [button] ● in use** or **○** |
+| Animator, right, under the set buttons | **Variants:** one button per variant (**1 · Launcher**, **2 · Launcher 2 ●**); **🎮 Profile & buttons…**; with no profile, a line saying the controller is as the game has it; for an older copy, **A variant of…** |
+| Profile & buttons window (profileview.gd; Characters › Profile & buttons…) | Top: **Character**, **Profile**, **＋ New profile**, **⧉ Copy**, **↶ Undo**, **● Use this profile** / **Stop using it**, **Remove it**. **What NAME carries**: rows with **in the hand first** / **carried, not drawn first** and ✕, **＋ Carry something…**, the character's own gear ticked, **Set** with **Open in the Animator**, ability chips ✕ and **＋ An ability…**. **The controller, button by button**: each button (A … Start) with its game buttons in words (block / guard, lock on, camera behind …) ✕, its binds ✕, **＋ game button…**, its chords ("with LT held"), grey **also (Controls & Input)** lines. **Moves, combos and abilities: which button**: per row a held list and a pressed list |
+| Character Studio, top row | **Open in the Animator ›** after Simple and Advanced |
+
+## 7i. Changed 2026-10-29, fourth pass: the preview as the game plays it, the playground lined up, the chain
+
+| Where | What is new |
+|---|---|
+| Studio, a phase clicked (Simple's phase bar, Advanced's phase list, the list of moves, ◀ ▶ phase) | The phase is played as the game plays it, from a moment before it, and held at its last frame: in the air where it is in the air, gone as far, turned and flipped, at the wall, after the move it follows. With or without **Practice target**. Never come to: its clip alone on the spot, the reason before it under the preview ("Its clip alone, on the spot: …") |
+| Studio, the phase slider and posing | The body stands where the game has it at that frame; posing lays its pose on the phase's clip there |
+| Studio, a move that comes only after another | Its phases are shown after the move that lets it in (the air dash after the launcher) |
+| Studio preview, under it, when a move is tried at a piece of the playground | **"The wall: drag it in the preview to line it up with the body"**, **◀**, **▶**, **Nearer**, **Farther**, **⟲ 15°**, **⟳ 15°**, **Line it up**. Dragging the piece in the preview moves it on the floor. Where it was left is kept for that move |
+| Studio playground | A fifth piece: **the wall beside it** (4 m high, 16 m long) for the wall run to the side |
+| Studio, top row | **Its text** is now **Edit character as text…**; in Bones, **Open the look** is now **Edit look as text…**; What it carries' **Its text** is **Edit gear as text…**: all hidden unless View › Show the 'as text' buttons |
+| Project › Builds | A card **THE CHAIN: HITS ONE AFTER ANOTHER, SCORED**: **Seconds between hits** (0: no chain), **XP for each 100 points** |
+| Playing, the display | At the right: **×N CHAIN** and its points while hits land one after another; a piece of its own (`chain`) in the display designer |
+
+## 7h. Changed 2026-10-29, third pass: posing in the preview
+
+| Where | What is new |
+|---|---|
+| Simple › Moves, ✎, a phase chosen | At the top: **✋ Pose it in the preview** (on / off). On: balls at the right and left hand, right and left foot, chest, head and what it holds; the other figure and the playground hidden. Drag a ball: the arm or leg reaches it, chest and head turn; Esc puts it back. **◀ / slider / ▶** and **frame N of M**; a chip for each frame with a key; **Frames either side** (ghosts before in blue, after in orange); **Path of the ball chosen**; **Lean in**, **Lean back**, **Wind up**, **Follow through**, **Right side to left**, **Clear this frame** |
+| Simple › Moves, ✎, the phase bar | A line under it: the phase's frames and advice by role (windup, hit, recover). For a phase that strikes: **Hit pause** (frames) and **Shake**. For every phase: **Feet kept on the ground** |
+| Simple › Moves | **Lend what a move needs, to see it** (on by default): a move needing a carried thing (the grappling line) gets it for the preview, with a blue note on its card. A move that turns to others (retarget dash) has two more to strike |
+| Simple › Buttons | **Gamepad / Keyboard** (gamepad first). Each move's button is a list of that device's buttons, chosen without a pad plugged in |
+| Advanced › Edit a move | **Clip: NAME ▾** (or **No clip: choose one ▾**); **Use 'X' (open in Clips)** only when the Clips tab's clip differs; **feet kept on the ground** in the Animation group ("On the ground"); **does not fall while this phase lasts**; Button pressed items lead with the controller's button (**Controller X or RT — attack · keyboard click**; **No controller button — step_right · keyboard X**), in the controller's order; **Needs in hand: nothing / a blade…**; **Hand: left as it is / draws its weapon…**; **Strikes with: the right hand…** |
+| Edit mode, the character played | A click on it shows the start in the Inspector, with **Played as**: **Open in the Character Studio**, **Its moves**, **Its buttons** |
+
+## 7g. Changed 2026-10-29, second pass: the Character Studio made simple
+
+| Where | What is new |
+|---|---|
+| Character Studio, top row | **Simple** and **Advanced** (one pressed). It opens in Simple whenever it is opened; a tab asked for from a menu (Buttons, What it carries) opens Advanced. In Simple, **Its text**, **Read again** and **Side by side** are hidden |
+| Character Studio, Simple | The preview at the left, at the right four cards: **Look**, **Moves**, **Buttons**, **Try it**. The edit banner is not shown (the move's own head says **• not saved**) |
+| Studio preview | **The playground** beside the floor, on sand: a wall (5 m), a high edge (2.6 m), an edge to climb onto (1.5 m), a low wall (0.8 m). A move that needs one is done before it |
+| Simple › Look | **Body, size and colours…** (the Make panel), **Clothes and what it carries…** (Advanced: What it carries), **Make another from this one** |
+| Simple › Moves | A line of help; the set's moves as buttons (**▶ name**, **✎**) in groups: Attacks, Getting about, At a wall, an edge or a low wall (in the playground), Only after another move (tried after it), When struck. One that cannot begin is greyed with why under it (orange); one done says **done ✓** |
+| Simple › Moves, ✎ on a move | **‹ All moves**, **Changing '…'** (• not saved), **▶ Play it**, **Save**, **Undo changes**, **Every setting…** (Advanced, Edit a move). **The phase bar**: a band for each phase as long as it lasts, its frames (60 a second), windup / hit / recover coloured; click to choose, drag a right edge. For the chosen phase: **Shown by** (the clip) and **Another…**, **Turns round**, **Flips over** (backward / forward), **Rolls to its side**, each a slider with **⇄** (the other way); **Trail** (no trail, what it holds, right hand, left hand, both hands, right foot, left foot, both feet) and its colour; **As it begins, show** an effect **at** a place; **Where it strikes, show** (a phase that strikes) |
+| Simple › Buttons | A row for each move a button can ask: its name and a list of buttons (**no button** first); **How each button is pressed, your own buttons…** (Advanced: Buttons) |
+| Simple › Try it | **Walk it about yourself** (the yard), **Try every move, one after another**, **Someone to strike before it**, and what was tried |
 
 ## 8. The windows
 
@@ -1985,6 +2422,7 @@ Not changed: the bar, the keys, the other windows, the other tabs.
 |---|---|---|
 | what it wears and carries | `worn` | thing, sort, where, put away at |
 | Draw / put away | `gear_draw` | by its move if its set has one (draw_blade, sheathe_blade), else at once |
+| Draw / put away (under the preview, Simple and Advanced) | `draw_or_put_away` | the same, always in view |
 | Take it off / Its text | `gear_take_off`, `gear_text` | |
 | Where / Put away at | `gear_place`, `gear_stow` | a place of `gear.txt` by name |
 | Held in both hands (IK) | `gear_two_hands` | a thing of two hands: ticked, held before the body where gear.txt says (`two_hands_at`) and both hands brought to its grips by IK while drawn (the list says "both hands, PLACE"); unticked, `free_hand`: in the one hand (7bb, 7bc) |
@@ -2003,6 +2441,938 @@ Not changed: the bar, the keys, the other windows, the other tabs.
 - **Moves tab:** *The game's buttons* is now *Buttons…*, which opens the Buttons tab.
 
 **Side by side:** the preview keeps its least width, and someone to strike moves to a row under Front / Side / Back / Above.
+
+## 13zz91. The display laid out by hand, the bar over one thing, the catalogue on a card, a loading bar, pens, pickers for names, the 'as text' buttons hidden (2026-10-28)
+
+New since 13zz90. Checked by script and the demos (`-Demo fixpass`, `-Demo weapontrails`, `-Demo heights`); untried by hand.
+
+- **Window › Game display** (`hudview.gd`, `hudcanvas.gd` new): at its top, a row of looks for the whole display (Clean, Arcade, Pixel, Parchment, Neon, Minimal, Blocky); the game's screen drawn small (720 × 405) with every piece where it stands, dragged to move; under it the chosen piece's settings: *Shown* (while playing, when), *while talking*, *Letters* (font list, *Add a font…*, size, colour, outline and its width), *Backing* (none, square, rounded, pill; colour, how solid), *Border* (colour, width), *Scale*, *As the game has it*; and *In the world* (cones, hearing, marks, foes, aim, lock-on: shown or not). The old rows of numbers are folded under *▸ Every piece as a list of numbers*. The window is at least 780 × 640.
+- **The bar over one thing placed by hand** (`buildbar.gd`): its name (yellow), a colour square (model designs), *− size N +*, *⟲ 45° ⟳ 45°*, *▼ ▲* (a quarter metre), *⛰ Dig into the land*, *Settings…*, *What it does…*, *Animation…* (creatures and characters). Draggable by its grip.
+- **What things can do** (`catalogview.gd`): two halves; the list at the left under headings in capitals; the chosen one at the right on a card in its sort's colour (title, group, description in italics, its settings as a table); *Give it…* and *Edit as text…* pinned under the card.
+- **Right click on a creature or a thing that does something**: a section *What it does*, a row for each thing it does, each opening the Inspector at that row.
+- **Inspector**: a thing of a flock or a wood lists what it already does (read-only, linked to the catalogue); a roaming one says how to keep it to a field, with *Regions…*. *Its moves as text…* is now *Its animation…*. Name fields (a watcher's switch, a count, a course, a way's ends, a puzzle, a lamp's fuel, what is strewn, who drops it, what a worker tends) are lists ending *＋ A new name…*, which asks for the name in a small box.
+- **Regions**: a tick *keeps animals in* (`pens`).
+- **A loading bar** over the view while a world opens (`worldload.gd`): *Opening NAME*, the bar with its percentage, and what is being done (*Making the land and what stands on it: N of M makers*, *Bringing in the shapes: N of M*, *Ready*). It takes no clicks.
+- **View menu**: *Show the 'as text' buttons* (off). While off, every *Edit … as text…* button in every window and the Window menu's *Advanced: as written text* rows are hidden.
+- **Library**: two shelves, *Heights and lookouts* (groups Towers, Signs, Roadside, Plateaus, Dug into the land) and *Heights of models* (Towers, Signs, Ladders, Dug into the land, Giant trees and rocks, Roadside).
+
+## 13zz90. The Animation window, names at the head, colour rows, the street part, captions, fields as forms, Camping (2026-10-27, after the Begin window)
+
+New since 13zz89. Checked by script and the demos (`-Demo animpass`, `-Demo carclick`, `-Demo camppass`); untried by hand.
+
+- **New window: Animation** (`animview.gd`; Characters › *Animation of what is picked…*, the Inspector's link *Its animation: how it moves (Animation)*, the workspace bar's Characters group). A heading *Animation: NAME*, a sentence on how it is drawn, a stage with ↺ ↻ *Spin* and *Figure*, then rows by sort:
+  - a model with clips: one row per way (*Standing*, *Walking*, *Running*, *Eating, grazing*, *Resting, stroked*, *Crouching, sneaking*, *In the air*, *Its move*), each a clip list (*by its name: …* first), a speed number and ▶;
+  - a model with no clips: *Its gait* (plodding, skittering), how much it bobs, how much it rocks;
+  - a body of bones: *Pose*, *Walked at (m a second, to see it)*, *One round every (metres)*, *Key* buttons, then a grid *Bone / forward, back / turned / tipped*, a number each;
+  - a person or character: *Open in the Studio*.
+- **Inspector**:
+  - the heading is the thing's own name (never *Kind*); things of a layout (the log cabin, the doctor's) find their design for Looks, Shape and colour;
+  - new colour row for a model's design: a colour picker, *how much*, *each one differs*, *its own colours*;
+  - new part for a car of the traffic: *Street: NAME*, *Cars on it* (number), *Taxis* (one car in three is a taxi), *Try it in play: hail a taxi*;
+  - a maker's settings grid has a fourth column, a sentence saying what each setting does, beside the ?;
+  - text settings of a maker: a colour picker for colours, a button that opens World outline for the rest;
+  - an ability's colour field: a colour picker; *only while*: a button worded as the condition, opening a form of rows;
+  - *used, it does*: rows (*changes / puts on / cures / sets the fact*, which, how much, ✕) and *+ an effect*;
+  - *leads to*: the worlds list gains *nowhere*; the typed box is gone;
+  - *when this happens, do*: for give, sound, move and scene, a list to pick from; for give and put, a number.
+- **Makers, a structure**: the stairwell is a list of its cells (*stairs in column 0, row 1*); its eye's *when* is the condition button and form.
+- **Person card**: not shown while it has nothing in it.
+- **Abilities**: new *leaves a trail where it goes* (what springs up from the designs list, every metres, lasts seconds, at most, size) and *its colour laid over it*.
+- **Library**: new group **Camping** (14 designs: tents, a bedroll, campfires, a log, firewood, a chest, wagons). Furnishing sets: new *campsite*.
+- Nothing renamed or regrouped otherwise.
+
+## 13zz89. The Begin window, the World menu whole, the Poly Haven pieces' groups (2026-10-27, after the tenth pass)
+
+New since 13zz88. Checked by script and the demos (`-Demo begin`, `-Demo phuse`, `-Demo editspeed`); untried by hand.
+
+- **New window: Begin** (opens when Draw3D starts plainly, and from World › *Begin: new, open, worked on lately…*): buttons **New world…**, **Open a saved world…**, **Project…**; a heading **WORKED ON LATELY** with up to six worlds (name, folder, date, size), each a button that opens it; a check **Show this when Draw3D starts**.
+- **World menu**: every row is shown again (one empty row had stopped the rest); rows with nothing to do are greyed. New row *Begin: new, open, worked on lately…*.
+- **World › Project › World**: new links *Open a saved world…*, *Save as…*, *Begin: worked on lately →*.
+- **Library**: the Poly Haven kits' pieces have plain names and new groups by use: *Beds*, *Seats*, *Chests to search*, *Storage to search*, *Medicine*, *Drink*, *Food*, *Stoves and fires*, *Lamps and lights*, *Things to pick up*, *Tools and weapons*. **Gear to find** gains sixteen Poly Haven tools and weapons.
+- Nothing renamed or regrouped otherwise.
+
+## 13zz88. Ages in the maker, mining by region, the after fields, fishing and hunting logs (2026-10-27, tenth pass)
+
+New since 13zz87. Checked by script and the demos (`-Demo airprobe`, `-Demo tenth`); untried by hand.
+
+- **Character maker › Body**: a row **Its age:** of eight buttons (Toddler, Young child, Child, Teenager, Adult, Middle-aged, Old, Very old). New sliders **Neck**, **Shoulders**, **Hands**, **Feet**; **Height** goes down to 0.4.
+- **Window › Regions › What it gives, and asks**: rows *Mined here: GOOD ×* (how many, chance, ×) and a picker **＋ Mined from its hillsides …**; once any is chosen, **Strikes before a spot is worked out**, a check **Worked-out spots stay worked out for good**, and **Hours before a spot fills again**.
+- **World › Project › a thing's page › GATHERED**: a part **AFTER** above it: *Looks, after* (as made, a stump, a stump and logs, rubble, chipped, cut down low, nothing), *Comes back* (Gone for good), *Whole again after (hours)*, *Strikes to take it down*, rows *Perhaps GOOD* with a chance and ×, and **＋ Sometimes holds …**. For a tree that is felled, the first three only. *Gathered by* has a fourth choice, *Mined with a pick (struck)*.
+- **World › Project › a good's page**: two new headings. **Its worth and use**: *Worth (coins)*, *What it is for*, *Counts as*. **Caught on a line**: *Caught in*, *Bites from (hour)*, *Until (hour)*, *How common*, *Fights on the line*.
+- **Inspector › Make it usable**: new uses *rock*, *ore*, *furnace*; *tree* now leaves a stump and grows again.
+- **Playing, the inventory (I)**: headings **Goods of worth** (each with its coins; chosen, what it is worth and what it is for), **Fishing log**, **Hunting log**.
+- **Playing, prompts**: *pick at the rock* (a mined region's rise), *cast the line*, *STRIKE! a fish is biting*, *reel in*, *skin and dress* (on fallen game). A shop's *Yours to sell* lists what is worth something.
+- **Library**: new collection **Mining**; **Gear to find** gains Pickaxe, Fishing rod, Hunting rifle, Rifle, Shotgun, Crossbow, Longbow, Hunting knife, A tin of worms; **Water life** gains fourteen fish and two shellfish; **Creatures and enemies** gains An elk and A wild boar; thirteen Poly Haven kits and eleven Quaternius kits.
+- Nothing renamed or regrouped.
+
+## 13zz87. The Railway brush, stops and timetables, the Studio from a right click, the diving suit, birds, aircraft (2026-10-27, ninth pass)
+
+New since 13zz86. Checked by script and the demo (`-Demo ninth`); untried by hand.
+
+- **Build › Paths › Railway**: a brush beside Path and Bridge. Press and drag: rails on sleepers along the line, a train on it. Its tooltip says what to do next (right click the rails).
+- **Right click on rails** (a railway's line chosen): *A stop here (the train halts)*, *A station house here*, *The railway's train, timetable and stops*.
+- **Inspector › Railway**: now begins with how long the line is and how many stops; then **Its stops, in order** (each named, with its metres along the line; a halt has *take away*); then **Its timetable** (all day and night / by day / by night / mornings) above the rows that were there (how fast, waits, carriages, colours, how it runs, whistle, rails, its train).
+- **Right click on someone drawn as a character**: *Its animation: edit its clips (Studio)*. Opens the Character Studio on them with the Clips tab and their walking clip playing.
+- **Character Studio › Clips**: a strip **It shows:** over the list — *stand: CLIP*, *walk: CLIP*, *run: CLIP* … (the character's look), each a button that picks that clip. Filled whenever the list is.
+- **Library › Worn › Diving suit**: a found item like the coat; worn from the inventory (I). **Library › Boats › Gunboat**. **Library › Birds** (new collection, 11). **Library › Aircraft** (new collection, 3). **Library › People**: an old man, an old woman, a toddler.
+- **Tune (Numbers)**: a *Flight* group: climb, lift, sink.
+- **World › New world › A village / An overworld**: nothing new to see; every place keeps to dry land now.
+- **Playing**: afloat, the camera's pitch takes a swim down or up; the body pitches with it. Aboard a gunboat, attack fires the cannon. In a helicopter, jump lifts, crouch lowers.
+- Nothing renamed or regrouped.
+
+## 13zz86. Cave tool with rooms, dungeons, generators with tags, sections, traffic and taxis, fruit, right-click rows (2026-10-27, eighth brief's remainder)
+
+New since 13zz85. Checked by script and demos (`-Demo eighth`); untried by hand.
+
+- **Terrain window:** the tool is called **Cave** (was *cave through a mountain*). Its numbers are *rooms*, *room* (size), *spread* (side passages) and *wide*. Two pickers sit beside them:
+  - **grows in it**: crystals, mushrooms, both, or nothing (natural caves only);
+  - **made as**: *a natural cave* or *a dungeon (dressed stone, torches, chests)*.
+  - While dragging, the notice says whether the cave will go through the hill or into it.
+- **World › New world:** four more beginnings:
+  - *A city with traffic and taxis*;
+  - *A village (our own generator)*;
+  - *A hill with a dungeon in it*;
+  - *An overworld: villages, a town, a cave, a dungeon*.
+  - Choosing one shows its **tags** under the description, as sliders and ticks (never typed). A tooltip on each tag says what it does.
+  - City tags: blocks across, block size, storeys, cars, taxis, a park, rooms inside, seed.
+  - Village tags: houses, lanes, fields, woods about, a palisade, a well, rooms inside, seed.
+  - Dungeon tags: rooms, room size, side passages, hill high, seed.
+  - Overworld tags: villages, a town, mountains with a cave, a dungeon hill, roads between, seed.
+- **World menu:** *Bring in another world as a section…* opens a file picker. The other world is brought in where the view looks, as one Ctrl+Z.
+- **Right click on the ground** (nothing selected): two more rows under *The land*:
+  - *Dig a cave or a dungeon (drag into a hill)*;
+  - a heading *Another world* with *Bring another world in here (a section)…*.
+- **Right click on what is selected:** new rows depend on what it is.
+  - **Several chosen:** a heading *The N chosen* with *Turn them a quarter round*, *Raise them 0.5 m*, *Lower them 0.5 m*, *Delete all N* and *Choose none*.
+  - **A fruit tree:** a heading *Its fruit: N apples hanging* with *Knock one down now* and *Try it in play: strike the trunk or shoot the crown*.
+  - **A street (its paving or its line):** a heading *Its traffic: N cars, taxis among them* with *More cars (+1)*, *Fewer cars (−1)*, *No taxis on it* or *Taxis on it (one car in three)*, and *Try it in play: hail a taxi*.
+  - **Something named "the …" by a street:** a heading *A taxi's stop* with *A taxi takes you here*, which opens Makers to rename it.
+  - **A cave's or dungeon's mouth:** a heading *A way in* with *Walk in: play at its mouth*.
+  - **Someone (one of the folk, a creature):** a heading with their name and *Meet them in play (talk, pet, ride: E)*.
+- **Playing:**
+  - beside a taxi, the prompt says *E take the taxi*;
+  - E opens a menu *Taxi: where to?* listing each named place with its distance and fare;
+  - Jump gets out.
+- **Riding:** attack swings from the saddle.
+- **Library:**
+  - an *Asset Library* group **Jungle animals** (13 animals);
+  - a group **Jungle trees** (coconut palm, mango tree, banana plant, apple tree), whose fruit can be knocked down;
+  - goods **coconut**, **mango** and **banana**.
+
+## 13zz85. New world from a map's layout, all at once by metres, room under a bridge, kept moments, Messages (2026-10-27, eighth pass)
+
+New since 13zz84. Checked by demos and host tests; untried by hand.
+
+- **World menu:** *New world from a map's layout…*, under *New world…*. It opens a file picker (Maps' layouts, .json/.geojson).
+- **World menu:** a heading **Kept moments of play (Ctrl+F12 while playing keeps one)**, before *Export the game…*. Under it, one *Go on from HH:MM, place* for each moment kept, then *Forget the oldest kept moment*.
+- **Playtest window:** a section **Kept moments**: *Keep this moment (Ctrl+F12)*, then a row for each moment with *Go on* and *Forget*.
+- **Keys:** Ctrl+F12 while playing keeps this moment; Ctrl+Shift+M opens Messages.
+- **Window › Project, testing and help:** *Messages*: the finished game's last measurement as a table, earlier measurements, *Measure again*, *Show the report's folder*, then every notice, newest first.
+- **Terrain window, LAND AND SEA:** with *extend land* or *take land away* chosen, a row **all at once** (metres, 1 to 400, 20 by default), then nine buttons: *all round*, *north ↑*, *north-east ↗*, *east →*, *south-east ↘*, *south ↓*, *south-west ↙*, *west ←*, *north-west ↖*.
+- **A path's options, over water:** *lower* / *higher* buttons and a label, *N m under it* or *no room under it* (0 to 12 m, by 0.5 m).
+
+## 13zz84. New world by template, Extend land and Take land away, Fill about here, Make it…, Measure the finished game (2026-10-27, seventh pass)
+
+New since 13zz83. Checked by demos and host tests; untried by hand.
+
+- **World › New world:** the list of beginnings is now:
+  - *A plot of land (blank)*, which comes first and is chosen. Its number is *across (m)*, 6 to 400, 24 by default; seed and hills as before.
+  - *An empty island*
+  - *An island, wild*
+  - *Two islands, by boat*
+  - *Two lands across a sea*
+  - *A town by the sea*
+  - *The demo island (everything)*
+  - *Nothing at all*
+  - Then the genres, as before.
+
+  A plot shows *across (m)* in place of *size (patches)*.
+- **Terrain window:** a new first group, **LAND AND SEA**, with *extend land* (number *above water, m*, 0.3 to 12) and *take land away* (number *below water, m*, 0.5 to 12).
+- **Bar › Terrain:** *Extend land: drag it out over the water* and *Take land away: give it back to the sea*, under *Terrain tools…*.
+- **Right click on the land** (nothing selected, no tool): under *Here*, *Start here* as before, then:
+  - **FILL ABOUT HERE WITH:** *Trees (a wood, 12 m round)*, *A big wood (30 m round)*, *Grass, flowers and bushes (a meadow, 10 m round)*, *Animals (horses, cows, goats…)*.
+  - **THE LAND:** *Extend land (drag it out over the water)*, *Take land away (give it to the sea)*, *Shape it (raise, lower, smooth, flatten…)*.
+- **Right click on one thing:** a new heading **MAKE IT…**, before *Where else it is changed*: *A weapon to pick up and use*, *Something to pick up*, *Food to eat*, *A seat*, *A door*, *Something to search*, *A creature that moves about*, *Something else it can be…* (opens the Inspector).
+- **Inspector › Make it usable:** a new use, *item* ("something to pick up and keep").
+- **World menu:** *Measure the finished game…*, under *Export the game…*.
+
+## 13zz83. Menus grouped, the Library menu, the right click that goes everywhere, the Project's used and not used, headings in colour, numbers dragged (2026-10-27, sixth pass)
+
+New since 13zz82, at the user's brief that began "the editor takes considerably longer to load up". Checked by demos and their pictures; untried by hand.
+
+- **The bar:** a new heading, **Library**, between Characters and Window: *Asset Library: everything…*, then one row for each of its collections (A to Z), then *Yours in this world (Objects in this world)…*.
+- **Window** (reordered, nothing taken out):
+  - First row: *✓ Grouped by what they are for* / *Show them grouped by what they are for*. It switches between groups and one list A to Z.
+  - **BUILD THE WORLD:** Asset Library, Edit shape, Erase, Grid layout, Modelling, Objects in this world, Quick place, Regions, Terrain, Terrain tiles, Tree Generator, World outline.
+  - **LOOK, LIGHT AND SOUND:** Effects, Game display, Graphics and performance, Sounds, Styles, Time and weather.
+  - **CHARACTERS AND GAMEPLAY:** Behaviours, Character Studio, Combo graph, Creatures and characters, Foes, Journal, Movement numbers, Routines, Shots and powers, What things can do, Who can do what.
+  - **PROJECT, TESTING AND HELP:** Assistant, Checklist, Debug and testing, Engine status, Inspector, Keys and mouse, Physics, Playtest, Preview, Project, Signals.
+  - Each group ends with *↗ The same in the Project*, which opens the Project on the matching category.
+  - **ADVANCED: AS WRITTEN TEXT** (moved here): *Characters and creatures (as text)…*, *Moves, poses and uses (as text)…*, *Stats and statuses (as text)…*, *Eating, drinking, resting (as text)…*, *Abilities (as text)…*.
+- **Characters:** the "(as text)" rows and *Farm animals…* are gone (now under Window › Advanced and the Library menu). New: *Creatures and characters in this world…* and *Every character and creature (Project)…*.
+- **World:** *Debug and testing…*, *Graphics and performance…*, *Effects…*, *Shots and powers…* and *Combo graph…* are gone from it (all of them are in Window). *Project: what the game is made of…* stays.
+- **Right click on a thing** (it is selected first if it was not):
+  - **THIS ONE:** Look at it (Home), Show it alone (/), Move it, Duplicate (Ctrl+D), Delete, Select the whole…, Select all of '…', Its maker's settings, the railway's rows.
+  - **CHANGE IT:** Its settings: look, colours, what it does (Inspector); **Make it my own (a copy, this one only)…** on a built-in object; Edit its shape; Its design in Objects in this world.
+  - **WHERE ELSE IT IS CHANGED:** the rows the Inspector links to (Character Studio, Routines, Foes, Behaviours, what names it, the Project).
+  - **PLAY:** Follow …, Start here, beside it, Play as this.
+- **New: the question "Make it your own?"** when a built-in object is given something only a design of its own may say (an ability in the Inspector): *Make it my own and give it* / *Not now*.
+- **Project:**
+  - Each category's cards: what the game uses first. Then a fold, **▸ NOT USED IN THIS GAME · N** (shut at first). Opened, each card has a way to use it: *＋ Place one* (a thing), *＋ Give it to the player* (a power, a move, a combo), or *Set it up…*.
+  - List view: the same as a last heading, *Not used in this game · N*, folded.
+  - **New section: Assets & Objects › Draw3D's own objects.** Every built-in object (crate, barrel, rock…), "N in the world". Opened: Objects in this world, with it chosen.
+- **Headings in colour, everywhere:** a bar of colour down the left of each heading and the same colour faint behind it. A heading keeps its colour every time. Covers the Inspector, World outline, the Project's sections, the menus' headings, every form's headings, Terrain, Erase, and the Environment, Graphics, Debug, Playtest, Physics, Combo graph, Behaviours, Routines, Foes, Regions, Library and Make tab headings. The Character Studio keeps its own colours.
+- **Numbers, everywhere:** press on a number box and drag right or up for more, left or down for less. Shift is faster and Ctrl finer. The number is set once, when you let go. A click alone still lets you type. The cursor over a number box is the ↔ arrows.
+
+## 13zz82. The combo screen made plain, the person card, keep my place, genres in a form, framed class cards (2026-10-27, fifth pass)
+
+New since 13zz81, at the user's brief that began "commit. performance has deteriorated again". Checked by demos and their pictures; untried by hand.
+
+- **Character Studio › Edit (combo screen):**
+  - *▶ Play move* now sits on the MOVES IN THIS COMBO line; *▶ Play phase* on the PHASES OF line. The bar at the top keeps *▶ Combo*, *Loop*, the partner and *Clips only*.
+  - **New: the time line** (`when_said`), over the phases: "⏱ Grapple › reel: 0.29 to 0.61 s of Grapple (0.61 s long) · 0.29 to 0.61 s into the combo (of 2.40 s)", worked out from each phase's own seconds, said again on every click. The preview goes to that moment; where playing for real cannot reach it (a grab with nobody to take), the phase's own clip is shown.
+  - **New: the hand-over row** under the chosen card, replacing the line "lets the next in 35 % through": "Slash may begin in [phase ▼] [70 % of it] = 0.42 s into Dodge (of 0.61 s). Pressed sooner, it waits until then; from then it begins at once and cuts the rest short." The phase picker and the percentage write moves.txt (`lets`, `from`). With no window: *Let it cut in*.
+  - *See it at* is renamed **In this phase** (the same moment as the Where bar, inside the chosen phase); *Where* is **Where, in all of it**.
+  - The wheel's zoom in the preview is kept when anything is played after.
+- **New: the person card** (`personcard.gd`): click someone while editing. Over them: THEIR DAY (a 24-hour bar, *Routines ›*), THEIR WORK (a picker that writes jobs.txt `given_to`, *Workers ›*), WHAT THEY SAY (*＋ A talk*), WHAT THEY ASK (*＋ A quest*), WHAT THEY SELL (*Inspector ›*), FOLLOWS YOU. Dragged by its grip, ↺ puts it back over them, ✕ shuts it.
+- **Playtest › Come back where I was** (on by itself): stopped and played again, or after the editor is started again, the walker is where they were, with what they carried, in the region they were in.
+- **World › Project › Worlds › Genres a new world begins as** (new section): each genre a form: Called, What it is, The world it begins as (a picker of the genres folder), How it is played (a box a line, ✕, *＋ A line*); *＋ New genre*, *New world →*.
+- **World › Project › Goods › a good › Opens into** (new field type, several goods each with how many, ✕, *＋ Add*): a seed box.
+- **World › Project › Quests › a quest › Experience** (new number field): experience given as it is done.
+- **Window › Shots and powers › Statuses › Fights its own side** (new tick): confused.
+- **Inspector › the list at its top** (what is picked, or any node of the world): the same rows, now put in as it is opened, not at every click.
+- **The class choice** (as a game begins): each class one framed card, its portrait on the class's own ground, its name, what it is, *◆ Carries* by plain names (Sword, Shield heater), *◆ Begins with*; a tooltip with the whole line.
+
+## 13zz81. Marks apart from what they do, builds and classes, rarity at an anvil, crops, many legs, breakables, objectives, workers, a tutorial, puzzles as forms (2026-10-27, fourth pass)
+
+- **Inspector › sight rows (a thing that sees or hears):** four new numbers.
+  - *what it sees, shown %*, *its hearing ring, shown %*, *its ? and !, shown %*, *its outline, shown %*: 100 is all, 0 is none.
+  - It sees, hears and notices the same either way.
+  - The game's own setting for each is in Window › Game display (cones, hearing, marks, foes).
+- **Inspector › legs and tail (a creature that says `legs` or `tail`):** *pairs of legs*, *how far they reach*, *how high the knees*, *front*, *back*; *tail pieces*, *tail length*, *tail curl*.
+- **Inspector › breaks when struck** (a tick, new). Ticked, it shows:
+  - *blows to break*, *pieces, how many*, *pieces, how big m*, *whole again after, h*;
+  - *pieces, colour* (a colour button).
+- **Inspector › works as** (someone with a body, new): a list of the jobs, with *no work: their own day*, and *Workers ›*.
+- **World › Project › Builds and classes** (gameplay, new):
+  - POINTS AND THE SUPER BAR: *Points to begin with*, *More at each level*, *Blows to fill the super*, *A blow in a combo counts*.
+  - A card per attribute: *Called*, *Says*, *At most*, what each point gives (picker, number, ×). *＋ An attribute*.
+  - A card per class: *Called*, *Its card says*, *Looks as*, *Fights with the moves*, what it carries (*＋ Something carried*), where its attributes begin, the skills it knows (*＋ A skill it knows*), its colour. *＋ A class*.
+- **World › Project › Item quality** (gameplay, new):
+  - A card per rarity: *Called*, its colour, *Strikes, of a plain one*, *Made better, at most*, *Chance, drawn at random*. *＋ A rarity*.
+  - MADE BETTER AT AN ANVIL: *Each time, harder by*, and what it costs.
+  - A card per enchantment: *Puts on whom it strikes*, *Harm it adds*, *Only on*, what it costs. *＋ An enchantment*.
+- **World › Project › Crops** (gameplay, new):
+  - WHAT THE WORK IS DONE WITH: *Tilled with*, *Watered with*, *Harvested with*, *That tool gives more, of each*.
+  - A card per crop: *Called*, *Says*, *Sown from*, *A harvest gives*, *Seeds back, each harvest*, *Ripe after, hours*, *Wants water before it grows*, *Fruits again after, hours*, *Sown in* (four seasons), *Looks like* and its height, its two colours. *＋ A crop*.
+- **World › Project › Workers** (gameplay, new):
+  - *The player may give work to folk in play*.
+  - A card per job: *Called*, *Says*, *Done at*, *Goes as far as, m*, *Hours, from and to*, *Farms the beds near*. When farming, *Sows* and *What is harvested goes to*. Then *Tends* rows (a kind, seconds, a move, ×) with *＋ Something to tend*, *Given from the start to* (*＋ someone…*), and *The player pays, each day*. *＋ A job*.
+  - WHO WORKS: each person about, with their job picked.
+  - PLACE SOMEONE WITH WORK: *Who, and their work* and *Place by the view's centre*, which also opens their day in Routines.
+- **World › Project › Tutorial** (gameplay, new):
+  - *Lessons are shown in play*, *Put by with, held* (a button), *Teach them again*.
+  - A card per lesson: *Heading* with ▲ and ×; *Says* with *＋ a button…*; *Shown as* (how the player will read it); *After*; *Shown while* and *Done when* (conditions, picked); *Or after, seconds*. *＋ A lesson*.
+- **World › Project › Puzzles** (gameplay, new):
+  - A card per puzzle: *Called*; *Board: across, up, deep*; *A cell, metres*; *Each block drawn as*; *Seconds: a cell, fixed, fast*; *Faster: times as long, every*; *What is cleared* (with how many, for a match).
+  - Points for so many at once (rows with ×, ＋), *Points a cell dropped; next piece*, *Cleared, burst off at m/s*, *Colours of 'any colour'*.
+  - Each piece: *any colour* or its colour, ×, and its cells as buttons, four levels side by side, clicked on or off. *＋ A piece*. *＋ A puzzle*.
+- **A quest's step › Done when:** new kinds: *has harvested*, *has broken*, *has finished foes*, *has made better at an anvil*, *has reached level*, *began as the class*.
+- **Conditions › is:** *attacking* and *acting* added.
+- **While playing:**
+  - The classes are offered as a game begins, where the Player start says so.
+  - The game menu has a *Character* page (points spent on attributes).
+  - *improve* at an anvil opens a page to make a thing better or enchant it.
+  - The inventory names each thing's rarity in its colour and compares it with what is carried of its sort.
+  - The super bar sits under health.
+  - *give work to* is offered of someone who may be hired (the act button held).
+  - A lesson shows at the top: its heading, what to do, and *Hold … to put this by*.
+- **Window › Game display:** new pieces *super* and *lesson*.
+- **Library:** new groups *Farming* (garden beds, seed stall, hoe, watering can, sickle), *Many legs* (sand queen, walking scorpion, centipede) and *Breakables* (sturdy crate, clay pot, stone pillar), and the anvil.
+
+## 13zz80. Snow kept or cleared, prints by who makes them, counters and cover, the far desert, packs and a companion, lore, the hotbar, a production chain (2026-10-27)
+
+- **Environment › What lies › When the weather changes:** *Keep it*, *Let it melt*, *Clear it*. A weather step of a quest or a sequence can say its own.
+- **Routines › Leaves prints of:** feet, paws, hooves, claws, none (`treads`). Inspector › HOW IT WORKS says which.
+- **Combo graph:** the words *counters*, *recovers*, *breaks_fall*, *reversible*, *braces*, *peeks*, *seizes before* and *shields* on a move's card, picked from lists.
+- **Inspector › Give it:** *companion* (seconds to be helped up), *pack N* (how many strike at once), *trades GIVE N GET M*, *lore NOTE* (reads as), *produces OUT N from GOOD M every MIN holds K*. Each is explained in HOW IT WORKS.
+- **While playing, new offers (E):** *read* (a note of lore), *help up* (a companion down), *put in* and *take out* (what produces something), and *trade* at the caravan (the shop window lists swaps).
+- **The journal:** a *Codex* page, with the sets of lore, how many of each have been read, and the notes.
+- **World › Project › Lore to find** (gameplay, new): one card per set, with *Called*, ×, *Read whole, it gives* (a good picker, a number and ×, plus *＋ Something given*) and *Makes the fact*. Under it, *ITS NOTES*: each note's title box with its name and ×, its paragraphs (each a box with ×), *＋ A paragraph* and *＋ A note of this set*. At the foot, *＋ A set of lore*.
+- **The hotbar** (new): eight places along the bottom of the HUD. Each shows its label, ×count, ✓ when worn, and why it cannot be used; the chosen place has a border.
+  - Keys 1–9 use a place.
+  - On a pad, LB+Left and LB+Right choose a place and LB+Up uses it. On keys, [ ] and \ do the same.
+- **The weapon wheel:** new *Weapons* and *Use* lists. Y (or H) puts the slot pointed at onto the hotbar.
+- **The inventory:** a new *On the hotbar* button.
+- **Controls & Input › Hotbar** (new tab):
+  - *Places* (a number) and *Fills itself* (by what is carried, or not).
+  - A row for each place: what it does (*uses a good*, *an item*, *a power*, *the hotbar*…) and what to use.
+  - While playing, *On it now* lists the places, with a *Let go of yours* button.
+- **Controls & Input › Presses › does:** two new entries, *uses a good: eaten, drunk, put on* and *the hotbar: a place used, another chosen*.
+- **Library › Village work:** new *Wheat stook*, *Millstone*, *Log pile*, *Baker's oven* and *Saw bench*.
+- **Objects › Assistant › Ideas ▾:** two new groups, *Many parts, in this world* and *Many parts, a new world*, with four requests each.
+
+## 13zz79. The performance monitor, the world kept alive, furnishing, ponds, rooms and cameras in Project, a quest that fails, an escort, ghosts (2026-10-27)
+
+- **The performance monitor** (new; movable by ⠿): Shift+F3, the play bar's *Performance (Shift+F3)*, Debug's *Performance monitor*, the Esc menu's *Performance monitor: shown or not*.
+  - Shown: frames a second, mean and slowest, the frame strip, scripts, physics, CPU, GPU, draw calls, triangles, objects, video memory, people awake/asleep/stopped, the five dearest parts.
+  - *Settings* fold: *Low*, *Medium*, *High*, *Ultra*; rows for *Render scale*, *People far off*, *World kept alive*, *Things drawn to*; *All settings ›*.
+- **Window › Graphics and performance:** stays open while playing; *Performance* has *World kept alive* (near, medium, far, everywhere).
+- **Project › Assets & Objects:** *Furnishing sets*, *Rooms of a house*, *Pond life*, each with ＋ New and *World outline →*. **Project › Styles & Materials:** *Cameras: how the game is seen*, ＋ New camera.
+  - A set's form: *What it is*, *Against the walls* / *In the middle* (or *In its water* / *Along its bank*), each a list of designs with a share, × and *＋ a design…*; *Of the places, used* / *How lively*.
+  - A room's form: *Called*, *What it is*, *The one thing it is for*, *Along its walls*, *In its middle*, *Upstairs*.
+  - A camera's form: *Turns about* (height, side, ahead), *How far back*, the wheel's nearest and farthest, *Tipped down/up at most*, *How wide it sees*, *Held facing*, *Comes after them*, *Comes to it over*, *Comes nearer for walls*, *Whoever it follows unseen*, *They face where it looks*, *Side-on* and its lanes.
+- **World outline › a structure's settings:** *furnished with*, *in the middle*, *pond life*, *along the bank* are now design lists with shares (they were typed).
+- **Project › a quest:** *IT FAILS WHEN* card (each a condition, *says*, ×; *＋ It fails when…*); *＋ AN ESCORT* card (*bring* who, *to* where, *Make it an escort*).
+- **Project settings › The game's flow:** *Ghosts of the best runs* (a tick).
+- **Playing a timed course:** the ghost of the best run, a runner seen through marked *best*; gate and finish messages end *(−0.5)* or *(+0.3)*.
+
+## 13zz78. A river into the sea to a timed course: the railway, performance, the whole of a thing, cutscenes, moods, hanging, unstuck, follow, faces varied, skills that raise a power (2026-10-26)
+
+- **Inspector › Railway** (a click on rails or the train), new:
+  - its speed, its wait at stations, carriages, the engine's and the carriages' colours;
+  - back and forth or round, the whistle, rails drawn, off;
+  - *Ride it from the first station*.
+- **Inspector › a way into rock:** *set into the slope* (*a little*, *well in*, *deep*), *how big*.
+- **Window › Graphics and performance:**
+  - *Performance*, new: *Render scale*, *Frame rate, at most*, *People far off* (*every moment*, *less often far off*, *seldom far off*), *Lamps far off*, *Fallen leaves*, with how far things, the view, detail, plants and shadows;
+  - the presets row has the project's own presets beside Low to Ultra;
+  - *Save as a preset* with its name box; each preset of one's own has ×.
+- **Debug › What a frame costs:** the dearest parts of the last second, by name.
+- **The right click on a part** (a roof, a plank, a piece of path): *Select the whole house* / *Select all of '…'*; a double click or U does the same.
+- **The right click on one of the folk or a creature:** *Follow NAME*.
+- **The strip, people chosen (Shift and a click) or one picked:** *Vary their looks*, which opens its panel (movable, ⠿):
+  - *How much* (a little / some / a lot);
+  - *Hair*, *Face*, *Clothes*, *Colours*, *Height* (ticks);
+  - *Vary them*, *Other draws*, *Alike again*, *See them in play*.
+- **Project › an act's form:** *Done from* (*anywhere*, *at its head*, *at its side*, *behind it*).
+- **Project › Cutscenes, a scene's shots:** each shot's second row: *camera* (round, front, behind, close, above, far), *fades* (none, in, out, both), *then* (the fact it sets).
+- **Project › Styles › Moods**, new. A card each:
+  - its name, *Try it*, *Holds while* (the condition picker);
+  - grade (light, colour, contrast);
+  - *cast* and *sky* (a colour and how much each), haze and light;
+  - *takes the picture of* (a style);
+  - *fades in*;
+  - *＋* with four presets (under attack, evening, storm dark, winter cold).
+- **Every condition picker:** *the season is*, *attacked (within …)*.
+- **Project › Project settings › The game's flow:** *Unstuck in the menu* (a tick).
+- **Project › Skills, each card:** *Raises* rows (the power, picked; *+N level*; *its levels ›*; ×) and *＋ raises a power…*.
+- **Shots and powers › Upgrades, a level's *from*:** *a skill is learnt* (the skill, picked), *skills raise it*.
+- **The Studio's Clips tab:** *Hanging: zipline and ceiling* (the walkthrough).
+- **Inspector › Abilities:** *is a gate of a timed course* (which course, its number). **HOW IT WORKS** says what `course` and `varies` do.
+- **In play:**
+  - at a horse's head *E pet*, at its side *E ride*, and *hold E* for the other;
+  - the game menu (Esc): *Unstuck: back to safe ground*, when the game offers it;
+  - a timed course: *NAME: go!*, *Gate N first.*, *N of M  time*, *Finished: time* (and *a best!*); its clock at the top; a light over the next gate;
+  - *Following NAME. Move to take the eye back to the player.*
+
+## 13zz77. Rivers to a skill tree: weather by place, a train, a shop, hazards, ziplines, cutscenes, skills, how hard (2026-10-26)
+
+- **Window › Environment › Weather:**
+  - *Change Dust storm, or save your own…* (folded): every number of the weather shown (how it turns, dims, greys and its colour, haze, fill, wind and gusts, sway, swell, clouds, lightning, thunder, harms, tumbleweeds, shimmer, what falls, its sound, what follows it); each change makes it this world's own;
+  - *Save as a new weather* with its name box; the new weather joins the row of weathers;
+  - *Weather by place*, new: *One weather everywhere*, *A front*, *A few*, *Many*; with fronts, *How wide one is:* *Small (160 m)*, *Wide (260 m)*, *Vast (480 m)*;
+  - *The calendar*, new: *No calendar*, *Short seasons (3 days)*, *A week each*, *Long seasons (14 days)*;
+  - the row of weathers has *Hail*, *Thunderstorm*, *Dust Storm*, *Heat Haze*, *Gale*.
+- **Window › Regions › a region:** *Its weather* lists the weathers of your own; *Found when searching here* (a good, how many, how likely; *＋*).
+- **Window › Routines:** each row of a day has *only if* (the condition picker; none: always).
+- **Project › Cutscenes** (gameplay), new: *Cutscenes*. Each scene a card: its name (a box), *▶ Play it*, *Plays when* (the condition picker), its shots (who the camera is on, picked; seconds; the words under it; × each), *＋ A shot*; under them *＋ A cutscene*.
+- **Project › Skills** (gameplay), new: *Skills*. Each skill a card: its name (a box), *costs* (points), ×, what it does (a box), *Needs learnt first:* (each × , *＋ needs…*), *Gives* rows (a number, *more health* / *more seconds of running* / *a harder counter* / *off at shops*, ×), *＋ it gives…*; under them *＋ A skill*.
+- **Project › The game's flow:** *How hard* (easy / normal / hard).
+- **Project › an act's form:** *What it opens*, new heading: *What can be made here*, *Its shop window*, *Places to travel to*, *Rides its line down*, *What is kept in it* (ticks).
+- **Project › an item's form:** *Kept in hand while climbing* (a tick). **Inspector › Gear:** the same tick.
+- **Project › a quest step's condition** (and every condition picker): *has posted letters*, *has made*, *has felled*, *has found the place*, *stands at least … at*.
+- **Library:** *Whole houses* (a collection: the cottage, plaster, brick and timber houses, the long hall, the post office, the railway station; Draw3D's rails, train cars, the waterwheel; *Moving parts*: a rising platform, a ferry platform); *Wasteland › Hazards* (a fuel drum, a fire pit, an acid pool, a zipline).
+- **Inspector › HOW IT WORKS:** says what `hazard`, `explodes`, `zipline`, `sells`, `waypoint`, `drains` do; FOUND, OPENED, DROPPED has fields for the three.
+- **The assistant (Ctrl+J):** *The plan: N of M done* with its steps (✓ done, ▶ next, · waiting) and *Next step*.
+- **In play:**
+  - the game menu (Esc): *Skills*: a tree of the skills, the points to spend over them, a skill's words and *Learn*;
+  - E at a shop counter: *shop at*; its window: *For sale (you are known here; N coins)*, *Yours to sell*;
+  - E at a signpost or a station: *travel from*; *Found a place to travel from: …*; the list *Travel to*;
+  - E at a post office's door: *post your letters at*;
+  - E at a zipline post: *ride the line of*; jump lets go;
+  - a cutscene: black bars, words under the picture; any button skips it; the display is put away while it plays;
+  - *The hail hurts out here: get under a roof.*
+
+## 13zz76. Two styles, the palette shifted, a horse with tack, the Project window mended, Dry Gulch, the loops closed, endings as a form (2026-10-26)
+
+- **Window › Styles:**
+  - two styles in the list, *Bold autumn* and *Misty teal*;
+  - under the palette's colours, *Every colour not kept, shifted together:* *Saturation*, *Brightness*, *Contrast*, *Warmth*, *Hue* (sliders; kept or put back with the rest of the try).
+- **Graphics › Shadows of grass, plants and pebbles** (was "of grass and plants"): the small stones, cones and twigs too.
+- **Project › a kind's page:** *WHERE IT IS CHANGED*, new: the links its right-click has (its routine, behaviours, look, face, character). *Everything about it…* now chooses one of it in the world, and the Inspector shows it.
+- **Project › Bases and raids**, new: *A base and its raids*. *A base*: *Built while playing* (*Build mode's pieces →*), *Broken by foes* (*The game's flow →*). *Raids*: *Foes that raid* (*The behaviour →*), *They make for* (you, or a thing or a place by name), *The raid comes at*, *It is over at*; *WHO RAIDS (CLICK TO GIVE OR TAKE THE RAID)*: each foe type a button.
+- **Project › Endings** (gameplay), new: *How the game ends*. Each ending a card: *Ending N* and its title (a box), ↑ ↓ ×, *Shown when (none: always)* (the condition picker quest steps use), *It says* (a box a paragraph, × each), *＋ A paragraph*; under them *＋ An ending*. The settings page's *Endings* row says *Change them →* and opens it.
+- **Project:** the rows *Quests (as text)*, *Talks (as text)*, *Goods (as text)*, *Acts (as text)*, *Recipes (as text)*, *Stats and statuses (as text)* and the raw *Endings* window row are gone.
+- **Project › The game's flow:** *The pack holds* (free / so many things / so many kg) and its number.
+- **Project › a good's form:** *One weighs (kg)*.
+- **Project › an act's form:** *Up by themselves at (hour)* and *Where they wake* (a tick).
+- **Project › an item's form:** *Keeps off radiation* (0 to 1); *Weight*'s hint says what it weighs in a pack.
+- **Window › Regions › a region:** *What being in it does*, new: a stat chosen and so much an hour (a number per stat, 0 takes it away).
+- **Window › Routines:** lists the gatherer and anyone else who is someone by what they are like.
+- **Behaviours:** the event *When it finds someone of its side fallen* (`finds`); the step *defend* (*keeps near X and fights any foe that comes within R m*); presets *bodyguard*, *escorted*, *holds ground*, *raid at night*.
+- **Inspector › What it sees and hears:** rows *poise*, *gets up*, *holds fast* with their help. HOW IT WORKS says what `tack`, `generates` and `draws` do.
+- **In play:**
+  - E at a saddled horse: *get on a saddled horse* / *get off*; at its bags, *look in* (the inventory beside its store).
+  - E at a campfire: *cook at*. At a bed or cot: *sleep in*; *Morning: you are rested.*; *You will wake here if you fall. The game is saved.*
+  - Seized: *Seized! Press any button again and again to break free.*, then *You broke free!*
+  - A generator: *start*, *stop*, *pour fuel in*; *… has run dry and stopped: pour fuel in (E).*
+  - The inventory's title: *Inventory   3 of 3 things* or *… of 10 kg*; *Your pack is full (…): drop something first (I).*
+  - Dry Gulch's counters: *buy a tin of beans (2 coins) at*, and the rest; the barber's chair: *sit for a shave and a cut (2 coins) in*.
+
+## 13zz75. Walls the foes break, parkour with the hands free, turrets and arrows, the pad, rewards, crafting, a body imported (2026-10-25)
+
+- **Project › The game's flow (Project settings):**
+  - *What the game asks of the player*: the ticks gain *Foes break down walls, fences and barricades* (`breaks`), *Experience earned, levels reached* (`xp`) and *Foes drop what their kind says* (`loot`), beside wear, ammo, fuel and the rest.
+  - **Experience and levels**, new heading: *For a foe brought down*, *For a harvest*, *For a thing made* (numbers; `earns`); *Level 2 wants* and *Each next level wants* (times more; `levels`).
+- **Project › ＋ Create**: *⇧ Import a character — a rigged body (Mixamo's FBX With Skin, or glTF)*, new. Godot's file window; chosen, the Studio opens on the character made, or a tell says why not (bones with no body; bones no map knows).
+- **Inspector › Loot and experience**, new, for anything with health:
+  - *Worth in experience* (a number);
+  - a row per good it drops: its icon, the good (picked), how many, *chance %*, ×;
+  - *＋ Something it drops*.
+- **Project › a good's form:** *Its icon* (a choice among icons/loot's pictures), *Teaches* (a link to a recipe; used from the inventory it is learnt).
+- **Project › a recipe's form:** *From level*, *Must be learnt* (a tick), *Bench tier*, *Makes the bench better* (a tick), *Mends a tool* (a tick), *Experience*.
+- **Project › an item's form:** *Leaves a trail when swung* (none, plain, flame, lightning, aura, golden aura) and *Wears out after* (blows or harvests; 0: never).
+- **In play:**
+  - **The inventory (I):** goods carry their icons. At a bench its title says its tier (*At the bench (tier 2)*), and a recipe that cannot be made says why: the level, not learnt, the bench's tier, nothing worn to mend.
+  - Things that fall leave their loot lying by icons with a soft light, drawn to you and taken as you come near, the name rising (*+3 coins*). *+N XP* rises over what fell, and *Level N* is told with a chime and a golden aura.
+  - Gear says *wearing out*, then *Your axe broke.*
+- **Build mode (Ctrl+B):** a piece brought to a wall, a house or a rock with nothing built near goes against it, the name of what it goes against said under the ghost. R turns it from out-from-the-face to along it. A deck above the ground stands on posts.
+- **Controls & Input › Presses:**
+  - *layout_next*, new: Back with Up, Ctrl+F3. What it does is picked from a list (*another layout of buttons, at once*), with which one (next, before, by name).
+  - *grapple_pad*: the run button in the air throws the grappler's line.
+  - Layouts *Parkour* and *Combat*, new.
+- **Window › Game display:** the piece *marks* (the ? and !) has its own scale. The *foes* row has *reach R* (foes outlined within so many metres).
+- **Abilities:** powers *keen_sense* and *quicken*, new.
+- **Window › Shots and powers:** a shot's *Stays stuck* (seconds).
+- **The Assistant (Ctrl+J):** nothing new on screen; it drafts entries of every sort and the game's settings (its tools, `assisttools.gd`).
+
+## 13zz74. Idles and poses, Foes, Regions, cave growths, the sea, a base of your own, the parkour run (2026-10-25)
+
+New since 13zz73. Untried by hand.
+
+- **Window › Foes (Ctrl+U), new window.** On the left everyone who fights, and below them everyone who could. A page for the one chosen, in parts: **Who it fights** (*Its side*, *It goes after the player when it sees or hears them*, how far it sees and hears, its health); **Its blow** (*It strikes with* a move, how near, how hard, how often; *It shoots* a shot of Shots and powers; its powers, each ×; *Its blows leave whom they land on* a status); **Its defence** (how often it guards, turns a blow aside, steps out of the way); **Patterns and phases** (*Below* so much health *it* goes *then* these blows, ‹ › and × on each, ＋ a way, ＋ a phase); **As it is hurt, or while something holds, it becomes …** (＋, ×); **When it is not fighting** (its day, a link to Routines); **Fight as …** (a button for each way of fighting of foes.txt: a brute, a duellist and the rest). Every change is one step of undo.
+- **Window › Regions (Ctrl+R), new window.** *Draw a region* (click its corners on the land; Enter or a right click closes it; Backspace takes the last back; Esc lets it go), *A square here*, and for the one chosen: its name, its colour, *Go there*, *Draw it again*, *Take it out*. Parts: **Weather and light** (*Its weather*, *＋ From* hour *to* hour a weather, ×; *Its light, given a colour* and how much; its haze); **Music and ambience** (*Its music*, *Its ambience*); **Who goes after the player** (*At peace in it:* a side, ×; how much keener eyes are); **What it gives, and asks** (how much more is gathered; *Offered only here:* a quest, ×); **Found, the map, and while away** (named when found, dark on the map until walked, kept going while away); **Who lives there** (a table: a type and how many, ×; *Lay them out*). While the window is open every region is drawn on the land in its colour with its name over it.
+- **In play:** "Discovered: NAME" the first time a region marked found is entered; the world map dark where not walked in a region marked fog; the weather, light, music and ambience of the region the player is in.
+- **Tree generator (Plants), new sorts:** *Cactus* (Form: saguaro, barrel, prickly pear, organ pipe; with presets), *Crystal* (cluster, spire, druse, shard ring), *Mushroom*; crystals and mushrooms glow by night.
+- **Build mode while playing:** a piece brought beside one it joins (fences, walls, platforms, spikes) snaps edge to edge at its height and turn, and one that goes on top (barbed wire, a turret) goes onto the nearest built piece; the label says *Joined to the …*.
+- **Library, new collections:** *Sea and harbour* (36: lighthouses, piers, docks, a port, a pirate sloop and a pirate ship, a navy galleon, boats, a dinghy, a fishing boat, a trawler, buoys, a lifebuoy, shore cannons, an anchor, crates, a treasure map, bottles), *Base defences* (37: turrets, a gatling, a cannon and a minigun turret, a sentry gun, landmines, bear traps, spike plates and a spike platform, fences, an iron gate, walls, barriers, sandbags, towers, floodlights, a wind turbine, crates) and *Base of your own* (chain-link panels, barbed wire on top, platforms that join, platform rails, steps, a steel tower, a spiked wall, a spiked barricade).
+- **Words, all reached by the windows above or the Inspector's own lines:** a type's `idles MOVE …`, `fidgets F`, `looks_about F`, `heeds R [F]`, `blocks`, `parries`, `dodges`, `becomes`; a thing's `traps HARM [STATUS SECS] [once]`, `shoots …`, `tags attaches`, `tags tops`; moves sit_bench, sit_crossed, lean_wall, drink, smoke, play_guitar, play_cards, eat_table, wipe_counter, pour_drink, fold_arms, stretch, nod, shake_head; statuses weak, exhausted, staggered, slowed, snared; a move set `galleon`, `emplacement`.
+- **Island town:** a third row on the training ground, the parkour run (a checkpoint, ice, a bar to slide under, a climbing face, an overhang, a box, three decks, a flag; a grappler to pick up).
+- **Changed:** someone put down turned now stands so when play begins (it had stood whichever way).
+
+## 13zz73. A character of your own, Routines, everything about one thing, the desert and caves (2026-10-25)
+
+New since 13zz72. Untried by hand.
+
+- **Window › Routines (Ctrl+H), new window.** *Routines: who does what, when and where*, and a box *Their paths in the world*. On the left: *◎ Rules for everyone*, then everyone who is someone (*♙ NAME · N parts of the day*). A person's page:
+  - its links (*Its looks…*, *Its moves and phases…*, *Its behaviour…* and whatever names it, each "→");
+  - *Now*, while playing: what it is doing and the face it wears;
+  - **Its day:** a bar of the 24 hours coloured by part; each part a row: *From* (hour), *it is at* / *it does the work*, the place or the work (picked), *looking* (a face, or *as it is*), *wearing* (an outfit, or *as it is*), ×; *＋ Another part of the day*;
+  - **Between times:** *Roams (m)*;
+  - **Its work:** a card for each work its day does: its name (*What doing it is called*), *Take it out*, its steps in order, each a row of pickers (*Go to*, *Do an act at*, *Wait (minutes)*, *Say*, *Turn to*, *Do a move or pose*, *Wear a face*, *If … then … else*, *One of, by chance*, *Stop unless*, *Turn a switch on/off*) with ↑ and ×; *＋ a step …*; *＋ New work*;
+  - **When something happens:** a card for each reaction of its own: its name, *It begins when* / *It is kept to while*, the condition (the condition picker), *How pressing*, *Not again for (minutes)*, its steps as above; *＋ When …* (*it meets the player*, *it meets someone else*, *it meets an animal*, *it rains*, *night falls*, *the player is near and it is busy*);
+  - **Rules for everyone it is under:** for each, *Keeps its own day through 'NAME'* (a tick) and *the rule →*;
+  - **Its behaviour:** what it is and *Behaviours window →*.
+  The rules page: each rule for everyone as a card, *Keep to their own day through it:* (a tick per person), *＋ A rule for everyone …* (*goes in when it rains*, *goes home at night*, *waves to the player*, *runs from what hunts*). In the world while it is open: dashed lines from where each of the chosen stands to each place of its day, in the day's colours, a ring at each, the hours over each place, and a green ring as far as it roams.
+- **Right-click on what is picked, new:** a menu *Where it is changed*: *Its settings (Inspector)*; for one drawn as a character *Its looks: body, face, clothes (Character Studio)*, *Its moves and phases (Character Studio)*, *Its expressions (Character Studio › Face)*; otherwise for someone *Give it a character to be drawn as (Project)*; *Its day: where it goes, what it does (Routines)*; *Its behaviour (Behaviours window)*; for what is harvested *What it gives (Project › Fields and gathering)*; each talk, quest, behaviour or routine that names it; *Everything about its type (Project)*. (Right-drag still moves it; Shift + right click still puts it where clicked.) **The Inspector's links row** begins with the same, each "… →".
+- **The view, edit mode:** someone whose type says `character NAME` is drawn as that character (dressed, with its face, standing in its stand clip), or as its own model, not as the blocks it is made of, as in play.
+- **Character Studio › Make › Clothes and face, new:** *Head and body* (*It is*: *A woman: a face, and skin under its clothes*, *A man: …*, or *Its model's own body: FILE (no face)*), *Put one in the world →* (a type drawn as this character, someone that wanders, armed for placing), and at the top *Show me, step by step: a character of my own* (the walkthrough, 8 steps, Next ▶ / Close). Where nothing is worn, the wardrobe's skin shows.
+- **Words, all reached by the forms above:** a type's `goes HOUR … looking FACE wearing OUTFIT`, `ignores RULE`, `shines` (its `lights` always on); sequences.txt `expression FACE [S]`, `if CONDITION then WORK [else WORK]`, `either WORK WORK …`; acts.txt `act mine`; goods `gem`, `gold_nugget`, `crystal`, `relic`.
+- **Library, new collections:** *Desert* (57: camels, scorpions, a cobra, snakes, lizards, a gecko, a scarab, a vulture, a sand worm; cacti, aloe, tumbleweed, palms, wells, rocks, a pyramid, a shrine, tents, mud houses, a market, pots, vases, skulls, bones, a skeleton, chalices, scrolls, coins, a lantern, a torch) and *Cave finds* (crystals that glow, stalagmites, a stalactite, glowing mushrooms, gems, ore, two chests to search, a crystal vein and a gold seam to mine); *KayKit Dungeon* (203 pieces).
+- **Island town:** Mira keeps to the lanes in the rain (she ignores *shelter*); Ann greets the player at her patches, Tom shoos animals off the green, Mira says the rain never stopped a ranger.
+
+## 13zz72. Your findings, fields and gathering, clothes and faces (2026-10-25)
+
+New since 13zz71. Untried by hand.
+
+- **Character Studio › Moves:** a move clicked in the list plays it (clicked again: again); a phase clicked plays that phase.
+- **Environment › The sea's waves** (new fold): *Flat*, *Gentle*, *Rolling*, *Heavy*, *Storm*, and *Height* and *Length* sliders. **Air word:** `waves HIGH [LONG]`.
+- **The view, one thing picked:** a square knob with four arrows behind its turning ring: dragged, the thing moves (a drawn house's wall too), one edit.
+- **World › Project › Fields and gathering** (new section under Gameplay): each field, bush, hive and jetty of the world as a card: what it gives and how many, hours to grow again, *Needs water* and its hours, *Fed with* a good and how much more, the tool held, the chance, the act and its move (*Its move in the Character Studio →*); *Gathered so far in play*.
+- **Character Studio › Make › Clothes and face** (new, under Outfits): for each place (*Hair*, *Beard*, *Hood*, *Body*, *Arms*, *Legs*, *Feet*, *Pauldrons*) a picker of the wardrobe's pieces or *Nothing*, a colour button and ↺ (its own colour again); new hair goes on the character, other new pieces on the outfit worn. *At rest* (the face it wears when nothing else asks), *Talk* (the mouth going three seconds), *Close on the face* (the eye close on the head, the view taller; again: back), *Try a face on it* (a button a face, three seconds each), *Make a face*: a face to start from, its name, *Keep this face*, and a slider for each of the twelve shapes (seen as they move).
+- **Text words:** characters.txt `wears PART [colour r g b]` (in an outfit too) and `face NAME`; faces.txt `face NAME` with `said` and `SHAPE AMOUNT` lines, `upon EVENT FACE`; moves.txt a phase's `face NAME`. All reached by the forms above; nothing needs typing.
+- **New characters:** ann, mira, tom, rook (dressed). **New kinds in town.txt:** farmhand (Ann), tom, ranger (Mira); wastes.txt scavenger_rook.
+
+## 13zz71. Rooms, the workshop, Powers, the catalogue, harvest, grass's shadows, quest steps, a far island, parts swapped (2026-10-25)
+
+New since 13zz70, at the user's brief of 2026-10-25 (eight commits, ee74df8 to 216e1a4). Untried by hand.
+
+- **A drawn house's row beside it (Build), new: Rooms.** *Ground floor*, *Floor 2* … one per storey (tooltip *Its rooms on the ground floor: …*); under it each room its sort is offered, as a picture with its name, its count, **−** (*A bedroom fewer*) and **+** (*A bedroom more*; past what the storey is long enough for: *There is room for N rooms on this floor: make the house longer for more (drag a side out).*). Then four small buttons: **Suggest rooms** (*Suggest rooms for a house: …*), **Shuffle** (*Other furniture: other beds, other chairs, other colours, in the same rooms*), the dice (*Its furniture's colours its own …*; pressed off, as designed), **No rooms** (*No rooms: one room on every storey, furnished as the house is*). In the view while the roofs are off, a **blue handle** on each wall between two rooms: dragged, the rooms either side grow and shrink.
+- **Library, new collection Rooms:** 23 furniture designs (beds, a bath, a basin, a stove and the rest) the rooms are furnished from.
+- **Character Studio, new:** under its title *Animation workshop for NAME*, and a button **‹ Its profile** (back to that character's page in World › Project).
+- **World › Project › a character's page (its kind card), new:** *Moves as the character* (a list: none, a character, or its own model file kept as it is), **Its profile: moves, combos, powers →** and **Its animations in the Character Studio →** (opens the Studio on it).
+- **World › Project › a character's profile: the tab "Abilities" is now "Powers"**, its heading *ITS OWN POWERS*. (A rename: flagged here for review, as the inventory rule asks.)
+- **World › Project › Shapes, a set of moves, new field:** *Made like* (another set; this one keeps only what is its own).
+- **Window › Catalogue, new sections: Moves and Acts.** Each entry has a *Here:* line (which characters or things here have it). **Add to the selected** gives a move to the chosen character's set, or an act by giving the use that offers it.
+- **Graphics (Settings), new rows:** *Shadows of grass and plants* (off, on; on at ultra only) and *Draw distance of things* (300 m, 500 m, 900 m, as far as the eye sees; tooltip says small things to less, grass to half, the land and buildings always).
+- **While playing, beside a ripe crop: the act *harvest*** (E): stooped to, the goods into the pack, the crop cut down; not offered again until it is ripe.
+- **World › Project › Story › a quest, new: ITS STEPS, ONE AFTER ANOTHER.** A card for each step: *Step N*, what the player is told (a field), **↑** (*Done before the one above it*), **↓**, **×** (*This step taken away*); *Done when* a condition picked (its kind from a list, then its words as lists and numbers, *not*, *all of* / *any of*, *＋ a condition* / *＋ and…*); *Marked at* (a thing) *in* (a place); each hint *Hint while* a condition, what is said, **×**; **＋ A hint**; under the cards **＋ A step**. The quest form's typed *step* field is gone.
+- **World › the land maker's settings (Makers / its row), new:** *sea about it (steps of 32 m)*, *far island: how far its shore reaches (m)*, *far island: east of the middle (m)*, *far island: south of the middle (m)*, *causeway to it, wide (m)*. All 0 is as before.
+- **A part of a drawn building picked in the view (World outline, This one …), new: *its design*:** a list headed by *the building's own lantern* (or door, sign …), then *fits a lantern* (this world's, and the library's marked *(library: …)*), then *any of this world's*. Chosen: the design stands in its place. Once swapped, the usual *its design* list with *as its maker makes it* first. **A wall with the house's door in it, new: *its door***, the same list for doors (the library's castle doors and gates among them); given one, the wall's doorway is left empty and the design stands in it.
+
+## 13zz70. A thing turned by its ring, every patch found again, one flower swapped (2026-10-25)
+
+New since 13zz69, at the user's message on the bench and Flowers 3. In the world while editing. Untried by hand.
+
+- **New: the turning ring** round one thing picked: a yellow ring just outside its frame, ticks every 45 degrees, a line to its front and a round knob there. Dragging the knob or the ring turns it (5 degrees a step, Shift 1, Ctrl 45). While held, the row under the bar: *Turning Bench Wood: drag round the ring, let go to keep it.* and a message *Turned +45 degrees.* Let go: *Turned +90 degrees. (Undo: Ctrl+Z)*.
+- **A brush's panel (Brushes › Flowers and the rest), new:** *2 patches ▾* (when the brush has painted more than one), opening a row of the patches, each *Flowers 2  (156)*, the one chosen lit. One clicked: *'Flowers' chosen: shown, and painted from now. ...*
+- **A brush's panel, one of its patch picked, new:** a swap button (two arrows), opening the brush's sorts as coloured icons and your own designs; one clicked: *Swapped for poppy, where it stood; the rest of the patch is as it was. (Undo: Ctrl+Z, once)*.
+
+## 13zz69. The Game Shell (2026-10-25)
+
+New since 13zz68, at the user's "Proceed with the Game Shell". The game's own screens (Play, and an exported game). Untried by hand.
+
+- **Title:** *New game*, *Continue* (the latest saved game, named under the buttons: *Continue: Autosave · 6 s played · Emberwatch · saved just now*), new *Load a saved game*, *Controls*, new *Credits*, *Settings*, *Leave the game* / *Back to editing*.
+- **Menu (Held):** *Save the game* is now *Save the game…* (the slots), *Load the saved game* is now *Load a saved game…*; new *Back to the title*.
+- **New: the slots screen** (*Save the game* / *Load a saved game*): a row per slot (*Quick save*, *Autosave* when loading, *Slot 1*…), each saying how long played, where, the quest, when, or *Empty*, or why it cannot be loaded; *Delete* beside each (*Press again*); saving over asks *Press again to save over it*; *Back*.
+- **New: the loading screen:** black (or the picture), the words at the bottom right with dots.
+- **New: the fallen screen:** *You fell* (its words set in Project), *Try again from the last safe place*, *Load a saved game…*, *Back to the title*.
+- **New: the credits:** the lines rolled up the screen, the first large; *Back*.
+- **Ending screen:** new *Back to the title* (the credits first, if the game says).
+- **Project › Project settings:** new section *The game's flow*: *Title*, *Behind the title*, *Its picture*, *Fades in over*, *Saved games kept*, *Saves by itself*, *And every*, *When the player falls*, *That screen says*, *Loading says*, *Loading picture*, *Loading shown at least*, *Credits*, *Credits after an ending*, *Save version*, *▶ Play it from the title*.
+- **Messages:** the autosave says *Saved.*; an unreadable saved game says *could not be read: its file is damaged, or is not a saved game* (no parser words).
+
+## 13zz68. The combo screen as laid out in its design (2026-10-24)
+
+New since 13zz67, at the user's word "build the combo screen as laid out in the design": the Character Studio's Edit tab, while a combo or a move is edited. Untried by hand.
+
+- **Gone:** the list of the combo's moves, the list of phases, the row *Add at the end* with its move picker, the old phase arrows row and the old two columns *Look* and *Timing and movement*, the *To them* row as a row of its own.
+- **New, at the top: PLAY** — *▶ Combo*, *▶ Move N* (was *Try this move*), *▶ Phase* (was *Play this phase*), *Loop*, *with the sparring partner* (was *someone to strike*), *Clips only*.
+- **New: MOVES IN THIS COMBO** — a row of cards (number, name, seconds, phases), *|◀* first, *▶|* last, *+* after each card (*Put in a move* when empty) opening *Put in after move N*: a filter and the character's moves as buttons.
+- **Under the chosen card:** the move's name, *⇄ swap…* (was *Swap for*), *copy* (was *New move like it*), *‹* *›* (was *Earlier*, *Later*), the bin (was *Take out*), where it lets the next one in, *s wait* (was *Wait asked*); the window a move lacks is asked for here.
+- **New: PHASES OF X** — chips (name, seconds, strikes / window / hangs), *|◀* *▶|*, *+* at the end; under them *+ Before*, *+ After* (was *Add phase*), its name, *− Phase*.
+- **The phase's settings in six cards:** *Timing* (Button pressed, Duration, Next move from, what it lets in), *Movement* (Travel, Rotate, In the air), *Animation* (what shows it, the clip buttons, Clip range, back/mirror, Blend in, Pose tweak), *Hit* (Hits with, reach, *Did it reach them*, In hand, stow, kept), *Opponent reaction* (They are, *Edit how they react ›*, carried with you), *Damage* (Damage, *Hit-stop*, *Screen shake*: new fields for what was text).
+- **The timeline under the preview:** the whole combo while one is edited, each move its colour; dragging chooses the move and phase under the pointer. The preview is about 400 × 280 side by side.
+- **The banner** (what is edited, Rename, Save, Discard, Copy, Done) wraps to two rows where the window is narrow.
+
+## 13zz67. Clips of one's own, browsing clip files, the uppercut walkthrough, a slide (2026-10-24)
+
+New since 13zz66, at the user's message: no true uppercut among the clips, and no way to copy a close clip and change it; clips in a folder could not be seen before importing them. The combo screen's new layout is a design for review only (an artifact), not built. Untried by hand.
+
+- **Character Studio › Clips, new buttons:** *Browse files...* (opens the clip browser) and *＋ Make a clip from it* (a clip of one's own made from the clip chosen, named after it with `_own`).
+- **Character Studio › Clips, a made clip chosen:** a panel under the slider. Its rows: *made from* (pick another base clip), *mirrored*, its name with *Rename*, *✕ Take it out*; the part of the base used (from, to), *speed*, *loops*; a ready-made change (*An uppercut*, *A hook*, *A hammer blow*, *A kick higher*, *Lean into it*, *Twist the body more*, *Crouched lower*, *Wind up further*), which side (right or left) and *Lay it on, the hit here* (the slider's place is the hit); a part of the body (tip, twist, lean, in degrees) with *◆ Key it here* and *✕ key*; the body moved (aside, up, ahead, in cm) with its key and unkey; the keys as chips (a click goes to that moment); what it says it does.
+- **Character Studio › Clips, new walkthrough:** *Show me, step by step: an uppercut made from the cross* (8 steps, Next by Next: the closest clip, made from it, an uppercut laid on, the elbow bent more, a dip lower first, quicker, given to the launcher and played on the sparring partner, then a file browsed before importing).
+- **New window, Browse clips: see each played before importing:** places on the left (*Downloads*, the project's downloads folder, *Desktop*, the project's characters, *↑ Up*); folders and clip files; a file's clips listed; the chosen clip played on the character chosen in the Studio, on a small stage (play or pause, a scrub bar, how long it is and what rig it was made for); *Import this file*, *Import the whole folder*, *Close*.
+- **The brawler's launcher** now looks like an uppercut (the made clip *Uppercut*, from the cross) instead of the hook.
+- **While playing, new move:** *slide* (crouch pressed while running on the ground): the body drops low, slides about 3 m and rises; walker, ranger and brawler have it. While low (sliding or crouched) the body is lower and goes under things a standing body cannot; under something low it stays crouched until there is room to stand.
+- **The play camera** no longer goes into rock behind the player (a cave's end, a hillside): it stops short of whatever is between it and them.
+
+## 13zz66. Phases with them, the powerbomb walkthrough, build mode, a cave through a mountain, a base (2026-10-24)
+
+New since 13zz65, at the user's message: the combo area hard to work in, no enemy seen at a phase, no way to say what a phase does to them, the powerbomb example Next by Next; military vehicles, a base, caves, wheels, grime and gore, diving. Untried by hand.
+
+- **Character Studio › Edit, a combo:** a row *Moves*, the combo's moves in a row first to last, the one chosen swapped for another in its place (a pick); a row with *＋ Add a move after it* and *＋ A new move like it*.
+- **Character Studio › Edit, a phase:** *Play this phase* (with a sparring partner near, the move or combo played for real to the phase's end and held; the slider then reads "N of M s, with them"); a new row **To them**: how they react (a pick of reactions), *Edit how they react…* (opens that reaction, *‹ Back* to the phase), how much it hurts, *carried with it*; a new row **In the air**: *stays up (hangs there)* and how heavy the body falls.
+- **Character Studio › Combos, new:** *Show me, step by step: the powerbomb changed* opens the walkthrough: a panel over the editor (title, what the next step will change, *Next ▶*, *Stop*), each change outlined where it is made.
+- **Terrain › Mountains, new tool:** *cave through* (drag from one side of a mountain to the other; its setting *wide*). A cave mouth at each end, a cave inside; one step of undo. Its picked mouths say in HOW IT WORKS where they lead.
+- **While playing, new press:** *Build* (Ctrl+B; LB with Down on a controller): build mode, its words bottom middle (*click put it down · R turn it · Q the next · E take down · Ctrl+B done*), a ghost before the player, green or red. Controls & Input lists it.
+- **Asset Library, new collections:** *Military and base building* (vehicles, buildings, defences, equipment, base pieces), *Caves* (a cave mouth, the way out), *Grime and gore* (blood, glass, oil, scorch), and six kits: *Industrial warehouses and works*, *Towers and defences*, *Factory machines and belts*, *Castle walls, towers and gates*, *Station and bunker rooms* (Kenney), *Sci-fi lockers, crates and ammunition* (Quaternius).
+- **Abilities (Make it usable), new:** *built_from* (built in build mode, from goods) and *way_through* (a way to another place in this world). **Goods, new:** concrete, sandbag. **Effects, changed:** blood_burst and glass_burst leave stains.
+- **While playing, under water:** the *Air* bar shows and empties, filling again at the top.
+
+## 13zz65. See it, change it, add to it, take from it, go deeper (2026-10-24)
+
+New since 13zz64, at the user's message: the mini map in the way, windows left behind others, the training ring hidden under windows, no way from a list to where it is added to or edited, animals on a person's legs, retro things. Untried by hand.
+
+- **Game menu (while playing), new:** *Mini map: hide it* / *Mini map: show it*; *Mini map to the next corner (now bottom right)*; *Game display…*. The mini map stands **bottom right** (it was top right).
+- **Every big window's bar, new, at its left:** *‹ Back to …* (blue), when it was opened from another big window, which it put away. Big windows: Project, Character Studio, Combo graph, Effects, Shots and powers, Sounds, Behaviours, Game display, Graphics, Styles, Asset Library, Who is in this world, Who can do what, Objects in this world, Makers, Texts, Kinds, Hub, Signals, Modelling, Assistant, Plant Generator, Tiles, Debug. Only one of them is open at a time; playing puts them away, stopping brings them back.
+- **World › Project, beside each section's heading** (and over the list in list mode, one row a section): its ways, blue links: e.g. *People and creatures in this world*: *＋ Add from the creature library →*, *Farm animals →*, *Behaviours →*, *Who is in this world →*; *Characters*: *＋ New character*, *Character Studio →*; *Move sets* and the other moves: *＋ New move*, *Edit in the Character Studio →*, *Deeper: the Combo graph →*; *Combos and strings*: *＋ New combo*, *Edit in the Character Studio →*, *Deeper: the Combo graph →*; *Things and props*: *＋ Add from the Asset Library →*, *＋ Import a model*, *Objects in this world →*; *Powers*, *Shots*, *Statuses*, *Visual effects*, *Items*, *Sounds*, *Behaviours*, *Styles*, *Weather*, *The game's display*, *Worlds* likewise. A section with nothing in it yet is shown over the list with "none yet".
+- **A character's profile › Combos:** at the top *＋ New combo in the Character Studio*, *All of them in the Character Studio →*, *Deeper: how its moves join (Combo graph) →*; *ITS COMBOS*, a row each: its name (a link to its page), its moves, *Edit*, *▶*, *Joins*, *✕*; then *ADD ONE FROM THE LIBRARY* (the list and *＋ Give it*).
+- **A character's profile › Moves:** the row at the top: *Edit them in the Character Studio →*, *Deeper: how they join (Combo graph) →*, *Try them in a training ring*; a move chosen: *Edit this move in the Character Studio →*, *Its joins (Combo graph) →*. Combos are no longer listed among the moves.
+- **Character Studio › Combos:** beside the combo shown, *Take it out* and *Deeper: its joins (Combo graph)*; a new row *From the library*: a list of the combos this character lacks and *＋ Add to this character*. **› Moves:** *Deeper: how they join (Combo graph)*.
+- **Asset Library, a new collection:** *Retro things*, groups *Music*, *Cameras*, *Televisions*, *Computers*, *Arcades*, *Vehicles* (24 designs). **Farm animals, new:** *A bull*, *A donkey*, *An alpaca*, *A zebra*, *A pig*, *A stag*, *A dog (shiba)*, *A dog (husky)*; the horses, cows and dogs, and the creature library's wolf, grey alpha, fox and deer, are seen as models of their own.
+
+## 13zz64. Every character a profile, the library under old worlds, capes as cloth (2026-10-24)
+
+New since 13zz63, at the user's findings: no brawler in the Combo graph, a combo usable only by playing as its character, no profile but the player's, the Combo graph cut off from the rest, capes with no physics. The proposal behind it: Draw3D_Character_Management_Proposal_2026-10-24.md. Untried by hand.
+
+- **World › Project › Characters › any character:** its page is its profile, the tabs of the player's page: *Who*, *Moves*, *Combos* (new), *Carries*, *Abilities*; the player's page has *Buttons* as well. A character not played has *Make NAME the one played* on its Who tab. Its form is on the Who tab (no longer above the page).
+- **The Combos tab (new):** *WHAT NAME CAN DO*, every combo its set has all the moves of, each a link to its page with its moves in order; *FROM THE LIBRARY*, a list of every other combo ("Air sword — adds Jump cancel, Air slash, Sheathe sword (Brawler's)") and *＋ Give it*; for a character sharing its set, a tick *and everyone else moving by 'walker' (…)*.
+- **The Moves tab, new buttons:** *Open its moves in the Combo graph*, *Try them in a training ring* (as this character).
+- **A combo's page and a move's page, new card part *GIVE IT TO A CHARACTER*:** who can do it now; a list of the characters (the one played chosen), the tick, *＋ Give it*. Unticked, a character sharing its set is given a set of its own first (a copy), so the others keep theirs.
+- **Window › Combo graph, *Whose moves* (was *Moves of the set*):** each set said with who moves by it, the characters' first ("brawler — brawler", "ranger — ranger moves", "zombie, imp, puglin — shambler"), the rest after ("folk (no character)"). *Try it in a training ring* plays as whoever moves by the set shown (the one played if it is theirs), no longer always the brawler.
+- **Older worlds:** a world saved with its own copy of moves, characters, gear, powers or shots shows what the shared library has been given since (the brawler, its combos); its own entries are kept in place of the library's. Changed, one is written into the world.
+- **Capes, cloaks, coats (gear.txt sort cape, or `sways cloth`):** a sheet of cloth, pinned along the shoulders, draped over the back, swinging out behind a run and settling after, kept off the back, hips and legs and above the feet, blown by the wind.
+
+## 13zz63. Moves & Combat in the Project window, every move and combo played on its stage (2026-10-24)
+
+New since 13zz62, at the user's findings: combos were listed under Characters & Creatures, the old ones could not be previewed, and the brawler's strings and the ways to work with them were not to be found. Untried by hand.
+
+- **World › Project, a new category in the left column:** *Moves & Combat* (between *Characters & Creatures* and *Controls & Input*). Its sections: *Move sets*, *Combos and strings*, *Fighting moves*, *Reactions: what a blow does to whoever it lands on*, *Getting about and other moves*. *Characters & Creatures* keeps *The player*, *Characters* and *People and creatures in this world* only.
+- **The stage at the right (a set, a combo, a move):** played for real by the motor, by someone whose set has it (the character played if theirs does), on a sparring partner; the eye follows the two of them, up into the air too. Its line at the foot says what is played, the move and phase now, and what the partner is doing. A move that must be let in first is played after the moves that lead to it; a reaction is shown by the partner, struck by a move that hits with it; a set plays its combos one after another. The wheel brings it nearer; drag turns about it.
+- **A combo's page, new card *Its moves, one after another*:** each move a list (its set's moves), *N s later* (how long after it is let in it is asked), ↑ ↓ to reorder, × to take it out; under each, *let in by …* (green) or *… does not let it in: it is asked when … has ended* (amber); *＋ Add a move at its end…* (those the last one lets in first, marked ✓); buttons *▶ Play it on the stage*, *Open in the Combo graph*, *Try it in a training ring*.
+- **A move's page, new card *In a fight*:** *Let in after*, *It lets in*, *Its blows* (hits, crashes, knocks, lands), *In the combos* (links); a reaction says what begins it. The same three buttons. *Its animation* stays below it.
+- **A set's page, new card *Its moves*:** its fighting moves, moves of getting about and reactions as links, *Its combos* as links; the same three buttons.
+- **Opening a set, a move or a combo** (its button at the right, double-click a card) opens the **Combo graph** on its set, the move (or the combo's first) chosen and scrolled into the middle (it opened the Character Studio before).
+- **＋ Create, new:** *Combo — moves one after another, each picked from a list* (made of the played character's set, else the brawler's).
+- **moves.txt, new combos:** *jab_cross_kick*, *launch_and_pursue*, *blade_in_the_string*, *grab_and_powerbomb*, *darts_off_the_chest*, *air_sword*.
+
+## 13zz62. The Combo graph, reactions done to whoever is struck, a fighter, kit weapons in hand, coats, overgrown ruins (2026-10-24)
+
+New since 13zz61. Untried by hand. `Draw3D_Actions_Combo_Graph_2026-10-24.md` says why each is as it is.
+
+- **Window (World menu) › Combo graph: moves, windows, reactions…** (new, 1180 across):
+  - **at the top:** *Moves of the set* (a set of moves.txt), *Only fighting moves* (on), *Arrange*, *Try it in a training ring*;
+  - **under it, a strip:** while playing, what the walker is doing (move › phase %), *window open: …*, *going for: …* (how far, in the air or not, their reaction, juggled N), *could not follow: '…' after '…': why*;
+  - **the graph:** each move a box in its column (*On the ground*, *Going after them*, *In the air*, *Done to them*, *Getting about*): what asks it and when, its phases as a bar (grey startup, red blow, blue in the air, green window), what its blows do, what it crashes into. Joins: green (a window), blue (what it lands as), red (what its blow does to them), orange (flung into a wall or someone). Dragged from a box's side to another, a join is made; dragged off, taken out. While playing, the move now is lit yellow, what its window lets in green, the one refused red;
+  - **the side panel, for the box chosen:** *It is* (action, reaction, pursuit), *Asked with* (a button), *Begins when*, *Phases* (each its time, what it does, and its fight numbers: *as heavy as*, *goes for them, stopping*, *harm*, *hit stop*, *shake*, each with ×, and *Add to this phase…*), *What can follow* (each window: *→ move, in 'phase' from N%*, *Take out*, and while playing why it cannot follow now), *Let in … in … Add the window*, *What its blows do to whoever they strike* (a reaction for each striking phase, its harm).
+- **Debug (F3) › Show in the view, new:** *Combat* (whom each goes for and how far, in the air, juggled N, the window open or opening later, *BLOCKED move -> move: why*; magenta lines to whom each goes for, yellow to whom it holds).
+- **Movement numbers (F1), a new heading:** *Fighting in the air*: *juggle_most*, *juggle_lift*, *juggle_heavier*, *warp_speed*, *crash_speed*, *crash_harm*.
+- **Controls card, a new heading:** *Fighting, as the brawler*: attack, crouch (with attack: launcher, axe kick; with dash: grapple), run (with attack: the sword), dash (in the air: an air dash at them), jump (in a window: after them; beside one up there: off their chest), sheathe (a spinning kick).
+- **Characters (Character Studio):** *brawler* (the scout's body, a katana at the hip, the set *brawler*), *sparrer*. **Looks:** *brawler*; the *ual* look has rows for every reaction.
+- **moves.txt, new moves:** punch_1, punch_2, kick, launcher, sword_slash, jump_cancel, air_dash_to, grapple, retarget_dash, super_launch, air_punch, air_kick, air_slash, sheathe_sword, axe_kick, axe_land, flip_darts, grapple_slam, slam_land; reactions flinch, launched, juggled, juggled_back, pulled_in, held, slammed, ground_bounce, knocked_down, pushed, wall_splat; sets *brawler*, *sparrer*. **New words:** a move's `kind`, `looks_as`, `heads target|from`; a phase's `hits`, `heavy`, `warps`, `crashes`, `knocks`, `seizes`, `fires`, `retargets`, `harm`, `impact`, `sound`, `stop`, `shake`; `strikes target R`; when `hit`, `target`, `target_air`, `target_ground`, `juggled`, `near N`.
+- **Library › Creatures › Training:** *A sparring partner* (200 blows, never strikes back, up again three seconds after it falls). **Design word:** `spars` (Inspector: how it works says it).
+- **shots.txt:** *dart*.
+- **gear.txt, new:** 81 things of the kits (*kit_sword*, *kit_claymore*, … *kit_pistol_1*, … *kit_blaster_a* … *r*), each like the thing of its sort; *coat*, *fur_cloak*, *wool_hat*, *scarf*; a thing's `warms N`. **Library › Gear to find › Worn:** *Padded coat*, *Fur cloak*, *Wool hat*, *Wool scarf*.
+- **Conditions:** `is wrapped` (wearing what keeps the cold out, 1 in all). **Stats:** cold falls 14 an hour while wrapped.
+- **Inspector › Look: mangled:** a row *Overgrown* (0 to 1); presets *overgrown ruin*, *abandoned*. **Library › Wastes, a new group:** *Taken back by the green* (overgrown wall, crypt, fountain, car). **Design line:** `mangled … overgrown N`.
+- **Fixed:** the lock's next to the right went to the left; the imp and the puglin slid (their rig).
+
+## 13zz61. Auras seen shaped, figures turned, mangled, kits, the sea floor, the walking dead, cold, fuel, debug overlays (2026-10-24)
+
+New since 13zz60. Untried by hand. `Draw3D_Kits_Mangle_SeaFloor_2026-10-24.md` says why each is as it is.
+
+- **Window › Effects, pinned:** under the list and the stage, *See auras shaped* (on by default: the window's own, not an effect's) and beside it the shape to try (*egg*, *flame*, *pillar*, *orb*). The line of what the chosen one is says when a shape is only tried.
+- **Window › Effects, the aura rows:** the per-effect *Shaped aura* tick is gone. For an effect that is worn, *Aura shape* comes first, with *none* among the shapes (taking it away), and the other aura rows follow; changing any of them keeps the shape. For one that is not worn (a fire, a trail, a burst), one greyed row: *Shaped aura — not for this effect (it is not worn)*.
+- **Every stage:** at its top left, *⟲* and *⟳* (the figure turned an eighth of the way round) and *Spin* (round and round), shown when there is a figure. Shift and drag turns the figure.
+- **Inspector, a new fold under Look: its shape:** *Look: mangled (every …)*: *As* (as made, dented, crushed, leaning, toppling, broken, burnt out, ruined, shattered, or its own), *Another way*, and six numbers: *Crushed*, *Leaning*, *Twisted* (-1 to 1), *Dented*, *Broken*, *Scorched* (0 to 1). How it works says *it is mangled: …*.
+- **Project › Create › Import a folder of models** now brings the folder in as a **kit**: a box asks *Times as big as made*, saying how many models there are and how high a typical one is, then *Bring them in*. The Asset Library opens on the new collection.
+- **Window › Asset Library, new collections:** Graveyard, Pirates and shipwrecks, Survival camp, Cars, Blasters, Fantasy town (Kenney); Medieval village, Fantasy props, Downtown city, Stylized nature, Fish and sea creatures, Monsters, Guns, Medieval weapons (Quaternius); and **Sea floor** (Kelp and grass, Coral, Rocks and shells, Living on the bed, Swimming, Lost to the sea).
+- **Library › Wasteland and wrecks, a new group:** *The dead walk* (a graveyard zombie, a walking skeleton, a vampire, a ghost, a skeleton warrior, a slime, a dragon, a bat, an imp, a puglin).
+- **Characters (Character Studio):** *imp* and *puglin*.
+- **Debug (F3), new parts:** *Show in the view (while playing)*: *Moves*, *Clips*, *Where they are going*, *Strikes*, *Names*, *What sees*. *Quests*: for each quest, where it stands, *Not done yet: …* (why), *⚠* what is wrong in how it is written, and *Begin*, *Step done*, *Done*, *Fail*, *Forget*; then *What happened*, the last twelve.
+- **Controls:** *lock_left* (`,`, the mouse's back button) and *lock_right* (`.`, its forward button): locked on, to the next one aside. On a controller, the right stick flicked aside while locked on.
+- **The display while playing:** a *cold* bar (once you are cold) and a *radiation* bar (once there is some).
+- **Statuses:** *chilled*, *freezing*, *irradiated*. **Goods:** *pearl*. Medicine takes 30 radiation too.
+- **Designs, new lines:** `mangled …`; `burns N` (a vehicle's fuel, cans an hour); `character FILE [S] [TURN]` (a model with clips of its own).
+- **Stats, a new way to say a rate:** `per_hour N while CONDITION` (or `per_minute`), as many as wanted; `shown … from N`. **Conditions:** `is sheltered`, `is warm`.
+
+## 13zz60. Shaped auras, previews and buttons pinned, zombies with clips, wrecks searched (2026-10-24)
+
+New since 13zz59. Untried by hand. `Draw3D_Auras_Pinned_Zombies_2026-10-24.md` says why each is as it is.
+
+- **Window › Effects, laid out again** (wider: 600 across):
+  - **pinned at the top:** a line of what it is; the list of effects (left) beside the stage (right); what the chosen one is; *Preview*, *New*, *Copy*, *Remove*, *Open the text*, *Give it to the one picked*;
+  - **scrolled under a line:** the effect's settings, *Layer* and its buttons, the layer's settings. Scrolling the settings leaves the stage and the buttons where they are.
+  - *Preview* now shows it again on the stage only (it also played in front of the view, behind the window).
+- **Window › Effects, new rows** under *Force field*: *Shaped aura* (on/off), and when on: *Aura shape* (egg, flame, pillar, orb), *Aura colour*, *Heart colour*, *Hugs the body* (0 to 1), *Aura height*, *Aura width*, *Flame tongues* (a flame only), *Flows*, *Aura brightness*, *Aura raised*.
+- **Window › Shots and powers, laid out again** (wider: 580 across):
+  - **pinned at the top:** the line of what it is; *Shots*, *Powers*, *Statuses*; the list (one column, left) beside a **stage** of its own (right: a shot flying past, a power used by a figure again and again, someone in a status), with *Figure* and *⤢ Larger*; what the chosen one is; the buttons; the line of what Preview and Try it do;
+  - **scrolled:** its settings and what uses it.
+  - *Preview* shows it on the stage (and a power on the Character Studio's character too, if the Studio is open). It no longer plays in front of the view.
+- **Project, the right column:** what the chosen thing is, its stage and its buttons stay at the top; only the tabs under them (Details, Assignments, Dependencies) and the quick links scroll.
+- **Styles:** the find field, the list, what the chosen style is, its buttons (*Give the world this style*, *No style*, *Try on a sample*, *Edit styles as text…*) and *Customise (makes a copy)* stay at the top; a style's own knobs and palette scroll under them.
+- **Every stage:** a figure on it is the character played, their own model standing as they stand (a plain figure where there is none). An effect shown on a figure is the figure's own, so an aura that hugs the body hugs theirs.
+- **Effects text:** the line `aura SHAPE COLOUR [hug H] [tall T] [wide W] [tongues N] [flow F] [bright B] [core COLOUR] [at Y]`; new effects *aura_golden* (a golden egg) and *aura_blue_flame* (blue flames close about the body); *aura_flame* has a flame-shaped glow under its particles.
+- **Library › Wasteland and wrecks:** *A zombie* (Wasteland debris), drawn as the character *zombie*. The abandoned car, the burnt-out car, the bus, the tanker, the shipwreck, the plane and the helicopter offer *search* (E at their boot, side, front, valve, hold or door).
+- **Library › Water life:** perch, minnows and mackerel school.
+- **Characters (Character Studio):** *zombie*, with the look *zombie*.
+- **Goods:** *fuel* (a can of fuel).
+- **Designs, a new line:** `character NAME` (someone drawn as that character, its clips playing as it goes).
+
+## 13zz59. Stages for previews, imports in Project, talks and acts by fields, Edit here, vehicles and the wasteland (2026-10-24)
+
+New since 13zz58. Untried by hand. `Draw3D_Previews_Imports_Wasteland_2026-10-24.md` says why each is as it is.
+
+- **Project, the right column:** under the chosen thing's name, a **stage** (its own room: a light, a round of ground, an eye) for an effect, a status (on a figure), a power (on a figure, used again every few seconds), a shot (flying past), a design, a model brought in, or a picture (on a ball and a block). Drag on it to turn about it; the wheel comes nearer. On it: *Figure* (an effect only: a person beside it for size) and *⤢ Larger*. Under it, the line of what it shows.
+- **Project, the buttons:** *Preview* shows it again on the stage (it played in front of the view, behind the window). A power also has *On the character played* (the Character Studio's preview). *Open in its window* is only on sorts that have a window; the others have their page (*Set it up here*). A design's is *Open in the Inspector*.
+- **Project › Create**, new rows: *Import a 3D model*, *Import a folder of models*, *Import a picture*, *Import a particle picture*, *Import effects from a file*, *Import a sound* (beside *Import animations*). Each asks for its file or folder, then shows what was brought in on its page.
+- **Project, a design's page** (Things and props, People and creatures, anything brought in): *Called*; *Model FILE, times as big* (if it shows a model); *Loose, weighing (kg)*; *ITS COLOURS*, a swatch for each of its colours; *Put one down*, *A model of mine in its place…*, *Everything about it…*.
+- **Project, a talk's page:** *Said by*; a card for each point (*Where it begins*, *Point: NAME*): *They say* / *If CONDITION, they say* / *Otherwise they say*, each a field; *The walker may answer:* each answer a field, *then it ends* or *then: POINT*, and ✕; what an answer does besides, in words under it; *+ Answer*, *+ Said if…*; *+ Point* at the end.
+- **Project, an act's page:** a form in four parts: How it is offered (offered as, only while, not while, only when), What the doer does (stands off, their move, it does meanwhile, touches with, happens at), What comes of it (puts the fact, clears the fact, counted as, does to the doer, taken into the hands, gives what is carried), Getting on, or resting (rides held as, getting on takes, getting off is called, rests held as, time goes faster).
+- **Window › Effects:** a stage at the top, following the effect chosen (*Figure*, *⤢ Larger*). Under *Sound*: *Force field* (on/off), and when on, *Field radius*, *Field colour*, *Field skin* (smooth, hex, ripple, scales, runes), *Field swells*. A layer's form adds *Drawn as* (soft, star, ring, streak, puff, leaf, shard, spark, or a picture of yours), *Frames across* and *Frames down* (for a picture of yours), and *Bring in a picture…*.
+- **Window › Preview** (new): one thing larger, over every other window (from *⤢ Larger*).
+- **While playing, the bar:** *Edit here (F12)*, after Stop.
+- **While editing after Edit here, the bar:** *Back to the game here (F12)*, before Play.
+- **Library › Wasteland and wrecks** (new collection): Vehicles to drive (war truck, raider buggy, cargo hauler), Abandoned vehicles (abandoned car, burnt-out car, bus on its side, leaking tanker), Wrecks (shipwreck, crashed plane, crashed helicopter), Wasteland debris (toxic drums, tyre barricade, scrap wall, fire in a barrel, the glowing shambler).
+- **Inspector › Make it usable:** *vehicle* (get in at the left and drive it).
+- **Styles:** *wasteland*, *toxic*. **Time and weather:** *ashfall*, *toxic_haze*.
+
+## 13zz58. Styles from the Project window, forms for more sorts, four looks, brush panels, a mountain range, telekinesis, force fields and auras (2026-10-24)
+
+New since 13zz57. Untried by hand. `Draw3D_Looks_Powers_Ranges_2026-10-24.md` says why each is as it is.
+
+- **Everywhere:**
+  - a button's words are the blue of the Project window's links (lighter under the pointer, gold when pressed); labels stay white; checkboxes, choices and menus look as they did;
+  - a tooltip is a column of short lines (about 64 characters) in a bordered panel, never one line across the screen.
+- **Project › Styles & Materials › Styles:** every style is listed (it was empty). A style's page has a card:
+  - what it is and what it is after;
+  - whose it is (the library's, or yours made from another);
+  - whether it is the world's style now;
+  - its palette in three rows of swatches (What is built, What grows, The ground and the water);
+  - *Give the world this style*, *Change it in Styles*, *Make my own from it* (library styles), *Try it on a sample*;
+  - *Made from it*: links to your styles made from this one.
+- **Project pages of weathers, goods, needs and recipes** have forms:
+  - **weather:** made like, comes on over, lasts and then becomes, sun and moon, the sky goes toward a colour and how far, haze, light in shade, clouds cover, blows from, wind speed, gusts and how often, leans, sways and how long a sway takes, swell, what falls, heard;
+  - **good:** called (one, many), carried before one, what using one does, its button says, put down as;
+  - **need or stat:** called, least, most, starts at, each hour, each minute of play, over and under a number (and the status then), on the display, its colour;
+  - **recipe:** called, what is said of it, made at, makes, or gives.
+- **Project pages of behaviours, acts, talks and display pieces:** no lines as written. A behaviour lists its settings in words (what each is for, and its value) and how many rules it has. Each says where it is changed. The last button is *As written (for the expert)* (it was *No form yet: its lines as text*).
+- **Window › Styles:**
+  - your styles are listed under the style each is made from (`↳`, in gold);
+  - the sliders show the style as it is seen, its own lines over those of the one it is made from;
+  - moving anything on a library style, clicking one of its palette colours, giving it a preset or varying it makes your copy first (`my_NAME`), lists it under the original, and gives it to the world;
+  - a change to your style gives it to the world;
+  - a cast, figures or shade colour picked while its amount is 0 is given some;
+  - *Drawn as* adds Paper diorama (card, tilt-shift), Pencil sketch and Watercolour.
+- **New library styles:** Paper diorama, Sketchbook, Watercolour, Comic ink.
+- **Brushes (the right bar):**
+  - picking a brush (Grass, Flowers, Bushes, Trees, Rocks, Crops, Decorate, Life) shows its patch's panel at once, before anything is painted, docked beside the bar (under the open shelf);
+  - every panel beside what is chosen (a house, a wall, a pond, a patch) has a grip, *⠿ drag to move*: dragged, it stays where it was put for every panel; *↺* puts it back beside what it is for.
+- **The land, by hand (F8):**
+  - a new group *mountains* with the tool *mountain range*;
+  - its numbers: radius (half its width, up to 64 m), high, passes, peaks, spurs, snow from.
+- **Powers** (Project › Abilities & Effects, and Shots and powers):
+  - *What it does* has a fourth choice, "lifts a thing or someone, holds it, throws it (telekinesis)", with *Lifts what is within*, *Held up*, *Held for* and *Thrown at*;
+  - new powers: telekinesis, barrier, flame_aura, blessing, storm_aura.
+- **Effects:**
+  - telekinesis;
+  - force_field, force_field_hex, force_field_runes, force_field_scales (an effect's `field`: a bubble of light);
+  - aura_flame, aura_frost, aura_storm, aura_shadow, aura_holy, aura_nature.
+- **Statuses:** lifted, barrier, aflame (wreathed in flame), blessed, charged, shrouded, rimed, overgrown.
+- **The glide:** shown as a skydiver (the look's `glider/glide` row; the mannequin's pose `glider/glide`).
+
+## 13zz57. Graphics and performance, clouds, palette presets, looks drawn otherwise, water life (2026-10-24)
+
+New since 13zz56. Untried by hand. `Draw3D_Rendering_Variety_Traversal_2026-10-24.md` says why each is as it is.
+
+- **Window › Graphics and performance** (new, `graphicsview.gd`; also World › Graphics and performance…, and Project › Styles & Materials › Graphics and performance):
+  - a line saying what is tried here is for now only;
+  - **Quality:** Low, Medium, High, Ultra (`gfx_quality_*`), and "with settings of its own" when one differs;
+  - **Each setting**, a row of buttons each, and whose its value is (tried, player's, game's, quality's): Anti-aliasing (off, FXAA, SMAA, MSAA 2x/4x/8x, TAA), Shadows (off, low, medium, high, ultra), Ambient occlusion (off, low, medium, high), Indirect light (off, SSIL, SDFGI), Reflections (off, on), Light in the haze (off, low, high), Depth of field (off, far blurred, strongly), View distance (800, 1200, 3000, 6000 m), Level of detail (low, medium, high, ultra), Clouds (off, low, high), Glow (off, on);
+  - *Stop trying*, *Make these the game's* (graphics.txt, one undo);
+  - **Players are offered (Esc › Settings):** a tick for Quality and each setting (graphics.txt, one undo each);
+  - **Costs now:** frames a second, ms a frame, processor and graphics card ms, draw calls, triangles, objects, video memory, meshes with lighter ways, a few times a second;
+  - *Measure 3 s*, *Compare the qualities*, *Clear*, and the measurements listed;
+  - **Draw as:** Normal, Wireframe, Overdraw, Unshaded, Lighting only;
+  - a note on what level of detail covers and what it does not yet.
+- **Esc › Settings (the player's):** Anti-aliasing and The sun's shadows rows are gone; in their place, what the game offers (by default Quality, Anti-aliasing, Shadows, Ambient occlusion, View distance), each a row of buttons.
+- **Project › Project settings:** a *Graphics* row (begins at what quality; what players may change), Open… to the window.
+- **Time and weather (Environment) › Clouds** (new part): None, Fair, Scattered, Overcast, Dramatic, Wisps, Storm; Cover, Size, Height, Speed, Softness, Dark beneath, Torn (number fields); Colour; *As the kind has it*.
+- **Window › Styles:**
+  - the picture's controls have *Drawn as* (As it is, Pixels, Cartoon, Painted, Posters) and the sliders *Treat size* and *Treat ink*;
+  - the palette part has **Presets (kept for every world)**: a button for each with its colours as a strip; one chosen says what it changes of this style; *Give it to this style*, *Duplicate*, a name and *Rename*, *Put away*; a name and *Save this palette as a preset*; *Vary what is not kept: A little, A lot*; while something is tried, *Trying: …* with *Keep*, *Put back*, *Keep and save as a preset*;
+  - each of the three sections of the palette (What is built, What grows, The ground and the water) has *Keep as it is*.
+- **New library styles:** Cartoon, Pixel quest, Painted, Posters.
+- **Project › Styles & Materials › Look of the world:** *Graphics and performance*, *Sky and clouds* (the Environment window), *Palette presets* (the Styles window at its palette).
+- **Asset Library › Water life** (new collection): Pond and lake fish (Trout, Perch, Minnows), Sea fish (Mackerel), Sea creatures (Shark, Humpback whale, Jellyfish, Glowing jellyfish, Giant squid, Octopus), Birds on the water (Swan, Mallard).
+- **A pond's life** (Makers › a pond): two more sets, *lake* and *deep_pool*.
+- **The Inspector › What it does:** *swims* now has metres, deep, leap, speed, turning, way (glide, dart, cruise, pulse, jet, crawl, paddle) and dives; a new ability *sways* (from, to, power, reach: how it gives to the wind) under Moves of itself.
+- **Moves:** *super_jump* and *glider* (in no set: given by a press in Controls & Input, or put in a set in the Character Studio).
+
+## 13zz56. Controls & Input, Worlds, the wheel, the maps (2026-10-24)
+
+New since 13zz55. Untried by hand.
+
+- **World › Project › Controls & Input** (new category, `controlspage.gd`). Four tabs:
+  - **Layouts & buttons:**
+    - the layout in use (Try it), Duplicate, The game's own, Take away;
+    - *Save what is in use as a new layout* (a typed name);
+    - a table of every button under its heading: Controller and Keyboard & mouse, every way each has, with the button's picture; a button the layout changes is blue;
+    - the button's card below the table.
+  - **Presses:** ＋ New press, Duplicate, Take away. The table has Press, Pressed with, When and Does; one with a problem is orange. The chosen press is a form:
+    - What it is for;
+    - How (pressed, let go, held down, tapped, held a while, pressed twice, on then off, again and again, in a row), with its seconds;
+    - Controller: held first (a chord) and the button, or the buttons in turn for a row;
+    - Keyboard: held first (Ctrl, Shift, Alt) and *Press a key…*;
+    - When (always; has an item in hand, at the hip, in the pack; is so or is not so; a power is ready; has someone to aim at; a quest taken on or done), with its picker;
+    - For (a character);
+    - Does (a button of the game, a move, a power, an item into the hand, to the hip or into the pack, a wheel, the wheel's quick one, the next or previous quick one, a state, the world map, says something), with its pickers;
+    - Goes off by itself (toggles only);
+    - Priority;
+    - its problems.
+  - **Wheels:** the wheel picker, ＋ New wheel (eight empty slots), Duplicate, Take away, *Try it* (the wheel opened over the editor, nothing done); *Opened by* (the presses that open it). The wheel's form:
+    - What it is for;
+    - Meanwhile the game (goes on, is held, goes slower), At, Eased over;
+    - Chosen by (letting go, confirming, made the quick one);
+    - What cannot be used now (shown with why, or left out);
+    - The player can move while it is open.
+    - Slots in order: ↑ ↓, a label, what (nothing, a power, an item, a move, a button, a wheel inside it, every power the player has, every item kept, a state, the world map), its picker, its way for an item, ✕; ＋ Add a slot.
+  - **Test:** *Play to try them*; a live list (last pressed, last done, last not done, what is on, what presses have taken, the wheel, the quick ones) and what happened, newest last.
+  - **Right side:** the layout tried, how controls are shown, **Problems (N)**:
+    - two presses that are one;
+    - a press that happens at once so another never does;
+    - pressed with nothing, or doing nothing;
+    - a button, power, item, move or wheel that is not there;
+    - a condition that cannot be read, or a state nothing puts on;
+    - a wheel nobody opens, or one with every slot empty.
+- **The button card** (Moves, Buttons, Controls & Input): every controller button and key a button has is a chip with its picture and ✕ (attack: X and RT). Below it: *Add* (a controller button), *Add* (*Press a key…*), Mouse. Then the presses on the same buttons, and *As Draw3D first had it* (in this layout). Changes are kept in the project's layout in use, one undo each; your own buttons (Character Studio › Buttons) are not touched.
+- **World › Project › Worlds** (`worldspage.gd`), now every world of the project:
+  - *Catalogue* or *Connections map*, *Find a world…*, a filter (all, joined, standalone, with a way to nowhere), ＋ New world.
+  - **A card for each world:** name, folder and file, *Being edited · the game starts here*, *N out · N in*, *Standalone* or *A way to nowhere*. Click to choose, double-click to open.
+  - **The map:** the worlds round a circle, blue for both ways, amber arrows for one way, red to no world, a green ring on the one being edited. Click to choose, double-click to open.
+  - **Right side:** File, Size, *WAYS OUT* and *WAYS IN*. Each way: by which thing (its own line, or its kind's), where it stands, into which world and at which way, both ways or one. *Go to the thing →* (opens its world first if it is another), *See …*, *Open it →*, *Play beside it*. Then *Open this world* and *Its settings*.
+- **An ability's or a move's page:** *ITS ANIMATION*:
+  - the move it plays, and each part with its clip on the character played;
+  - *Edit the move in the Character Studio*, *Import animations…*, *Animation packs (clip libraries) →*.
+- **While playing:**
+  - **The wheel** (`wheel.gd`): a ring of slots from the top, the one pointed at in orange, what cannot be used greyed with why in the middle, a wheel inside it shown as ◎, the path at the top (Main › Abilities), and how to choose or go back at the bottom.
+  - **Below the middle:** Quick: … and what is on.
+  - **The mini map** (`maps.gd`, hud.txt `piece minimap`): top right, round, the land from above, ◆ ways out, ! and ▼ quest marks, ● foes, the player's arrow, N.
+  - **The world map:** Back held (controller) or the full stop (keyboard). The whole world, the same marks named, moved by the stick, the arrows or a drag, brought nearer by the triggers or the wheel; B, Esc or a right click closes it.
+- **The project's presses** (`inputs.txt`):
+  - D-pad Up tapped (and the Up arrow): the lantern into the hand; held: to the hip; with none, or with it in hand, the eye nearer.
+  - D-pad Down held (Alt held on a keyboard): the wheel; tapped: the eye farther.
+  - D-pad Right held (Q held): the wheel's quick one; tapped: the next thing kept.
+  - Back held: the world map; tapped: the inventory.
+
+## 13zz55. World › Project as the design lays it out; abilities, buttons, aim (2026-10-23)
+
+Supersedes 13zz54's list and its Game settings name: the list is now a browser of cards in categories, Game settings is Project Settings, and the player's Abilities and Buttons tabs are as below. Not tried by hand.
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| Top bar | the project, its world, Saved / N unsaved changes | `project_world_name`, `project_status` | read from the world |
+| Top bar | Search everything… | `project_search` | every category's cards matching names, what each is, its sort |
+| Top bar | ＋ Create | `project_create` | character, ability, shot, status, effect, move, item (opened as forms), world, import animations |
+| Top bar | Read again, Details ⟩ | `project_refresh`, `project_details_toggle` | everything read again; the right panel shown or hidden |
+| Left | Overview, Worlds, Characters & Creatures, Assets & Objects, Abilities & Effects, Gameplay, Audio, Styles & Materials, Data & Libraries; Project Settings | `nav_*` | the category shown in the middle |
+| Overview | Playable character (Set up the player →, Open in Character Studio →), Active world (World and where it starts →, Project settings →), a tile per category | `overview_player`, `overview_world`, `tile_*` | |
+| A category | the type, the scope, Cards / List | `project_type`, `project_show`, `project_view_mode` | narrow what is shown |
+| A category | cards under headings (click: shown on the right; double-click: its page) | `card_*`, `project_tree` (List) | |
+| Right panel | Details, Assignments, Dependencies | `project_context_tabs` | what it is; who has or uses it and how; what it uses |
+| Right panel | Set it up here, Open in …, Preview, Give it to the one selected, Copy, rename | `project_edit`, `project_open`, … | |
+| Right panel (overview) | Play the game, Set up the player, Create content, Project settings; project info | `project_quick` | |
+| A page | ‹ the category, ‹ Back | `project_up`, `project_back` | |
+| Player › Abilities | each power of its own: Pressed with, Had, The quest; The power →, ✕ Take away | `known_form_N` | `knows` lines, one step of undo each |
+| Player › Abilities | Give it this ability, New power… | `player_knows_add`, `player_knows_give` | |
+| Player › Moves | Built into every character (run, jump…) | `player_moves` | chosen: its button card |
+| Player › Buttons, Moves | the button card: Controller (a list), Keyboard (Press a new key…), Mouse (a list), As the game first had it, its moves (✕, Put this move on it) | `button_form` | your buttons, kept on this computer |
+| Player › Moves, a move | Change what presses … → | | its button's card |
+| Worlds › this world | Kept in (Save as…), In it, The game starts, Endings, Night and lights, Time and weather, Style | `world_form` | |
+
+## 13zz54. The Project hub, H1: Game settings, the player's page, forms from shapes (2026-10-23)
+
+`Draw3D_Project_Hub_Plan_2026-10-23.md` says why. Supersedes in 13zz53: the game's rows (Where the game starts, Endings, Game display, Controls, Players' settings, Night and lights, Debug) are on Game settings now, not in the list; Its lines is "No form yet: its lines as text", shown only for a sort without a shape; the player's Play as row is on the player's Who tab. Not tried by hand.
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| World › Project, the list | The game › Game settings, The player | `project_tree` | always listed first, whatever Show says |
+| Game settings (page) | The player →, Place or change the start…, Open… (endings, display, players' settings, night, debug), The player's Buttons → | `game_form`, `form_open_*` | the game as a whole, each with where it is changed |
+| The player (page), tabs | Who, Moves, Carries, Abilities, Buttons | `player_tabs` | the tab shown is kept while the page is filled again |
+| Who | The game plays as … | `player_who` | who is played, where its definition comes from, what is the run's |
+| Who | Play as another, Make this the one played | `project_play_as`, `project_play_as_set` | as before (13zz53), on this tab |
+| Who | Model, Size, Its bones (→), Clip libraries (▲ ▼ ✕, Add), How it moves on screen (→) | `player_who_form` | the character's fields, each one step of undo |
+| Who | Open in the Character Studio | `player_studio` | the Studio on it |
+| Moves | Its moves (a set, →) | `player_set_form` | the set it moves by |
+| Moves | Give NAME moves of its own | `player_own_set` | shown when others share the set: a copy for it alone (two steps of undo) |
+| Moves | the list: Move, Pressed with, Can begin | `player_moves` | every move of its set; double-click: Edit in the Studio |
+| Moves, the move chosen | ▲ Earlier, ▼ Later, ✕ Take out | `player_move_earlier`, `player_move_later`, `player_move_out` | its place in the set (which of two on one button begins) |
+| the same | What it is, Made like (→), Pressed with, Or begins by itself; Can begin, Its phases (words, Change in the Character Studio…) | `player_move_form` | the move's fields |
+| the same | Edit its phases in the Character Studio, Play it | `player_move_edit`, `player_move_try` | the Studio's Edit, or played there |
+| Moves | Add a move, Add to its moves | `player_add_move`, `player_add_move_button` | every move not in the set, with what it is |
+| Carries | Carries and wears (rows ✕, Add) | `player_gear_form` | the items it starts with |
+| Carries | Where each sits on the body… | `player_gear_place` | the Studio's What it carries |
+| Abilities | each item that casts or shoots: words, The item →, The power → | `player_abilities` | this world's items; the project's others named in a line |
+| Buttons | the list: Button, Keyboard and mouse, Controller, Its moves | `player_buttons` | every button |
+| Buttons | Change what presses a button… | `player_buttons_change` | the Studio's Buttons |
+| any set, move, character, item | its fields | `project_shape` | made from its shape (`shapes.gd`); `project_others` names what is set elsewhere |
+
+## 13zz53. Project, the character played, targeting, upgrades, night and Debug (2026-10-23, the project pass)
+
+`Draw3D_Project_Management_Pass_2026-10-23.md` says why each was made and what was checked by which method. Not tried by hand.
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| World › Project: what the game is made of… (was Project overview; 860 wide) | Find | `project_search` | narrows the list by name and by what each says |
+| the same | Show | `project_show` | everything; made or changed for this world; built in; from the Asset Library; files brought in |
+| the same | Read again | `project_refresh` | everything read again from the world |
+| the same | the list | `project_tree` | groups (the game, people and creatures, abilities and combat, weapons tools and items, moves and actions, effects and sounds, story, behaviours and acts, goods needs and making, things and props, look and world, files); each row its name and its sort · whose (this world's / changed here / library); this world's and changed rows yellow, missing or not understood orange |
+| the same, right | ‹ Back | `project_back` | what was shown before a link was followed |
+| the same | its name, whose it is, what it says, its settings in words | `project_title`, `project_whose`, `project_says`, `project_summary` | whose: built in (as NAME.txt has it), changed in this world, this world's own, from the Asset Library (found-…), a file brought in |
+| the same | Open in its window / Open in the Character Studio | `project_open` | Shots and powers, Effects, Sounds, the Studio (characters, moves, combos), Behaviours, Styles, Environment, Game display, with it chosen; what has no window: its entry in the texts' window |
+| the same | Preview | `project_preview` | a power on the character in the Studio; a shot or a status in front of the view; an effect in front of the view |
+| the same | Give it to the one selected | `project_give` | a shot or power to the thing selected (its own line; the definition stays shared) |
+| the same | Copy | `project_copy` | another like it (powers, shots, statuses), then shown |
+| the same | the rename field (Enter) | `project_rename_to` | powers, shots, statuses only: renamed by Shots and powers' own way; what still says the old name is told |
+| the same | Its lines | `project_text` | its entry in the texts' window (F10), at its line |
+| the same, the character played | Play as, Make this the one played | `project_play_as`, `project_play_as_set` | the game plays as the character chosen (`walks`, one step of undo); choosing elsewhere never changes it |
+| the same, a gear item | Casts, Shoots, Aims by itself at, May pick, Trail when swung | `form_casts`, `form_fires_shot`, `form_targets`, `form_picks`, `form_trail` | one line of its entry each, one step of undo |
+| the same, a quest | Sound, Shows, Move, Banner, Thanks, Afterwards | `form_done_sound`, `form_done_shows`, `form_done_move`, `form_done_banner`, `form_thanks`, `form_after` | when it is done, and what is said |
+| the same | It uses / Used by (N) | link buttons | each opens that one here; Used by says a change reaches each |
+| the same, a kind | In the world: N placed, Go to NAME | buttons | its maker chosen and the view brought over it (editing) |
+| Character Studio, top | The one played | `played_one` | the character the game plays as, chosen |
+| the same, under the top row | the played line | `played_text` | "This is the character the game plays as…" or "The game plays as 'X', not this one" |
+| the same | the preview line | `preview_text` | what Preview shows here (a power on this character), until another is chosen |
+| the same, Character list | ● played | `chooser` | marks the one played; the Studio opens on it |
+| Window › Shots and powers | the list | `powers_list` | names only (three columns); the description in a tooltip |
+| the same | the description | `powers_desc` | the chosen one's name and what it is, whole, wrapped |
+| the same | Preview | `pw_preview` | (replaces editing's Try it) a power on the character in the Studio; a shot or status in front of the view; nothing in the game changed |
+| the same | Try it in the game | `pw_try` | playing only (greyed while editing): the player uses it, aimed as the power says |
+| the same | Where it is used | `pw_project` | World › Project with it chosen |
+| the same | the preview line | `powers_preview_says` | what Preview and Try it do now, and on whom |
+| the same, a shot's or power's form | What it is | `form_says` | several lines, wrapped (Ctrl+Enter or leaving it sets it) |
+| the same, a power's form, Aim (the player's) | Goes to by itself, May pick, Looks as far as, Within, Shots at once, Apart, Turns toward | `form_targets`, `form_picks`, `form_seeks`, `form_within`, `form_count`, `form_spread`, `form_homes` | the words `targets … else …`, `picks`, `seeks`, `within`, `count`, `spread`, `homes` |
+| the same, Upgrades | Level N: from, Level N: quest / fact, Level N: Harm, Shots at once, Apart, Turns toward, Reach, Rests, Speed; Take level N out; Add a level | `form_lvN_when`, `form_lvN_quest`, `form_lvN_fact`, `form_lvN_WORD`, `form_lvN_remove`, `form_add_level` | the power's `level N … when …` lines; -1 is "as the level before"; a line says the player's level now |
+| Time and weather (Environment) › Night | As the style has it, Dark but readable, Very dark | `night_as_the_style_has_it`, `night_dark_but_readable`, `night_very_dark` | the world's night at once (the air's words; one step of undo) |
+| the same | Least light at night, Moonlight, Haze at night, Lanterns: bright, Lanterns: reach | `night_night`, `night_moon`, `night_night_haze`, `night_lamps_bright`, `night_lamps_far` | each of the air's `night`, `moon`, `night_haze`, `lamps` |
+| Debug and testing (new: F3 editing and playing; World › Debug and testing…) | Cannot be hurt, Needs kept full, Needs do not change | `debug_unhurt`, `debug_full`, `debug_still` | Playtest's test switches, the same ones |
+| the same | Made whole, Powers rested | `debug_heal`, `debug_rested` | playing: health and breath full, statuses ended; every power ready |
+| the same | Dawn, Noon, Dusk, Night, Small hours | `debug_hour_N` | the hour (playing: the game's; editing: a look) |
+| the same, The night tried (for now) | Least light at night, Moonlight, Haze at night, Lanterns: bright, Lanterns: reach | `debug_night`, `debug_moon`, … | tried over the world's, never saved; said so above them |
+| the same | Keep for this world, Clear | `debug_keep`, `debug_clear` | what is tried written as the world's (one step of undo); back to the world's |
+| the same | Seen now | `debug_seen` | playing: health, breath, statuses; in hand and its level; whom it goes to and why; the lock; the last powers |
+| Playing | a ring over a target | `aim_target` | whom what is drawn would go to by itself (turned flat when it is the one locked on to) |
+
+## 13zz52. Shots, powers, statuses and effects (2026-10-23, after the Emberwatch playtest)
+
+`Draw3D_Abilities_Effects_Pass_2026-10-23.md` says why each was made, how each is used, and what was checked by which method.
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| Window › Shots and powers (new; also World › Shots and powers…) | Shots / Powers / Statuses | `tab_shots`, `tab_powers`, `tab_statuses` | which of the three is listed |
+| the same | the list | `powers_list` | every shot of shots.txt, power of powers.txt, status of stats.txt |
+| the same | New, Copy, Remove | `pw_new`, `pw_copy`, `pw_remove` | one of its own; another like the chosen; taken out (Undo: Ctrl+Z) |
+| the same | Try it (since the project pass: Preview and Try it in the game, 13zz53) | `pw_try` | playing: the player lets the shot go ahead, uses the power, or is put in the status; editing: seen before the view (a shot flying with its trail and its burst) |
+| the same | Give it to the one picked | `pw_give` | the thing selected shoots the shot (`shoots … shot NAME`) or has the power (`power NAME`), with what it needs (the Inspector's way) |
+| the same | Open the text | `pw_text` | its lines (F10) |
+| the same, a shot's form | Name, What it is, Looks, Model file, Size, Colour, Glow, Trail, Speed, Falls, Flies at most, Turns toward, Harm, Puts in, For, Pushes, Bursts into, As let go, As it meets, Heard | `form_…` | each written at once (one step of undo) |
+| the same, a power's form | Name, What it is, Move, Let go after, From, Shows as it gathers, Does, Shot, Speed, Reaches, Harm, Puts in, For, Heals, Bursts into, Sound, Rests, Costs, How much, Reach, Heard | `form_…` | the same |
+| the same, a status's form | Name, Called, Says, Lasts, Hurts, Each, Speed kept, Holds still, Harm taken, Shows, Shown at, Mark | `form_…` | the same; a status with more than one "every" says so and leaves it to its text |
+| the same | Used by | (a line under the form) | what of gear.txt and powers names it; designs that name it are in the Inspector |
+| Window › Effects (now with fields) | New, Copy, Remove | `effect_new`, `effect_copy`, `effect_remove` | an effect of its own; another like it; taken out |
+| the same, the effect's form | What it is, Gives light, Light, Strength, Reaches, Flickers, Light at, Sound | `form_…` | the effect's light and sound |
+| the same | Layer (a list), +, Copy, x | `effect_layers`, `layer_add`, `layer_copy`, `layer_remove` | which layer is shown below; one more; another like it; taken out (one at least) |
+| the same, the layer's form | Called, How many, Each lasts, Size, Size as it begins, Size at its end, Rises, Spread, Drifts, Pulled, Spins, Begins in, Radius / Length / Wide High Deep, Colour as it begins, Colour midway, Colour at its end, Glows, Bursts once, Sticks to it | `form_…` | each written at once |
+| Inspector › What it can do › Give it… | uses a power on whom it hunts | `power` (abilities.txt) | Power (from powers), Every, Reach |
+| the same | shoots at whom it hunts from afar | `shoots` | now also Shot (from shots) |
+| the same | looks otherwise while something is so | `looks` (abilities.txt) | a condition, then hidden, scale X Y Z or sinks M |
+| the same | shows an effect | `effect` | Name is now chosen from the effects |
+| Esc menu, and the title screen (playing) | Settings | `menu_settings`, `title_settings` | Window, Frame rate at most, V-sync, Render scale, Anti-aliasing, The sun's shadows, Effects, Volume, Sounds, Ambience: each applied at once and kept for next time |
+| Window › Game display | marks, cones, foes, quest_done (new pieces) | (hud.txt) | the ? and ! over those who notice you (scale, colour, hidden); what each sees on the ground (how much is seen, hidden); a rim on those hunting you while seen (colour, hidden); a quest done, said large (where, size, how long) |
+| Character Studio, a phase's text | `trail PLACE [HEX]`, `shows EFFECT [at PLACE]` | (moves.txt) | a trail where that place goes while the phase lasts; an effect as it begins |
+| run.ps1 | -Protect, -Survive | | a demo run as a demonstration of features (cannot be hurt) or of survival (a death is a result) |
+
+Not in a form yet (their text, F10): a quest's `done_sound`, `done_shows`, `done_move`, `done_banner`; gear.txt `casts`, `trail`, `fires … shot`; a light's `flame NAME`.
+
+## 13zz51. After the first hand test of Emberwatch (2026-10-23, the remediation pass)
+
+`Draw3D_Emberwatch_Remediation_2026-10-23.md` says why each was made, and `Draw3D_Emberwatch_Authoring_Workflow.md` part two how each is used.
+
+| Where | Control | Name | Does |
+|---|---|---|---|
+| Inspector › Placement | Line up with the wall or fence beside it | `line_up` | its longer side along the nearest drawn line, or across a gap between two |
+| Row under the bar, while placing | Turned: varied / N° ([ ]) / along the line beside it | `place_turn` | how what a click puts down is turned |
+| Inspector, a placed thing | Look like a model of mine… / Look as it was made | `own_model`, `own_parts` | the type shown as a model of one's own, sized to it; and back (glTF, FBX, OBJ, PLY, STL since 2026-10-31) |
+| Inspector, a placed thing | Export as a model… | `own_export` | (2026-10-31) the type written as .glb (Nomad Sculpt, Blender) or .obj with its colours and an .mtl (Character Creator, Nomad), as it is seen, foot at 0, metres, Y up |
+| Inspector, a thing shown as a model | Smaller / Bigger; Its own colours / Half the style's / The style's colours | `model_row`: `model_smaller`, `model_bigger`, `model_colours_own`, `model_colours_half`, `model_colours_style` | (2026-10-31) every thing of the type a fifth smaller or a quarter bigger; its colours as made or taken toward the world's style (`palette` line), following a change of style; one Ctrl+Z each |
+| Create › Import a model, after the file is chosen | Bring in NAME: **Up**, **Size** (m high), **Colours** | `import_how`: `import_up`, `import_high`, `import_colours` | (2026-10-31) which way is up (turn up one made Z up), how many metres high (0 as the file says), its own colours or taken toward the world's style; then Bring it in. Files: .glb .gltf .fbx .obj .ply .stl |
+| Inspector, a placed thing | About this type | `type_about` | where it comes from, size, parts, places, colours, model, collision, how many |
+| Inventory (I) | the line above the buttons | `inventory_primary` | what A or Enter does; only the buttons that apply are shown |
+| Inventory (I) | Wear (hands free), Light / Put out | `inv_wear`, `inv_light` | a light worn, lit or put out |
+| Playtest (P) › Testing | Cannot be hurt, Needs kept full, Needs do not change | `test_unhurt`, `test_full`, `test_still` | editor only; a red line says so while on |
+| World outline / Inspector, the game start | the game's title; behind it; Take a picture of the view; Choose a picture…; fades in from black | `set_title`… | the title screen and the fade a game begins with |
+| The title screen (playing) | New game, Continue, Controls, Leave / Back to editing | `title_new`… | Continue only for a readable saved game of this world |
+| Window › Game display, each piece | shown always / for a while after it changes (seconds); shown while talking | `hud_shows_`, `hud_for_`, `hud_in_talk_` | when each piece is on the screen |
+| Window › Sounds | Bring in a sound file…, Replace with a file…, Go to what sounds it | `bring_sound`, `replace_sound`, `pick_it` | recordings of one's own; where a sound is said, a weather too |
+| Window › Effects (new) | Preview, Open the text, Give it to the one picked | `effects_list`… | effects.txt's effects |
+| World › Project overview (new; since the project pass it is World › Project, 13zz53) | Read again, Open where it is changed | `project_tree`… | what the world is made of, where each is used and changed, what is missing |
+| Controls | recenter (O, R3), peek (U), light (M) | | the eye behind the player (held R3: sheathe); the hidden pieces shown; a light on and off |
+| Behaviours, a step | Fade the screen, Show an effect | `fade`, `effect` | `fade out 1`, `effect sparks 1` |
+| What it can do › Give it… | lamp, flashlight, worn, effect, restless | (abilities.txt) | given to any thing |
+
+Changed: R3 alone no longer sheathes (hold it). The Sounds window's "Pick one that sounds it" is now "Go to what sounds it".
 
 ## 13zz50. Emberwatch: what the benchmark needed (2026-10-23)
 
@@ -2397,8 +3767,14 @@ The audit's section 5 (`Draw3D_Core_Capabilities_Audit_2026-10-21.md`) sets out 
 | Over a patch of decor | on walls (fold) | `fold_on_walls`, `by_hang_<word>` | what Decorate hangs when dragged along a wall |
 | Over a patch of decor or life | sets (fold) | `fold_sets`, `by_<brush>_set_<word>` | sets put in and taken out of its mix: decor park, camp, laundry, wastes; life wild, wastes, wolves |
 | Over grass | its colour (fold) | `fold_grass_colour`, `by_grass_any` | as before, and any colour |
-| The bar, Water | Dock | `cb_dock` | dragged from a bank over water: a jetty and a boat |
+| The bar, Water | Dock | `cb_dock` | dragged from a bank over water: a jetty and its boats |
+| Build › Dock, before dragging | Drawing a dock: Wide (narrower, wider), **Boats:** No boat / One / Two / Three / Four | `by_boats_0` … `by_boats_4` | (2026-10-31) how many boats are tied at its end, by turns each side |
+| A dock clicked | the dock fold › **Boats:** No boat … Four | `fold_boats`, `by_boats_N` | (2026-10-31) its boats taken away or more; one Ctrl+Z |
 | The bar, Paths | Path | `cb_path` | dragged now, not clicked |
+| The bar, Town (2026-10-31) | **Street**, **Boulevard**, **Back lane** | `cb_street`, `cb_boulevard`, `cb_lane` | dragged where it goes: a road with its lines, kerbs and pavements, lamps, traffic lights and crossings at its ends; a boulevard four lanes about a planted middle with trees; a back lane narrow with telephone poles and wires. Level across, sloping along as the ground does |
+| Build › Street, before dragging | Drawing a street: **Road** 5–20 m, **Lanes** one/two/four/six, **Pavements** none to very wide, **Middle** none/a kerb/planted/a park, **Lamps** none/every 12/18/30 m, **Trees**, **Traffic lights**, **Crossings**, **Telephone poles** (yes/no) | `by_wide_*`, `by_lanes_*`, `by_pave_*`, `by_median_*`, `by_street_lamps_*`, `by_street_trees_*`, `by_street_lights_*`, `by_crossings_*`, `by_street_poles_*` | each for the next one dragged |
+| A street clicked | parts **Its road** (how wide, lanes, pavements, middle) and **What stands along it** (lamps, trees, traffic lights, crossings, telephone poles) | `street_road`, `street_along` | the same choices, for this one; one Ctrl+Z each |
+| A flat-roofed building clicked, its materials fold (2026-10-31) | **Its roof made into**: Plain / A patio / A garden / A bar | `roof_use_*` | decked and railed round with tables under parasols and planters; turf, raised beds and a table; a bar counter, string lights and tables. A hatch where the roof's plant was; the land's `roof_use` |
 
 ## 13zz29. Its details beside it (2026-10-21, amendment 7da)
 
